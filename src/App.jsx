@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import Sidebar from './components/sidebar/Sidebar'
 import getBarData from './samples/localAPI'
 
 const App = () => {
@@ -6,7 +7,7 @@ const App = () => {
 		getBarData()
 	}, [])
 
-	return <h1 className='text-red-500'>Hello world!</h1>
+	return <Sidebar />
 }
 
 export default App
