@@ -21,9 +21,6 @@ const BarChart = ({ dataContainer = undefined }) => {
             />
         )
     }
-
-
-
 }
 
 export default BarChart;
