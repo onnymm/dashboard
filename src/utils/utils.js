@@ -1,26 +1,4 @@
-export const transformData = (data) => {
-    // Se crea el convertidor de Snake Case a Camel Case
-    const toCamelCase = (str) => str.replace(/_([a-z])/g, (match, p1) => p1.toUpperCase());
-
-    // Se transforma data de un diccionario a una matriz
-    const transformedData = Object.values(data)
-
-    // Se obtienen todas las llaves de la matriz usando el primer objeto como muestra
-    const keys = Object.keys(transformedData[0])
-
-    // Se inicializa el objeto a retornar
-    const series = {}
-
-    // Se crea el objeto de matrices con las llaves transformadas a Camel Case
-    keys.forEach(
-        (key) => {
-            series[toCamelCase(key)] = transformedData.map(item => item[key])
-        }
-    )
-
-    // Se retorna el objeto
-    return (series)
-}
+import { toArrayObject } from "./dataFormatting";
 
 export const buildBarData = (
     data, // Objeto de datos retornado del API
@@ -32,13 +10,14 @@ export const buildBarData = (
     xLabelsFormatter = undefined, // Formateo en las etiquetas del eje X
     yLabelsFormatter = undefined, // Formateo los valores del eje Y
 ) => {
+    const datasets = toArrayObject(data)
 
     // Inicialización del contenedor de datos
     const series = {};
     // Inicialización del contenedor de opciones
     const options = optionsBuilder();
     // Se asignan los nombres de las etiquetas
-    series.labels = data[labelsName];
+    series.labels = datasets[labelsName];
     // Se inicializa la matriz de conjuntos de datos
     series.datasets = [];
 
@@ -49,7 +28,7 @@ export const buildBarData = (
             // Nombre visible del conjunto de datos
             label: labels[i],
             // Variable contenedora del conjunto de datos
-            data: data[datasetNames[i]],
+            data: datasets[datasetNames[i]],
             // Color del conjunto de datos
             backgroundColor: backgroundColors[i]
         };
@@ -64,7 +43,6 @@ export const buildBarData = (
     // Formateo de etiquetas en el eje Y
     if (yLabelsFormatter) {
         options.scales.y.ticks.callback = yLabelsFormatter
-        console.log(options.scales.y.ticks.callback)
     }
 
     // Retorno del objeto a ingresar al componente de graficación
@@ -75,7 +53,9 @@ export const dataFormatters = {
     // Mostrar sólo el primer nombre en un String antes del espacio
     onlyName: (text) => (text.slice(0, text.indexOf(" "))),
     // Números a moneda nacional
-    toMXN: (num) => (num.toLocaleString('es-MX', {style: 'currency', currency: 'MXN'}))
+    toMXN: (num) => (num.toLocaleString('es-MX', {style: 'currency', currency: 'MXN'})),
+    // Nombres de variable de Snake Case a Camel Case
+    snakeToCamel: (str) => str.replace(/_([a-z])/g, (match, p1) => p1.toUpperCase())
 }
 
 const optionsBuilder = () => {
