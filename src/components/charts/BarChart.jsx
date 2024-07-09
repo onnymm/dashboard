@@ -11,25 +11,13 @@ import { Bar } from 'react-chartjs-2';
 
 ChartJS.register(BarElement, CategoryScale, Legend, LinearScale, Title, Tooltip)
 
-const BarChart = ({ data = undefined }) => {
-    
-    if ( data ) {
-        const series = {
-            labels: data.userName,
-            datasets: [
-                {
-                    label: "Cotizaciones",
-                    data: data.amounts,
-                    backgroundColor: "#0000FF"
-                }
-            ]
-        }
+const BarChart = ({ dataContainer = undefined }) => {
 
-        // const option
-
+    if ( dataContainer ) {
         return (
             <Bar
-                data={series}
+                data={dataContainer.series}
+                options={dataContainer.options}
             />
         )
     }
