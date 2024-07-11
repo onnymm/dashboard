@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { getChartData } from "../api/local";
-import BarChart from "../components/charts/BarChart";
-import { opacity, saturedRed } from "../constants/colors";
-import { buildBarData, dataFormatters } from "../utils/utils";
+import PieChart from "../components/charts/PieChart";
+import { redPalette } from "../constants/colors";
+import { buildData, dataFormatters } from "../utils/utils";
 
 const ChartExample = () => {
     const [loadData, setLoadData] = useState();
@@ -18,14 +18,19 @@ const ChartExample = () => {
         () => {
             if (loadData) {
                 setData(
-                    buildBarData(
-                        loadData,
-                        "userName",
-                        ["amountUntaxed"],
-                        ["Cotizaciones"],
-                        [`${saturedRed}${opacity[75]}`],
-                        dataFormatters.onlyName,
-                        dataFormatters.toMXN
+                    buildData(
+                        {
+                            data: loadData,
+                            labelsName: "userName",
+                            datasetNames: ["amountUntaxed"],
+                            labels: ["Cotizaciones"],
+                            backgroundColors: redPalette,
+                            // backgroundOpacity: 75,
+                            // borderColors: redPalette,
+                            xLabelsFormatter: dataFormatters.onlyName,
+                            yLabelsFormatter: dataFormatters.toMXN,
+                            chartType: 'pie'
+                        }
                     )
                 )
             }
@@ -33,9 +38,10 @@ const ChartExample = () => {
     )
 
     if (data) {
+        console.log(data)
         return (
             <div>
-                <BarChart
+                <PieChart
                     dataContainer={data}
                 />
             </div>
