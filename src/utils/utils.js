@@ -47,21 +47,17 @@ export const buildData = ({
     if (backgroundOpacity) {
         backgroundColors = _mapOpacities(backgroundColors, backgroundOpacity)
     }
-
     if (borderOpacity) {
         borderColors = _mapOpacities(borderColors, borderOpacity)
     }
 
+    // Mapeo de colores a los conjuntos de datos
     if (backgroundColors) {
         series = _mapColors(series, backgroundColors, 'backgroundColor')
     }
-
     if (borderColors) {
         series = _mapColors(series, borderColors, 'borderColor')
     }
-
-
-    // Mapeo de colores a los conjuntos de datos
 
     // Configuración con argumentos opcionales
 
@@ -69,7 +65,6 @@ export const buildData = ({
     if (xLabelsFormatter) {
         series.labels = series.labels.map((value) => xLabelsFormatter(value))
     }
-
     // Formateo de etiquetas en el eje Y
     if (yLabelsFormatter) {
         options.scales.y.ticks.callback = yLabelsFormatter
