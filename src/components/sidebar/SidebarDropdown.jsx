@@ -1,4 +1,4 @@
-import { ChevronUpIcon } from '@heroicons/react/24/solid'
+import { ChevronUpIcon } from '@heroicons/react/20/solid'
 import { useState } from 'react'
 
 const SidebarDropdown = ({ children, icon: Icon }) => {
@@ -7,11 +7,13 @@ const SidebarDropdown = ({ children, icon: Icon }) => {
 
 	return (
 		<div
-			className='hover:bg-sidebar-section-hover transition duration-300 flex flex-row w-full items-center gap-2 px-5 py-2 rounded-sm'
+			className='flex items-center px-5 py-2 cursor-pointer hover:bg-sidebar-section-hover transition duration-300 rounded-sm'
 			onClick={() => setIsOpen(!isOpen)}
 		>
-			<Icon className='size-6 fill-sidebar-section' />
-			<span className='text-sidebar-section font-medium'>{children}</span>
+			<div className='flex gap-2'>
+				<Icon className='size-5 stroke-sidebar-section' />
+				<span className='text-sm text-sidebar-section'>{children}</span>
+			</div>
 			<ChevronUpIcon
 				className='size-5 fill-sidebar-section ml-auto'
 				style={{

@@ -2,10 +2,10 @@ import SidebarContent from './SidebarContent'
 import SidebarTitle from './SidebarTitle'
 
 const Sidebar = () => (
-	<div className='flex flex-col w-72 h-screen bg-sidebar-background'>
+	<aside className='overflow-y-auto no-scrollbar flex flex-col gap-3 h-screen w-265 select-none bg-sidebar-background'>
 		<SidebarTitle>iacele</SidebarTitle>
 		<SidebarContent />
-	</div>
+	</aside>
 )
 
 export default Sidebar
