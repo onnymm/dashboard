@@ -12,3 +12,13 @@ export const opacity = {
     75: "BF",
     100: "FF",
 }
+
+export const redPalette = [
+    "#8C0413",
+    "#B70217",
+    "#DC001A",
+    "#EC112B",
+    "#FE3249",
+    "#FE5165",
+    "#FC7080"
+]
