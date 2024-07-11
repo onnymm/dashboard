@@ -25,8 +25,10 @@ Esta función recibe un objeto con los datos provistos por un API y también las
 - `labelsName` - **[string, undefined]**: Nombre de la variable del conjunto de datos, contiene la información de las etiquetas categóricas de la gráfica.
 - `datasetNames` - **[array]**: Nombres de variable de cada uno de los conjuntos de datos en el objeto.
 - `labels` - **[array]**: Nombres a mostrar para cada conjunto de datos.
-- `backgroundColors` - **[string, array]**: Color o paleta de colores a renderizar en la gráfica.
-- `bgOpacity` - **[number, undefined]**: Opacidad de los colores de fondo.
+- `backgroundColors` - **[string, array]**: Color o paleta de colores de fondo en los elementos de la gráfica.
+- `backgroundOpacity` - **[number]**: Valor numérico de opacidad de colores de fondo.
+- `borderColors` - **[string, array]**: Color o paleta de colores de borde en los elementos de la gráfica.
+- `borderOpacity` - **[number]**: Valor numérico de opacidad de colores de borde.
 - `xLabelsFormatter` - **[function, undefined]** Formateo en las etiquetas del eje X.
 - `yLabelsFormatter` - **[function, undefined]** Formateo en las etiquetas del eje Y.
 
@@ -35,6 +37,164 @@ Uso:
 // Uso de función de estado
 setData(buildData({ data, ... }));
 ```
+
+Retorno:
+Un objeto con dos objetos dentro:
+```js
+{ options, series }
+```
+
+>   Los formatos requeridos para la ejecución de esta función son los siguientes:
+>   
+>   ### **`data` - Conjunto de datos entrante**
+>   
+>   Este objeto de datos debe tener una estructura como la siguiente
+>   ```js
+>   {
+>       0: {
+>           att1: 'value 1',
+>           att2: 'value 2',
+>           att3: 'value 3',
+>       },
+>       1: {
+>           att1: 'value 4',
+>           att2: 'value 5',
+>           att3: 'value 6',
+>       },
+>       2: {
+>           att1: 'value 7',
+>           att2: 'value 8',
+>           att3: 'value 9',
+>       },
+>   }
+>   ```
+>   
+>   ### **`chartType` - Tipo de gráfica**
+>   
+>   Tipo de gráfica para la que se utilizará el conjunto de datos formateado. Los valores disponibles son:
+>   - `'bar'`
+>   - `'line'`
+>   - `'pie'`
+>   
+>   ### **`labelsName` - Variable contenedora de etiquetas**
+>   
+>   Esta cadena de texto indica el nombre del atributo en el objeto que contiene la matriz de etiquetas del conjunto de datos, por ejemplo:
+>   ```js
+>   buildData({
+>       ...
+>       labelsName: 'userName'
+>   })
+>   ```
+>   
+>   Esto tomaría el atributo `userName` de los conjuntos de datos provistos después de ser formateados:
+>   ```js
+>   const data = {
+>       userName: ['nombre 1', 'nombre 2', 'nombre 3'...], // Atributo de los títulos de los elementos en la gráfica
+>       quotations: [123.45, 678.90, 147.25...],
+>       ...
+>   }
+>   ```
+>   
+>   ### **`datasetNames` - Matriz contenedora de nombres de conjuntos de datos**
+>   Esta matriz contiene los nombres de los atributos de los conjuntos de datos provistos que se utilizarán para renderizar cada una de los grupos de elementos de la gráfica, por ejemplo: 
+>   ```js
+>   buildData({
+>       ...
+>       datasetNames: ['quotations', 'sold', 'reverted']
+>   })
+>   ```
+>   
+>   Esto tomaría los atributos `quotations`, `sold` y `reverted` del conjunto de datos para mostrar cada uno de los grupos de elmentos de las gráficas
+>   ```js
+>   const data = {
+>       userName: ['nombre 1'...],
+>       quotations: [123.45, 678.90, 147.25...], // Conjunto de datos a renderizar
+>       sold: [123.45, 678.90, 147.25...], // Conjunto de datos a renderizar
+>       reverted: [12.34, 56.78, 90.12...], // Conjunto de datos a renderizar
+>   }
+>   ```
+>   
+>   ### **`labels` - Nombres a mostrar para cada conjunto de datos**
+>   Esta matriz contiene los nombres a mostrar en la gráfica, que representan a cada uno de los grupos de elementos o conjuntos de datos mostrados en la gráfica, por ejemplo: 
+>   ```js
+>   buildData({
+>       ...
+>       labels: ['Cotizaciones', 'Vendido', 'Devuelto']
+>   })
+>   ```
+>   
+>   Esto renombrará los conjuntos de datos:
+>   ```js
+>   const data = {
+>       userName: ['nombre 1'...],
+>       quotations: [123.45, 678.90, 147.25...], // Esto será representado como "Cotizaciones"
+>       sold: [123.45, 678.90, 147.25...], // Esto será representado como "Vendido"
+>       reverted: [12.34, 56.78, 90.12...], // Esto será representado como "Devuelto"
+>   }
+>   ```
+>   
+>   ### **`backgroundColors` - Colores de fondo de los conjuntos de datos**
+>   Este argumento puede ser de tipo `string` o `array` ya que puede contener uno o más colores para mapear en la gráfica.
+>   
+>   - 1 color a 1 conjunto de datos: Se asignará el color al conjunto de datos.
+>   - Muchos colores a 1 conjunto de datos: Se asignará la paleta de colores al único conjunto de datos en formato de matriz.
+>   - Muchos colores a muchos conjuntos de datos: Para este caso en específico, la cantidad de conjuntos de datos y colores debe ser la misma. Se asignará un color a cada conjunto de datos, en el orden en el que fueron provistos.
+>   
+>   Los colores deben tener ser RGB en formato hexadecimal y contener el símbolo `#` antes de éstos, por ejemplo:
+>   ```js
+>   buildData({
+>       ...
+>       backgroundColors: [
+>           "#DC001A",
+>           "#EC112B",
+>           "#FE3249",
+>       ],
+>       // O puede ser
+>       backgroundColors: "#DC001A",
+>   })
+>   ```
+>   
+>   ### **`backgroundOpacity` - Valor numérico de opacidad de colores de fondo**
+>   Este argumento contiene un valor porcentual de opacidad en un rango de 0 a 100.
+>   ```js
+>   buildData({
+>       ...
+>       backgroundOpacity: 75,
+>   })
+>   ```
+>   
+>   ### **`borderColors` - Colores de borde de los conjuntos de datos**
+>   Este argumento puede ser de tipo `string` o `array` ya que puede contener uno o más colores para mapear en la gráfica.
+>   
+>   - 1 color a 1 conjunto de datos: Se asignará el color al conjunto de datos.
+>   - Muchos colores a 1 conjunto de datos: Se asignará la paleta de colores al único conjunto de datos en formato de matriz.
+>   - Muchos colores a muchos conjuntos de datos: Para este caso en específico, la cantidad de conjuntos de datos y colores debe ser la misma. Se asignará un color a cada conjunto de datos, en el orden en el que fueron provistos.
+>   
+>   Los colores deben tener ser RGB en formato hexadecimal y contener el símbolo `#` antes de éstos, por ejemplo:
+>   ```js
+>   buildData({
+>       ...
+>       borderColors: [
+>           "#DC001A",
+>           "#EC112B",
+>           "#FE3249",
+>       ],
+>       // O puede ser
+>       borderColors: "#DC001A",
+>   })
+>   ```
+>   
+>   ### **`borderOpacity` - Valor numérico de opacidad de colores de borde**
+>   Este argumento contiene un valor porcentual de opacidad en un rango de 0 a 100.
+>   ```js
+>   buildData({
+>       ...
+>       borderOpacity: 75,
+>   })
+>   ```
+
+### Formateo de conjunto(s) de datos en base al tipo de gráfica
+La función también formatea el objeto de datos entrante a la estructura adecuada para la gráfica en la que se desea visualizar, esto se especifica en el argumento `chartType` del objeto.
 
 ## Formateo a objeto de matrices
 - **Archivo:** `dataFormatting.js`
