@@ -140,7 +140,7 @@ const _optionsBuilder = (chartType) => {
     options.scales.x.ticks = {}
     options.scales.y.ticks = {}
 
-    if (chartType === 'pie' || chartType === 'doughnut') {
+    if (chartType === 'pie' || chartType === 'doughnut' || chartType === 'radar' || chartType === 'polar area') {
         options.scales.x.display = false
         options.scales.y.display = false
     }
