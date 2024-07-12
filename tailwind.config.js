@@ -20,13 +20,13 @@ export default {
 				'darkmode-switcher-background': '#D6DBDF'
 			},
 			width: {
-				265: '265px'
+				18: '4.5rem'
 			},
 			height: {
 				4000: '4000px'
 			},
 			boxShadow: {
-				'darkmode-switcher-s': '0px 1px 2px 0px rgba(0, 0, 0, 0.6)',
+				'darkmode-switcher-s': '0px 1px 2px 1px rgba(0, 0, 0, 0.5)',
 				'darkmode-switcher-background-s':
 					'inset 0px 1px 2px 0px rgba(0, 0, 0, 0.45)'
 			}

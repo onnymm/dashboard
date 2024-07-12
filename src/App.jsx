@@ -18,7 +18,7 @@ const App = () => {
 					/>
 					<Navbar />
 				</div>
-				<div className=''>
+				<div className='bg-red-500'>
 					<Feed />
 				</div>
 			</div>
