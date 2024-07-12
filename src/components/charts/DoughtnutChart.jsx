@@ -12,7 +12,7 @@ import { Doughnut } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, DoughnutController, Legend, Title, Tooltip, CategoryScale, LinearScale)
 
-const PieChart = ({ dataContainer = undefined }) => {
+const DoughtnutChart = ({ dataContainer = undefined }) => {
 
     if ( dataContainer ) {
         return (
@@ -24,4 +24,4 @@ const PieChart = ({ dataContainer = undefined }) => {
     }
 }
 
-export default PieChart;
+export default DoughtnutChart;

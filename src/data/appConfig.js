@@ -33,7 +33,7 @@ export const dashboardData = {
         },
         {
             endpoint: "quotation_amounts",
-            chartType: "pie",
+            chartType: "doughtnut",
             name: "Cotizaciones por vendedora",
             labelsName: "user_name",
             datasetNames: ["amount_untaxed"],
