@@ -85,6 +85,8 @@ export const dataFormatters = {
     onlyName: (text) => (text.slice(0, text.indexOf(" "))),
     // Números a moneda nacional
     toMXN: (num) => (num.toLocaleString('es-MX', {style: 'currency', currency: 'MXN'})),
+    // Números a millones en moneda nacional
+    toMillionsMXN: (num) => (`$${num / 1000000} M`),
     // Nombres de variable de Snake Case a Camel Case
     snakeToCamel: (str) => str.replace(/_([a-z])/g, (match, p1) => p1.toUpperCase()),
     // Cualquiera a Camel Case
