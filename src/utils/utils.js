@@ -1,5 +1,5 @@
 import { opacity } from "../constants/colors";
-import { toArrayObject } from "./dataFormatting";
+import { stratificateData } from "./dataFormatting";
 
 export const buildData = ({
     data, // Objeto de datos retornado del API
@@ -13,34 +13,40 @@ export const buildData = ({
     borderOpacity = undefined, // Opacidad de los colores de borde 
     // Argumentos opcionales
     xLabelsFormatter = undefined, // Formateo en las etiquetas del eje X
-    yLabelsFormatter = undefined, // Formateo los valores del eje Y
+    yLabelsFormatter = undefined, // Formateo los valores del eje Y,
+    strat = undefined // Variable de estratificación
 }) => {
-
-    // Transformación del objeto de datos
-    const datasets = toArrayObject(data)
 
     // Inicialización del contenedor de datos a retornar
     let series = {};
-    // Inicialización del contenedor de opciones
-    const options = _optionsBuilder(chartType);
-
-    // Se asignan los nombres de las etiquetas
-    if (labelsName){
-        series.labels = datasets[labelsName];
-    }
 
     // Se inicializa la matriz de conjuntos de datos
     series.datasets = [];
 
-    // Iteración por cada uno de los conjuntos de datos
-    for (let i = 0; i < datasetNames.length; i++) {
-        // Se crea cada uno de los objetos
-        series.datasets[i] = {
-            // Nombre visible del conjunto de datos
-            label: labels[i],
-            // Variable contenedora del conjunto de datos
-            data: datasets[datasetNames[i]],
-        };
+    
+    // Se convierte el objeto de objetos a matriz de objetos
+    data = Object.values(data)
+    
+    // Inicialización de contenedores de datos y etiquetas
+    let datasets = undefined
+    let renamedLabels = undefined
+
+    // Estratificación por variable categórica
+    if ( strat ) {
+        console.log("strat");
+        [datasets, renamedLabels] = stratificateData(data, strat, datasetNames, labelsName)
+    // Obtención de un sólo conjunto de datos
+    } else {
+        datasets = [_getSingleDataset(data, labels[0], datasetNames[0])]
+        renamedLabels = _getLabels(data, labelsName)
+    }
+
+    // Se añade(n) el(los) dataset(s) a la matriz de series
+    series.datasets = datasets
+
+    // Se asignan los nombres de las etiquetas
+    if (labelsName){
+        series.labels = renamedLabels;
     }
 
     // Mapeo de opacidad a los colores de fondo
@@ -60,6 +66,8 @@ export const buildData = ({
     }
 
     // Configuración con argumentos opcionales
+    // Inicialización del contenedor de opciones
+    const options = _optionsBuilder(chartType);
 
     // Formateo de etiquetas en el eje X
     if (xLabelsFormatter) {
@@ -72,7 +80,56 @@ export const buildData = ({
 
     // Retorno del objeto a ingresar al componente de graficación
     return {options, series}
-};
+}
+
+export const dataFormatters = {
+    // Mostrar sólo el primer nombre en un String antes del espacio
+    onlyName: (text) => (text.slice(0, text.indexOf(" "))),
+    // Números a moneda nacional
+    toMXN: (num) => (num.toLocaleString('es-MX', {style: 'currency', currency: 'MXN'})),
+    // Nombres de variable de Snake Case a Camel Case
+    snakeToCamel: (str) => str.replace(/_([a-z])/g, (match, p1) => p1.toUpperCase()),
+    // Cualquiera a Camel Case
+    anyToCamel: (str) => str.toLowerCase().replace(/[\s_-]([a-z])/g, (match, p1) => p1.toUpperCase())
+}
+
+const _getSingleDataset = (data, label, varValue) => {
+
+    // Se crea un conjunto de datos vacío
+    const dataset = {}
+
+    // Se designa el nombre como etiqueta del conjunto de datos
+    dataset.label = label
+
+    // Se inicializa el contenedor de valores del conjunto de datos
+    dataset.data = []
+
+    // Iteración por cada valor del conjunto de datos
+    data.forEach(
+        (sample) => {
+            dataset.data.push(sample[varValue])
+        }
+    )
+
+    return dataset
+}
+
+const _getLabels = (data, labelsName) => {
+    // Se inicializa el contenedor de los nombres de etiquetas
+    const labels = []
+
+    // Se obtienen todas las etiquetas únicas
+    data.forEach(
+        (sample) => {
+            // Si el nombre no existe en la matriz, se agrega
+            if ( labels.indexOf(sample[labelsName]) === -1 ) {
+                labels.push(sample[labelsName])
+            }
+        }
+    )
+
+    return labels
+}
 
 const _optionsBuilder = (chartType) => {
     const options = {}
@@ -89,15 +146,6 @@ const _optionsBuilder = (chartType) => {
     }
 
     return options
-}
-
-export const dataFormatters = {
-    // Mostrar sólo el primer nombre en un String antes del espacio
-    onlyName: (text) => (text.slice(0, text.indexOf(" "))),
-    // Números a moneda nacional
-    toMXN: (num) => (num.toLocaleString('es-MX', {style: 'currency', currency: 'MXN'})),
-    // Nombres de variable de Snake Case a Camel Case
-    snakeToCamel: (str) => str.replace(/_([a-z])/g, (match, p1) => p1.toUpperCase())
 }
 
 const _mapOpacities = (backgroundColors, colorOpacity) => {
