@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getChartData } from "../../api/get";
+import { chartTypes } from "../../constants/charts";
 import { buildData } from "../../utils/utils";
 import BarChart from "./BarChart";
 import DoughtnutChart from "./DoughtnutChart";
@@ -19,7 +20,7 @@ const ChartTemplate = ({ chartData }) => {
         () => {
             getChartData(setLoadData, chartData.endpoint)
         }, [chartData.endpoint]
-    )
+    );
 
     // Transformación de los datos
     useEffect(
@@ -35,47 +36,26 @@ const ChartTemplate = ({ chartData }) => {
                 )
             }
         }, [loadData, chartData]
-    )
+    );
 
     // Renderización de la gráfica
     const RenderedChart = ({dataContainer}) => {
-        switch (chartData.chartType) {
+        const chartIndex = {
             // Gráfica de barras
-            case "bar":
-                return (
-                    <BarChart dataContainer={dataContainer} />
-                )
+            [chartTypes.bar]: <BarChart dataContainer={dataContainer} />,
             // Gráfica de líneas
-            case "line":
-                return (
-                    <LineChart dataContainer={dataContainer} />
-                )
+            [chartTypes.line]: <LineChart dataContainer={dataContainer} />,
             // Gráfica de pastel
-            case "pie":
-                return (
-                    <PieChart dataContainer={dataContainer} />
-                )
+            [chartTypes.pie]: <PieChart dataContainer={dataContainer} />,
             // Gráfica de área polar
-            case "polar area":
-                return (
-                    <PolarChart dataContainer={dataContainer} />
-                )
+            [chartTypes.polarArea]: <PolarChart dataContainer={dataContainer} />,
             // Gráfica de dona
-            case "doughnut":
-                return (
-                    <DoughtnutChart dataContainer={dataContainer} />
-                )
+            [chartTypes.doughnut]: <DoughtnutChart dataContainer={dataContainer} />,
             // Gráfica de radar
-            case "radar":
-                return (
-                    <RadarChart dataContainer={dataContainer} />
-                )
-            // Caso default en caso de no haber sido hallado el tipo provisto
-            default:
-                return (
-                    <div>No hace nada</div>
-                )
-        }
+            [chartTypes.radar]: <RadarChart dataContainer={dataContainer} />
+        };
+
+        return chartIndex[chartData.chartType];
     }
 
     // Renderización de la gráfica indicada
@@ -84,14 +64,14 @@ const ChartTemplate = ({ chartData }) => {
             <RenderedChart
                 dataContainer={data}
             />
-        )
+        );
     // Indicación de carga inicial en caso de no haber cargado datos aún
     } else {
         return (
             <div>
                 Cargando...
             </div>
-        )
+        );
     }
 }
 
