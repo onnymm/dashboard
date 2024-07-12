@@ -47,7 +47,5 @@ export const stratificateData = (data, varGroup, varValue, labelsName) => {
         }
     )
 
-    console.log(datasets)
-
     return [ datasets, labels ]
 }
