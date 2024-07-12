@@ -23,7 +23,6 @@ export const buildData = ({
     // Se inicializa la matriz de conjuntos de datos
     series.datasets = [];
 
-    
     // Se convierte el objeto de objetos a matriz de objetos
     data = Object.values(data)
     
@@ -33,7 +32,6 @@ export const buildData = ({
 
     // Estratificación por variable categórica
     if ( strat ) {
-        console.log("strat");
         [datasets, renamedLabels] = stratificateData(data, strat, datasetNames, labelsName)
     // Obtención de un sólo conjunto de datos
     } else {

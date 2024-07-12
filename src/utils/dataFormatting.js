@@ -21,6 +21,8 @@ export const stratificateData = (data, varGroup, varValue, labelsName) => {
         }
     )
 
+    console.log(groups)
+
     // Se realiza la búsqueda y agrupación por todos los nombres de grupo
     groups.forEach(
         // Iteración por nombres de grupo
