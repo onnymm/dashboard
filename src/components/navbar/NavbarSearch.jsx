@@ -6,17 +6,17 @@ const NavbarSearch = () => {
 	console.log(search)
 
 	return (
-		<div className='flex items-center gap-3 border border-red-500'>
-			<button>
+		<form className='hidden sm:flex gap-3'>
+			<button className=''>
 				<MagnifyingGlassIcon className='size-5 fill-navbar-icons hover:fill-navbar-icons-hover transition duration-500' />
 			</button>
 			<input
-				className='text-sm focus:outline-none'
+				className='text-sm focus:outline-none bg-navbar-background'
 				placeholder='Type to search...'
 				value={search}
 				onChange={e => setSearch(e.target.value)}
 			></input>
-		</div>
+		</form>
 	)
 }
 

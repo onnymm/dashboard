@@ -1,11 +1,15 @@
 import NavbarDarkMode from './NavbarDarkMode'
+import NavbarProfile from './NavbarProfile'
 import NavbarSearch from './NavbarSearch'
 
 const Navbar = () => {
 	return (
-		<header className='sticky top-0 flex h-20 w-full px-6 py-4 shadow bg-navbar-background'>
+		<header className='flex flex-grow justify-between px-6 py-4'>
 			<NavbarSearch />
-			<NavbarDarkMode />
+			<div className='flex gap-4 ml-auto'>
+				<NavbarDarkMode />
+				<NavbarProfile />
+			</div>
 		</header>
 	)
 }
