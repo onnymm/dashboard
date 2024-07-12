@@ -48,7 +48,7 @@ const ChartTemplate = ({ chartData }) => {
                     <LineChart dataContainer={dataContainer} />
                 )
             // Gráfica de pastel
-            case "doughtnut":
+            case "doughnut":
                 return (
                     <DoughtnutChart dataContainer={dataContainer} />
                 )

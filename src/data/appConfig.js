@@ -33,7 +33,7 @@ export const dashboardData = {
         },
         {
             endpoint: "quotation_amounts",
-            chartType: "doughtnut",
+            chartType: "doughnut",
             name: "Cotizaciones por vendedora",
             labelsName: "user_name",
             datasetNames: ["amount_untaxed"],
@@ -50,7 +50,7 @@ export const dashboardData = {
             borderColors: ["#FF0000", "#0000FF"],
             backgroundColors: ["#FF0000", "#0000FF"],
             backgroundOpacity: 75,
-            yLabelsFormatter: dataFormatters.toMXN,
+            yLabelsFormatter: dataFormatters.toMillionsMXN,
             strat: "warehouse"
         },
     ]
