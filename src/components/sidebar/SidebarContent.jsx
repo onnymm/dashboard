@@ -8,7 +8,12 @@ import SidebarSection from './SidebarSection'
 
 const SidebarContent = () => {
 	return (
-		<div className='flex flex-col p-4 gap-1'>
+		<div
+			className='flex flex-col p-4 gap-1 overflow-y-auto no-scrollbar'
+			style={{
+				height: 'calc(100% - 5.75rem)'
+			}}
+		>
 			<span className='px-5 py-3 text-sidebar-section-title text-sm font-medium'>
 				MENU
 			</span>

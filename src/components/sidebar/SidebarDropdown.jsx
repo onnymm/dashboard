@@ -11,11 +11,13 @@ const SidebarDropdown = ({ children, icon: Icon }) => {
 			onClick={() => setIsOpen(!isOpen)}
 		>
 			<div className='flex gap-2'>
-				<Icon className='size-5 stroke-sidebar-section' />
-				<span className='text-sm text-sidebar-section'>{children}</span>
+				<Icon className='size-6 stroke-sidebar-section' />
+				<span className='leading-relaxed text text-sidebar-section'>
+					{children}
+				</span>
 			</div>
 			<ChevronUpIcon
-				className='size-5 fill-sidebar-section ml-auto'
+				className='size-6 fill-sidebar-section ml-auto'
 				style={{
 					transition: 'transform 0.3s ease',
 					transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
