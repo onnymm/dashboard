@@ -1,5 +1,6 @@
-import { opacity } from "../constants/colors";
-import { stratificateData } from "./dataFormatting";
+import { chartTypes } from "../constants/charts";
+import { presetColors, opacity } from "../constants/colors";
+import { stratificateData as _stratificateData } from "./dataFormatting";
 
 export const buildData = ({
     data, // Objeto de datos retornado del API
@@ -17,23 +18,66 @@ export const buildData = ({
     strat = undefined // Variable de estratificación
 }) => {
 
+    // Inicialización del contenedor de datos con formato dinámico
+    let series = _buildInitSeries({data, strat, datasetNames, labelsName, labels})
+
+    // Mapeo de colores y opacidades preestablecidos a los conjuntos de datos
+    if ( chartType === chartTypes.polarArea && !backgroundOpacity ) {
+        backgroundOpacity = 75;
+    }
+    if ( (chartType === chartTypes.pie || chartType === chartTypes.doughnut) && !borderColors ) {
+        borderColors = presetColors.lightMode;
+    }
+    if ( chartType === chartTypes.polarArea && !borderColors ) {
+        borderColors = presetColors.black;
+        borderOpacity = 0;
+    }
+
+    series = _colorMapping({series, backgroundColors, backgroundOpacity, borderColors, borderOpacity})
+
+    // Configuración con argumentos opcionales
+
+    // Inicialización del contenedor de opciones
+    const options = _optionsBuilder(chartType);
+
+    // Formateo de etiquetas en el eje X
+    if ( xLabelsFormatter ) {
+        series.labels = series.labels.map((value) => xLabelsFormatter(value))
+    }
+    // Formateo de etiquetas en el eje Y
+    if ( yLabelsFormatter ) {
+        options.scales.y.ticks.callback = yLabelsFormatter
+    }
+    console.log(series)
+
+    // Retorno del objeto a ingresar al componente de graficación
+    return { options, series }
+}
+
+const _buildInitSeries = ({
+    data,
+    strat,
+    datasetNames,
+    labelsName,
+    labels
+}) => {
     // Inicialización del contenedor de datos a retornar
     let series = {};
 
     // Se inicializa la matriz de conjuntos de datos
     series.datasets = [];
 
-    // Se convierte el objeto de objetos a matriz de objetos
+    // Se convierte el objeto de objetos recibido por el API a matriz de objetos
     data = Object.values(data)
-    
-    // Inicialización de contenedores de datos y etiquetas
-    let datasets = undefined
-    let renamedLabels = undefined
 
-    // Estratificación por variable categórica
+    // Inicialización de contenedores de datos y etiquetas
+    let datasets
+    let renamedLabels
+
+    // Estratificación por variable categórica (Si se requiere)
     if ( strat ) {
-        [datasets, renamedLabels] = stratificateData(data, strat, datasetNames, labelsName)
-    // Obtención de un sólo conjunto de datos
+        [datasets, renamedLabels] = _stratificateData(data, strat, datasetNames, labelsName)
+    // Obtención de un sólo conjunto de datos (Flujo por defecto)
     } else {
         datasets = [_getSingleDataset(data, labels[0], datasetNames[0])]
         renamedLabels = _getLabels(data, labelsName)
@@ -47,37 +91,8 @@ export const buildData = ({
         series.labels = renamedLabels;
     }
 
-    // Mapeo de opacidad a los colores de fondo
-    if (backgroundOpacity) {
-        backgroundColors = _mapOpacities(backgroundColors, backgroundOpacity)
-    }
-    if (borderOpacity) {
-        borderColors = _mapOpacities(borderColors, borderOpacity)
-    }
-
-    // Mapeo de colores a los conjuntos de datos
-    if (backgroundColors) {
-        series = _mapColors(series, backgroundColors, 'backgroundColor')
-    }
-    if (borderColors) {
-        series = _mapColors(series, borderColors, 'borderColor')
-    }
-
-    // Configuración con argumentos opcionales
-    // Inicialización del contenedor de opciones
-    const options = _optionsBuilder(chartType);
-
-    // Formateo de etiquetas en el eje X
-    if (xLabelsFormatter) {
-        series.labels = series.labels.map((value) => xLabelsFormatter(value))
-    }
-    // Formateo de etiquetas en el eje Y
-    if (yLabelsFormatter) {
-        options.scales.y.ticks.callback = yLabelsFormatter
-    }
-
-    // Retorno del objeto a ingresar al componente de graficación
-    return {options, series}
+    // Retorno del contenedor de datos
+    return series
 }
 
 export const dataFormatters = {
@@ -132,6 +147,14 @@ const _getLabels = (data, labelsName) => {
 }
 
 const _optionsBuilder = (chartType) => {
+    // Gráficas radiales
+    const chartsWithoutAxes = [
+        chartTypes.pie,
+        chartTypes.doughnut,
+        chartTypes.polarArea,
+        chartTypes.radar,
+    ]
+
     const options = {}
 
     options.scales = {}
@@ -140,7 +163,8 @@ const _optionsBuilder = (chartType) => {
     options.scales.x.ticks = {}
     options.scales.y.ticks = {}
 
-    if (chartType === 'pie' || chartType === 'doughnut' || chartType === 'radar' || chartType === 'polar area') {
+    // Configuración preestablecida para gráficas radiales
+    if ( Object.values(chartsWithoutAxes).indexOf(chartType) !== -1 ) {
         options.scales.x.display = false
         options.scales.y.display = false
     }
@@ -148,31 +172,57 @@ const _optionsBuilder = (chartType) => {
     return options
 }
 
-const _mapOpacities = (backgroundColors, colorOpacity) => {
+const _colorMapping = ({
+    series,
+    backgroundColors,
+    backgroundOpacity,
+    borderColors,
+    borderOpacity
+}) => {
+    // Mapeo de opacidad a los colores de fondo
+    if (backgroundOpacity) {
+        backgroundColors = _mapOpacities(backgroundColors, backgroundOpacity)
+    }
+    if (borderOpacity !== undefined) {
+        borderColors = _mapOpacities(borderColors, borderOpacity)
+    }
+
+    // Mapeo de colores a los conjuntos de datos
+    if (backgroundColors) {
+        series = _mapColors(series, backgroundColors, 'backgroundColor')
+    }
+    if (borderColors !== undefined) {
+        series = _mapColors(series, borderColors, 'borderColor')
+    }
+
+    return series
+}
+
+const _mapOpacities = (colors, colorOpacity) => {
     // Concatenación de la opacidad si el color es un texto
-    if (typeof backgroundColors === 'string') {
-        return (backgroundColors + opacity[colorOpacity])
+    if (typeof colors === 'string') {
+        return (colors + opacity[colorOpacity])
     
     // Concatenación de la opacidad a cada uno de los valores de la matriz
     } else {
-        return (backgroundColors.map(bgColor => bgColor + opacity[colorOpacity]))
+        return (colors.map(bgColor => bgColor + opacity[colorOpacity]))
     }
 }
 
-const _mapColors = (series, backgroundColors, colorType) => {
+const _mapColors = (series, colors, colorType) => {
     if (series.datasets.length === 1) {
-        series.datasets[0][colorType] = backgroundColors
+        series.datasets[0][colorType] = colors
 
     // Mapeo de paleta de colores a varios conjuntos de datos
-    } else if (backgroundColors.length > 1) {
+    } else if (colors.length > 1) {
         for (let i = 0; i < series.datasets.length; i++) {
-            series.datasets[i][colorType] = backgroundColors[i]
+            series.datasets[i][colorType] = colors[i]
         }
 
     // Mapeo de color a varios conjuntos de datos
     } else {
         for (let i = 0; i < series.datasets.length; i++) {
-            series.datasets[i][colorType] = backgroundColors
+            series.datasets[i][colorType] = colors
         }
     }
 
