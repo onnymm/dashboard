@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom'
 
 const Feed = () => {
 	return (
-		<main className='bg-content-background'>
+		<main>
 			<Outlet />
 		</main>
 	)
