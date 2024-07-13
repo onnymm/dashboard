@@ -1,23 +1,32 @@
 /** @type {import('tailwindcss').Config} */
 export default {
 	content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+	darkMode: 'class',
 	theme: {
 		extend: {
 			colors: {
-				'sidebar-title': '#FFFFFF',
-				'sidebar-background': '#1B2436',
-				'sidebar-section-title': '#8A99AF',
-				'sidebar-section-hover': '#333A48',
-				'sidebar-section': '#DEE4EE',
+				// Light
+				'sidebar-background': '#07192E',
+				'sidebar-section-hover': '#19293C',
 
-				'content-background': '#E1E8F6',
+				'feed-background': '#CED7DD',
 
 				'navbar-background': '#FFFFFF',
-				'navbar-icons': '#78909C',
 				'navbar-icons-hover': '#1565C0',
 
-				'darkmode-switcher': '#FFFFFF',
-				'darkmode-switcher-background': '#D6DBDF'
+				'darkmode-switch-background': '#D6DBDF',
+
+				// Dark
+				'sidebar-background-d': '#0F0716',
+				'sidebar-section-hover-d': '#1D1623',
+
+				'feed-background-d': '#261736',
+
+				'navbar-background-d': '#130B1B',
+				'navbar-icons-hover-d': '#F489EA',
+				'navbar-icons-background-d': '#392250',
+
+				'darkmode-switch-background-d': '#985BD6'
 			},
 			width: {
 				18: '4.5rem'
@@ -26,8 +35,8 @@ export default {
 				4000: '4000px'
 			},
 			boxShadow: {
-				'darkmode-switcher-s': '0px 1px 2px 1px rgba(0, 0, 0, 0.5)',
-				'darkmode-switcher-background-s':
+				'darkmode-switch-s': '0px 1px 2px 1px rgba(0, 0, 0, 0.5)',
+				'darkmode-switch-background-s':
 					'inset 0px 1px 2px 0px rgba(0, 0, 0, 0.45)'
 			}
 		}

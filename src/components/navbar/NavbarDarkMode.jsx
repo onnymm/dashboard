@@ -1,20 +1,33 @@
 import { MoonIcon, SunIcon } from '@heroicons/react/20/solid'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const NavbarDarkMode = () => {
 	const [isActive, setIsActive] = useState(false)
-	console.log('Rendered darkmode')
+	const [theme, setTheme] = useState('light')
+
+	useEffect(() => {
+		if (theme === 'dark') {
+			document.documentElement.classList.add('dark')
+		} else {
+			document.documentElement.classList.remove('dark')
+		}
+	}, [theme])
+
+	const handleSwitch = () => {
+		setIsActive(!isActive)
+		setTheme(theme === 'dark' ? 'light' : 'dark')
+	}
 
 	return (
-		<button onClick={() => setIsActive(!isActive)}>
-			<div className='p-1 w-12 rounded-full bg-darkmode-switcher-background shadow-darkmode-switcher-background-s'>
+		<button onClick={() => handleSwitch()}>
+			<div className='p-1 w-12 rounded-full bg-darkmode-switch-background dark:bg-darkmode-switch-background-d transition shadow-darkmode-switch-background-s'>
 				<div
-					className={`p-1 size-min ${!isActive ? 'translate-x-5' : ''} transition duration-300 rounded-full bg-darkmode-switcher shadow-darkmode-switcher-s`}
+					className={`p-1 size-min ${!isActive ? '' : 'translate-x-5'} transition duration-300 rounded-full bg-navbar-background dark:bg-navbar-background-d shadow-darkmode-switch-s`}
 				>
 					{!isActive ? (
-						<MoonIcon className='size-3' />
+						<SunIcon className='size-3 dark:fill-white opacity-80' />
 					) : (
-						<SunIcon className='size-3 transition' />
+						<MoonIcon className='size-3 dark:fill-white opacity-80' />
 					)}
 				</div>
 			</div>

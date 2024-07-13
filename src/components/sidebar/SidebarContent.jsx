@@ -14,7 +14,7 @@ const SidebarContent = () => {
 				height: 'calc(100% - 5.75rem)'
 			}}
 		>
-			<span className='px-5 py-3 text-sidebar-section-title text-sm font-medium'>
+			<span className='px-5 py-3 text-white text-sm font-medium opacity-50'>
 				MENU
 			</span>
 			<SidebarDropdown icon={Squares2X2Icon}>Dashboard</SidebarDropdown>
