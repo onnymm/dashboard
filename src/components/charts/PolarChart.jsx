@@ -3,18 +3,19 @@ import {
     Chart as ChartJS,
     Legend,
     LinearScale,
+    RadialLinearScale,
     Title,
     Tooltip
 } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
+import { PolarArea } from 'react-chartjs-2';
 
-ChartJS.register( Legend, Title, Tooltip, CategoryScale, LinearScale)
+ChartJS.register( Legend, Title, Tooltip, CategoryScale, LinearScale, RadialLinearScale)
 
-const PieChart = ({ dataContainer = undefined }) => {
+const PolarChart = ({ dataContainer = undefined }) => {
 
     if ( dataContainer ) {
         return (
-            <Pie
+            <PolarArea
                 data={dataContainer.series}
                 options={dataContainer.options}
             />
@@ -22,4 +23,4 @@ const PieChart = ({ dataContainer = undefined }) => {
     }
 }
 
-export default PieChart;
+export default PolarChart;

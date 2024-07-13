@@ -6,15 +6,15 @@ import {
     Title,
     Tooltip
 } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
+import { Radar } from 'react-chartjs-2';
 
 ChartJS.register( Legend, Title, Tooltip, CategoryScale, LinearScale)
 
-const PieChart = ({ dataContainer = undefined }) => {
+const RadarChart = ({ dataContainer = undefined }) => {
 
     if ( dataContainer ) {
         return (
-            <Pie
+            <Radar
                 data={dataContainer.series}
                 options={dataContainer.options}
             />
@@ -22,4 +22,4 @@ const PieChart = ({ dataContainer = undefined }) => {
     }
 }
 
-export default PieChart;
+export default RadarChart;
