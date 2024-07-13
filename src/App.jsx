@@ -5,7 +5,7 @@ import Sidebar from './components/sidebar/Sidebar'
 import SidebarToggle from './components/sidebar/SidebarToggle'
 
 const App = () => {
-	const [openSidebar, setOpenSidebar] = useState(false)
+	const [openSidebar, setOpenSidebar] = useState(true)
 
 	return (
 		<>
