@@ -6,7 +6,7 @@ const SidebarToggle = ({ openSidebar, setOpenSidebar }) => {
 	return (
 		<>
 			<div
-				className={`${openSidebar ? 'w-72 transition-width' : ''} transition-all z-50 flex h-20 items-center`}
+				className={`${openSidebar ? 'md:w-72 w-16' : 'w-16'} transition-width duration-500 z-50 flex h-20 items-center`}
 			>
 				<button>
 					<img
