@@ -11,7 +11,7 @@ export const buildData = ({
     backgroundColors, // Colores de fondo de los conjuntos de datos
     backgroundOpacity = undefined, // Opacidad de los colores de fondo
     borderColors, // Colores de borde de los conjuntos de datos
-    borderOpacity = undefined, // Opacidad de los colores de borde 
+    borderOpacity = undefined, // Opacidad de los colores de borde
     // Argumentos opcionales
     xLabelsFormatter = undefined, // Formateo en las etiquetas del eje X
     yLabelsFormatter = undefined, // Formateo los valores del eje Y,
@@ -33,7 +33,7 @@ export const buildData = ({
         borderOpacity = 0;
     }
 
-    series = _colorMapping({series, backgroundColors, backgroundOpacity, borderColors, borderOpacity})
+    series = _colorMapping({series, backgroundColors, backgroundOpacity, borderColors, borderOpacity, chartType})
 
     // Configuración con argumentos opcionales
 
@@ -48,7 +48,6 @@ export const buildData = ({
     if ( yLabelsFormatter ) {
         options.scales.y.ticks.callback = yLabelsFormatter
     }
-    console.log(series)
 
     // Retorno del objeto a ingresar al componente de graficación
     return { options, series }
@@ -100,6 +99,8 @@ export const dataFormatters = {
     onlyName: (text) => (text.slice(0, text.indexOf(" "))),
     // Números a moneda nacional
     toMXN: (num) => (num.toLocaleString('es-MX', {style: 'currency', currency: 'MXN'})),
+    // Números a miles en moneda nacional
+    toThousandsMXN: (num) => (`$${num / 1000} K`),
     // Números a millones en moneda nacional
     toMillionsMXN: (num) => (`$${num / 1000000} M`),
     // Nombres de variable de Snake Case a Camel Case
@@ -177,7 +178,8 @@ const _colorMapping = ({
     backgroundColors,
     backgroundOpacity,
     borderColors,
-    borderOpacity
+    borderOpacity,
+    chartType,
 }) => {
     // Mapeo de opacidad a los colores de fondo
     if (backgroundOpacity) {
@@ -193,6 +195,14 @@ const _colorMapping = ({
     }
     if (borderColors !== undefined) {
         series = _mapColors(series, borderColors, 'borderColor')
+    }
+
+    // Activación de color de fondo para gráficas de línea y radar
+    if ( (chartType === 'line' || chartType === 'radar') && backgroundColors ) {
+        // Activación por dataset
+        series.datasets.forEach(
+            (dataset) => dataset.fill = 'origin'
+        )
     }
 
     return series
