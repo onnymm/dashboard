@@ -1,34 +1,50 @@
-import { useState } from 'react'
-import Feed from './components/feed/Feed'
-import Navbar from './components/navbar/Navbar'
-import Sidebar from './components/sidebar/Sidebar'
-import SidebarToggle from './components/sidebar/SidebarToggle'
+import { useState } from 'react';
 
 const App = () => {
-	const [openSidebar, setOpenSidebar] = useState(false)
+	const [data, setData] = useData();
 
 	return (
-		<>
-			<div className='h-screen overflow-y-auto'>
-				<div className='sticky top-0 flex flex-row h-20 select-none shadow bg-navbar-background dark:bg-navbar-background-d transition-color duration-300'>
-					<Sidebar isOpen={openSidebar} />
-					<SidebarToggle
-						openSidebar={openSidebar}
-						setOpenSidebar={setOpenSidebar}
-					/>
-					<Navbar />
-				</div>
-				<div
-					className='bg-feed-background dark:bg-feed-background-d transition-color duration-300'
-					style={{
-						minHeight: 'calc(100% - 5rem)'
-					}}
-				>
-					<Feed />
-				</div>
-			</div>
-		</>
+		<div>
+			{Object.keys(data).map(
+				(key, index) => (
+					<div key={index}>
+						{`${key} - ${data[key]}`}
+						<button onClick={() => setData(key)}>Cambiar</button>
+					</div>
+				)
+			)}
+		</div>
 	)
+
+
+}
+
+const useData = () => {
+	const [showData, setShowData] = useState({
+		uno: true,
+		dos: true,
+		tres: true,
+		cuatro: true,
+	})
+
+	const setData = (key) => {
+		const newShowData = {}
+
+		Object.keys(showData).forEach(
+			(dataKey) => {
+				console.log(key, showData[key])
+				if ( dataKey === key ) {
+					newShowData[dataKey] = !showData[dataKey]
+				} else {
+					newShowData[dataKey] = showData[dataKey]
+				}
+			}
+		)
+		
+		setShowData(newShowData)
+	}
+
+	return [showData, setData]
 }
 
 export default App
