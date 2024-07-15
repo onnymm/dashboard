@@ -14,11 +14,11 @@ export default {
 				'navbar-background': '#FFFFFF',
 				'navbar-icons-hover': '#4855F7',
 
-				'darkmode-switch-background': '#E8E9EA',
+				'darkmode-switch-background': '#DBDCDD',
 
 				// Dark
-				'sidebar-background-d': '#182532',
-				'sidebar-section-hover-d': '#1D1623',
+				'sidebar-background-d': '#213243',
+				'sidebar-section-hover-d': '#19293C',
 
 				'feed-background-d': '#101B26',
 
@@ -37,7 +37,7 @@ export default {
 			boxShadow: {
 				'darkmode-switch-s': '0px 1.5px 2px 1px rgba(0, 0, 0, 0.2)',
 				'darkmode-switch-background-s':
-					'inset 0px 1px 2px 0px rgba(0, 0, 0, 0.2)'
+					'inset 0px 1px 2px 0px rgba(0, 0, 0, 0.3)'
 			},
 			keyframes: {
 				click: {
