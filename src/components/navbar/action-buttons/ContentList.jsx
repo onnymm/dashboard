@@ -1,12 +1,12 @@
 import { useContext } from 'react'
-import { NavbarActionButtonContext } from '../../../contexts/NavbarActionButtonContext'
+import { ContentListContext } from '../../../contexts/NavbarActionButtonsContexts'
 
 const ContentList = ({ isActive }) => {
 	const {
 		name,
 		data: notifications,
 		contains: Contains
-	} = useContext(NavbarActionButtonContext)
+	} = useContext(ContentListContext)
 
 	const notificationList = generateNotificationsList(
 		Contains,
@@ -16,7 +16,7 @@ const ContentList = ({ isActive }) => {
 
 	return (
 		<div
-			className={`${!isActive ? 'opacity-0 pointer-events-none' : 'opacity-100'} transition absolute max-h-80 sm:top-10 top-11 -right-32 flex flex-col sm:w-80 w-75 shadow-xl block`}
+			className={`${!isActive ? 'opacity-0 pointer-events-none' : 'opacity-100'} transition absolute max-h-80 sm:top-10 top-11 -right-32 flex flex-col w-72 sm:w-80 shadow-xl block`}
 		>
 			<div className='sticky top-0 text-sm p-3 bg-white dark:bg-navbar-icons-background-d z-10'>
 				<span className='opacity-80 dark:text-white'>{name}</span>

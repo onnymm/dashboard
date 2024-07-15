@@ -2,6 +2,7 @@ import {
 	BellIcon,
 	ChatBubbleOvalLeftEllipsisIcon
 } from '@heroicons/react/24/outline'
+import { useState } from 'react'
 import ActionButton from './ActionButton'
 import Message from './Message'
 import Notification from './Notification'
@@ -70,40 +71,29 @@ const MESSAGES = [
 ]
 
 const ActionButtonSwitch = () => {
-	const whoIsDisplayed = { Messages: false, Notifications: false }
-
-	const names = ['Messages', 'Notifications']
-
-	const handleClick = name => {
-		Object.keys(whoIsDisplayed).forEach(key => {
-			if (key !== name) whoIsDisplayed[key] = false
-		})
-
-		whoIsDisplayed[name] = !whoIsDisplayed[name]
-		console.log(whoIsDisplayed)
-	}
+	const [notificationIsActive, setNotifIsActive] = useState(false)
+	const [messageIsActive, setMessageIsActive] = useState(false)
 
 	return (
 		<>
-			<div onClick={() => handleClick(names[0])}>
-				<ActionButton
-					name={names[0]}
-					icon={ChatBubbleOvalLeftEllipsisIcon}
-					data={MESSAGES}
-					contains={Message}
-					whoIsDisplayed={whoIsDisplayed[names[0]]}
-				/>
-			</div>
-			<div onClick={() => handleClick(names[1])}>
-				<ActionButton
-					name={names[1]}
-					icon={BellIcon}
-					data={NOTIFICATIONS}
-					contains={Notification}
-					whoIsDisplayed={whoIsDisplayed[names[1]]}
-					onClick={() => handleClick(names[1])}
-				/>
-			</div>
+			<ActionButton
+				name='Messages'
+				icon={ChatBubbleOvalLeftEllipsisIcon}
+				data={MESSAGES}
+				contains={Message}
+				isActive={messageIsActive}
+				setIsActive={setMessageIsActive}
+				setOther={setNotifIsActive}
+			/>
+			<ActionButton
+				name='Notifications'
+				icon={BellIcon}
+				data={NOTIFICATIONS}
+				contains={Notification}
+				isActive={notificationIsActive}
+				setIsActive={setNotifIsActive}
+				setOther={setMessageIsActive}
+			/>
 		</>
 	)
 }

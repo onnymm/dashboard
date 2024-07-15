@@ -1,10 +1,9 @@
 import { useState } from 'react'
 
-const Button = ({ icon: Icon, isActive, setIsActive }) => {
+const Button = ({ icon: Icon }) => {
 	const [isAnimating, setIsAnimating] = useState(false)
 
 	const handleClick = () => {
-		setIsActive(!isActive)
 		setIsAnimating(true)
 	}
 
