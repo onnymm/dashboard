@@ -3,7 +3,6 @@ import { useState } from 'react'
 
 const NavbarSearch = () => {
 	const [search, setSearch] = useState('')
-	console.log(search)
 
 	return (
 		<form className='hidden sm:flex gap-3'>

@@ -1,9 +1,7 @@
 import { useState } from 'react'
 
-const NavbarButton = ({ icon: Icon, isActive, setIsActive }) => {
+const Button = ({ icon: Icon, isActive, setIsActive }) => {
 	const [isAnimating, setIsAnimating] = useState(false)
-
-	console.log('Rendered button')
 
 	const handleClick = () => {
 		setIsActive(!isActive)
@@ -21,4 +19,4 @@ const NavbarButton = ({ icon: Icon, isActive, setIsActive }) => {
 	)
 }
 
-export default NavbarButton
+export default Button

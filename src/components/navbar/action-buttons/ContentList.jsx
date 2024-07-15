@@ -1,11 +1,18 @@
-import Notification from './Notification'
+import { useContext } from 'react'
+import { NavbarActionButtonContext } from '../../../contexts/NavbarActionButtonContext'
 
-const ContentList = ({ name, content, contains, isActive }) => {
-	// console.log('Rendered: Content List')
+const ContentList = ({ isActive }) => {
+	const {
+		name,
+		data: notifications,
+		contains: Contains
+	} = useContext(NavbarActionButtonContext)
 
-	// Contains is the component that will be contained within the list
-
-	const notificationList = generateNotificationsList(content)
+	const notificationList = generateNotificationsList(
+		Contains,
+		notifications,
+		name
+	)
 
 	return (
 		<div
@@ -21,11 +28,11 @@ const ContentList = ({ name, content, contains, isActive }) => {
 	)
 }
 
-const generateNotificationsList = notifications => {
-	if (!notifications.length) return <p>No hay notificaciones</p>
+const generateNotificationsList = (Contains, notifications, name) => {
+	if (!notifications.length) return <p>There are no {name.toLowerCase()}.</p>
 
 	return notifications.map(notification => (
-		<Notification key={notification.id} {...notification} />
+		<Contains key={notification.id} {...notification} />
 	))
 }
 
