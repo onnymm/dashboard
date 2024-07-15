@@ -16,7 +16,7 @@ export const dashboardData = {
             labels: ["Cotizaciones"],
             backgroundColors: redPalette,
             xLabelsFormatter: dataFormatters.onlyName,
-            yLabelsFormatter: dataFormatters.toMXN,
+            yLabelsFormatter: dataFormatters.toThousandsMXN,
         },
         {
             endpoint: "quotation_amounts",
@@ -26,10 +26,10 @@ export const dashboardData = {
             datasetNames: ["amount_untaxed"],
             labels: ["Cotizaciones"],
             backgroundColors: redPalette[3],
-            backgroundOpacity: 75,
+            backgroundOpacity: 50,
             borderColors: redPalette[3],
             xLabelsFormatter: dataFormatters.onlyName,
-            yLabelsFormatter: dataFormatters.toMXN,
+            yLabelsFormatter: dataFormatters.toMillionsMXN,
         },
         {
             endpoint: "quotation_amounts",
@@ -65,7 +65,9 @@ export const dashboardData = {
             labelsName: "user_name",
             datasetNames: ["amount_untaxed"],
             labels: ["Cotizaciones"],
-            backgroundColors: redPalette,
+            backgroundColors: redPalette[3],
+            backgroundOpacity: 75,
+            borderColors: redPalette[3],
             xLabelsFormatter: dataFormatters.onlyName,
         },
         {
@@ -90,7 +92,7 @@ export const dashboardData = {
             labels: ["Cotizaciones"],
             borderColors: ["#FF0000", "#0000FF"],
             backgroundColors: ["#FF0000", "#0000FF"],
-            backgroundOpacity: 75,
+            backgroundOpacity: 25,
             yLabelsFormatter: dataFormatters.toMillionsMXN,
             strat: "warehouse"
         },
@@ -103,7 +105,7 @@ export const dashboardData = {
             labels: ["Cotizaciones"],
             borderColors: ["#FF0000", "#0000FF"],
             backgroundColors: ["#FF0000", "#0000FF"],
-            backgroundOpacity: 75,
+            backgroundOpacity: 50,
             yLabelsFormatter: dataFormatters.toMillionsMXN,
             strat: "warehouse"
         },
