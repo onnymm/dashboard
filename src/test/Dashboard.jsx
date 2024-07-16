@@ -35,12 +35,15 @@ const Dashboard = () => {
 
     return (
         <main style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr'}}>
-
-        {dashboardData.charts.map(
-            (chartData, index) => (
-                <ChartTemplate key={index} chartData={chartData} />
-            )
-        )}
+                {
+                    dashboardData.charts.map(
+                        (chartData, index) => (
+                            <div key={index} style={{width: '445px'}}>
+                                <ChartTemplate chartData={chartData} />
+                            </div>
+                        )
+                    )
+                }
         </main>
     )
 }
