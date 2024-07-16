@@ -170,6 +170,8 @@ const _optionsBuilder = (chartType) => {
         options.scales.y.display = false
     }
 
+    options.aspectRatio = 1.5
+
     return options
 }
 
