@@ -25,9 +25,9 @@ const NavbarDarkMode = () => {
 					className={`p-1 size-min ${!isActive ? '' : 'translate-x-5'} transition duration-300 rounded-full bg-navbar-background dark:bg-navbar-background-d shadow-darkmode-switch-s`}
 				>
 					{!isActive ? (
-						<SunIcon className='size-3 dark:fill-white opacity-80' />
+						<SunIcon className='size-3 dark:text-white opacity-80' />
 					) : (
-						<MoonIcon className='size-3 dark:fill-white opacity-80' />
+						<MoonIcon className='size-3 dark:text-white opacity-80' />
 					)}
 				</div>
 			</div>

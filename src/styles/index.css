@@ -15,3 +15,7 @@ body {
 	-ms-overflow-style: none; /* IE and Edge */
 	scrollbar-width: none; /* Firefox */
 }
+
+.bell-icon-animation {
+	animation: translateYAnimation 0.2s ease-in-out;
+}
