@@ -5,7 +5,7 @@ const NavbarSearch = () => {
 	const [search, setSearch] = useState('')
 
 	return (
-		<form className='hidden sm:flex gap-3'>
+		<form className='hidden sm:flex ml-5 gap-3'>
 			<button className=''>
 				<MagnifyingGlassIcon className='size-5 dark:text-white hover:fill-navbar-icons-hover-d dark:hover:fill-navbar-icons-hover-d transition duration-300 opacity-60 hover:opacity-100 dark:hover:opacity-100' />
 			</button>

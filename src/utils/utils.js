@@ -170,6 +170,8 @@ const _optionsBuilder = (chartType) => {
         options.scales.y.display = false
     }
 
+    options.aspectRatio = 1.5
+
     return options
 }
 
@@ -198,7 +200,7 @@ const _colorMapping = ({
     }
 
     // Activación de color de fondo para gráficas de línea y radar
-    if ( (chartType === 'line' || chartType === 'radar') && backgroundColors ) {
+    if ( (chartType === chartTypes.line || chartType === chartTypes.radar) && backgroundColors ) {
         // Activación por dataset
         series.datasets.forEach(
             (dataset) => dataset.fill = 'origin'
