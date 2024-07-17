@@ -187,3 +187,16 @@ export const links = [
 		label: 'IRS receipts'
 	}
 ]
+
+export const SIDEBAR_LINKS = [
+	{
+		id: 1,
+		label: 'eCommerce',
+		route: 'ecommerce'
+	},
+	{
+		id: 2,
+		label: 'Analytics',
+		route: 'analytics'
+	}
+]
