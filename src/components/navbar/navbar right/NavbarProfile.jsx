@@ -8,7 +8,7 @@ const NavbarProfile = () => {
 	const [isOpen, setIsOpen] = useState(false)
 
 	return (
-		<a className='flex items-center gap-2 dark:text-white transition duration-300'>
+		<div className='flex items-center gap-2 dark:text-white transition duration-300'>
 			<div className='hidden lg:block text-right'>
 				<span className='block text-sm opacity-80'>Master Yoda</span>
 				<span className='block text-xs opacity-60'>Force Advisor</span>
@@ -29,7 +29,7 @@ const NavbarProfile = () => {
 					<List Contains={ListLink} data={links} name='Links' />
 				</div>
 			</div>
-		</a>
+		</div>
 	)
 }
 
