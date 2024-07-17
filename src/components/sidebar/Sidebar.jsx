@@ -3,7 +3,7 @@ import SidebarContent from './SidebarContent'
 const Sidebar = ({ isOpen }) => {
 	return (
 		<aside
-			className={`${!isOpen ? '-translate-x-72' : ''} z-50 fixed transition duration-500 flex flex-col h-screen w-72 select-none bg-sidebar-background dark:bg-sidebar-background-d`}
+			className={`${!isOpen ? '-translate-x-72' : 'translate-x-0'} z-40 fixed transition duration-500 flex flex-col h-screen w-72 select-none bg-sidebar-background dark:bg-sidebar-background-d`}
 		>
 			<div className='h-20 pl-20 flex items-center'>
 				<span

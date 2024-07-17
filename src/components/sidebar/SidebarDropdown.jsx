@@ -14,11 +14,7 @@ const SidebarDropdown = ({ children, icon: Icon }) => {
 				<span className='leading-relaxed text opacity-80'>{children}</span>
 			</div>
 			<ChevronUpIcon
-				className='size-6 ml-auto opacity-70'
-				style={{
-					transition: 'transform 0.3s ease',
-					transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
-				}}
+				className={`${isOpen ? 'rotate-180' : 'rotate-0'} transition duration-300 size-6 ml-auto opacity-70`}
 			/>
 		</div>
 	)
