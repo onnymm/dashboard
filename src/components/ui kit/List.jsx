@@ -1,11 +1,11 @@
-const List = ({ Contains, data, name }) => {
-	if (!data.length) return <p>There are no {name.toLowerCase()}.</p>
-
+const List = ({ Contains, data, name, ...rest }) => {
 	return (
 		<div className='flex flex-col'>
-			{data.map(item => (
-				<Contains key={item.id} {...item} />
-			))}
+			{data ? (
+				data.map(item => <Contains key={item.id} {...item} {...rest} />)
+			) : (
+				<p>There are no {name}.</p>
+			)}
 		</div>
 	)
 }
