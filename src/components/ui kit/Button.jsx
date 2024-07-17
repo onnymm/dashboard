@@ -13,7 +13,9 @@ const Button = ({ icon: Icon }) => {
 			onAnimationEnd={() => setIsAnimating(false)}
 			onClick={() => handleClick()}
 		>
-			<Icon className='size-5 m-auto dark:text-white opacity-80 transition duration-500' />
+			{Icon && (
+				<Icon className='size-5 m-auto dark:text-white opacity-80 transition duration-500' />
+			)}
 		</button>
 	)
 }

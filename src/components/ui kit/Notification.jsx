@@ -1,6 +1,6 @@
 const Notification = ({ header, content }) => {
 	return (
-		<div className='flex-none h-min text-xs dark:text-white overflow-hidden text-left p-4 h-20'>
+		<div className='flex-none h-min text-xs dark:text-white overflow-hidden text-left p-4'>
 			<p className='line-clamp-3'>
 				{header && (
 					<span className='opacity-90 dark:opacity-90'>{`${header} - `}</span>

@@ -1,6 +1,6 @@
 const Message = ({ avatar, header, content }) => {
 	return (
-		<div className='flex gap-3 h-min items-center text-xs dark:text-white overflow-hidden text-left p-4 h-20'>
+		<div className='flex gap-3 h-min items-center text-xs dark:text-white overflow-hidden text-left p-4 transition-color duration-300'>
 			<div className='w-12 flex-none'>
 				<img
 					src={avatar ? avatar : './default_profile.jpg'}
