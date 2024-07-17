@@ -1,22 +1,38 @@
 import { ChevronUpIcon } from '@heroicons/react/20/solid'
 import { useState } from 'react'
+import List from '../ui kit/List'
+import ListNavLink from '../ui kit/ListNavLink'
 
-const SidebarDropdown = ({ children, icon: Icon }) => {
+const SidebarDropdown = ({ children, icon: Icon, content }) => {
 	const [isOpen, setIsOpen] = useState(false)
+	const [isActive, setIsActive] = useState(false)
 
 	return (
-		<div
-			className='flex items-center px-5 py-2 text-white cursor-pointer hover:bg-sidebar-section-hover dark:hover:bg-sidebar-section-hover-d transition duration-300 rounded-sm'
-			onClick={() => setIsOpen(!isOpen)}
-		>
-			<div className='flex gap-2'>
-				<Icon className='size-6 opacity-80' />
-				<span className='leading-relaxed text opacity-80'>{children}</span>
+		<>
+			<div
+				className={`${isActive ? 'bg-sidebar-section-hover' : ''} flex items-center px-5 py-2 text-white cursor-pointer hover:bg-sidebar-section-hover dark:hover:bg-sidebar-section-hover-d transition duration-300 rounded-sm`}
+				onClick={() => setIsOpen(!isOpen)}
+			>
+				<div className='flex gap-2'>
+					<Icon className='size-6 opacity-80' />
+					<span className='leading-relaxed text opacity-80'>{children}</span>
+				</div>
+				<ChevronUpIcon
+					className={`${isOpen ? 'rotate-180' : 'rotate-0'} transition duration-300 size-6 ml-auto opacity-70`}
+				/>
 			</div>
-			<ChevronUpIcon
-				className={`${isOpen ? 'rotate-180' : 'rotate-0'} transition duration-300 size-6 ml-auto opacity-70`}
-			/>
-		</div>
+
+			{content && (
+				<div className={`${isOpen ? '' : 'hidden'} pl-12`}>
+					<List
+						Contains={ListNavLink}
+						data={content}
+						name='links'
+						setter={setIsActive}
+					/>
+				</div>
+			)}
+		</>
 	)
 }
 

@@ -3,6 +3,7 @@ import {
 	Squares2X2Icon,
 	UserIcon
 } from '@heroicons/react/24/outline'
+import { SIDEBAR_LINKS } from '../../data/appConfig'
 import SidebarDropdown from './SidebarDropdown'
 import SidebarSection from './SidebarSection'
 
@@ -17,7 +18,9 @@ const SidebarContent = () => {
 			<span className='px-5 py-3 text-white text-sm font-medium opacity-50'>
 				MENU
 			</span>
-			<SidebarDropdown icon={Squares2X2Icon}>Dashboard</SidebarDropdown>
+			<SidebarDropdown icon={Squares2X2Icon} content={SIDEBAR_LINKS}>
+				Dashboard
+			</SidebarDropdown>
 			<SidebarDropdown icon={ListBulletIcon}>Tasks</SidebarDropdown>
 			<SidebarSection icon={UserIcon}>Profile</SidebarSection>
 		</div>
