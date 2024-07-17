@@ -7,23 +7,21 @@ const ActionButton = ({
 	icon,
 	data,
 	contains,
-	isActive,
-	setIsActive,
-	setOther
+	buttonsActive,
+	setButtonsActive
 }) => {
 	return (
 		<div className='relative'>
 			<div
 				onClick={() => {
-					setIsActive(!isActive)
-					setOther(false)
+					setButtonsActive(name)
 				}}
 			>
 				<Button icon={icon} />
 			</div>
 			<ContentListContext.Provider value={{ name, data, contains }}>
 				<div
-					className={`${!isActive ? 'opacity-0 pointer-events-none' : 'opacity-100'} transition`}
+					className={`${!buttonsActive[name] ? 'opacity-0 pointer-events-none' : 'opacity-100'} transition`}
 				>
 					<ContentList />
 				</div>
