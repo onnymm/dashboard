@@ -35,6 +35,7 @@ export default {
 				4000: '4000px'
 			},
 			boxShadow: {
+				back: '0px 0px 5px 1px rgba(0, 0, 0, 0.2)',
 				'darkmode-switch-s': '0px 1.5px 2px 1px rgba(0, 0, 0, 0.2)',
 				'darkmode-switch-background-s':
 					'inset 0px 1px 2px 0px rgba(0, 0, 0, 0.3)'
