@@ -1,8 +1,8 @@
-import { redPalette } from '../constants/colors'
+import { RED_PALETTE } from '../constants/colors'
 import { dataFormatters } from '../utils/utils'
 
 // Dominios locales para obtener la información
-export const defaultDomain = 'localDomain'
+export const defaultDomain = 'localdomain'
 
 // Configuración de las gráficas
 export const dashboardData = {
@@ -14,7 +14,7 @@ export const dashboardData = {
 			labelsName: 'user_name',
 			datasetNames: ['amount_untaxed'],
 			labels: ['Cotizaciones'],
-			backgroundColors: redPalette,
+			backgroundColors: RED_PALETTE,
 			xLabelsFormatter: dataFormatters.onlyName,
 			yLabelsFormatter: dataFormatters.toThousandsMXN,
 		},
@@ -25,9 +25,9 @@ export const dashboardData = {
 			labelsName: 'user_name',
 			datasetNames: ['amount_untaxed'],
 			labels: ['Cotizaciones'],
-			backgroundColors: redPalette[3],
+			backgroundColors: RED_PALETTE[3],
 			backgroundOpacity: 50,
-			borderColors: redPalette[3],
+			borderColors: RED_PALETTE[3],
 			xLabelsFormatter: dataFormatters.onlyName,
 			yLabelsFormatter: dataFormatters.toMillionsMXN
 		},
@@ -38,7 +38,7 @@ export const dashboardData = {
 			labelsName: 'user_name',
 			datasetNames: ['amount_untaxed'],
 			labels: ['Cotizaciones'],
-			backgroundColors: redPalette,
+			backgroundColors: RED_PALETTE,
 		},
 		{
 			endpoint: 'quotation_amounts',
@@ -47,7 +47,7 @@ export const dashboardData = {
 			labelsName: 'user_name',
 			datasetNames: ['amount_untaxed'],
 			labels: ['Cotizaciones'],
-			backgroundColors: redPalette,
+			backgroundColors: RED_PALETTE,
 		},
 		{
 			endpoint: 'quotation_amounts',
@@ -56,7 +56,8 @@ export const dashboardData = {
 			labelsName: 'user_name',
 			datasetNames: ['amount_untaxed'],
 			labels: ['Cotizaciones'],
-			backgroundColors: redPalette,
+			backgroundColors: RED_PALETTE,
+			labelsDisplay: 'grid3'
 		},
 		{
 			endpoint: 'quotation_amounts',
@@ -65,9 +66,9 @@ export const dashboardData = {
 			labelsName: 'user_name',
 			datasetNames: ['amount_untaxed'],
 			labels: ['Cotizaciones'],
-			backgroundColors: redPalette[3],
+			backgroundColors: RED_PALETTE[3],
 			backgroundOpacity: 75,
-			borderColors: redPalette[3],
+			borderColors: RED_PALETTE[3],
 			xLabelsFormatter: dataFormatters.onlyName
 		},
 		{
