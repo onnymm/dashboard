@@ -24,7 +24,7 @@ const NavbarProfile = ({ name, buttonsActive, setButtonsActive }) => {
 			</button>
 			<div className=''>
 				<div
-					className={`${buttonsActive[name] ? 'opacity-100' : 'opacity-0 pointer-events-none'} transition duration-300 absolute w-48 min-h-12 right-0 p-3 top-14 shadow-back bg-white dark:bg-slate-900 rounded-xl z-30 `}
+					className={`${buttonsActive[name] ? 'opacity-100' : 'opacity-0 pointer-events-none'} transition duration-300 absolute w-48 min-h-12 right-0 p-3 top-14 shadow-back bg-white dark:bg-navbar-icons-background-d rounded-xl z-30 `}
 				>
 					<List Contains={ListLink} data={links} name='Links' />
 					<hr className='my-2 border border-gray-300' />
