@@ -16,15 +16,15 @@ En este archivo se encuentran los métodos GET para solicitudes de información 
 
 Para utilizar la función de solicitud al API se requiere una función de cambio de estado y un endpoint a utilizar, por ejemplo:
 ```js
-getChartData(setLoadData, "quotation_amounts")
+getChartData(setLoadData, "endpoint_example")
 ```
 
->   Esta función realizaría una solicitud a la URL `http://192.168.1.89:8000/quotation_amounts`.
+>   Esta función realizaría una solicitud a la URL `http://www.defaultdomain.com/endpoint_example`.
 
 También existe la posibilidad en exceptuar al API configurado en el archivo `appConfig.js` proporcionando un dominio específico:
 
 ```js
-getChartData(setLoadData, "quotation_amounts", "https://www.midominioespecifico.com/")
+getChartData(setLoadData, "endpoint_example", "https://www.midominioespecifico.com/")
 ```
 
->   Esta función realizaría una solicitud a la URL `https://www.midominioespecifico.com/quotation_amounts`.
+>   Esta función realizaría una solicitud a la URL `https://www.midominioespecifico.com/endpoint_example`.
