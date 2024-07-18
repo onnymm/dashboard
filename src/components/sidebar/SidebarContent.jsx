@@ -15,7 +15,11 @@ const SIDEBAR_DROPDOWNS = [
 		content: SIDEBAR_LINKS,
 		height: 'h-16'
 	},
-	{ icon: ListBulletIcon, label: 'Tasks', height: '' }
+	{
+		icon: ListBulletIcon,
+		label: 'Tasks',
+		height: ''
+	}
 ]
 
 const SidebarContent = () => {
