@@ -1,8 +1,8 @@
-export const chartTypes = {
-    bar: 'bar',
-    line: 'line',
-    pie: 'pie',
-    doughnut: 'doughnut',
-    polarArea: 'polar area',
-    radar: 'radar'
+export const CHART_TYPES = {
+    BAR: 'bar',
+    LINE: 'line',
+    PIE: 'pie',
+    DOUGHNUT: 'doughnut',
+    POLARAREA: 'polar area',
+    RADAR: 'radar'
 }

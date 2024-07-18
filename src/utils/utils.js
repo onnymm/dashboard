@@ -1,6 +1,6 @@
-import { chartTypes } from "../constants/charts";
-import { presetColors, opacity } from "../constants/colors";
-import { CHARTSSETINGSNAMES } from "../constants/settings";
+import { CHART_TYPES } from "../constants/charts";
+import { PRESET_COLORS, OPACITIES } from "../constants/colors";
+import { CHARTS_SETINGS_NAMES } from "../constants/settings";
 import { stratificateData as _stratificateData } from "./dataFormatting";
 
 export const buildData = ({
@@ -19,23 +19,23 @@ export const buildData = ({
     yLabelsFormatter = undefined, // Formateo los valores del eje Y,
     strat = undefined, // Variable de estratificación
     labelsContainerID, // ID del contenedor de etiquetas
-    [CHARTSSETINGSNAMES.LABELSDISPLAY]: labelsDisplay, // Estilo de contenedor de etiquetas
-    [CHARTSSETINGSNAMES.LABELSLIST]: labelsList, // Estilo de lista de etiquetas
-    [CHARTSSETINGSNAMES.LEGENDBOX]: legendBox, // Estilo de cajas de color de etiquetas
+    [CHARTS_SETINGS_NAMES.LABELS_DISPLAY]: labelsDisplay, // Estilo de contenedor de etiquetas
+    [CHARTS_SETINGS_NAMES.LABELS_LIST]: labelsList, // Estilo de lista de etiquetas
+    [CHARTS_SETINGS_NAMES.LEGEND_BOX]: legendBox, // Estilo de cajas de color de etiquetas
 }) => {
 
     // Inicialización del contenedor de datos con formato dinámico
     let series = _buildInitSeries({data, strat, datasetNames, labelsName, labels})
 
     // Mapeo de colores y opacidades preestablecidos a los conjuntos de datos
-    if ( chartType === chartTypes.polarArea && !backgroundOpacity ) {
+    if ( chartType === CHART_TYPES.POLARAREA && !backgroundOpacity ) {
         backgroundOpacity = 75;
     }
-    if ( (chartType === chartTypes.pie || chartType === chartTypes.doughnut) && !borderColors ) {
-        borderColors = presetColors.lightMode;
+    if ( (chartType === CHART_TYPES.PIE || chartType === CHART_TYPES.DOUGHNUT) && !borderColors ) {
+        borderColors = PRESET_COLORS.LIGHT_MODE;
     }
-    if ( chartType === chartTypes.polarArea && !borderColors ) {
-        borderColors = presetColors.black;
+    if ( chartType === CHART_TYPES.POLARAREA && !borderColors ) {
+        borderColors = PRESET_COLORS.BLACK;
         borderOpacity = 0;
     }
 
@@ -162,10 +162,10 @@ const _getLabels = (data, labelsName) => {
 const _optionsBuilder = (chartType, labelsContainerID, legendParams) => {
     // Gráficas radiales
     const chartsWithoutAxes = [
-        chartTypes.pie,
-        chartTypes.doughnut,
-        chartTypes.polarArea,
-        chartTypes.radar,
+        CHART_TYPES.PIE,
+        CHART_TYPES.DOUGHNUT,
+        CHART_TYPES.POLARAREA,
+        CHART_TYPES.RADAR,
     ]
 
     // Inicialización del objeto a retornar
@@ -241,7 +241,7 @@ const _colorMapping = ({
     }
 
     // Activación de color de fondo para gráficas de línea y radar
-    if ( (chartType === chartTypes.line || chartType === chartTypes.radar) && backgroundColors ) {
+    if ( (chartType === CHART_TYPES.LINE || chartType === CHART_TYPES.RADAR) && backgroundColors ) {
         // Activación por dataset
         series.datasets.forEach(
             (dataset) => dataset.fill = 'origin'
@@ -254,11 +254,11 @@ const _colorMapping = ({
 const _mapOpacities = (colors, colorOpacity) => {
     // Concatenación de la opacidad si el color es un texto
     if (typeof colors === 'string') {
-        return (colors + opacity[colorOpacity])
+        return (colors + OPACITIES[colorOpacity])
     
     // Concatenación de la opacidad a cada uno de los valores de la matriz
     } else {
-        return (colors.map(bgColor => bgColor + opacity[colorOpacity]))
+        return (colors.map(bgColor => bgColor + OPACITIES[colorOpacity]))
     }
 }
 

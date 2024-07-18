@@ -1,8 +1,8 @@
-export const CHARTSSETINGSNAMES = {
+export const CHARTS_SETINGS_NAMES = {
     // Orientación y alineación de las etiquetas
-    LABELSDISPLAY: "labelsDisplay",
+    LABELS_DISPLAY: "labelsDisplay",
     // Orientación y alineación de cada contenedor de etiqueta
-    LABELSLIST: "labelsList",
+    LABELS_LIST: "labelsList",
     // Apariencia de la caja de la etiqueta
-    LEGENDBOX: "legendBox"
+    LEGEND_BOX: "legendBox"
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getChartData } from "../../api/get";
-import { chartTypes } from "../../constants/charts";
+import { CHART_TYPES } from "../../constants/charts";
 import { buildData } from "../../utils/utils";
 import BarChart from "./BarChart";
 import DoughtnutChart from "./DoughtnutChart";
@@ -43,17 +43,17 @@ const ChartTemplate = ({ chartData, index }) => {
     const RenderedChart = ({dataContainer}) => {
         const chartIndex = {
             // Gráfica de barras
-            [chartTypes.bar]: <BarChart dataContainer={dataContainer} />,
+            [CHART_TYPES.BAR]: <BarChart dataContainer={dataContainer} />,
             // Gráfica de líneas
-            [chartTypes.line]: <LineChart dataContainer={dataContainer} />,
+            [CHART_TYPES.LINE]: <LineChart dataContainer={dataContainer} />,
             // Gráfica de pastel
-            [chartTypes.pie]: <PieChart dataContainer={dataContainer} />,
+            [CHART_TYPES.PIE]: <PieChart dataContainer={dataContainer} />,
             // Gráfica de área polar
-            [chartTypes.polarArea]: <PolarChart dataContainer={dataContainer} />,
+            [CHART_TYPES.POLARAREA]: <PolarChart dataContainer={dataContainer} />,
             // Gráfica de dona
-            [chartTypes.doughnut]: <DoughtnutChart dataContainer={dataContainer} />,
+            [CHART_TYPES.DOUGHNUT]: <DoughtnutChart dataContainer={dataContainer} />,
             // Gráfica de radar
-            [chartTypes.radar]: <RadarChart dataContainer={dataContainer} />
+            [CHART_TYPES.RADAR]: <RadarChart dataContainer={dataContainer} />
         };
 
         return chartIndex[chartData.chartType];

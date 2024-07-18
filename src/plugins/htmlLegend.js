@@ -1,5 +1,5 @@
-import { chartTypes } from "../constants/charts";
-import { CHARTSSETINGSNAMES } from "../constants/settings";
+import { CHART_TYPES } from "../constants/charts";
+import { CHARTS_SETINGS_NAMES } from "../constants/settings";
 import { chartStyleSetter } from "../utils/settingsSetters";
 
 const getOrCreateLegendList = (chart, id) => {
@@ -15,7 +15,7 @@ const getOrCreateLegendList = (chart, id) => {
             
             // Asignación de estilos al elemento
             const {extension} = chart.config._config.options;
-            labelsContainer = chartStyleSetter(extension, labelsContainer, CHARTSSETINGSNAMES.LABELSDISPLAY);
+            labelsContainer = chartStyleSetter(extension, labelsContainer, CHARTS_SETINGS_NAMES.LABELS_DISPLAY);
     
             // Se añade la lista al contenedor de etiquetas
             legendContainer.appendChild(labelsContainer);
@@ -47,14 +47,14 @@ const htmlLegendPlugin = {
 
                 // Asignación de estilos de configuración
                 const {extension} = chart.config._config.options;
-                li = chartStyleSetter(extension, li, CHARTSSETINGSNAMES.LABELSLIST);
+                li = chartStyleSetter(extension, li, CHARTS_SETINGS_NAMES.LABELS_LIST);
 
                 li.onclick = () => {
                     // Se obtiene la declaración del tipo de gráfica
                     const {type} = chart.config;
 
                     // Validación del tipo de gráfica
-                    if (type === chartTypes.pie || type === chartTypes.doughnut) {
+                    if (type === CHART_TYPES.PIE || type === CHART_TYPES.DOUGHNUT) {
                         // Asignación de manipulación de vistas por categoría en el conjunto de datos
                         chart.toggleDataVisibility(item.index);
                     } else {
@@ -73,7 +73,7 @@ const htmlLegendPlugin = {
                 boxSpan.style.borderColor = item.strokeStyle;
                 
                 // Asignación de estilos de configuración
-                boxSpan = chartStyleSetter(extension, boxSpan, CHARTSSETINGSNAMES.LEGENDBOX);
+                boxSpan = chartStyleSetter(extension, boxSpan, CHARTS_SETINGS_NAMES.LEGEND_BOX);
                 
                 // Texto de la etiqueta
                 const textContainer = document.createElement('p');
