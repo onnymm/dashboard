@@ -12,6 +12,9 @@ import {
     Title,
     Tooltip,
 } from 'chart.js';
+import ChartTemplate from '../components/charts/ChartTemplate';
+import { dashboardData } from '../data/appConfig';
+import htmlLegendPlugin from '../plugins/htmlLegend';
 
 ChartJS.register(
     ArcElement,
@@ -28,11 +31,6 @@ ChartJS.register(
     htmlLegendPlugin
 )
 
-
-import ChartTemplate from '../components/charts/ChartTemplate';
-import { dashboardData } from '../data/appConfig';
-import htmlLegendPlugin from '../plugins/htmlLegend';
-
 const Dashboard = () => {
 
     return (
@@ -41,7 +39,7 @@ const Dashboard = () => {
                     dashboardData.charts.map(
                         (chartData, index) => (
                             <div key={index} style={{width: '445px'}}>
-                                <ChartTemplate chartData={chartData} index={`chart-${index}`} />
+                                <ChartTemplate chartData={chartData} labelsContainerID={`chart-${index}`} />
                             </div>
                         )
                     )

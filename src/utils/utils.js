@@ -1,27 +1,27 @@
 import { CHART_TYPES } from "../constants/charts";
 import { PRESET_COLORS, OPACITIES } from "../constants/colors";
-import { CHARTS_SETINGS_NAMES } from "../constants/settings";
+import { CHARTS_SETINGS } from "../constants/settings";
 import { stratificateData as _stratificateData } from "./dataFormatting";
 
 export const buildData = ({
     data, // Objeto de datos retornado del API
-    chartType, // Tipo de gráfica
-    labelsName, // Variable de etiquetas de la gráfica de barras
-    datasetNames, // Variable de cada uno de los conjuntos de datos en el objeto
-    labels, // Nombres visibles en la gráfica para cada conjunto de datos
-    backgroundColors, // Colores de fondo de los conjuntos de datos
-    backgroundOpacity = undefined, // Opacidad de los colores de fondo
-    borderColors, // Colores de borde de los conjuntos de datos
-    borderOpacity = undefined, // Opacidad de los colores de borde
+    labelsContainerID, // ID del contenedor de etiquetas
+    [CHARTS_SETINGS.CHART_TYPE]: chartType, // Tipo de gráfica
+    [CHARTS_SETINGS.LABELS_NAME]: labelsName, // Variable de etiquetas de la gráfica de barras
+    [CHARTS_SETINGS.DATASETS_NAMES]: datasetNames, // Variable de cada uno de los conjuntos de datos en el objeto
+    [CHARTS_SETINGS.LABELS]: labels, // Nombres visibles en la gráfica para cada conjunto de datos
+    [CHARTS_SETINGS.BACKGROUND_COLORS]: backgroundColors, // Colores de fondo de los conjuntos de datos
+    [CHARTS_SETINGS.BACKGROUND_OPACITY]: backgroundOpacity = undefined, // Opacidad de los colores de fondo
+    [CHARTS_SETINGS.BORDER_COLORS]: borderColors, // Colores de borde de los conjuntos de datos
+    [CHARTS_SETINGS.BORDER_OPACITY]: borderOpacity = undefined, // Opacidad de los colores de borde
 
     // Argumentos opcionales
-    xLabelsFormatter = undefined, // Formateo en las etiquetas del eje X
-    yLabelsFormatter = undefined, // Formateo los valores del eje Y,
-    strat = undefined, // Variable de estratificación
-    labelsContainerID, // ID del contenedor de etiquetas
-    [CHARTS_SETINGS_NAMES.LABELS_DISPLAY]: labelsDisplay, // Estilo de contenedor de etiquetas
-    [CHARTS_SETINGS_NAMES.LABELS_LIST]: labelsList, // Estilo de lista de etiquetas
-    [CHARTS_SETINGS_NAMES.LEGEND_BOX]: legendBox, // Estilo de cajas de color de etiquetas
+    [CHARTS_SETINGS.X_AXIS_FORMAT]: xLabelsFormatter = undefined, // Formateo en las etiquetas del eje X
+    [CHARTS_SETINGS.Y_AXIS_FORMAT]: yLabelsFormatter = undefined, // Formateo los valores del eje Y,
+    [CHARTS_SETINGS.CATEGORY_STRATIFICATION_BY]: strat = undefined, // Variable de estratificación
+    [CHARTS_SETINGS.LABELS_DISPLAY]: labelsDisplay, // Estilo de contenedor de etiquetas
+    [CHARTS_SETINGS.LABELS_LIST]: labelsList, // Estilo de lista de etiquetas
+    [CHARTS_SETINGS.LEGEND_BOX]: legendBox, // Estilo de cajas de color de etiquetas
 }) => {
 
     // Inicialización del contenedor de datos con formato dinámico
