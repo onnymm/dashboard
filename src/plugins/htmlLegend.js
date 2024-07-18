@@ -1,5 +1,5 @@
 import { CHART_TYPES } from "../constants/charts";
-import { CHARTS_SETINGS } from "../constants/settings";
+import { CHARTS_SETTINGS } from "../constants/settings";
 import { chartStyleSetter } from "../utils/settingsSetters";
 
 const getOrCreateLegendList = (chart, id) => {
@@ -15,7 +15,7 @@ const getOrCreateLegendList = (chart, id) => {
             
             // Asignación de estilos al elemento
             const {extension} = chart.config._config.options;
-            labelsContainer = chartStyleSetter(extension, labelsContainer, CHARTS_SETINGS.LABELS_DISPLAY);
+            labelsContainer = chartStyleSetter(extension, labelsContainer, CHARTS_SETTINGS.LABELS_DISPLAY);
     
             // Se añade la lista al contenedor de etiquetas
             legendContainer.appendChild(labelsContainer);
@@ -47,7 +47,7 @@ const htmlLegendPlugin = {
 
                 // Asignación de estilos de configuración
                 const {extension} = chart.config._config.options;
-                li = chartStyleSetter(extension, li, CHARTS_SETINGS.LABELS_LIST);
+                li = chartStyleSetter(extension, li, CHARTS_SETTINGS.LABELS_LIST);
 
                 li.onclick = () => {
                     // Se obtiene la declaración del tipo de gráfica
@@ -73,7 +73,7 @@ const htmlLegendPlugin = {
                 boxSpan.style.borderColor = item.strokeStyle;
                 
                 // Asignación de estilos de configuración
-                boxSpan = chartStyleSetter(extension, boxSpan, CHARTS_SETINGS.LEGEND_BOX);
+                boxSpan = chartStyleSetter(extension, boxSpan, CHARTS_SETTINGS.LEGEND_BOX);
                 
                 // Texto de la etiqueta
                 const textContainer = document.createElement('p');

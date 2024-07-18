@@ -1,8 +1,8 @@
-import { CHARTS_SETINGS } from "../constants/settings";
+import { CHARTS_SETTINGS } from "../constants/settings";
 
 export const chartsSettingsOptions = {
     // Orientación y alineación de las etiquetas
-    [CHARTS_SETINGS.LABELS_DISPLAY]: {
+    [CHARTS_SETTINGS.LABELS_DISPLAY]: {
         list: {
             display: 'flex',
             flexDirection: 'column'
@@ -25,7 +25,7 @@ export const chartsSettingsOptions = {
         },
     },
     // Orientación y alineación de cada contenedor de etiqueta
-    [CHARTS_SETINGS.LABELS_LIST]: {
+    [CHARTS_SETTINGS.LABELS_LIST]: {
         default: {
             alignItems: 'center',
             cursor: 'pointer',
@@ -34,7 +34,7 @@ export const chartsSettingsOptions = {
         }
     },
     // Apariencia de la caja de la etiqueta
-    [CHARTS_SETINGS.LEGEND_BOX]: {
+    [CHARTS_SETTINGS.LEGEND_BOX]: {
         circle: {
             borderWidth: '2px',
             borderRadius: '50%',

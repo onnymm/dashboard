@@ -1,4 +1,4 @@
-export const CHARTS_SETINGS = {
+export const CHARTS_SETTINGS = {
     // Endpoint de URL de donde se solicitará la información
     ENDPOINT: 'endpoint',
     // Tipo de gráfica
