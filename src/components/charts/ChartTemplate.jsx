@@ -9,7 +9,7 @@ import PieChart from "./PieChart";
 import PolarChart from "./PolarChart";
 import RadarChart from "./RadarChart";
 
-const ChartTemplate = ({ chartData, index }) => {
+const ChartTemplate = ({ chartData, labelsContainerID }) => {
     // Estado para carga inicial de los datos
     const [loadData, setLoadData] = useState();
     // Estado para transformación de datos
@@ -31,16 +31,16 @@ const ChartTemplate = ({ chartData, index }) => {
                         {
                             data: loadData,
                             ...chartData,
-                            labelsContainerID: index
+                            labelsContainerID
                         }
                     )
                 )
             }
-        }, [loadData, chartData, index]
+        }, [loadData, chartData, labelsContainerID]
     );
 
     // Renderización de la gráfica
-    const RenderedChart = ({dataContainer}) => {
+    const RenderedChart = ({ dataContainer }) => {
         const chartIndex = {
             // Gráfica de barras
             [CHART_TYPES.BAR]: <BarChart dataContainer={dataContainer} />,
@@ -63,7 +63,7 @@ const ChartTemplate = ({ chartData, index }) => {
     if ( data ) {
         return (
             <div>
-                <div id={`${index}`}></div>
+                <div id={`${labelsContainerID}`}></div>
                 <RenderedChart
                     dataContainer={data}
                 />
