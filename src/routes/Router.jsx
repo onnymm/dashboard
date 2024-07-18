@@ -1,8 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom'
 import App from '../App'
-import Analytics from '../components/analytics/Analytics'
-import Dashboard from '../components/dashboard/Dashboard'
-import Ecommerce from '../components/ecommerce/Ecommerce'
+import Analytics from '../components/pages/Analytics'
+import Dashboard from '../components/pages/Dashboard'
+import Ecommerce from '../components/pages/Ecommerce'
 
 const Router = createBrowserRouter([
 	{
