@@ -9,12 +9,12 @@ const Button = ({ icon: Icon }) => {
 
 	return (
 		<button
-			className={`${isAnimating && 'animate-button-click'} flex justify-center size-7 dark:bg-navbar-icons-background-d shadow-darkmode-switch-s border-black transition rounded-full`}
+			className={`${isAnimating && 'animate-button-click'} flex size-7 justify-center rounded-full border-black shadow-darkmode-switch-s transition dark:bg-navbar-icons-background-d`}
 			onAnimationEnd={() => setIsAnimating(false)}
 			onClick={() => handleClick()}
 		>
 			{Icon && (
-				<Icon className='size-5 m-auto dark:text-white opacity-80 transition duration-500' />
+				<Icon className='m-auto size-5 opacity-80 transition duration-500 dark:text-white' />
 			)}
 		</button>
 	)

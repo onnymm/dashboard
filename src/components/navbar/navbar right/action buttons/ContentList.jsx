@@ -11,13 +11,13 @@ const ContentList = () => {
 	} = useContext(ContentListContext)
 
 	return (
-		<div className='absolute max-h-80 sm:top-10 top-11 -right-32 flex flex-col w-72 sm:w-80 shadow-back rounded-xl overflow-hidden'>
-			<div className='sticky top-0 text-sm p-3 bg-white dark:bg-navbar-icons-background-d z-10 transition-color duration-300'>
-				<span className='opacity-80 dark:text-white transition-color duration-300'>
+		<div className='absolute -right-32 top-11 flex max-h-80 w-72 flex-col overflow-hidden rounded-xl shadow-back sm:top-10 sm:w-80'>
+			<div className='transition-color sticky top-0 z-10 bg-white p-3 text-sm duration-300 dark:bg-navbar-icons-background-d'>
+				<span className='transition-color opacity-80 duration-300 dark:text-white'>
 					{capitalizeFirstLetter(name)}
 				</span>
 			</div>
-			<div className='overflow-y-auto transition-color duration-300 bg-feed-background dark:bg-darkmode-switch-background-d dark:divide-navbar-icons-background-d'>
+			<div className='transition-color overflow-y-auto bg-feed-background duration-300 dark:divide-navbar-icons-background-d dark:bg-darkmode-switch-background-d'>
 				<List Contains={Contains} data={data} name={name} />
 			</div>
 		</div>

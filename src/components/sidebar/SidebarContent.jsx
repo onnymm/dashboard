@@ -10,12 +10,12 @@ import SidebarSection from './SidebarSection'
 const SidebarContent = () => {
 	return (
 		<div
-			className='flex flex-col rounded-sm p-4 overflow-y-auto no-scrollbar'
+			className='no-scrollbar flex flex-col overflow-y-auto rounded-sm p-4'
 			style={{
 				height: 'calc(100% - 5.75rem)'
 			}}
 		>
-			<span className='px-5 py-3 text-white text-sm font-medium opacity-50'>
+			<span className='px-5 py-3 text-sm font-medium text-white opacity-50'>
 				MENU
 			</span>
 			<SidebarDropdown

@@ -8,7 +8,7 @@ const SidebarSection = ({ children, icon: Icon }) => {
 				`${isActive ? 'bg-sidebar-section-hover' : ''}`
 			}
 		>
-			<div className='flex gap-2 px-5 py-2 text-white rounded-sm hover:bg-sidebar-section-hover dark:hover:bg-sidebar-section-hover-d transition duration-300'>
+			<div className='flex gap-2 rounded-sm px-5 py-2 text-white transition duration-300 hover:bg-sidebar-section-hover dark:hover:bg-sidebar-section-hover-d'>
 				<Icon className='size-6 opacity-80' />
 				<span className='leading-relaxed opacity-80'>{children}</span>
 			</div>

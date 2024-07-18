@@ -3,7 +3,7 @@ import NavbarDarkMode from './NavbarDarkMode'
 
 const NavbarRight = () => {
 	return (
-		<div className='flex gap-4 items-center ml-auto'>
+		<div className='ml-auto flex items-center gap-4'>
 			<NavbarDarkMode />
 			<ButtonController />
 		</div>

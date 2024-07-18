@@ -5,8 +5,8 @@ import ListLink from '../../../ui kit/ListLink'
 
 const NavbarProfile = ({ name, buttonsActive, setButtonsActive }) => {
 	return (
-		<div className='flex items-center gap-2 dark:text-white transition duration-300 relative'>
-			<div className='hidden lg:block text-right'>
+		<div className='relative flex items-center gap-2 transition duration-300 dark:text-white'>
+			<div className='hidden text-right lg:block'>
 				<span className='block text-sm opacity-80'>Master Yoda</span>
 				<span className='block text-xs opacity-60'>Force Advisor</span>
 			</div>
@@ -20,11 +20,11 @@ const NavbarProfile = ({ name, buttonsActive, setButtonsActive }) => {
 					className='w-12 rounded-full'
 					draggable='false'
 				/>
-				<ChevronDownIcon className='hidden sm:block size-6 opacity-50' />
+				<ChevronDownIcon className='hidden size-6 opacity-50 sm:block' />
 			</button>
 			<div className=''>
 				<div
-					className={`${buttonsActive[name] ? 'opacity-100' : 'opacity-0 pointer-events-none'} transition duration-300 absolute w-48 min-h-12 right-0 p-3 top-14 shadow-back bg-white dark:bg-navbar-icons-background-d rounded-xl z-30 `}
+					className={`${buttonsActive[name] ? 'opacity-100' : 'pointer-events-none opacity-0'} absolute right-0 top-14 z-30 min-h-12 w-48 rounded-xl bg-white p-3 shadow-back transition duration-300 dark:bg-navbar-icons-background-d`}
 				>
 					<List Contains={ListLink} data={links} name='Links' />
 					<hr className='my-2 border border-gray-300' />

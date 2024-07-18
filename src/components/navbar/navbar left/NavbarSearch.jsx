@@ -5,12 +5,12 @@ const NavbarSearch = () => {
 	const [search, setSearch] = useState('')
 
 	return (
-		<form className='hidden sm:flex ml-5 gap-3'>
+		<form className='ml-5 hidden gap-3 sm:flex'>
 			<button className=''>
-				<MagnifyingGlassIcon className='size-5 dark:text-white hover:fill-navbar-icons-hover-d dark:hover:fill-navbar-icons-hover-d transition duration-300 opacity-60 hover:opacity-100 dark:hover:opacity-100' />
+				<MagnifyingGlassIcon className='size-5 opacity-60 transition duration-300 hover:fill-navbar-icons-hover-d hover:opacity-100 dark:text-white dark:hover:fill-navbar-icons-hover-d dark:hover:opacity-100' />
 			</button>
 			<input
-				className='text-sm dark:placeholder-white dark:text-white focus:outline-none bg-transparent opacity-80'
+				className='bg-transparent text-sm opacity-80 focus:outline-none dark:text-white dark:placeholder-white'
 				placeholder='Type to search...'
 				value={search}
 				onChange={e => setSearch(e.target.value)}

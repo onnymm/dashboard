@@ -5,11 +5,11 @@ const App = () => {
 	return (
 		<>
 			<div className='h-screen overflow-y-auto'>
-				<div className='sticky top-0 flex flex-row h-20 select-none shadow bg-navbar-background dark:bg-navbar-background-d transition-color duration-300'>
+				<div className='transition-color sticky top-0 flex h-20 select-none flex-row bg-navbar-background shadow duration-300 dark:bg-navbar-background-d'>
 					<Navbar />
 				</div>
 				<div
-					className='bg-feed-background dark:bg-feed-background-d transition-color duration-300'
+					className='transition-color bg-feed-background duration-300 dark:bg-feed-background-d'
 					style={{
 						minHeight: 'calc(100% - 5rem)'
 					}}

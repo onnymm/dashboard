@@ -24,21 +24,21 @@ const SidebarDropdown = ({ children, icon: Icon, content, height }) => {
 	return (
 		<>
 			<div
-				className={`${isOnPath ? 'bg-sidebar-section-hover' : ''} flex items-center px-5 py-2 text-white cursor-pointer hover:bg-sidebar-section-hover dark:hover:bg-sidebar-section-hover-d transition duration-300`}
+				className={`${isOnPath ? 'bg-sidebar-section-hover' : ''} flex cursor-pointer items-center px-5 py-2 text-white transition duration-300 hover:bg-sidebar-section-hover dark:hover:bg-sidebar-section-hover-d`}
 				onClick={() => setIsOpen(!isOpen)}
 			>
 				<div className='flex gap-2'>
 					<Icon className='size-6 opacity-80' />
-					<span className='leading-relaxed text opacity-80'>{children}</span>
+					<span className='text leading-relaxed opacity-80'>{children}</span>
 				</div>
 				<ChevronUpIcon
-					className={`${isOpen ? 'rotate-0' : 'rotate-180'} transition duration-300 size-6 ml-auto opacity-70`}
+					className={`${isOpen ? 'rotate-0' : 'rotate-180'} ml-auto size-6 opacity-70 transition duration-300`}
 				/>
 			</div>
 
 			{content && (
 				<div
-					className={`${isOpen ? height : 'h-0'} transition-height duration-300 overflow-hidden pl-12`}
+					className={`${isOpen ? height : 'h-0'} overflow-hidden pl-12 transition-height duration-300`}
 				>
 					<List Contains={ListNavLink} data={content} name='links' />
 				</div>

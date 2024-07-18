@@ -14,7 +14,7 @@ const ICONS = {
 const ListLink = ({ icon, label, route }) => {
 	return (
 		<NavLink
-			className='flex gap-2 text-sm dark:hover:bg-slate-800 hover:bg-gray-300 opacity-80 p-2 rounded-md text-black dark:text-white transition duration-300'
+			className='flex gap-2 rounded-md p-2 text-sm text-black opacity-80 transition duration-300 hover:bg-gray-300 dark:text-white dark:hover:bg-slate-800'
 			to={route}
 		>
 			<div className='size-5'>{ICONS[icon]}</div>

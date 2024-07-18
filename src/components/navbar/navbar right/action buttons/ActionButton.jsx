@@ -21,7 +21,7 @@ const ActionButton = ({
 			</div>
 			<ContentListContext.Provider value={{ name, data, contains }}>
 				<div
-					className={`${!buttonsActive[name] ? 'opacity-0 pointer-events-none' : 'opacity-100'} transition`}
+					className={`${!buttonsActive[name] ? 'pointer-events-none opacity-0' : 'opacity-100'} transition`}
 				>
 					<ContentList />
 				</div>
