@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom'
 import List from '../ui kit/List'
 import ListNavLink from '../ui kit/ListNavLink'
 
-const SidebarDropdown = ({ children, icon: Icon, content, height }) => {
+const SidebarDropdown = ({ icon: Icon, label, content, height }) => {
 	const [isOpen, setIsOpen] = useState(false)
 	const [isOnPath, setIsOnPath] = useState(false)
 
@@ -29,7 +29,7 @@ const SidebarDropdown = ({ children, icon: Icon, content, height }) => {
 			>
 				<div className='flex gap-2'>
 					<Icon className='size-6 opacity-80' />
-					<span className='text leading-relaxed opacity-80'>{children}</span>
+					<span className='text leading-relaxed opacity-80'>{label}</span>
 				</div>
 				<ChevronUpIcon
 					className={`${isOpen ? 'rotate-0' : 'rotate-180'} ml-auto size-6 opacity-70 transition duration-300`}
