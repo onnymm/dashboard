@@ -16,7 +16,7 @@ export const dashboardData = {
 			labels: ['Cotizaciones'],
 			backgroundColors: redPalette,
 			xLabelsFormatter: dataFormatters.onlyName,
-			yLabelsFormatter: dataFormatters.toThousandsMXN
+			yLabelsFormatter: dataFormatters.toThousandsMXN,
 		},
 		{
 			endpoint: 'quotation_amounts',
@@ -38,7 +38,7 @@ export const dashboardData = {
 			labelsName: 'user_name',
 			datasetNames: ['amount_untaxed'],
 			labels: ['Cotizaciones'],
-			backgroundColors: redPalette
+			backgroundColors: redPalette,
 		},
 		{
 			endpoint: 'quotation_amounts',
@@ -47,7 +47,7 @@ export const dashboardData = {
 			labelsName: 'user_name',
 			datasetNames: ['amount_untaxed'],
 			labels: ['Cotizaciones'],
-			backgroundColors: redPalette
+			backgroundColors: redPalette,
 		},
 		{
 			endpoint: 'quotation_amounts',
@@ -56,7 +56,7 @@ export const dashboardData = {
 			labelsName: 'user_name',
 			datasetNames: ['amount_untaxed'],
 			labels: ['Cotizaciones'],
-			backgroundColors: redPalette
+			backgroundColors: redPalette,
 		},
 		{
 			endpoint: 'quotation_amounts',
@@ -81,7 +81,8 @@ export const dashboardData = {
 			backgroundColors: ['#FF0000', '#0000FF'],
 			backgroundOpacity: 75,
 			yLabelsFormatter: dataFormatters.toMillionsMXN,
-			strat: 'warehouse'
+			strat: 'warehouse',
+			legendBox: 'rounded'
 		},
 		{
 			chartType: 'line',
@@ -94,7 +95,8 @@ export const dashboardData = {
 			backgroundColors: ['#FF0000', '#0000FF'],
 			backgroundOpacity: 25,
 			yLabelsFormatter: dataFormatters.toMillionsMXN,
-			strat: 'warehouse'
+			strat: 'warehouse',
+			legendBox: 'circle'
 		},
 		{
 			chartType: 'radar',
@@ -107,7 +109,8 @@ export const dashboardData = {
 			backgroundColors: ['#FF0000', '#0000FF'],
 			backgroundOpacity: 50,
 			yLabelsFormatter: dataFormatters.toMillionsMXN,
-			strat: 'warehouse'
+			strat: 'warehouse',
+			legendBox: 'square'
 		}
 	]
 }

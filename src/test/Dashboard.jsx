@@ -10,7 +10,7 @@ import {
     PointElement,
     RadialLinearScale,
     Title,
-    Tooltip
+    Tooltip,
 } from 'chart.js';
 
 ChartJS.register(
@@ -25,11 +25,13 @@ ChartJS.register(
     Legend,
     Title,
     Tooltip,
+    htmlLegendPlugin
 )
 
 
 import ChartTemplate from '../components/charts/ChartTemplate';
 import { dashboardData } from '../data/appConfig';
+import htmlLegendPlugin from '../plugins/htmlLegend';
 
 const Dashboard = () => {
 
@@ -39,7 +41,7 @@ const Dashboard = () => {
                     dashboardData.charts.map(
                         (chartData, index) => (
                             <div key={index} style={{width: '445px'}}>
-                                <ChartTemplate chartData={chartData} />
+                                <ChartTemplate chartData={chartData} index={`chart-${index}`} />
                             </div>
                         )
                     )

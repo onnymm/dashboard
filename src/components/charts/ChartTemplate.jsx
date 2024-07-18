@@ -9,7 +9,7 @@ import PieChart from "./PieChart";
 import PolarChart from "./PolarChart";
 import RadarChart from "./RadarChart";
 
-const ChartTemplate = ({ chartData }) => {
+const ChartTemplate = ({ chartData, index }) => {
     // Estado para carga inicial de los datos
     const [loadData, setLoadData] = useState();
     // Estado para transformación de datos
@@ -30,12 +30,13 @@ const ChartTemplate = ({ chartData }) => {
                     buildData(
                         {
                             data: loadData,
-                            ...chartData
+                            ...chartData,
+                            labelsContainerID: index
                         }
                     )
                 )
             }
-        }, [loadData, chartData]
+        }, [loadData, chartData, index]
     );
 
     // Renderización de la gráfica
@@ -61,9 +62,12 @@ const ChartTemplate = ({ chartData }) => {
     // Renderización de la gráfica indicada
     if ( data ) {
         return (
-            <RenderedChart
-                dataContainer={data}
-            />
+            <div>
+                <div id={`${index}`}></div>
+                <RenderedChart
+                    dataContainer={data}
+                />
+            </div>
         );
     // Indicación de carga inicial en caso de no haber cargado datos aún
     } else {

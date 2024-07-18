@@ -1,5 +1,6 @@
 import { chartTypes } from "../constants/charts";
 import { presetColors, opacity } from "../constants/colors";
+import { CHARTSSETINGSNAMES } from "../constants/settings";
 import { stratificateData as _stratificateData } from "./dataFormatting";
 
 export const buildData = ({
@@ -12,10 +13,15 @@ export const buildData = ({
     backgroundOpacity = undefined, // Opacidad de los colores de fondo
     borderColors, // Colores de borde de los conjuntos de datos
     borderOpacity = undefined, // Opacidad de los colores de borde
+
     // Argumentos opcionales
     xLabelsFormatter = undefined, // Formateo en las etiquetas del eje X
     yLabelsFormatter = undefined, // Formateo los valores del eje Y,
-    strat = undefined // Variable de estratificación
+    strat = undefined, // Variable de estratificación
+    labelsContainerID, // ID del contenedor de etiquetas
+    [CHARTSSETINGSNAMES.LABELSDISPLAY]: labelsDisplay, // Estilo de contenedor de etiquetas
+    [CHARTSSETINGSNAMES.LABELSLIST]: labelsList, // Estilo de lista de etiquetas
+    [CHARTSSETINGSNAMES.LEGENDBOX]: legendBox, // Estilo de cajas de color de etiquetas
 }) => {
 
     // Inicialización del contenedor de datos con formato dinámico
@@ -37,8 +43,14 @@ export const buildData = ({
 
     // Configuración con argumentos opcionales
 
+    const legendParams = {
+        labelsDisplay,
+        labelsList,
+        legendBox
+    }
+
     // Inicialización del contenedor de opciones
-    const options = _optionsBuilder(chartType);
+    const options = _optionsBuilder(chartType, labelsContainerID, legendParams);
 
     // Formateo de etiquetas en el eje X
     if ( xLabelsFormatter ) {
@@ -147,7 +159,7 @@ const _getLabels = (data, labelsName) => {
     return labels
 }
 
-const _optionsBuilder = (chartType) => {
+const _optionsBuilder = (chartType, labelsContainerID, legendParams) => {
     // Gráficas radiales
     const chartsWithoutAxes = [
         chartTypes.pie,
@@ -156,8 +168,10 @@ const _optionsBuilder = (chartType) => {
         chartTypes.radar,
     ]
 
+    // Inicialización del objeto a retornar
     const options = {}
 
+    // Inicialización de atributos preestablecidos de opciones
     options.scales = {}
     options.scales.x = {}
     options.scales.y = {}
@@ -170,8 +184,35 @@ const _optionsBuilder = (chartType) => {
         options.scales.y.display = false
     }
 
+    // Configuración de relación de aspecto
     options.aspectRatio = 1.5
 
+    // Integración de plugins
+    options.plugins = {
+
+        // Plug-in para etiquetas desacopladas de la gráfica
+        htmlLegend: {
+            containerID: labelsContainerID
+        },
+        // Desactivación de muestra de etiquetas integradas en la gráfica
+        legend: {
+            display: false,
+        }
+    }
+
+    // Inicialización de objeto de extensión de opciones para uso de este proyecto
+    options.extension = {}
+
+    // Integración de parámetros personalizados de la gráfica en caso de ser provistos
+    Object.keys(legendParams).forEach(
+        (paramsKey) => {
+            if ( legendParams ) {
+                options.extension[paramsKey] = legendParams[paramsKey]
+            }
+        }
+    )
+
+    // Retorno del objeto de configuración
     return options
 }
 
