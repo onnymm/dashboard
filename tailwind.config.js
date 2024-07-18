@@ -64,7 +64,8 @@ export default {
 				'button-click': 'click 0.35s ease-in-out'
 			},
 			transitionProperty: {
-				width: 'width'
+				width: 'width',
+				height: 'height'
 			}
 		}
 	},
