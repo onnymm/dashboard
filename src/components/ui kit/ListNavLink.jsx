@@ -1,19 +1,6 @@
-import { useEffect } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
-const ListNavLink = ({ label, route, setter }) => {
-	const location = useLocation()
-	const lowercasedPath = location.pathname.toLowerCase()
-	const isActive = lowercasedPath == `/${route}`
-
-	useEffect(() => {
-		if (isActive) {
-			setter(true)
-		} else {
-			setter(false)
-		}
-	}, [isActive, setter])
-
+const ListNavLink = ({ label, route }) => {
 	return (
 		<NavLink
 			to={route}
