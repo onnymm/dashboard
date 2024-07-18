@@ -1,16 +1,30 @@
 import { ChevronUpIcon } from '@heroicons/react/20/solid'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import List from '../ui kit/List'
 import ListNavLink from '../ui kit/ListNavLink'
 
-const SidebarDropdown = ({ children, icon: Icon, content }) => {
+const SidebarDropdown = ({ children, icon: Icon, content, height }) => {
 	const [isOpen, setIsOpen] = useState(false)
-	const [isActive, setIsActive] = useState(false)
+	const [isOnPath, setIsOnPath] = useState(false)
+
+	const lowercasedPath = useLocation().pathname.toLowerCase().substring(1)
+
+	useEffect(() => {
+		if (content) {
+			const matchPath = content.some(item => lowercasedPath === item.route)
+			setIsOnPath(matchPath)
+		}
+	}, [content, lowercasedPath])
+
+	useEffect(() => {
+		isOnPath ? setIsOpen(true) : setIsOpen(false)
+	}, [isOnPath])
 
 	return (
 		<>
 			<div
-				className={`${isActive ? 'bg-sidebar-section-hover' : ''} flex items-center px-5 py-2 text-white cursor-pointer hover:bg-sidebar-section-hover dark:hover:bg-sidebar-section-hover-d transition duration-300 rounded-sm`}
+				className={`${isOnPath ? 'bg-sidebar-section-hover' : ''} flex items-center px-5 py-2 text-white cursor-pointer hover:bg-sidebar-section-hover dark:hover:bg-sidebar-section-hover-d transition duration-300`}
 				onClick={() => setIsOpen(!isOpen)}
 			>
 				<div className='flex gap-2'>
@@ -18,18 +32,15 @@ const SidebarDropdown = ({ children, icon: Icon, content }) => {
 					<span className='leading-relaxed text opacity-80'>{children}</span>
 				</div>
 				<ChevronUpIcon
-					className={`${isOpen ? 'rotate-180' : 'rotate-0'} transition duration-300 size-6 ml-auto opacity-70`}
+					className={`${isOpen ? 'rotate-0' : 'rotate-180'} transition duration-300 size-6 ml-auto opacity-70`}
 				/>
 			</div>
 
 			{content && (
-				<div className={`${isOpen ? '' : 'hidden'} pl-12`}>
-					<List
-						Contains={ListNavLink}
-						data={content}
-						name='links'
-						setter={setIsActive}
-					/>
+				<div
+					className={`${isOpen ? height : 'h-0'} transition-height duration-300 overflow-hidden pl-12`}
+				>
+					<List Contains={ListNavLink} data={content} name='links' />
 				</div>
 			)}
 		</>

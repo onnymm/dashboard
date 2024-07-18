@@ -10,7 +10,7 @@ import SidebarSection from './SidebarSection'
 const SidebarContent = () => {
 	return (
 		<div
-			className='flex flex-col p-4 gap-1 overflow-y-auto no-scrollbar'
+			className='flex flex-col rounded-sm p-4 overflow-y-auto no-scrollbar'
 			style={{
 				height: 'calc(100% - 5.75rem)'
 			}}
@@ -18,10 +18,16 @@ const SidebarContent = () => {
 			<span className='px-5 py-3 text-white text-sm font-medium opacity-50'>
 				MENU
 			</span>
-			<SidebarDropdown icon={Squares2X2Icon} content={SIDEBAR_LINKS}>
+			<SidebarDropdown
+				icon={Squares2X2Icon}
+				content={SIDEBAR_LINKS}
+				height='h-16'
+			>
 				Dashboard
 			</SidebarDropdown>
-			<SidebarDropdown icon={ListBulletIcon}>Tasks</SidebarDropdown>
+			<SidebarDropdown icon={ListBulletIcon} height=''>
+				Tasks
+			</SidebarDropdown>
 			<SidebarSection icon={UserIcon}>Profile</SidebarSection>
 		</div>
 	)

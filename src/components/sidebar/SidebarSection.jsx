@@ -5,7 +5,7 @@ const SidebarSection = ({ children, icon: Icon }) => {
 		<NavLink
 			to='dashboard'
 			className={({ isActive }) =>
-				`rounded-sm ${isActive ? 'bg-sidebar-section-hover' : ''}`
+				`${isActive ? 'bg-sidebar-section-hover' : ''}`
 			}
 		>
 			<div className='flex gap-2 px-5 py-2 text-white rounded-sm hover:bg-sidebar-section-hover dark:hover:bg-sidebar-section-hover-d transition duration-300'>
