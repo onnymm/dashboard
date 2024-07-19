@@ -1,7 +1,7 @@
 import { CHART_TYPES } from "../constants/charts";
 import { PRESET_COLORS, OPACITIES } from "../constants/colors";
 import { CHARTS_SETTINGS } from "../constants/settings";
-import { stratificateData as _stratificateData } from "./dataFormatting";
+import { buildInitSeries } from "./dataFormatting";
 
 export const buildData = ({
     data, // Objeto de datos retornado del API
@@ -25,7 +25,7 @@ export const buildData = ({
 }) => {
 
     // Inicialización del contenedor de datos con formato dinámico
-    let series = _buildInitSeries({data, strat, datasetNames, labelsName, labels})
+    let series = buildInitSeries({ data, strat, datasetNames, labelsName, labels })
 
     // Mapeo de colores y opacidades preestablecidos a los conjuntos de datos
     if ( chartType === CHART_TYPES.POLARAREA && !backgroundOpacity ) {
@@ -65,47 +65,6 @@ export const buildData = ({
     return { options, series }
 }
 
-const _buildInitSeries = ({
-    data,
-    strat,
-    datasetNames,
-    labelsName,
-    labels
-}) => {
-    // Inicialización del contenedor de datos a retornar
-    let series = {};
-
-    // Se inicializa la matriz de conjuntos de datos
-    series.datasets = [];
-
-    // Se convierte el objeto de objetos recibido por el API a matriz de objetos
-    data = Object.values(data)
-
-    // Inicialización de contenedores de datos y etiquetas
-    let datasets
-    let renamedLabels
-
-    // Estratificación por variable categórica (Si se requiere)
-    if ( strat ) {
-        [datasets, renamedLabels] = _stratificateData(data, strat, datasetNames, labelsName)
-    // Obtención de un sólo conjunto de datos (Flujo por defecto)
-    } else {
-        datasets = [_getSingleDataset(data, labels[0], datasetNames[0])]
-        renamedLabels = _getLabels(data, labelsName)
-    }
-
-    // Se añade(n) el(los) dataset(s) a la matriz de series
-    series.datasets = datasets
-
-    // Se asignan los nombres de las etiquetas
-    if (labelsName){
-        series.labels = renamedLabels;
-    }
-
-    // Retorno del contenedor de datos
-    return series
-}
-
 export const dataFormatters = {
     // Mostrar sólo el primer nombre en un String antes del espacio
     onlyName: (text) => (text.slice(0, text.indexOf(" "))),
@@ -119,44 +78,6 @@ export const dataFormatters = {
     snakeToCamel: (str) => str.replace(/_([a-z])/g, (match, p1) => p1.toUpperCase()),
     // Cualquiera a Camel Case
     anyToCamel: (str) => str.toLowerCase().replace(/[\s_-]([a-z])/g, (match, p1) => p1.toUpperCase())
-}
-
-const _getSingleDataset = (data, label, varValue) => {
-
-    // Se crea un conjunto de datos vacío
-    const dataset = {}
-
-    // Se designa el nombre como etiqueta del conjunto de datos
-    dataset.label = label
-
-    // Se inicializa el contenedor de valores del conjunto de datos
-    dataset.data = []
-
-    // Iteración por cada valor del conjunto de datos
-    data.forEach(
-        (sample) => {
-            dataset.data.push(sample[varValue])
-        }
-    )
-
-    return dataset
-}
-
-const _getLabels = (data, labelsName) => {
-    // Se inicializa el contenedor de los nombres de etiquetas
-    const labels = []
-
-    // Se obtienen todas las etiquetas únicas
-    data.forEach(
-        (sample) => {
-            // Si el nombre no existe en la matriz, se agrega
-            if ( labels.indexOf(sample[labelsName]) === -1 ) {
-                labels.push(sample[labelsName])
-            }
-        }
-    )
-
-    return labels
 }
 
 const _optionsBuilder = (chartType, labelsContainerID, legendParams) => {
