@@ -10,6 +10,7 @@ export const buildInitSeries = ({
     labelsName,
     labels
 }) => {
+
     // Inicialización del contenedor de datos a retornar
     let series = {};
     
@@ -25,11 +26,11 @@ export const buildInitSeries = ({
 
     // Estratificación por variable categórica (Si se requiere)
     if ( strat ) {
-        [datasets, renamedLabels] = stratificateData(data, strat, datasetNames, labelsName)
+        [datasets, renamedLabels] = stratificateData({ data, categoryName: strat, datasetNames, labelsName })
     // Obtención de un sólo conjunto de datos (Flujo por defecto)
     } else {
-        datasets = [ getSingleDataset(data, labels[0], datasetNames[0]) ]
-        renamedLabels = getLabels(data, labelsName)
+        datasets = [ getSingleDataset({ data, labelName: labels[0], varValue: datasetNames[0] }) ]
+        renamedLabels = getLabels({ data, labelsName })
     }
 
     // Se añade(n) el(los) dataset(s) a la matriz de series
@@ -158,7 +159,13 @@ export const formatLabels = ({
     return [ series, options ]
 }
 
-const stratificateData = (data, categoryName, datasetNames, labelsName) => {
+const stratificateData = ({
+    data,
+    categoryName,
+    datasetNames,
+    labelsName
+}) => {
+
     // Se inicializa la matriz a retornar
     const datasets = []
     // Se inicializa el contenedor de los nombres de grupo en el conjunto de datos
@@ -166,7 +173,6 @@ const stratificateData = (data, categoryName, datasetNames, labelsName) => {
     // Se inicializa el contenedor de los nombres de etiquetas
     const labels = []
 
-    
     // Se obtienen todos los nombres de grupo del conjunto de datos
     data.forEach(
         (sample) => {
@@ -179,7 +185,7 @@ const stratificateData = (data, categoryName, datasetNames, labelsName) => {
             }
         }
     )
-    
+
     // Se realiza la búsqueda y agrupación por todos los nombres de grupo
     groups.forEach(
         // Iteración por nombres de grupo
@@ -209,7 +215,11 @@ const stratificateData = (data, categoryName, datasetNames, labelsName) => {
     return [ datasets, labels ]
 }
 
-const getSingleDataset = (data, labelName, varValue) => {
+const getSingleDataset = ({
+    data,
+    labelName,
+    varValue
+}) => {
 
     // Se crea un conjunto de datos vacío
     const dataset = {}
@@ -231,7 +241,11 @@ const getSingleDataset = (data, labelName, varValue) => {
     return dataset
 }
 
-const getLabels = (data, labelsName) => {
+const getLabels = ({
+    data,
+    labelsName
+}) => {
+
     // Se inicializa el contenedor de los nombres de etiquetas
     const labels = []
 
@@ -257,23 +271,24 @@ const colorMapping = ({
     borderOpacity,
     chartType,
 }) => {
+
     // Variables booleanas
     const isFillableChart = chartType === CHART_TYPES.LINE || chartType === CHART_TYPES.RADAR
 
     // Mapeo de opacidad a los colores de fondo
     if ( backgroundOpacity ) {
-        backgroundColors = mapOpacities(backgroundColors, backgroundOpacity)
+        backgroundColors = mapOpacities({ colors: backgroundColors, colorOpacity: backgroundOpacity })
     }
     if ( borderOpacity ) {
-        borderColors = mapOpacities(borderColors, borderOpacity)
+        borderColors = mapOpacities({ colors: borderColors, colorOpacity: borderOpacity })
     }
 
     // Mapeo de colores a los conjuntos de datos
     if ( backgroundColors ) {
-        series = mapColors(series, backgroundColors, CHARTS_SERIES_SETTINGS.BACKGROUND_COLOR)
+        series = mapColors({ series, colors: backgroundColors, colorType: CHARTS_SERIES_SETTINGS.BACKGROUND_COLOR })
     }
     if ( borderColors ) {
-        series = mapColors(series, borderColors, CHARTS_SERIES_SETTINGS.BORDER_COLOR)
+        series = mapColors({ series, colors: borderColors, colorType: CHARTS_SERIES_SETTINGS.BORDER_COLOR })
     }
 
     
@@ -290,7 +305,11 @@ const colorMapping = ({
     return series
 }
 
-const mapOpacities = (colors, colorOpacity) => {
+const mapOpacities = ({
+    colors,
+    colorOpacity
+}) => {
+
     // Concatenación de la opacidad si el color es un texto
     if (typeof colors === 'string') {
         return (colors + OPACITIES[colorOpacity])
@@ -305,7 +324,12 @@ const mapOpacities = (colors, colorOpacity) => {
     }
 }
 
-const mapColors = (series, colors, colorType) => {
+const mapColors = ({
+    series,
+    colors,
+    colorType
+}) => {
+
     if (series.datasets.length === 1) {
         series.datasets[0][colorType] = colors
 
