@@ -1,5 +1,5 @@
 import axios from "axios"
-import { DOMAINS } from "../constants/backendDomains"
+import { domains } from "../settings/backendDomains"
 import { defaultDomain } from "../data/appConfig"
 
 export const getChartData = async (
@@ -14,7 +14,7 @@ export const getChartData = async (
     }
 
     // Se obtiene la información desde el API
-    const response = await axios.get(`${DOMAINS[domain]}${endpoint}`)
+    const response = await axios.get(`${domains[domain]}${endpoint}`)
     // Se retorna la información transformada
     stateSetter(response.data)
 }
