@@ -6,3 +6,10 @@ export const CHART_TYPES = {
     POLARAREA: 'polar area',
     RADAR: 'radar'
 }
+
+export const CHARTS_WITHOUT_AXES = [
+    CHART_TYPES.PIE,
+    CHART_TYPES.DOUGHNUT,
+    CHART_TYPES.POLARAREA,
+    CHART_TYPES.RADAR,
+]

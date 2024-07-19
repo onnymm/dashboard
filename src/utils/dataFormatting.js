@@ -1,3 +1,8 @@
+import { CHART_TYPES, CHARTS_WITHOUT_AXES } from "../constants/charts";
+import { OPACITIES, PRESET_COLORS } from "../constants/colors";
+import { CHARTS_SETTINGS } from "../constants/settings";
+import { chartSettings } from "../settings/dashboardSettings";
+
 export const buildInitSeries = ({
     data,
     strat,
@@ -37,6 +42,114 @@ export const buildInitSeries = ({
 
     // Retorno del contenedor de datos
     return series
+}
+
+export const buildOptions = ({
+    chartType,
+    labelsContainerID,
+    aspectRatio = chartSettings[CHARTS_SETTINGS.ASPECT_RATIO],
+    labelsDisplay = chartSettings[CHARTS_SETTINGS.LABELS_DISPLAY],
+    labelsList = chartSettings[CHARTS_SETTINGS.LABELS_LIST],
+    legendBox = chartSettings[CHARTS_SETTINGS.LEGEND_BOX],
+}) => {
+
+    // Inicialización del objeto a retornar
+    const options = {}
+
+    // Inicialización de atributos preestablecidos de opciones
+    options.scales = {}
+    options.scales.x = {}
+    options.scales.y = {}
+    options.scales.x.ticks = {}
+    options.scales.y.ticks = {}
+
+    // Configuración preestablecida para gráficas radiales
+    if ( Object.values(CHARTS_WITHOUT_AXES).indexOf(chartType) !== -1 ) {
+        options.scales.x.display = false
+        options.scales.y.display = false
+    }
+
+    // Configuración de relación de aspecto
+    options.aspectRatio = aspectRatio 
+
+    // Integración de plugins
+    options.plugins = {
+
+        // Plug-in para etiquetas desacopladas de la gráfica
+        htmlLegend: {
+            containerID: labelsContainerID
+        },
+        
+        // Desactivación de muestra de etiquetas integradas en la gráfica
+        legend: {
+            display: false,
+        }
+    }
+
+    // Inicialización de objeto de extensión de opciones para uso de este proyecto
+    options.extension = {}
+
+    const legendParams = {
+        labelsDisplay,
+        labelsList,
+        legendBox
+    }
+
+    // Integración de parámetros personalizados de la gráfica en caso de ser provistos
+    Object.keys(legendParams).forEach(
+        (paramsKey) => {
+            if ( legendParams ) {
+                options.extension[paramsKey] = legendParams[paramsKey]
+            }
+        }
+    )
+
+    // Retorno del objeto de configuración
+    return options
+}
+
+export const mapColorsOnSeries = ({
+    series,
+    chartType,
+    backgroundColors,
+    backgroundOpacity,
+    borderColors,
+    borderOpacity
+}) => {
+    if ( chartType === CHART_TYPES.POLARAREA && !backgroundOpacity ) {
+        backgroundOpacity = 75;
+    }
+    if ( (chartType === CHART_TYPES.PIE || chartType === CHART_TYPES.DOUGHNUT) && !borderColors ) {
+        borderColors = PRESET_COLORS.LIGHT_MODE;
+    }
+    if ( chartType === CHART_TYPES.POLARAREA && !borderColors ) {
+        borderColors = PRESET_COLORS.BLACK;
+        borderOpacity = 0;
+    }
+
+    series = colorMapping({series, backgroundColors, backgroundOpacity, borderColors, borderOpacity, chartType})
+
+    return series
+}
+
+export const formatLabels = ({
+    series,
+    options,
+    xLabelsFormatter,
+    yLabelsFormatter
+}) => {
+
+    // Formateo de etiquetas en el eje X
+    if ( xLabelsFormatter ) {
+        series.labels = series.labels.map((value) => xLabelsFormatter(value))
+    }
+    // Formateo de etiquetas en el eje Y
+    if ( yLabelsFormatter ) {
+        options.scales.y.ticks.callback = yLabelsFormatter
+    }
+
+    // Retorno de los conjuntos de datos y objeto de opciones
+    return [ series, options ]
 }
 
 const stratificateData = (data, categoryName, datasetNames, labelsName) => {
@@ -128,4 +241,71 @@ const getLabels = (data, labelsName) => {
 
     // Retorno de la matriz de etiquetas
     return labels
+}
+
+const colorMapping = ({
+    series,
+    backgroundColors,
+    backgroundOpacity,
+    borderColors,
+    borderOpacity,
+    chartType,
+}) => {
+    // Mapeo de opacidad a los colores de fondo
+    if (backgroundOpacity) {
+        backgroundColors = mapOpacities(backgroundColors, backgroundOpacity)
+    }
+    if (borderOpacity !== undefined) {
+        borderColors = mapOpacities(borderColors, borderOpacity)
+    }
+
+    // Mapeo de colores a los conjuntos de datos
+    if (backgroundColors) {
+        series = mapColors(series, backgroundColors, 'backgroundColor')
+    }
+    if (borderColors !== undefined) {
+        series = mapColors(series, borderColors, 'borderColor')
+    }
+
+    // Activación de color de fondo para gráficas de línea y radar
+    if ( (chartType === CHART_TYPES.LINE || chartType === CHART_TYPES.RADAR) && backgroundColors ) {
+        // Activación por dataset
+        series.datasets.forEach(
+            (dataset) => dataset.fill = 'origin'
+        )
+    }
+
+    return series
+}
+
+const mapOpacities = (colors, colorOpacity) => {
+    // Concatenación de la opacidad si el color es un texto
+    if (typeof colors === 'string') {
+        return (colors + OPACITIES[colorOpacity])
+    
+    // Concatenación de la opacidad a cada uno de los valores de la matriz
+    } else {
+        return (colors.map(bgColor => bgColor + OPACITIES[colorOpacity]))
+    }
+}
+
+const mapColors = (series, colors, colorType) => {
+    if (series.datasets.length === 1) {
+        series.datasets[0][colorType] = colors
+
+    // Mapeo de paleta de colores a varios conjuntos de datos
+    } else if (colors.length > 1) {
+        for (let i = 0; i < series.datasets.length; i++) {
+            series.datasets[i][colorType] = colors[i]
+        }
+
+    // Mapeo de color a varios conjuntos de datos
+    } else {
+        for (let i = 0; i < series.datasets.length; i++) {
+            series.datasets[i][colorType] = colors
+        }
+    }
+
+    // Retorno de los datos con colores mapeados
+    return series;
 }

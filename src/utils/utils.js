@@ -1,7 +1,5 @@
-import { CHART_TYPES } from "../constants/charts";
-import { PRESET_COLORS, OPACITIES } from "../constants/colors";
 import { CHARTS_SETTINGS } from "../constants/settings";
-import { buildInitSeries } from "./dataFormatting";
+import { buildInitSeries, buildOptions, formatLabels, mapColorsOnSeries } from "./dataFormatting";
 
 export const buildData = ({
     data, // Objeto de datos retornado del API
@@ -16,6 +14,7 @@ export const buildData = ({
     [CHARTS_SETTINGS.BORDER_OPACITY]: borderOpacity = undefined, // Opacidad de los colores de borde
 
     // Argumentos opcionales
+    [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio = undefined, // Formateo en las etiquetas del eje X
     [CHARTS_SETTINGS.X_AXIS_FORMAT]: xLabelsFormatter = undefined, // Formateo en las etiquetas del eje X
     [CHARTS_SETTINGS.Y_AXIS_FORMAT]: yLabelsFormatter = undefined, // Formateo los valores del eje Y,
     [CHARTS_SETTINGS.CATEGORY_STRATIFICATION_BY]: strat = undefined, // Variable de estratificación
@@ -28,41 +27,16 @@ export const buildData = ({
     let series = buildInitSeries({ data, strat, datasetNames, labelsName, labels })
 
     // Mapeo de colores y opacidades preestablecidos a los conjuntos de datos
-    if ( chartType === CHART_TYPES.POLARAREA && !backgroundOpacity ) {
-        backgroundOpacity = 75;
-    }
-    if ( (chartType === CHART_TYPES.PIE || chartType === CHART_TYPES.DOUGHNUT) && !borderColors ) {
-        borderColors = PRESET_COLORS.LIGHT_MODE;
-    }
-    if ( chartType === CHART_TYPES.POLARAREA && !borderColors ) {
-        borderColors = PRESET_COLORS.BLACK;
-        borderOpacity = 0;
-    }
-
-    series = _colorMapping({series, backgroundColors, backgroundOpacity, borderColors, borderOpacity, chartType})
-
-    // Configuración con argumentos opcionales
-
-    const legendParams = {
-        labelsDisplay,
-        labelsList,
-        legendBox
-    }
+    series = mapColorsOnSeries({ series, chartType, backgroundColors, backgroundOpacity, borderColors, borderOpacity })
 
     // Inicialización del contenedor de opciones
-    const options = _optionsBuilder(chartType, labelsContainerID, legendParams);
+    let options = buildOptions({ chartType, labelsContainerID, aspectRatio, labelsDisplay, labelsList, legendBox });
 
-    // Formateo de etiquetas en el eje X
-    if ( xLabelsFormatter ) {
-        series.labels = series.labels.map((value) => xLabelsFormatter(value))
-    }
-    // Formateo de etiquetas en el eje Y
-    if ( yLabelsFormatter ) {
-        options.scales.y.ticks.callback = yLabelsFormatter
-    }
+    // Formateo de etiquetas en la gráfica
+    [ series, options ] = formatLabels({ series, options, xLabelsFormatter, yLabelsFormatter })
 
     // Retorno del objeto a ingresar al componente de graficación
-    return { options, series }
+    return { series, options }
 }
 
 export const dataFormatters = {
@@ -78,128 +52,4 @@ export const dataFormatters = {
     snakeToCamel: (str) => str.replace(/_([a-z])/g, (match, p1) => p1.toUpperCase()),
     // Cualquiera a Camel Case
     anyToCamel: (str) => str.toLowerCase().replace(/[\s_-]([a-z])/g, (match, p1) => p1.toUpperCase())
-}
-
-const _optionsBuilder = (chartType, labelsContainerID, legendParams) => {
-    // Gráficas radiales
-    const chartsWithoutAxes = [
-        CHART_TYPES.PIE,
-        CHART_TYPES.DOUGHNUT,
-        CHART_TYPES.POLARAREA,
-        CHART_TYPES.RADAR,
-    ]
-
-    // Inicialización del objeto a retornar
-    const options = {}
-
-    // Inicialización de atributos preestablecidos de opciones
-    options.scales = {}
-    options.scales.x = {}
-    options.scales.y = {}
-    options.scales.x.ticks = {}
-    options.scales.y.ticks = {}
-
-    // Configuración preestablecida para gráficas radiales
-    if ( Object.values(chartsWithoutAxes).indexOf(chartType) !== -1 ) {
-        options.scales.x.display = false
-        options.scales.y.display = false
-    }
-
-    // Configuración de relación de aspecto
-    options.aspectRatio = 1.5
-
-    // Integración de plugins
-    options.plugins = {
-
-        // Plug-in para etiquetas desacopladas de la gráfica
-        htmlLegend: {
-            containerID: labelsContainerID
-        },
-        // Desactivación de muestra de etiquetas integradas en la gráfica
-        legend: {
-            display: false,
-        }
-    }
-
-    // Inicialización de objeto de extensión de opciones para uso de este proyecto
-    options.extension = {}
-
-    // Integración de parámetros personalizados de la gráfica en caso de ser provistos
-    Object.keys(legendParams).forEach(
-        (paramsKey) => {
-            if ( legendParams ) {
-                options.extension[paramsKey] = legendParams[paramsKey]
-            }
-        }
-    )
-
-    // Retorno del objeto de configuración
-    return options
-}
-
-const _colorMapping = ({
-    series,
-    backgroundColors,
-    backgroundOpacity,
-    borderColors,
-    borderOpacity,
-    chartType,
-}) => {
-    // Mapeo de opacidad a los colores de fondo
-    if (backgroundOpacity) {
-        backgroundColors = _mapOpacities(backgroundColors, backgroundOpacity)
-    }
-    if (borderOpacity !== undefined) {
-        borderColors = _mapOpacities(borderColors, borderOpacity)
-    }
-
-    // Mapeo de colores a los conjuntos de datos
-    if (backgroundColors) {
-        series = _mapColors(series, backgroundColors, 'backgroundColor')
-    }
-    if (borderColors !== undefined) {
-        series = _mapColors(series, borderColors, 'borderColor')
-    }
-
-    // Activación de color de fondo para gráficas de línea y radar
-    if ( (chartType === CHART_TYPES.LINE || chartType === CHART_TYPES.RADAR) && backgroundColors ) {
-        // Activación por dataset
-        series.datasets.forEach(
-            (dataset) => dataset.fill = 'origin'
-        )
-    }
-
-    return series
-}
-
-const _mapOpacities = (colors, colorOpacity) => {
-    // Concatenación de la opacidad si el color es un texto
-    if (typeof colors === 'string') {
-        return (colors + OPACITIES[colorOpacity])
-    
-    // Concatenación de la opacidad a cada uno de los valores de la matriz
-    } else {
-        return (colors.map(bgColor => bgColor + OPACITIES[colorOpacity]))
-    }
-}
-
-const _mapColors = (series, colors, colorType) => {
-    if (series.datasets.length === 1) {
-        series.datasets[0][colorType] = colors
-
-    // Mapeo de paleta de colores a varios conjuntos de datos
-    } else if (colors.length > 1) {
-        for (let i = 0; i < series.datasets.length; i++) {
-            series.datasets[i][colorType] = colors[i]
-        }
-
-    // Mapeo de color a varios conjuntos de datos
-    } else {
-        for (let i = 0; i < series.datasets.length; i++) {
-            series.datasets[i][colorType] = colors
-        }
-    }
-
-    // Retorno de los datos con colores mapeados
-    return series;
 }
