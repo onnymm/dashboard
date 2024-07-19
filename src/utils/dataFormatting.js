@@ -1,6 +1,6 @@
 import { CHART_TYPES, CHARTS_WITHOUT_AXES } from "../constants/charts";
-import { OPACITIES, PRESET_COLORS } from "../constants/colors";
-import { CHARTS_SETTINGS } from "../constants/settings";
+import { OPACITIES } from "../constants/colors";
+import { CHARTS_SERIES_SETTINGS, CHARTS_SETTINGS } from "../constants/settings";
 import { chartSettings } from "../settings/dashboardSettings";
 
 export const buildInitSeries = ({
@@ -116,20 +116,26 @@ export const mapColorsOnSeries = ({
     borderColors,
     borderOpacity
 }) => {
+
+    // Asignación de opacidad de colores de fondo para gráficas de área polar
     if ( chartType === CHART_TYPES.POLARAREA && !backgroundOpacity ) {
-        backgroundOpacity = 75;
+        backgroundOpacity = chartSettings[CHART_TYPES.POLARAREA][CHARTS_SETTINGS.BACKGROUND_OPACITY];
     }
+
+    // Asignación de colores de borde para gráficas circulares
     if ( (chartType === CHART_TYPES.PIE || chartType === CHART_TYPES.DOUGHNUT) && !borderColors ) {
-        borderColors = PRESET_COLORS.LIGHT_MODE;
+        borderColors = chartSettings.circularCharts[CHARTS_SETTINGS.BORDER_COLORS];
     }
+
+    // Asignación de opacidades y colores de borde para gráficas de área polar
     if ( chartType === CHART_TYPES.POLARAREA && !borderColors ) {
-        borderColors = PRESET_COLORS.BLACK;
-        borderOpacity = 0;
+        borderColors = backgroundColors; // Asignación de mismos colores de fondo para colores de borde
+        borderOpacity = chartSettings[CHART_TYPES.POLARAREA][CHARTS_SETTINGS.BORDER_OPACITY];
     }
 
-    series = colorMapping({series, backgroundColors, backgroundOpacity, borderColors, borderOpacity, chartType})
+    series = colorMapping({ series, backgroundColors, backgroundOpacity, borderColors, borderOpacity, chartType });
 
-    return series
+    return series;
 }
 
 export const formatLabels = ({
@@ -251,27 +257,33 @@ const colorMapping = ({
     borderOpacity,
     chartType,
 }) => {
+    // Variables booleanas
+    const isFillableChart = chartType === CHART_TYPES.LINE || chartType === CHART_TYPES.RADAR
+
     // Mapeo de opacidad a los colores de fondo
-    if (backgroundOpacity) {
+    if ( backgroundOpacity ) {
         backgroundColors = mapOpacities(backgroundColors, backgroundOpacity)
     }
-    if (borderOpacity !== undefined) {
+    if ( borderOpacity ) {
         borderColors = mapOpacities(borderColors, borderOpacity)
     }
 
     // Mapeo de colores a los conjuntos de datos
-    if (backgroundColors) {
-        series = mapColors(series, backgroundColors, 'backgroundColor')
+    if ( backgroundColors ) {
+        series = mapColors(series, backgroundColors, CHARTS_SERIES_SETTINGS.BACKGROUND_COLOR)
     }
-    if (borderColors !== undefined) {
-        series = mapColors(series, borderColors, 'borderColor')
+    if ( borderColors ) {
+        series = mapColors(series, borderColors, CHARTS_SERIES_SETTINGS.BORDER_COLOR)
     }
 
+    
     // Activación de color de fondo para gráficas de línea y radar
-    if ( (chartType === CHART_TYPES.LINE || chartType === CHART_TYPES.RADAR) && backgroundColors ) {
+    if ( isFillableChart && backgroundColors ) {
         // Activación por dataset
         series.datasets.forEach(
-            (dataset) => dataset.fill = 'origin'
+            (dataset) => {
+                dataset.fill = chartSettings.fillableCharts[CHARTS_SERIES_SETTINGS.FILL]
+            }
         )
     }
 
@@ -285,7 +297,11 @@ const mapOpacities = (colors, colorOpacity) => {
     
     // Concatenación de la opacidad a cada uno de los valores de la matriz
     } else {
-        return (colors.map(bgColor => bgColor + OPACITIES[colorOpacity]))
+        return (
+            colors.map(
+                (bgColor) => (bgColor + OPACITIES[colorOpacity])
+            )
+        )
     }
 }
 

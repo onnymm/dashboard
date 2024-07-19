@@ -34,3 +34,9 @@ export const CHARTS_SETTINGS = {
     // Apariencia de la caja de la etiqueta
     LEGEND_BOX: "legendBox"
 }
+
+export const CHARTS_SERIES_SETTINGS = {
+    BACKGROUND_COLOR: "backgroundColor",
+    BORDER_COLOR: "borderColor",
+    FILL: 'fill',
+}
