@@ -15,6 +15,7 @@ export const buildData = ({
 
     // Argumentos opcionales
     [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio = undefined, // Formateo en las etiquetas del eje X
+    [CHARTS_SETTINGS.Y_VALUE_TYPE]: yValueType,
     [CHARTS_SETTINGS.X_AXIS_FORMAT]: xLabelsFormatter = undefined, // Formateo en las etiquetas del eje X
     [CHARTS_SETTINGS.Y_AXIS_FORMAT]: yLabelsFormatter = undefined, // Formateo los valores del eje Y,
     [CHARTS_SETTINGS.CATEGORY_STRATIFICATION_BY]: strat = undefined, // Variable de estratificación
@@ -33,7 +34,7 @@ export const buildData = ({
     let options = buildOptions({ chartType, labelsContainerID, aspectRatio, labelsDisplay, labelsList, legendBox });
 
     // Formateo de etiquetas en la gráfica
-    [ series, options ] = formatLabels({ series, options, xLabelsFormatter, yLabelsFormatter })
+    [ series, options ] = formatLabels({ chartType, series, options, xLabelsFormatter, yLabelsFormatter, yValueType })
 
     // Retorno del objeto a ingresar al componente de graficación
     return { series, options }
@@ -52,4 +53,17 @@ export const dataFormatters = {
     snakeToCamel: (str) => str.replace(/_([a-z])/g, (match, p1) => p1.toUpperCase()),
     // Cualquiera a Camel Case
     anyToCamel: (str) => str.toLowerCase().replace(/[\s_-]([a-z])/g, (match, p1) => p1.toUpperCase())
+}
+
+export const valueTypesFormats = {
+    monetary: {
+        raw: (num) => (num.toLocaleString('es-MX', {style: 'currency', currency: 'MXN'})),
+        toThousands: (num) => (`$${num / 1000} K`),
+        toMillions: (num) => (`$${num / 1000000} M`),
+    },
+    numeric: {
+        raw: (num) => (num),
+        toThousands: (num) => (`${num / 1000} K`),
+        toMillions: (num) => (`${num / 1000000} M`),
+    }
 }

@@ -21,6 +21,8 @@ export const CHARTS_SETTINGS = {
     BORDER_OPACITY: "borderOpacity",
     // Relación de aspecto
     ASPECT_RATIO: "aspectRatio",
+    // Tipo de valor en el eje Y
+    Y_VALUE_TYPE: 'yValueType',
     // Formateo de etiquetas en el eje X
     X_AXIS_FORMAT: "xLabelsFormatter",
     // Formato de etiquetas en el eje Y
@@ -32,7 +34,7 @@ export const CHARTS_SETTINGS = {
     // Orientación y alineación de cada contenedor de etiqueta
     LABELS_LIST: "labelsList",
     // Apariencia de la caja de la etiqueta
-    LEGEND_BOX: "legendBox"
+    LEGEND_BOX: "legendBox",
 }
 
 export const CHARTS_SERIES_SETTINGS = {

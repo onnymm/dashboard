@@ -1,7 +1,9 @@
-import { CHART_TYPES, CHARTS_WITHOUT_AXES } from "../constants/charts";
+import { CHART_TYPES, CHARTS_WITH_AXES, CHARTS_WITHOUT_AXES } from "../constants/charts";
 import { OPACITIES } from "../constants/colors";
 import { CHARTS_SERIES_SETTINGS, CHARTS_SETTINGS } from "../constants/settings";
 import { chartSettings } from "../settings/dashboardSettings";
+import { chartWithAxesFormat } from "./tooltipFormatting";
+import { valueTypesFormats } from "./utils";
 
 export const buildInitSeries = ({
     data,
@@ -84,7 +86,9 @@ export const buildOptions = ({
         // Desactivación de muestra de etiquetas integradas en la gráfica
         legend: {
             display: false,
-        }
+        },
+
+        tooltip: {}
     }
 
     // Inicialización de objeto de extensión de opciones para uso de este proyecto
@@ -140,11 +144,18 @@ export const mapColorsOnSeries = ({
 }
 
 export const formatLabels = ({
+    chartType,
     series,
     options,
     xLabelsFormatter,
-    yLabelsFormatter
+    yLabelsFormatter,
+    yValueType
 }) => {
+
+    // Asignación de tipo de formateo por valores en el eje Y si el tipo de gráfica soporta ejes
+    if ( CHARTS_WITH_AXES.indexOf(chartType) !== -1 ) {
+        yLabelsFormatter = assignYLabelsFormatter({series, yValueType})
+    }
 
     // Formateo de etiquetas en el eje X
     if ( xLabelsFormatter ) {
@@ -155,8 +166,65 @@ export const formatLabels = ({
         options.scales.y.ticks.callback = yLabelsFormatter
     }
 
+    // Formateo de etiquetas en el tooltip
+    options = formatTooltipLabels({chartType, options, yValueType})
+
     // Retorno de los conjuntos de datos y objeto de opciones
     return [ series, options ]
+}
+
+const assignYLabelsFormatter = ({
+    series,
+    yValueType
+}) => {
+    // Creación de contenedor de número mayor
+    let maxNumber = 0;
+
+    // Iteración de conjuntos de datos
+    series.datasets.forEach(
+        (dataset) => {
+            // Iteración por cada valor de cada conjunto de datos
+            dataset.data.forEach(
+                (value) => {
+                    // Búsqueda del número mayor en todos los conjuntos de datos de la gráfica
+                    if (value > maxNumber ) {
+                        maxNumber = value
+                    }
+                }
+            )
+        }
+    )
+
+    // Asignación de abreviación por millones
+    if ( maxNumber >= 1000000 ) {
+        return valueTypesFormats[yValueType].toMillions
+
+    // Asignación de abreviación por miles
+    } else if ( maxNumber >= 3000 ) {
+        return valueTypesFormats[yValueType].toThousands
+    
+    // Formateo por defecto
+    } else {
+        return valueTypesFormats[yValueType].raw
+    }
+}
+
+const formatTooltipLabels = ({
+    chartType,
+    options,
+    yValueType
+}) => {
+
+    // Inicialización de objeto
+    options.plugins.tooltip.callbacks = {}
+
+    // Formateo de valores de etiquetas si el tipo de gráfica soporta ejes
+    if ( CHARTS_WITH_AXES.indexOf(chartType) !== -1 ) {
+        // Asignación de formateo
+        options.plugins.tooltip.callbacks.label = chartWithAxesFormat(yValueType)
+    }
+
+    return options
 }
 
 const stratificateData = ({

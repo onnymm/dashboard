@@ -7,6 +7,11 @@ export const CHART_TYPES = {
     RADAR: 'radar'
 }
 
+export const CHARTS_WITH_AXES = [
+    CHART_TYPES.BAR,
+    CHART_TYPES.LINE,
+]
+
 export const CHARTS_WITHOUT_AXES = [
     CHART_TYPES.PIE,
     CHART_TYPES.DOUGHNUT,
