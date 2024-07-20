@@ -1,5 +1,5 @@
 import { CHARTS_SETTINGS } from "../constants/settings";
-import { buildInitSeries, buildOptions, formatLabels, mapColorsOnSeries } from "./dataFormatting";
+import { buildInitSeries, buildOptions, formatLabels, mapColorsOnSeries, scaleAxes } from "./dataFormatting";
 
 export const buildData = ({
     data, // Objeto de datos retornado del API
@@ -32,9 +32,12 @@ export const buildData = ({
 
     // Inicialización del contenedor de opciones
     let options = buildOptions({ chartType, labelsContainerID, aspectRatio, labelsDisplay, labelsList, legendBox });
-
+    
     // Formateo de etiquetas en la gráfica
     [ series, options ] = formatLabels({ chartType, series, options, xLabelsFormatter, yLabelsFormatter, yValueType })
+    
+    // Formateo de escalas en ejes
+    options = scaleAxes({ series, options });
 
     // Retorno del objeto a ingresar al componente de graficación
     return { series, options }

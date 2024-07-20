@@ -173,6 +173,17 @@ export const formatLabels = ({
     return [ series, options ]
 }
 
+export const scaleAxes = ({
+    series,
+    options
+}) => {
+
+    // Prevención de corte en el eje Y
+    options = avoidYAxisCut({series, options})
+
+    return options
+}
+
 const assignYLabelsFormatter = ({
     series,
     yValueType
@@ -416,4 +427,34 @@ const mapColors = ({
 
     // Retorno de los datos con colores mapeados
     return series;
+}
+
+const avoidYAxisCut = ({
+    series,
+    options
+}) => {
+
+    // Inicialización del número menor
+    let minNumber = 0
+
+    // Iteración por cada conjunto de datos de la gráfica
+    series.datasets.forEach(
+        // Iteración por cada valor de cada conjunto de datos
+        (dataset) => dataset.data.forEach(
+            (value) => {
+                // Búsqueda del número menor
+                if ( value < minNumber ) {
+                    minNumber = value
+                }
+            }
+        )
+    )
+
+    // Asignación de la etiqueta mínima en el eje Y en 0 si el número menor no es negativo
+    if ( !(minNumber < 0) ) {
+        options.scales.y.min = 0
+    }
+
+    // Retorno del objeto de opciones
+    return options
 }
