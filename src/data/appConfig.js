@@ -179,12 +179,13 @@ export const links = [
 		id: 1,
 		icon: 'user',
 		label: 'Profile',
-		route: ''
+		route: 'profile'
 	},
 	{
 		id: 2,
 		icon: 'face_frown',
-		label: 'IRS receipts'
+		label: 'IRS receipts',
+		route: ''
 	}
 ]
 

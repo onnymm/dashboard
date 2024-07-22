@@ -1,8 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom'
 import App from '../App'
-import Dashboard from '../components/pages//Dashboard'
-import Analytics from '../components/pages/Analytics'
-import Ecommerce from '../components/pages/Ecommerce'
+import Analytics from '../components/pages/analytics/Analytics'
+import Ecommerce from '../components/pages/ecommerce/Ecommerce'
+import Profile from '../components/pages/profile/Profile'
 
 const Router = createBrowserRouter([
 	{
@@ -10,8 +10,8 @@ const Router = createBrowserRouter([
 		element: <App />,
 		children: [
 			{
-				path: 'dashboard',
-				element: <Dashboard />
+				path: 'profile',
+				element: <Profile />
 			},
 			{
 				path: 'ecommerce',
