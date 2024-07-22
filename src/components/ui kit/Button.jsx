@@ -10,7 +10,7 @@ const Button = ({ icon: Icon, isActive, setIsActive }) => {
 
 	return (
 		<button
-			className={`${isAnimating && 'animate-button-click'} mb-1 flex size-7 justify-center rounded-full border-black shadow-darkmode-switch-s transition dark:bg-navbar-icons-background-d`}
+			className={`${isAnimating && 'animate-button-click'} mb-0.5 flex size-7 justify-center rounded-full border-black shadow-darkmode-switch-s transition dark:bg-navbar-icons-background-d`}
 			onAnimationEnd={() => setIsAnimating(false)}
 			onClick={() => handleClick()}
 		>
