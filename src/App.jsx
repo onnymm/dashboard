@@ -5,7 +5,6 @@ import { AppContext } from './contexts/AppContexts'
 
 const App = () => {
 	const [sidebarIsOpen, setSidebarIsOpen] = useState(false)
-	const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
 	return (
 		<div className='relative h-screen overflow-y-auto overflow-x-hidden'>

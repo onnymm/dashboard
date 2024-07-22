@@ -20,10 +20,10 @@ const GridStuff = ({ icon: Icon, amount, label, percent, gain }) => {
 				: 'dark:text-white opacity-70'
 
 	return (
-		<div className='col-span-12 h-40 w-full rounded bg-white px-7 py-6 shadow-md transition duration-300 dark:bg-slate-950 sm:col-span-6 lg:col-span-3'>
+		<div className='col-span-12 h-40 w-full rounded bg-white px-7 py-6 shadow-md transition duration-300 dark:bg-navbar-background-d sm:col-span-6 lg:col-span-3'>
 			{Icon && (
 				<div className='mb-3 flex'>
-					<div className='rounded-full bg-slate-100 p-3 transition duration-300 dark:bg-slate-900'>
+					<div className='dark: rounded-full bg-slate-100 p-3 opacity-80 transition dark:bg-navbar-icons-background-d'>
 						<Icon className='size-8 text-blue-500' />
 					</div>
 				</div>
