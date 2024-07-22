@@ -33,13 +33,15 @@ const Sidebar = () => {
 
 	return (
 		<>
-			<div ref={domNode} className='flex'>
-				<SidebarToggle
-					sidebarIsOpen={isSidebarOpen}
-					setSidebarOpen={setSidebarOpen}
-				/>
+			<div ref={domNode} className='relative flex'>
+				<div className='z-10 flex'>
+					<SidebarToggle
+						sidebarIsOpen={isSidebarOpen}
+						setSidebarOpen={setSidebarOpen}
+					/>
+				</div>
 				<aside
-					className={`${!isSidebarOpen ? '-translate-x-72' : 'translate-x-0'} fixed z-40 flex h-screen w-72 select-none flex-col bg-sidebar-background transition duration-500 dark:bg-sidebar-background-d`}
+					className={`${!isSidebarOpen ? '-translate-x-72' : 'translate-x-0'} fixed flex h-screen w-72 select-none flex-col bg-sidebar-background transition duration-500 dark:bg-sidebar-background-d`}
 				>
 					<div className='flex h-20'></div>
 					<SidebarContent />
