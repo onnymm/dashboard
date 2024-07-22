@@ -1,26 +1,36 @@
-import { useContext } from "react"
-import { AppContext } from "../../contexts/AppContexts"
+import { Bars3Icon } from '@heroicons/react/24/outline'
+import { NavLink } from 'react-router-dom'
 
-const SidebarToggle = () => {
-	const {sidebarIsOpen, setSidebarIsOpen} = useContext(AppContext)
-
+const SidebarToggle = ({ sidebarIsOpen, setSidebarOpen }) => {
 	return (
+		<div className='flex items-center'>
 			<div
-				className={`${sidebarIsOpen ? 'w-16 md:w-72' : 'w-16'} z-50 flex h-20 items-center transition-width duration-500`}
+				className={`${sidebarIsOpen ? 'w-72' : 'w-40'} z-50 transition-width duration-500`}
 			>
-				<button>
+				<NavLink className='flex items-center'>
 					<img
 						src='./logo.png'
 						draggable='false'
-						onClick={() => setSidebarIsOpen(!sidebarIsOpen)}
-						className='ml-5 mr-1 size-12'
+						className='ml-5 mr-1 size-10'
 						style={{
 							transition: 'transform 0.4s ease',
 							transform: sidebarIsOpen ? 'rotate(50deg)' : 'rotate(0deg)'
 						}}
 					/>
-				</button>
+					<span
+						className={`${!sidebarIsOpen ? 'text-black' : 'text-white'} text-2xl font-medium opacity-90 transition duration-500 dark:text-white`}
+					>
+						iaCele
+					</span>
+				</NavLink>
 			</div>
+			<button
+				className='mx-4 size-8 rounded-sm p-1 transition duration-500 dark:text-white'
+				onClick={() => setSidebarOpen(!sidebarIsOpen)}
+			>
+				<Bars3Icon />
+			</button>
+		</div>
 	)
 }
 
