@@ -10,12 +10,14 @@ import SidebarSection from './SidebarSection'
 
 const SIDEBAR_DROPDOWNS = [
 	{
+		id: 1,
 		icon: Squares2X2Icon,
 		label: 'Dashboard',
 		content: SIDEBAR_LINKS,
 		height: 'h-16'
 	},
 	{
+		id: 2,
 		icon: ListBulletIcon,
 		label: 'Tasks',
 		height: ''
@@ -33,7 +35,7 @@ const SidebarContent = () => {
 				data={SIDEBAR_DROPDOWNS}
 				name='Dropdowns'
 			/>
-			<SidebarSection icon={UserIcon}>Profile</SidebarSection>
+			<SidebarSection icon={UserIcon} label='Profile' route='profile'/>
 		</div>
 	)
 }

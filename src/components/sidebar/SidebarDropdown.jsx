@@ -24,7 +24,7 @@ const SidebarDropdown = ({ icon: Icon, label, content, height }) => {
 	return (
 		<>
 			<div
-				className={`${isOnPath ? 'bg-sidebar-section-hover' : ''} flex cursor-pointer items-center px-5 py-2 text-white transition duration-300 hover:bg-sidebar-section-hover dark:hover:bg-sidebar-section-hover-d`}
+				className={`${isOnPath ? 'bg-sidebar-section-hover shadow-md' : ''} mb-1 hover:shadow-md flex cursor-pointer items-center px-5 py-2 text-white transition duration-300 hover:bg-sidebar-section-hover dark:hover:bg-sidebar-section-hover-d`}
 				onClick={() => setIsOpen(!isOpen)}
 			>
 				<div className='flex gap-2'>
