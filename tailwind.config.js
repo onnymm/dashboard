@@ -9,7 +9,7 @@ export default {
 				'sidebar-background': '#162230',
 				'sidebar-section-hover': '#19293C',
 
-				'feed-background': '#CED7DD',
+				'feed-background': '#FFFFFF',
 
 				'navbar-background': '#FFFFFF',
 				'navbar-icons-hover': '#4855F7',
@@ -29,10 +29,27 @@ export default {
 				'darkmode-switch-background-d': '#16212C'
 			},
 			width: {
-				18: '4.5rem'
+				18: '4.5rem',
+				54: '13.5rem'
+			},
+			maxWidth: {
+				'feed-width': '100rem'
 			},
 			height: {
 				4000: '4000px'
+			},
+			margin: {
+				17: '4.25rem'
+			},
+			rotate: {
+				50: '50deg'
+			},
+			zIndex: {
+				9: '9',
+				99: '99',
+				999: '999',
+				9999: '9999',
+				99999: '99999'
 			},
 			boxShadow: {
 				back: '0px 0px 5px 1px rgba(0, 0, 0, 0.2)',
