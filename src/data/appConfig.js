@@ -1,6 +1,5 @@
-import { RED_PALETTE } from '../constants/colors'
 import { CHARTS_SETTINGS } from '../constants/settings'
-import { dataFormatters } from '../utils/utils'
+import { PRESET_COLORS, RED_PALETTE } from '../constants/colors'
 
 // Dominios locales para obtener la información
 export const defaultDomain = 'localdomain'
@@ -17,7 +16,7 @@ export const dashboardData = {
 			[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
 			[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE,
 			[CHARTS_SETTINGS.Y_VALUE_TYPE]: 'monetary',
-			[CHARTS_SETTINGS.X_AXIS_FORMAT]: dataFormatters.onlyName,
+			[CHARTS_SETTINGS.LABELS_FORMAT]: 'only name',
 		},
 		{
 			[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
@@ -30,25 +29,7 @@ export const dashboardData = {
 			[CHARTS_SETTINGS.BACKGROUND_OPACITY]: 50,
 			[CHARTS_SETTINGS.BORDER_COLORS]: RED_PALETTE[3],
 			[CHARTS_SETTINGS.Y_VALUE_TYPE]: 'monetary',
-			[CHARTS_SETTINGS.X_AXIS_FORMAT]: dataFormatters.onlyName,
-		},
-		{
-			[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
-			[CHARTS_SETTINGS.CHART_TYPE]: 'pie',
-			[CHARTS_SETTINGS.NAME]: 'Cotizaciones por vendedora',
-			[CHARTS_SETTINGS.LABELS_NAME]: 'user_name',
-			[CHARTS_SETTINGS.DATASETS_NAMES]: ['amount_untaxed'],
-			[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
-			[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE,
-		},
-		{
-			[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
-			[CHARTS_SETTINGS.CHART_TYPE]: 'doughnut',
-			[CHARTS_SETTINGS.NAME]: 'Cotizaciones por vendedora',
-			[CHARTS_SETTINGS.LABELS_NAME]: 'user_name',
-			[CHARTS_SETTINGS.DATASETS_NAMES]: ['amount_untaxed'],
-			[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
-			[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE,
+			[CHARTS_SETTINGS.LABELS_FORMAT]: 'only name',
 		},
 		{
 			[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
@@ -58,7 +39,29 @@ export const dashboardData = {
 			[CHARTS_SETTINGS.DATASETS_NAMES]: ['amount_untaxed'],
 			[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
 			[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE,
-			[CHARTS_SETTINGS.LABELS_DISPLAY]: 'grid3'
+			[CHARTS_SETTINGS.Y_VALUE_TYPE]: 'monetary',
+			[CHARTS_SETTINGS.LABELS_FORMAT]: 'only name'
+		},
+		{
+			[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
+			[CHARTS_SETTINGS.CHART_TYPE]: 'doughnut',
+			[CHARTS_SETTINGS.NAME]: 'Cotizaciones por vendedora',
+			[CHARTS_SETTINGS.LABELS_NAME]: 'user_name',
+			[CHARTS_SETTINGS.DATASETS_NAMES]: ['amount_untaxed'],
+			[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
+			[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE,
+			[CHARTS_SETTINGS.Y_VALUE_TYPE]: 'monetary',
+		},
+		{
+			[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
+			[CHARTS_SETTINGS.CHART_TYPE]: 'polar area',
+			[CHARTS_SETTINGS.NAME]: 'Cotizaciones por vendedora',
+			[CHARTS_SETTINGS.LABELS_NAME]: 'user_name',
+			[CHARTS_SETTINGS.DATASETS_NAMES]: ['amount_untaxed'],
+			[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
+			[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE,
+			[CHARTS_SETTINGS.LABELS_DISPLAY]: 'grid3',
+			[CHARTS_SETTINGS.Y_VALUE_TYPE]: 'monetary',
 		},
 		{
 			[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
@@ -70,7 +73,8 @@ export const dashboardData = {
 			[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE[3],
 			[CHARTS_SETTINGS.BACKGROUND_OPACITY]: 75,
 			[CHARTS_SETTINGS.BORDER_COLORS]: RED_PALETTE[3],
-			[CHARTS_SETTINGS.X_AXIS_FORMAT]: dataFormatters.onlyName
+			[CHARTS_SETTINGS.Y_VALUE_TYPE]: 'monetary',
+			[CHARTS_SETTINGS.LABELS_FORMAT]: 'only name'
 		},
 		{
 			[CHARTS_SETTINGS.CHART_TYPE]: 'bar',
@@ -113,7 +117,19 @@ export const dashboardData = {
 			[CHARTS_SETTINGS.Y_VALUE_TYPE]: 'monetary',
 			[CHARTS_SETTINGS.CATEGORY_STRATIFICATION_BY]: 'warehouse',
 			[CHARTS_SETTINGS.LEGEND_BOX]: 'square'
-		}
+		},
+		{
+			[CHARTS_SETTINGS.CHART_TYPE]: 'bubble',
+			[CHARTS_SETTINGS.ENDPOINT]: 'products_week',
+			[CHARTS_SETTINGS.LABELS_NAME]: "Hola",
+			[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
+			[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE[3],
+			[CHARTS_SETTINGS.BACKGROUND_OPACITY]: 5,
+			[CHARTS_SETTINGS.BORDER_COLORS]: PRESET_COLORS.WHITE,
+			[CHARTS_SETTINGS.BORDER_OPACITY]: 0,
+			[CHARTS_SETTINGS.Y_VALUE_TYPE]: 'monetary',
+			[CHARTS_SETTINGS.LEGEND_BOX]: 'square',
+		},
 	]
 }
 

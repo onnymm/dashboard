@@ -2,24 +2,24 @@ import { CHARTS_SETTINGS } from "../constants/settings";
 
 export const chartsSettingsOptions = {
     // Orientación y alineación de las etiquetas
-    [CHARTS_SETTINGS.LABELS_DISPLAY]: {
-        list: {
+    [CHARTS_SETTINGS.LABEL_COLUMNS]: {
+        1: {
             display: 'flex',
             flexDirection: 'column'
         },
-        grid2: {
+        2: {
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
         },
-        grid3: {
+        3: {
             display: 'grid',
             gridTemplateColumns: '1fr 1fr 1fr',
         },
-        grid4: {
+        4: {
             display: 'grid',
             gridTemplateColumns: '1fr 1fr 1fr 1fr',
         },
-        grid6: {
+        6: {
             display: 'grid',
             gridTemplateColumns: '1fr 1fr 1fr 1fr',
         },
