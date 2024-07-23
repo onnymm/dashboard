@@ -21,12 +21,10 @@ export const CHARTS_SETTINGS = {
     BORDER_OPACITY: "borderOpacity",
     // Relación de aspecto
     ASPECT_RATIO: "aspectRatio",
-    // Tipo de valor en el eje Y
-    Y_VALUE_TYPE: 'ValueType',
     // Formateo de etiquetas en el eje X
-    LABELS_FORMAT: "labelsFormat",
-    // Formato de etiquetas en el eje Y
-    Y_AXIS_FORMAT: "yLabelsFormatter",
+    X_AXIS_FORMAT: "xAxisFormat",
+    // Tipo de valor en el eje Y
+    Y_AXIS_FORMAT: 'yAxisFormat',
     // Variable categórica de estratificación de un conjunto de datos en varios conjuntos de datos
     CATEGORY_STRATIFICATION_BY: "strat",
     // Orientación y alineación de las etiquetas
