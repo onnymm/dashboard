@@ -15,7 +15,7 @@ const getOrCreateLegendList = (chart, id) => {
             
             // Asignación de estilos al elemento
             const {extension} = chart.config._config.options;
-            labelsContainer = chartStyleSetter(extension, labelsContainer, CHARTS_SETTINGS.LABELS_DISPLAY);
+            labelsContainer = chartStyleSetter(extension, labelsContainer, CHARTS_SETTINGS.LABEL_COLUMNS);
     
             // Se añade la lista al contenedor de etiquetas
             legendContainer.appendChild(labelsContainer);
