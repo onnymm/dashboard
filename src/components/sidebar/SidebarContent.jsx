@@ -1,5 +1,7 @@
 import {
 	ListBulletIcon,
+	LockClosedIcon,
+	LockOpenIcon,
 	Squares2X2Icon,
 	UserIcon
 } from '@heroicons/react/24/outline'
@@ -24,19 +26,31 @@ const SIDEBAR_DROPDOWNS = [
 	}
 ]
 
-const SidebarContent = () => {
+const SidebarContent = ({ sidebarIsLocked, setSidebarIsLocked }) => {
 	return (
-		<div className='no-scrollbar flex flex-col overflow-y-auto rounded-sm p-4'>
-			<span className='px-5 py-3 text-sm font-medium text-white opacity-50'>
-				MENU
-			</span>
-			<List
-				Contains={SidebarDropdown}
-				data={SIDEBAR_DROPDOWNS}
-				name='Dropdowns'
-			/>
-			<SidebarSection icon={UserIcon} label='Profile' route='profile'/>
-		</div>
+		<>
+			<div className='no-scrollbar flex flex-col overflow-y-auto rounded-sm'>
+				<span className='px-5 py-3 text-sm font-medium text-white opacity-50'>
+					MENU
+				</span>
+				<List
+					Contains={SidebarDropdown}
+					data={SIDEBAR_DROPDOWNS}
+					name='Dropdowns'
+				/>
+				<SidebarSection icon={UserIcon} label='Profile' route='profile' />
+			</div>
+			<button
+				className={`${sidebarIsLocked ? 'bg-slate-900 shadow-md dark:bg-sidebar-background' : ''} ml-auto mt-auto hidden rounded-md p-2 text-white transition duration-500 hover:bg-slate-900 hover:shadow-md hover:dark:bg-sidebar-background md:block`}
+				onClick={() => setSidebarIsLocked(!sidebarIsLocked)}
+			>
+				{sidebarIsLocked ? (
+					<LockClosedIcon className='size-5' />
+				) : (
+					<LockOpenIcon className='size-5' />
+				)}
+			</button>
+		</>
 	)
 }
 
