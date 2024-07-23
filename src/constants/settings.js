@@ -22,15 +22,15 @@ export const CHARTS_SETTINGS = {
     // Relación de aspecto
     ASPECT_RATIO: "aspectRatio",
     // Tipo de valor en el eje Y
-    Y_VALUE_TYPE: 'yValueType',
+    Y_VALUE_TYPE: 'ValueType',
     // Formateo de etiquetas en el eje X
-    X_AXIS_FORMAT: "xLabelsFormatter",
+    LABELS_FORMAT: "labelsFormat",
     // Formato de etiquetas en el eje Y
     Y_AXIS_FORMAT: "yLabelsFormatter",
     // Variable categórica de estratificación de un conjunto de datos en varios conjuntos de datos
     CATEGORY_STRATIFICATION_BY: "strat",
     // Orientación y alineación de las etiquetas
-    LABELS_DISPLAY: "labelsDisplay",
+    LABEL_COLUMNS: "labelsDisplay",
     // Orientación y alineación de cada contenedor de etiqueta
     LABELS_LIST: "labelsList",
     // Apariencia de la caja de la etiqueta
@@ -38,7 +38,10 @@ export const CHARTS_SETTINGS = {
 }
 
 export const CHARTS_SERIES_SETTINGS = {
+    // Color de fondo
     BACKGROUND_COLOR: "backgroundColor",
+    // Color de borde
     BORDER_COLOR: "borderColor",
+    // Color de relleno
     FILL: 'fill',
 }

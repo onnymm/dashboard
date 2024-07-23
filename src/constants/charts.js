@@ -4,15 +4,19 @@ export const CHART_TYPES = {
     PIE: 'pie',
     DOUGHNUT: 'doughnut',
     POLARAREA: 'polar area',
-    RADAR: 'radar'
+    RADAR: 'radar',
+    SCATTER: 'scatter',
+    BUBBLE: 'bubble'
 }
 
 export const CHARTS_WITH_AXES = [
     CHART_TYPES.BAR,
     CHART_TYPES.LINE,
+    CHART_TYPES.SCATTER,
+    CHART_TYPES.BUBBLE
 ]
 
-export const CHARTS_WITHOUT_AXES = [
+export const RADIAL_CHARTS = [
     CHART_TYPES.PIE,
     CHART_TYPES.DOUGHNUT,
     CHART_TYPES.POLARAREA,
