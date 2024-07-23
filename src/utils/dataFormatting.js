@@ -1,35 +1,108 @@
-import { CHART_TYPES, CHARTS_WITH_AXES, CHARTS_WITHOUT_AXES } from "../constants/charts";
+import { CHART_TYPES, CHARTS_WITH_AXES, RADIAL_CHARTS } from "../constants/charts";
 import { OPACITIES } from "../constants/colors";
 import { CHARTS_SERIES_SETTINGS, CHARTS_SETTINGS } from "../constants/settings";
 import { chartSettings } from "../settings/dashboardSettings";
 import { chartWithAxesFormat } from "./tooltipFormatting";
-import { valueTypesFormats } from "./utils";
+import { labelsCategoryFormats, labelsValueFormats } from "./utils";
 
-export const buildInitSeries = ({
+export const buildInitSeries = {
+    [CHART_TYPES.BUBBLE]: buildBubbleData,
+    [CHART_TYPES.SCATTER]: buildScatterData,
+    [CHART_TYPES.BAR]: buildGenericData,
+    [CHART_TYPES.LINE]: buildGenericData,
+    [CHART_TYPES.PIE]: buildGenericData,
+    [CHART_TYPES.DOUGHNUT]: buildGenericData,
+    [CHART_TYPES.RADAR]: buildGenericData,
+    [CHART_TYPES.POLARAREA]: buildGenericData,
+}
+
+const buildBubbleData = ({
+    data,
+    labelsName
+}) => {
+
+    // Inicialización de los objetos
+    let series = {}
+    series.datasets = []
+    let datasets
+
+    // Mepeo y transformación de los valores
+    datasets = Object.values(data).map(
+        (values) => {
+            return {
+                x: values[0],
+                y: values[1],
+                _custom: [2]
+            }
+        }
+    );
+    // Se ingresan los datos transformados al objeto de series
+    series.datasets.push(
+        {
+            data: datasets,
+            label: labelsName
+        }
+    );
+    // Se ingresan las etiquetas
+    series.labels = Object.keys(data)
+
+    // Retorno del objeto contenedor de los datos transformados
+    return series
+}
+
+const buildScatterData = ({
+    data,
+    labelsName
+}) => {
+
+    // Inicialización de los objetos
+    let series = {}
+    series.datasets = []
+    let datasets
+
+    // Mepeo y transformación de los valores
+    datasets = Object.values(data).map(
+        (values) => {
+            return {
+                x: values[0],
+                y: values[1],
+            }
+        }
+    );
+    // Se ingresan los datos transformados al objeto de series
+    series.datasets.push(
+        {
+            data: datasets,
+            label: labelsName
+        }
+    );
+    // Se ingresan las etiquetas
+    series.labels = Object.keys(data)
+
+    // Retorno del objeto contenedor de los datos transformados
+    return series
+}
+
+const buildGenericData = ({
     data,
     strat,
     datasetNames,
     labelsName,
     labels
 }) => {
-
-    // Inicialización del contenedor de datos a retornar
-    let series = {};
-    
-    // Se inicializa la matriz de conjuntos de datos
-    series.datasets = [];
-    
-    // Se convierte el objeto de objetos recibido por el API a matriz de objetos
-    data = Object.values(data)
-
     // Inicialización de contenedores de datos y etiquetas
+    let series = {}
+    series.datasets = []
     let datasets
     let renamedLabels
 
+    // Se convierte el objeto de objetos recibido por el API a matriz de objetos
+    data = Object.values(data);
+            
     // Estratificación por variable categórica (Si se requiere)
     if ( strat ) {
         [datasets, renamedLabels] = stratificateData({ data, categoryName: strat, datasetNames, labelsName })
-    // Obtención de un sólo conjunto de datos (Flujo por defecto)
+        // Obtención de un sólo conjunto de datos (Flujo por defecto)
     } else {
         datasets = [ getSingleDataset({ data, labelName: labels[0], varValue: datasetNames[0] }) ]
         renamedLabels = getLabels({ data, labelsName })
@@ -37,39 +110,98 @@ export const buildInitSeries = ({
 
     // Se añade(n) el(los) dataset(s) a la matriz de series
     series.datasets = datasets
-
+    
     // Se asignan los nombres de las etiquetas
-    if (labelsName){
+    if ( labelsName ){
         series.labels = renamedLabels;
     }
 
-    // Retorno del contenedor de datos
     return series
+}
+
+
+
+export const mapColorsOnSeries = ({
+    series,
+    chartType,
+    backgroundColors,
+    backgroundOpacity,
+    borderColors,
+    borderOpacity
+}) => {
+
+    // Validación de tipos de gráfica
+    const isPolarArea = chartType === CHART_TYPES.POLARAREA
+    const isPie = chartType === CHART_TYPES.PIE
+    const isDoughtnut = chartType === CHART_TYPES.DOUGHNUT
+
+    // Asignación de opacidad de colores de fondo para gráficas de área polar
+    if ( isPolarArea && !backgroundOpacity ) {
+        backgroundOpacity = chartSettings[CHART_TYPES.POLARAREA][CHARTS_SETTINGS.BACKGROUND_OPACITY];
+    }
+
+    // Asignación de colores de borde para gráficas circulares
+    if ( (isPie || isDoughtnut) && !borderColors ) {
+        borderColors = chartSettings.circularCharts[CHARTS_SETTINGS.BORDER_COLORS];
+    }
+
+    // Asignación de opacidades y colores de borde para gráficas de área polar
+    if ( isPolarArea && !borderColors ) {
+        borderColors = backgroundColors; // Asignación de mismos colores de fondo para colores de borde
+        borderOpacity = chartSettings[CHART_TYPES.POLARAREA][CHARTS_SETTINGS.BORDER_OPACITY];
+    }
+
+    series = colorMapping({ series, backgroundColors, backgroundOpacity, borderColors, borderOpacity, chartType });
+
+    return series;
 }
 
 export const buildOptions = ({
     chartType,
     labelsContainerID,
     aspectRatio = chartSettings[CHARTS_SETTINGS.ASPECT_RATIO],
-    labelsDisplay = chartSettings[CHARTS_SETTINGS.LABELS_DISPLAY],
+    labelsDisplay = chartSettings[CHARTS_SETTINGS.LABEL_COLUMNS],
     labelsList = chartSettings[CHARTS_SETTINGS.LABELS_LIST],
     legendBox = chartSettings[CHARTS_SETTINGS.LEGEND_BOX],
 }) => {
 
+    // Validación de si la gráfica es de tipo radial
+    const isRadial = RADIAL_CHARTS.indexOf(chartType) !== -1
+    const hasXYAxes = CHARTS_WITH_AXES.indexOf(chartType) !== -1
+    const isRadar = chartType === CHART_TYPES.RADAR
+
+    
     // Inicialización del objeto a retornar
     const options = {}
-
+    
     // Inicialización de atributos preestablecidos de opciones
     options.scales = {}
-    options.scales.x = {}
-    options.scales.y = {}
-    options.scales.x.ticks = {}
-    options.scales.y.ticks = {}
+    
+    if ( hasXYAxes ) {
+        options.scales.x = {}
+        options.scales.y = {}
+        options.scales.x.ticks = {}
+        options.scales.y.ticks = {}
 
     // Configuración preestablecida para gráficas radiales
-    if ( Object.values(CHARTS_WITHOUT_AXES).indexOf(chartType) !== -1 ) {
-        options.scales.x.display = false
-        options.scales.y.display = false
+    } else if ( isRadial ) {
+        options.scales.r = {}
+        options.scales.r.pointLabels = {}
+        options.scales.r.ticks = {}
+        options.scales.r.ticks.backdropColor = "#00000000"
+
+        // Validación de si la gráfica es de radar
+        if ( isRadar ) {
+            options.scales.r.display = true
+            options.scales.r.angleLines = {}
+            options.scales.r.angleLines.display = true
+
+        // Ajustes predeterminados si no es una gráfica de radar
+        } else {
+            options.scales.r.display = false
+            options.scales.r.angleLines = {}
+            options.scales.r.angleLines.display = false
+        }
     }
 
     // Configuración de relación de aspecto
@@ -113,57 +245,44 @@ export const buildOptions = ({
     return options
 }
 
-export const mapColorsOnSeries = ({
-    series,
-    chartType,
-    backgroundColors,
-    backgroundOpacity,
-    borderColors,
-    borderOpacity
-}) => {
-
-    // Asignación de opacidad de colores de fondo para gráficas de área polar
-    if ( chartType === CHART_TYPES.POLARAREA && !backgroundOpacity ) {
-        backgroundOpacity = chartSettings[CHART_TYPES.POLARAREA][CHARTS_SETTINGS.BACKGROUND_OPACITY];
-    }
-
-    // Asignación de colores de borde para gráficas circulares
-    if ( (chartType === CHART_TYPES.PIE || chartType === CHART_TYPES.DOUGHNUT) && !borderColors ) {
-        borderColors = chartSettings.circularCharts[CHARTS_SETTINGS.BORDER_COLORS];
-    }
-
-    // Asignación de opacidades y colores de borde para gráficas de área polar
-    if ( chartType === CHART_TYPES.POLARAREA && !borderColors ) {
-        borderColors = backgroundColors; // Asignación de mismos colores de fondo para colores de borde
-        borderOpacity = chartSettings[CHART_TYPES.POLARAREA][CHARTS_SETTINGS.BORDER_OPACITY];
-    }
-
-    series = colorMapping({ series, backgroundColors, backgroundOpacity, borderColors, borderOpacity, chartType });
-
-    return series;
-}
-
 export const formatLabels = ({
     chartType,
     series,
     options,
-    xLabelsFormatter,
-    yLabelsFormatter,
+    xLabelFormat,
+    // yLabelsFormatter,
     yValueType
 }) => {
 
-    // Asignación de tipo de formateo por valores en el eje Y si el tipo de gráfica soporta ejes
-    if ( CHARTS_WITH_AXES.indexOf(chartType) !== -1 ) {
-        yLabelsFormatter = assignYLabelsFormatter({series, yValueType})
+    // Validación de si la gráfica es de radar
+    const isRadar = chartType === CHART_TYPES.RADAR
+    const isRadial = RADIAL_CHARTS.indexOf(chartType) !== -1
+
+    // Definción del formateador de etiquetas numéricas
+    const yLabelsFormatter = assignYLabelsFormatter({series, yValueType})
+    
+    // Formateo de etiquetas en el eje X
+    if ( xLabelFormat ) {
+        // Ajustes predeterminados para gráfica de radar
+        if ( isRadar ) {
+            options.scales.r.pointLabels.callback = labelsCategoryFormats[xLabelFormat]
+        } else  {
+            // options.scales.x.ticks.callback = labelsCategoryFormats[xLabelFormat]
+            series.labels = series.labels.map((value) => {
+                return labelsCategoryFormats[xLabelFormat](value)
+                // console.log(value)
+            })
+        } 
+        // Formateo de etiquetas en el eje Y
     }
 
-    // Formateo de etiquetas en el eje X
-    if ( xLabelsFormatter ) {
-        series.labels = series.labels.map((value) => xLabelsFormatter(value))
-    }
-    // Formateo de etiquetas en el eje Y
     if ( yLabelsFormatter ) {
-        options.scales.y.ticks.callback = yLabelsFormatter
+        if ( isRadar ) {
+            options.scales.r.ticks.callback = yLabelsFormatter
+        } else if (!isRadial) {
+            // series.labels = series.labels.map((value) => labelsCategoryFormats[xLabelFormat](value))
+            options.scales.y.ticks.callback = yLabelsFormatter
+        }
     }
 
     // Formateo de etiquetas en el tooltip
@@ -174,12 +293,13 @@ export const formatLabels = ({
 }
 
 export const scaleAxes = ({
+    chartType,
     series,
     options
 }) => {
 
     // Prevención de corte en el eje Y
-    options = avoidYAxisCut({series, options})
+    options = avoidYAxisCut({ chartType, series, options })
 
     return options
 }
@@ -208,15 +328,15 @@ const assignYLabelsFormatter = ({
 
     // Asignación de abreviación por millones
     if ( maxNumber >= 1000000 ) {
-        return valueTypesFormats[yValueType].toMillions
+        return labelsValueFormats[yValueType].toMillions
 
     // Asignación de abreviación por miles
     } else if ( maxNumber >= 3000 ) {
-        return valueTypesFormats[yValueType].toThousands
+        return labelsValueFormats[yValueType].toThousands
     
     // Formateo por defecto
     } else {
-        return valueTypesFormats[yValueType].raw
+        return labelsValueFormats[yValueType].raw
     }
 }
 
@@ -233,6 +353,8 @@ const formatTooltipLabels = ({
     if ( CHARTS_WITH_AXES.indexOf(chartType) !== -1 ) {
         // Asignación de formateo
         options.plugins.tooltip.callbacks.label = chartWithAxesFormat(yValueType)
+    } else {
+        // options.plugins.tooltip.callbacks.label = (context) => {console.log(context)}
     }
 
     return options
@@ -355,10 +477,10 @@ const colorMapping = ({
     const isFillableChart = chartType === CHART_TYPES.LINE || chartType === CHART_TYPES.RADAR
 
     // Mapeo de opacidad a los colores de fondo
-    if ( backgroundOpacity ) {
+    if ( backgroundOpacity !== undefined ) {
         backgroundColors = mapOpacities({ colors: backgroundColors, colorOpacity: backgroundOpacity })
     }
-    if ( borderOpacity ) {
+    if ( borderOpacity !== undefined ) {
         borderColors = mapOpacities({ colors: borderColors, colorOpacity: borderOpacity })
     }
 
@@ -397,7 +519,7 @@ const mapOpacities = ({
     } else {
         return (
             colors.map(
-                (bgColor) => (bgColor + OPACITIES[colorOpacity])
+                (color) => (color + OPACITIES[colorOpacity])
             )
         )
     }
@@ -430,9 +552,12 @@ const mapColors = ({
 }
 
 const avoidYAxisCut = ({
+    chartType,
     series,
     options
 }) => {
+
+    const isRadial = RADIAL_CHARTS.indexOf(chartType) !== -1
 
     // Inicialización del número menor
     let minNumber = 0
@@ -452,7 +577,11 @@ const avoidYAxisCut = ({
 
     // Asignación de la etiqueta mínima en el eje Y en 0 si el número menor no es negativo
     if ( !(minNumber < 0) ) {
-        options.scales.y.min = 0
+        if ( isRadial ) {
+            options.scales.r.min = 0
+        } else {
+            options.scales.y.min = 0
+        }
     }
 
     // Retorno del objeto de opciones
