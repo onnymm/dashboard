@@ -30,7 +30,8 @@ export default {
 			},
 			width: {
 				18: '4.5rem',
-				54: '13.5rem'
+				54: '13.5rem',
+				50: '12.5rem'
 			},
 			maxWidth: {
 				'feed-width': '100rem'
@@ -75,10 +76,30 @@ export default {
 						transform: 'translateY(0)',
 						boxShadow: '0px 1.5px 2px 1px rgba(0, 0, 0, 0.2)'
 					}
+				},
+				hideAndUnmount: {
+					'0%': {
+						opacity: '1'
+					},
+					'100%': {
+						opacity: '0',
+						display: 'none'
+					}
+				},
+				mountAndUnhide: {
+					'0%': {
+						opacity: '0'
+					},
+					'100%': {
+						opacity: '1',
+						display: 'block'
+					}
 				}
 			},
 			animation: {
-				'button-click': 'click 0.35s ease-in-out'
+				'button-click': 'click 0.35s ease-in-out',
+				'hide-unmount': 'hideAndUnmount 0.3s forwards',
+				'mount-unhide': 'mountAndUnhide 0.3s forwards'
 			},
 			transitionProperty: {
 				width: 'width',
