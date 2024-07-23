@@ -5,17 +5,7 @@ import { chartSettings } from "../settings/dashboardSettings";
 import { chartWithAxesFormat } from "./tooltipFormatting";
 import { labelsCategoryFormats, labelsValueFormats } from "./utils";
 
-export const buildInitSeries = {
-    [CHART_TYPES.BUBBLE]: buildBubbleData,
-    [CHART_TYPES.SCATTER]: buildScatterData,
-    [CHART_TYPES.BAR]: buildGenericData,
-    [CHART_TYPES.LINE]: buildGenericData,
-    [CHART_TYPES.PIE]: buildGenericData,
-    [CHART_TYPES.DOUGHNUT]: buildGenericData,
-    [CHART_TYPES.RADAR]: buildGenericData,
-    [CHART_TYPES.POLARAREA]: buildGenericData,
-}
-
+// Funciones de construcción de estructuras de datos
 const buildBubbleData = ({
     data,
     labelsName
@@ -36,6 +26,7 @@ const buildBubbleData = ({
             }
         }
     );
+
     // Se ingresan los datos transformados al objeto de series
     series.datasets.push(
         {
@@ -43,13 +34,13 @@ const buildBubbleData = ({
             label: labelsName
         }
     );
+
     // Se ingresan las etiquetas
     series.labels = Object.keys(data)
 
     // Retorno del objeto contenedor de los datos transformados
     return series
 }
-
 const buildScatterData = ({
     data,
     labelsName
@@ -69,6 +60,7 @@ const buildScatterData = ({
             }
         }
     );
+
     // Se ingresan los datos transformados al objeto de series
     series.datasets.push(
         {
@@ -82,7 +74,6 @@ const buildScatterData = ({
     // Retorno del objeto contenedor de los datos transformados
     return series
 }
-
 const buildGenericData = ({
     data,
     strat,
@@ -90,6 +81,7 @@ const buildGenericData = ({
     labelsName,
     labels
 }) => {
+
     // Inicialización de contenedores de datos y etiquetas
     let series = {}
     series.datasets = []
@@ -98,11 +90,12 @@ const buildGenericData = ({
 
     // Se convierte el objeto de objetos recibido por el API a matriz de objetos
     data = Object.values(data);
-            
+
     // Estratificación por variable categórica (Si se requiere)
     if ( strat ) {
         [datasets, renamedLabels] = stratificateData({ data, categoryName: strat, datasetNames, labelsName })
-        // Obtención de un sólo conjunto de datos (Flujo por defecto)
+
+    // Obtención de un sólo conjunto de datos (Flujo por defecto)
     } else {
         datasets = [ getSingleDataset({ data, labelName: labels[0], varValue: datasetNames[0] }) ]
         renamedLabels = getLabels({ data, labelsName })
@@ -112,14 +105,121 @@ const buildGenericData = ({
     series.datasets = datasets
     
     // Se asignan los nombres de las etiquetas
-    if ( labelsName ){
+    if ( labelsName ) {
         series.labels = renamedLabels;
     }
 
+    // Retorno del objeto contenedor de los datos transformados
     return series
 }
 
+// Funciones de construcción de opciones predefinidas
+const buildGenericOptions = ({
+    labelsContainerID,
+    aspectRatio = chartSettings[CHARTS_SETTINGS.ASPECT_RATIO],
+    labelsDisplay = chartSettings[CHARTS_SETTINGS.LABEL_COLUMNS],
+    labelsList = chartSettings[CHARTS_SETTINGS.LABELS_LIST],
+    legendBox = chartSettings[CHARTS_SETTINGS.LEGEND_BOX],
+}) => {
+    // Inicialización del objeto a retornar
+    let options = {}
+    
+    // Inicialización de atributos preestablecidos de opciones
+    options.scales = {}
+    options.scales.x = {}
+    options.scales.y = {}
+    options.scales.x.ticks = {}
+    options.scales.y.ticks = {}
 
+    // Configuración de relación de aspecto
+    options.aspectRatio = aspectRatio 
+
+    // Integración del plug-in de etiquetas
+    options = integrateLegendsPlugIn({
+        options,
+        labelsContainerID,
+        labelsDisplay,
+        labelsList,
+        legendBox
+    })
+
+    // Retorno del objeto de configuración
+    return options
+}
+const buildRadialChartOptions = ({
+    labelsContainerID,
+    aspectRatio = chartSettings[CHARTS_SETTINGS.ASPECT_RATIO],
+    labelsDisplay = chartSettings[CHARTS_SETTINGS.LABEL_COLUMNS],
+    labelsList = chartSettings[CHARTS_SETTINGS.LABELS_LIST],
+    legendBox = chartSettings[CHARTS_SETTINGS.LEGEND_BOX],
+}) => {
+
+    // Inicialización del objeto a retornar
+    let options = {}
+    
+    // Inicialización de atributos preestablecidos de opciones
+    options.scales = {}
+    options.scales.r = {}
+    options.scales.r.pointLabels = {}
+    options.scales.r.ticks = {}
+    options.scales.r.ticks.backdropColor = "#00000000"
+    options.scales.r.display = false // Se desactiva la vista del eje radial
+    options.scales.r.angleLines = {}
+    options.scales.r.angleLines.display = false // Se desactiva la vista de las líneas categóricas radiales
+
+    // Configuración de relación de aspecto
+    options.aspectRatio = aspectRatio 
+
+    // Integración del plug-in de etiquetas
+    options = integrateLegendsPlugIn({
+        options,
+        labelsContainerID,
+        labelsDisplay,
+        labelsList,
+        legendBox
+    })
+
+    // Retorno del objeto de configuración
+    return options
+}
+const buildRadarChartOptions = ({
+    labelsContainerID,
+    aspectRatio = chartSettings[CHARTS_SETTINGS.ASPECT_RATIO],
+    labelsDisplay = chartSettings[CHARTS_SETTINGS.LABEL_COLUMNS],
+    labelsList = chartSettings[CHARTS_SETTINGS.LABELS_LIST],
+    legendBox = chartSettings[CHARTS_SETTINGS.LEGEND_BOX],
+}) => {
+
+    // Inicialización del objeto a retornar
+    let options = {}
+    
+    // Inicialización de atributos preestablecidos de opciones
+    options.scales = {}
+    
+    options.scales.r = {}
+    options.scales.r.pointLabels = {}
+    options.scales.r.ticks = {}
+    options.scales.r.ticks.backdropColor = "#00000000"
+
+    options.scales.r.display = true
+    options.scales.r.angleLines = {}
+    options.scales.r.angleLines.display = true
+
+    // Configuración de relación de aspecto
+    options.aspectRatio = aspectRatio 
+
+    // Integración del plug-in de etiquetas
+    options = integrateLegendsPlugIn({
+        options,
+        labelsContainerID,
+        labelsDisplay,
+        labelsList,
+        legendBox
+    })
+
+    // Retorno del objeto de configuración
+    return options
+}
 
 export const mapColorsOnSeries = ({
     series,
@@ -156,56 +256,13 @@ export const mapColorsOnSeries = ({
     return series;
 }
 
-export const buildOptions = ({
-    chartType,
+const integrateLegendsPlugIn = ({
+    options,
     labelsContainerID,
-    aspectRatio = chartSettings[CHARTS_SETTINGS.ASPECT_RATIO],
-    labelsDisplay = chartSettings[CHARTS_SETTINGS.LABEL_COLUMNS],
-    labelsList = chartSettings[CHARTS_SETTINGS.LABELS_LIST],
-    legendBox = chartSettings[CHARTS_SETTINGS.LEGEND_BOX],
+    labelsDisplay,
+    labelsList,
+    legendBox
 }) => {
-
-    // Validación de si la gráfica es de tipo radial
-    const isRadial = RADIAL_CHARTS.indexOf(chartType) !== -1
-    const hasXYAxes = CHARTS_WITH_AXES.indexOf(chartType) !== -1
-    const isRadar = chartType === CHART_TYPES.RADAR
-
-    
-    // Inicialización del objeto a retornar
-    const options = {}
-    
-    // Inicialización de atributos preestablecidos de opciones
-    options.scales = {}
-    
-    if ( hasXYAxes ) {
-        options.scales.x = {}
-        options.scales.y = {}
-        options.scales.x.ticks = {}
-        options.scales.y.ticks = {}
-
-    // Configuración preestablecida para gráficas radiales
-    } else if ( isRadial ) {
-        options.scales.r = {}
-        options.scales.r.pointLabels = {}
-        options.scales.r.ticks = {}
-        options.scales.r.ticks.backdropColor = "#00000000"
-
-        // Validación de si la gráfica es de radar
-        if ( isRadar ) {
-            options.scales.r.display = true
-            options.scales.r.angleLines = {}
-            options.scales.r.angleLines.display = true
-
-        // Ajustes predeterminados si no es una gráfica de radar
-        } else {
-            options.scales.r.display = false
-            options.scales.r.angleLines = {}
-            options.scales.r.angleLines.display = false
-        }
-    }
-
-    // Configuración de relación de aspecto
-    options.aspectRatio = aspectRatio 
 
     // Integración de plugins
     options.plugins = {
@@ -241,7 +298,7 @@ export const buildOptions = ({
         }
     )
 
-    // Retorno del objeto de configuración
+    // Retorno del objeto contenedor de las opciones
     return options
 }
 
@@ -492,7 +549,6 @@ const colorMapping = ({
         series = mapColors({ series, colors: borderColors, colorType: CHARTS_SERIES_SETTINGS.BORDER_COLOR })
     }
 
-    
     // Activación de color de fondo para gráficas de línea y radar
     if ( isFillableChart && backgroundColors ) {
         // Activación por dataset
@@ -586,4 +642,30 @@ const avoidYAxisCut = ({
 
     // Retorno del objeto de opciones
     return options
+}
+
+export const buildInitSeries = {
+    [CHART_TYPES.BUBBLE]: buildBubbleData,
+
+    [CHART_TYPES.SCATTER]: buildScatterData,
+
+    [CHART_TYPES.BAR]: buildGenericData,
+    [CHART_TYPES.LINE]: buildGenericData,
+    [CHART_TYPES.PIE]: buildGenericData,
+    [CHART_TYPES.DOUGHNUT]: buildGenericData,
+    [CHART_TYPES.POLARAREA]: buildGenericData,
+    [CHART_TYPES.RADAR]: buildGenericData,
+}
+
+export const buildInitOptions = {
+    [CHART_TYPES.BUBBLE]: buildGenericOptions,
+    [CHART_TYPES.SCATTER]: buildGenericOptions,
+    [CHART_TYPES.BAR]: buildGenericOptions,
+    [CHART_TYPES.LINE]: buildGenericOptions,
+
+    [CHART_TYPES.PIE]: buildRadialChartOptions,
+    [CHART_TYPES.DOUGHNUT]: buildRadialChartOptions,
+    [CHART_TYPES.POLARAREA]: buildRadialChartOptions,
+
+    [CHART_TYPES.RADAR]: buildRadarChartOptions,
 }
