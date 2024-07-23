@@ -3,6 +3,7 @@ import { getChartData } from "../../api/get";
 import { CHART_TYPES } from "../../constants/charts";
 import { buildData } from "../../utils/utils";
 import BarChart from "./BarChart";
+import BubbleChart from "./BubbleChart";
 import DoughtnutChart from "./DoughtnutChart";
 import LineChart from "./LineChart";
 import PieChart from "./PieChart";
@@ -53,7 +54,9 @@ const ChartTemplate = ({ chartData, labelsContainerID }) => {
             // Gráfica de dona
             [CHART_TYPES.DOUGHNUT]: <DoughtnutChart dataContainer={dataContainer} />,
             // Gráfica de radar
-            [CHART_TYPES.RADAR]: <RadarChart dataContainer={dataContainer} />
+            [CHART_TYPES.RADAR]: <RadarChart dataContainer={dataContainer} />,
+            // Gráfica de burbuja:
+            [CHART_TYPES.BUBBLE]: <BubbleChart dataContainer={dataContainer} />
         };
 
         return chartIndex[chartData.chartType];
