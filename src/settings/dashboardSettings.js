@@ -1,16 +1,17 @@
 import { CHART_TYPES } from "../constants/charts";
-import { PRESET_COLORS } from "../constants/colors";
+import { PRESET_COLORS, RED_PALETTE } from "../constants/colors";
 import { CHARTS_SERIES_SETTINGS, CHARTS_SETTINGS } from "../constants/settings";
 
 export const chartSettings = {
+    [CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE,
     // Disposición de etiquetas
-    labelsDisplay: 'list',
+    [CHARTS_SETTINGS.LABEL_COLUMNS]: 1,
     // Alineación de elementos dentro de las etiquetas
-    labelsList: 'default',
+    [CHARTS_SETTINGS.LABELS_LIST]: 'default',
     // Apariencia del indicador de color de etiqueta
-    legendBox: 'rounded',
+    [CHARTS_SETTINGS.LEGEND_BOX]: 'rounded',
     // Relación de aspecto
-    aspectRatio: 1.5,
+    [CHARTS_SETTINGS.ASPECT_RATIO]: 1.5,
     // Configuración por tipos de gráficas
     [CHART_TYPES.POLARAREA]: {
         [CHARTS_SETTINGS.BACKGROUND_OPACITY]: 75,
