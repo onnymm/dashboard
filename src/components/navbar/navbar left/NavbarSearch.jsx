@@ -5,7 +5,7 @@ const NavbarSearch = () => {
 	const [search, setSearch] = useState('')
 
 	return (
-		<form className='ml-5 hidden gap-3 sm:flex'>
+		<form className='ml-6 hidden gap-3 sm:flex'>
 			<button className=''>
 				<MagnifyingGlassIcon className='size-5 opacity-60 transition duration-300 hover:fill-navbar-icons-hover-d hover:opacity-100 dark:text-white dark:hover:fill-navbar-icons-hover-d dark:hover:opacity-100' />
 			</button>
@@ -14,7 +14,7 @@ const NavbarSearch = () => {
 				placeholder='Type to search...'
 				value={search}
 				onChange={e => setSearch(e.target.value)}
-			></input>
+			/>
 		</form>
 	)
 }
