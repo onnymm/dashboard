@@ -3,7 +3,7 @@ import { OPACITIES } from "../constants/colors";
 import { CHARTS_SERIES_SETTINGS, CHARTS_SETTINGS } from "../constants/settings";
 import { chartSettings } from "../settings/dashboardSettings";
 import { chartWithAxesFormat } from "./tooltipFormatting";
-import { labelsCategoryFormats, labelsValueFormats } from "./utils";
+import { labelsFormats} from "./utils";
 
 // Funciones de construcción de estructuras de datos
 const buildBubbleData = ({
@@ -307,7 +307,6 @@ export const formatLabels = ({
     series,
     options,
     xLabelFormat,
-    // yLabelsFormatter,
     yValueType
 }) => {
 
@@ -316,17 +315,17 @@ export const formatLabels = ({
     const isRadial = RADIAL_CHARTS.indexOf(chartType) !== -1
 
     // Definción del formateador de etiquetas numéricas
-    const yLabelsFormatter = assignYLabelsFormatter({series, yValueType})
-    
+    const yLabelsFormatter = assignYLabelsFormatter({ series, yValueType })
+
     // Formateo de etiquetas en el eje X
     if ( xLabelFormat ) {
         // Ajustes predeterminados para gráfica de radar
         if ( isRadar ) {
-            options.scales.r.pointLabels.callback = labelsCategoryFormats[xLabelFormat]
+            options.scales.r.pointLabels.callback = labelsFormats[xLabelFormat]
         } else  {
             // options.scales.x.ticks.callback = labelsCategoryFormats[xLabelFormat]
             series.labels = series.labels.map((value) => {
-                return labelsCategoryFormats[xLabelFormat](value)
+                return labelsFormats[xLabelFormat](value)
                 // console.log(value)
             })
         } 
@@ -385,15 +384,15 @@ const assignYLabelsFormatter = ({
 
     // Asignación de abreviación por millones
     if ( maxNumber >= 1000000 ) {
-        return labelsValueFormats[yValueType].toMillions
+        return labelsFormats[yValueType].toMillions
 
     // Asignación de abreviación por miles
     } else if ( maxNumber >= 3000 ) {
-        return labelsValueFormats[yValueType].toThousands
+        return labelsFormats[yValueType].toThousands
     
     // Formateo por defecto
     } else {
-        return labelsValueFormats[yValueType].raw
+        return labelsFormats[yValueType].raw
     }
 }
 

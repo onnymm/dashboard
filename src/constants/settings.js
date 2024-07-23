@@ -45,3 +45,12 @@ export const CHARTS_SERIES_SETTINGS = {
     // Color de relleno
     FILL: 'fill',
 }
+
+export const LABELS_FORMATS_SETTINGS = {
+    // Tipo numérico
+    NUMERIC: 'numeric',
+    // Tipo moneda
+    MONETARY: 'monetary',
+    // Sólo el primer nombre antes de un espacio
+    ONLY_NAME: 'only name'
+}

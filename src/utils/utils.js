@@ -1,4 +1,4 @@
-import { CHARTS_SETTINGS } from "../constants/settings";
+import { CHARTS_SETTINGS, LABELS_FORMATS_SETTINGS } from "../constants/settings";
 import { chartSettings } from "../settings/dashboardSettings";
 import { buildInitSeries, formatLabels, mapColorsOnSeries, scaleAxes, buildInitOptions } from "./dataFormatting";
 
@@ -40,27 +40,26 @@ export const buildData = ({
     // Formateo de escalas en ejes
     options = scaleAxes({ chartType, series, options });
 
-    console.log(options)
-    console.log(series)
-
     // Retorno del objeto a ingresar al componente de graficación
     return { series, options };
 }
 
-export const labelsValueFormats = {
-    monetary: {
+export const labelsFormats = {
+
+    // Formato numérico
+    [LABELS_FORMATS_SETTINGS.NUMERIC]: {
+        raw: (num) => (num),
+        toThousands: (num) => (`${num / 1000} K`),
+        toMillions: (num) => (`${num / 1000000} M`),
+    },
+
+    // Formato en moneda nacional
+    [LABELS_FORMATS_SETTINGS.MONETARY]: {
         raw: (num) => (num.toLocaleString('es-MX', {style: 'currency', currency: 'MXN'})),
         toThousands: (num) => (`$${num / 1000} K`),
         toMillions: (num) => (`$${num / 1000000} M`),
     },
-    numeric: {
-        raw: (num) => (num),
-        toThousands: (num) => (`${num / 1000} K`),
-        toMillions: (num) => (`${num / 1000000} M`),
-    }
-}
 
-export const labelsCategoryFormats = {
     // Mostrar sólo el primer nombre en un String antes del espacio
-    'only name': (text) => (text.slice(0, text.indexOf(" "))),
+    [LABELS_FORMATS_SETTINGS.ONLY_NAME]: (text) => (text.slice(0, text.indexOf(" "))),
 }
