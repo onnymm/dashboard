@@ -1,25 +1,22 @@
 import { ArrowLeftIcon } from '@heroicons/react/16/solid'
 import { useContext, useEffect, useState } from 'react'
+import { NavLink } from 'react-router-dom'
 import { AppContext } from '../../contexts/AppContexts'
 import { useClickOutside } from '../../custom hooks/useClickOutside'
 import SidebarContent from './SidebarContent'
-import SidebarHeader from './SidebarHeader'
 import SidebarToggle from './SidebarToggle'
 
 const Sidebar = () => {
-	const { sidebarIsOpen, setSidebarIsOpen } = useContext(AppContext)
-	const [sidebarIsOpenNOverlaps, setSidebarIsOpenNOverlaps] = useState(false)
-	const [sidebarIsLocked, setSidebarIsLocked] = useState(false)
+	const [isOpen, setIsOpen] = useState(false)
+	const { sidebarIsLocked: isLocked, setSidebarIsLocked: setIsLocked } =
+		useContext(AppContext)
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
 	useEffect(() => {
 		const handleResize = () => {
 			setWindowWidth(window.innerWidth)
-			setSidebarIsOpenNOverlaps(false)
-			if (sidebarIsLocked && windowWidth < 1250) {
-				setSidebarIsOpen(true)
-			} else {
-				setSidebarIsOpen(false)
+			if (isLocked && windowWidth > 768) {
+				setIsOpen(true)
 			}
 		}
 
@@ -28,62 +25,51 @@ const Sidebar = () => {
 		return () => {
 			window.removeEventListener('resize', handleResize)
 		}
-	}, [
-		setSidebarIsOpen,
-		setSidebarIsOpenNOverlaps,
-		sidebarIsLocked,
-		windowWidth
-	])
+	}, [setIsOpen, isLocked, windowWidth])
 
 	const isWideScreen = windowWidth > 768
-	const isSidebarOpen = isWideScreen ? sidebarIsOpen : sidebarIsOpenNOverlaps
-	const setSidebarOpen = isWideScreen
-		? setSidebarIsOpen
-		: setSidebarIsOpenNOverlaps
+
+	const handleClick = () => {
+		isLocked && isWideScreen && setIsLocked(false)
+		setIsOpen(!isOpen)
+	}
 
 	let domNode = useClickOutside(() => {
-		isWideScreen
-			? sidebarIsLocked
-				? ''
-				: setSidebarIsOpen(false)
-			: setSidebarIsOpenNOverlaps(false)
+		if (!isLocked || !isWideScreen) setIsOpen(false)
 	})
 
 	return (
-		<>
-			<aside ref={domNode} className='relative flex'>
-				<SidebarHeader
-					isSidebarOpen={isSidebarOpen}
-					isWideScreen={isWideScreen}
-				/>
-				<button
-					className={` ${!isSidebarOpen ? 'pointer-events-none opacity-0' : 'opacity-90 delay-300'} ${sidebarIsLocked ? 'animate-hide-unmount' : ''} absolute left-52 top-3 z-99999 ml-auto px-4 py-4 text-white transition-opacity`}
-					onClick={() => setSidebarOpen(false)}
+		<div className='relative'>
+			<div ref={domNode} className='flex'>
+				<SidebarToggle isOpen={isOpen} setIsOpen={setIsOpen} />
+				<aside
+					className={`${isOpen ? 'translate-x-0' : '-translate-x-72'} fixed z-999 flex h-screen w-72 flex-col overflow-x-hidden bg-sidebar-background px-2 pb-2 transition duration-500`}
 				>
-					<ArrowLeftIcon className='size-6' />
-				</button>
-				<SidebarToggle
-					isSidebarOpen={isSidebarOpen}
-					setSidebarOpen={setSidebarOpen}
-					sidebarIsLocked={sidebarIsLocked}
-					isWideScreen={isWideScreen}
-				/>
-				<div
-					className={`${!isSidebarOpen ? '-translate-x-72' : 'translate-x-0'} fixed z-999 flex h-screen w-72 select-none flex-col bg-sidebar-background px-4 pb-4 transition duration-500 dark:bg-sidebar-background-d`}
-				>
-					<div className='h-20 flex-none' />
-					<SidebarContent
-						sidebarIsLocked={sidebarIsLocked}
-						setSidebarIsLocked={setSidebarIsLocked}
-					/>
-				</div>
-			</aside>
+					<div
+						className={`${isOpen ? 'opacity-100 delay-300' : 'opacity-0'} flex h-20 justify-between p-4 text-white transition`}
+					>
+						<NavLink to='' className='flex items-center'>
+							<img src='./logo.png' className='size-12' />
+							<h1 className={`mx-2 text-2xl font-medium`}>iaCele</h1>
+						</NavLink>
+						<button onClick={() => handleClick()} className='ml-auto'>
+							<ArrowLeftIcon className='mx-4 size-6' />
+						</button>
+					</div>
+					<SidebarContent isLocked={isLocked} setIsLocked={setIsLocked} />
+				</aside>
 
-			{/* Filter */}
-			<div
-				className={`${sidebarIsOpenNOverlaps ? 'opacity-20' : 'opacity-0'} pointer-events-none fixed z-9 h-screen w-screen bg-black transition-opacity duration-500`}
-			/>
-		</>
+				{/*
+					FILTRO 
+					- Si la sidebar está abierta:
+						- Si está desbloqueada o la ventana es pequeña: opacidad-20
+					- Si está cerrada, bloqueada, o en pantalla completa: opacidad-0
+				*/}
+				<div
+					className={`${isOpen && (!isLocked || !isWideScreen) ? 'opacity-20' : 'opacity-0'} pointer-events-none absolute z-99 h-screen w-screen bg-black transition duration-300`}
+				/>
+			</div>
+		</div>
 	)
 }
 
