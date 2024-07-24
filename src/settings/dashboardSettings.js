@@ -12,6 +12,10 @@ export const chartSettings = {
     [CHARTS_SETTINGS.LEGEND_BOX]: 'rounded',
     // Relación de aspecto
     [CHARTS_SETTINGS.ASPECT_RATIO]: 1.5,
+    // Tamaño mínimo de elementos de burbuja
+    [CHARTS_SETTINGS.MIN_BUBBLE_SIZE]: 2,
+    // Tamaño máximo de elementos de burbuja
+    [CHARTS_SETTINGS.MAX_BUBBLE_SIZE]: 16,
     // Configuración por tipos de gráficas
     [CHART_TYPES.POLARAREA]: {
         [CHARTS_SETTINGS.BACKGROUND_OPACITY]: 75,

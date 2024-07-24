@@ -33,6 +33,10 @@ export const CHARTS_SETTINGS = {
     LABELS_LIST: "labelsList",
     // Apariencia de la caja de la etiqueta
     LEGEND_BOX: "legendBox",
+    // Tamaño mínimo de elementos de burbuja
+    MIN_BUBBLE_SIZE: 'minBubbleSize',
+    // Tamaño máximo de elementos de burbuja
+    MAX_BUBBLE_SIZE: 'maxBubbleSize',
 }
 
 export const CHARTS_SERIES_SETTINGS = {

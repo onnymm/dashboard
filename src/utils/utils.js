@@ -32,7 +32,7 @@ export const buildData = ({
     series = mapColorsOnSeries({ series, chartType, backgroundColors, backgroundOpacity, borderColors, borderOpacity });
 
     // Inicialización del contenedor de opciones
-    let options = buildInitOptions[chartType]({ chartType, labelsContainerID, aspectRatio, labelsDisplay, labelsList, legendBox });
+    let options = buildInitOptions[chartType]({series, chartType, labelsContainerID, aspectRatio, labelsDisplay, labelsList, legendBox });
     
     // Formateo de etiquetas en la gráfica
     [ series, options ] = formatLabels({ chartType, series, options, xLabelFormat, yLabelsFormatter, yValueType });

@@ -22,7 +22,7 @@ const buildBubbleData = ({
             return {
                 x: values[0],
                 y: values[1],
-                _custom: [2]
+                _custom: values[2]
             }
         }
     );
@@ -146,6 +146,51 @@ const buildGenericOptions = ({
     // Retorno del objeto de configuración
     return options
 }
+const buildBubbleChartOptions = ({
+    series,
+    labelsContainerID,
+    aspectRatio = chartSettings[CHARTS_SETTINGS.ASPECT_RATIO],
+    labelsDisplay = chartSettings[CHARTS_SETTINGS.LABEL_COLUMNS],
+    labelsList = chartSettings[CHARTS_SETTINGS.LABELS_LIST],
+    legendBox = chartSettings[CHARTS_SETTINGS.LEGEND_BOX],
+}) => {
+
+    // Inicialización del objeto a retornar
+    let options = {}
+    
+    // Inicialización de atributos preestablecidos de opciones
+    options.scales = {}
+    options.scales.x = {}
+    options.scales.y = {}
+    options.scales.x.ticks = {}
+    options.scales.y.ticks = {}
+
+    // Configuración de relación de aspecto
+    options.aspectRatio = aspectRatio
+    
+    // Obtención de los valores de tamaño
+    const radiusValues = series.datasets[0].data.map((values) => values._custom)
+
+    
+    // Escalación de valores
+    const scaledValues = scaleSizes(radiusValues)
+
+    console.log(scaledValues)
+
+    options.radius = scaledValues
+
+    // Integración del plug-in de etiquetas
+    options = integrateLegendsPlugIn({
+        options,
+        labelsContainerID,
+        labelsDisplay,
+        labelsList,
+        legendBox
+    })
+
+    // Retorno del objeto de configuración
+    return options
+}
 const buildRadialChartOptions = ({
     labelsContainerID,
     aspectRatio = chartSettings[CHARTS_SETTINGS.ASPECT_RATIO],
@@ -219,6 +264,22 @@ const buildRadarChartOptions = ({
 
     // Retorno del objeto de configuración
     return options
+}
+
+const scaleSizes = (data) => {
+    // Obtención del número mayor en la matriz
+    const maxNum = Math.max(...data)
+
+    // Obtención del número máximo a escalar restando el número mínimo
+    const adjustedMaxSize = chartSettings[CHARTS_SETTINGS.MAX_BUBBLE_SIZE] - chartSettings[CHARTS_SETTINGS.MIN_BUBBLE_SIZE]
+
+    // Escalamiento de valores multiplicando por el número ajustado y sumando el valor mínimo permitido
+    const scaledValues = data.map(
+        (value) => ( (value / maxNum * adjustedMaxSize) + chartSettings[CHARTS_SETTINGS.MIN_BUBBLE_SIZE] )
+    )
+
+    // Retorno del objeto con los valores escalados
+    return scaledValues
 }
 
 export const mapColorsOnSeries = ({
@@ -657,7 +718,8 @@ export const buildInitSeries = {
 }
 
 export const buildInitOptions = {
-    [CHART_TYPES.BUBBLE]: buildGenericOptions,
+    [CHART_TYPES.BUBBLE]: buildBubbleChartOptions,
+
     [CHART_TYPES.SCATTER]: buildGenericOptions,
     [CHART_TYPES.BAR]: buildGenericOptions,
     [CHART_TYPES.LINE]: buildGenericOptions,
