@@ -1,6 +1,6 @@
 import { CHARTS_SETTINGS, LABELS_FORMATS_SETTINGS } from "../constants/settings";
 import { chartSettings } from "../settings/dashboardSettings";
-import { buildInitSeries, formatLabels, mapColorsOnSeries, scaleAxes, buildInitOptions } from "./dataFormatting";
+import { buildInitSeries, mapColorsOnSeries, scaleAxes, buildInitOptions, formatLabels } from "./dataFormatting";
 
 export const buildData = ({
     data, // Objeto de datos retornado del API
@@ -16,8 +16,8 @@ export const buildData = ({
     [CHARTS_SETTINGS.BORDER_COLORS]: borderColors = undefined, // Colores de borde de los conjuntos de datos
     [CHARTS_SETTINGS.BORDER_OPACITY]: borderOpacity = undefined, // Opacidad de los colores de borde
     [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio = undefined, // Formateo en las etiquetas del eje X
-    [CHARTS_SETTINGS.Y_AXIS_FORMAT]: yValueType = undefined,
-    [CHARTS_SETTINGS.X_AXIS_FORMAT]: xLabelFormat = undefined, // Formateo en las etiquetas del eje X
+    [CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat = undefined,
+    [CHARTS_SETTINGS.X_AXIS_FORMAT]: xAxisFormat = undefined, // Formateo en las etiquetas del eje X
     [CHARTS_SETTINGS.CATEGORY_STRATIFICATION_BY]: strat = undefined, // Variable de estratificación
     [CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay = undefined, // Estilo de contenedor de etiquetas
     [CHARTS_SETTINGS.LABELS_LIST]: labelsList = undefined, // Estilo de lista de etiquetas
@@ -34,7 +34,7 @@ export const buildData = ({
     let options = buildInitOptions[chartType]({series, chartType, labelsContainerID, aspectRatio, labelsDisplay, labelsList, legendBox });
     
     // Formateo de etiquetas en la gráfica
-    [ series, options ] = formatLabels({ chartType, series, options, xLabelFormat, yValueType });
+    [ series, options ] = formatLabels[chartType]({ chartType, series, options, xAxisFormat, yAxisFormat });
     
     // Formateo de escalas en ejes
     options = scaleAxes({ chartType, series, options });
@@ -50,6 +50,7 @@ export const labelsFormats = {
         raw: (num) => (num),
         toThousands: (num) => (`${num / 1000} K`),
         toMillions: (num) => (`${num / 1000000} M`),
+        type: Number,
     },
 
     // Formato en moneda nacional
@@ -57,8 +58,13 @@ export const labelsFormats = {
         raw: (num) => (num.toLocaleString('es-MX', {style: 'currency', currency: 'MXN'})),
         toThousands: (num) => (`$${num / 1000} K`),
         toMillions: (num) => (`$${num / 1000000} M`),
+        type: Number,
     },
 
     // Mostrar sólo el primer nombre en un String antes del espacio
-    [LABELS_FORMATS_SETTINGS.ONLY_NAME]: (text) => (text.slice(0, text.indexOf(" "))),
+    [LABELS_FORMATS_SETTINGS.ONLY_NAME]: {
+        raw: (text) => (text.slice(0, text.indexOf(" "))),
+        type: String,
+    },
+    
 }

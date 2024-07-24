@@ -174,9 +174,6 @@ const buildBubbleChartOptions = ({
     
     // Escalación de valores
     const scaledValues = scaleSizes(radiusValues)
-
-    console.log(scaledValues)
-
     options.radius = scaledValues
 
     // Integración del plug-in de etiquetas
@@ -363,30 +360,37 @@ const integrateLegendsPlugIn = ({
     return options
 }
 
-export const formatLabels = ({
+export const formatChartLabels = ({
     chartType,
     series,
     options,
-    xLabelFormat,
-    yValueType
+    xAxisFormat,
+    yAxisFormat
 }) => {
 
     // Validación de si la gráfica es de radar
     const isRadar = chartType === CHART_TYPES.RADAR
     const isRadial = RADIAL_CHARTS.indexOf(chartType) !== -1
+    let yLabelsFormatter
+
+    if ( isRadar ) {
+        return formatRadarLabels({ chartType, series, options, xAxisFormat, yAxisFormat })
+    }
 
     // Definción del formateador de etiquetas numéricas
-    const yLabelsFormatter = assignYLabelsFormatter({ series, yValueType })
+    if ( yAxisFormat ) {
+        yLabelsFormatter = assignLabelsFormatter({ series, axisFormat: yAxisFormat })
+    }
 
     // Formateo de etiquetas en el eje X
-    if ( xLabelFormat ) {
+    if ( xAxisFormat ) {
         // Ajustes predeterminados para gráfica de radar
         if ( isRadar ) {
-            options.scales.r.pointLabels.callback = labelsFormats[xLabelFormat]
-        } else  {
-            // options.scales.x.ticks.callback = labelsCategoryFormats[xLabelFormat]
+            options.scales.r.pointLabels.callback = labelsFormats[xAxisFormat]
+        } else {
+            // options.scales.x.ticks.callback = labelsCategoryFormats[xAxisFormat]
             series.labels = series.labels.map((value) => {
-                return labelsFormats[xLabelFormat](value)
+                return labelsFormats[xAxisFormat].raw(value)
                 // console.log(value)
             })
         } 
@@ -397,17 +401,123 @@ export const formatLabels = ({
         if ( isRadar ) {
             options.scales.r.ticks.callback = yLabelsFormatter
         } else if (!isRadial) {
-            // series.labels = series.labels.map((value) => labelsCategoryFormats[xLabelFormat](value))
+            // series.labels = series.labels.map((value) => labelsCategoryFormats[xAxisFormat](value))
             options.scales.y.ticks.callback = yLabelsFormatter
         }
     }
 
     // Formateo de etiquetas en el tooltip
-    options = formatTooltipLabels({chartType, options, yValueType})
+    options = formatTooltipLabels({chartType, options, yAxisFormat})
 
     // Retorno de los conjuntos de datos y objeto de opciones
     return [ series, options ]
 }
+
+// Funciones de formateo de etiquetas de ejes
+const formatRadarLabels = ({
+    chartType,
+    series,
+    options,
+    xAxisFormat,
+    yAxisFormat
+}) => {
+
+    // Definción del formateador de etiquetas numéricas
+    if ( yAxisFormat ) {
+        const yLabelsFormatter = assignLabelsFormatter({ series, axisFormat: yAxisFormat })
+        options.scales.r.ticks.callback = yLabelsFormatter 
+    }
+
+    // Formateo de etiquetas en el eje X
+    if ( xAxisFormat ) {
+        options.scales.r.pointLabels.callback = labelsFormats[xAxisFormat].raw
+    }
+
+    // Formateo de etiquetas en el tooltip
+    options = formatTooltipLabels({chartType, options, yAxisFormat})
+
+    // Retorno de los conjuntos de datos y objeto de opciones
+    return [ series, options ]
+}
+const formatRadialLabels = ({
+    series,
+    options,
+}) => {
+
+    // Retorno de los conjuntos de datos y objeto de opciones
+    return [ series, options ]
+}
+const formatSquareLabels = ({
+    chartType,
+    series,
+    options,
+    xAxisFormat,
+    yAxisFormat
+}) => {
+
+    let yLabelsFormatter
+
+
+    // Definción del formateador de etiquetas numéricas
+    if ( yAxisFormat ) {
+        yLabelsFormatter = assignLabelsFormatter({ series, axisFormat: yAxisFormat })
+    }
+
+    if ( xAxisFormat ) {
+        // Formateo de etiquetas en el eje X
+        series.labels = series.labels.map(
+            (value) => {
+                return labelsFormats[xAxisFormat].raw(value)
+            }
+        )
+    }
+
+    // Formateo de etiquetas en el eje Y
+    if ( yLabelsFormatter ) {
+        options.scales.y.ticks.callback = yLabelsFormatter
+    }
+
+    // Formateo de etiquetas en el tooltip
+    options = formatTooltipLabels({chartType, options, yAxisFormat})
+
+    // Retorno de los conjuntos de datos y objeto de opciones
+    return [ series, options ]
+}
+const formatScatterLabels = ({
+    chartType,
+    series,
+    options,
+    xAxisFormat,
+    yAxisFormat
+}) => {
+
+    // Inicialización de las funciones formateadoras
+    let xLabelsFormatter
+    let yLabelsFormatter
+
+    // Definción del formateador de etiquetas numéricas los ejes X y Y
+    if ( xAxisFormat ) {
+        xLabelsFormatter = assignNumericLabelsFormatter({ chartType, series, axisFormat: xAxisFormat, axes: 'x' })
+    }
+    if ( yAxisFormat ) {
+        yLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: yAxisFormat, axes: 'y' })
+    }
+
+    // Formateo de etiquetas en ambos ejes
+    if ( xLabelsFormatter ) {
+        options.scales.x.ticks.callback = xLabelsFormatter
+    }
+    if ( yLabelsFormatter ) {
+        options.scales.y.ticks.callback = yLabelsFormatter
+    }
+
+    // // Formateo de etiquetas en el tooltip
+    // options = formatTooltipLabels({chartType, options, yAxisFormat})
+
+    // Retorno de los conjuntos de datos y objeto de opciones
+    return [ series, options ]
+}
+
 
 export const scaleAxes = ({
     chartType,
@@ -421,10 +531,30 @@ export const scaleAxes = ({
     return options
 }
 
-const assignYLabelsFormatter = ({
+const assignLabelsFormatter = ({
     series,
-    yValueType
+    axisFormat
 }) => {
+
+    // Inicialización de la función a retornar
+    let labelsFormatter
+    
+    if ( labelsFormats[axisFormat].type === Number ) {
+        labelsFormatter = assignNumericLabelsFormatter({ series, axisFormat })
+    } else {
+        labelsFormatter = labelsFormats[axisFormat].raw
+    }
+
+    // Retorno de la función
+    return labelsFormatter
+}
+
+const assignNumericLabelsFormatter = ({
+    series,
+    axisFormat,
+    axes = undefined
+}) => {
+
     // Creación de contenedor de número mayor
     let maxNumber = 0;
 
@@ -435,8 +565,15 @@ const assignYLabelsFormatter = ({
             dataset.data.forEach(
                 (value) => {
                     // Búsqueda del número mayor en todos los conjuntos de datos de la gráfica
-                    if (value > maxNumber ) {
-                        maxNumber = value
+                    if (axes) {
+                        // console.log("No hace nada")
+                        if (value[axes] > maxNumber ) {
+                            maxNumber = value[axes]
+                        }
+                    } else {
+                        if (value > maxNumber ) {
+                            maxNumber = value
+                        }
                     }
                 }
             )
@@ -445,22 +582,22 @@ const assignYLabelsFormatter = ({
 
     // Asignación de abreviación por millones
     if ( maxNumber >= 1000000 ) {
-        return labelsFormats[yValueType].toMillions
+        return labelsFormats[axisFormat].toMillions
 
     // Asignación de abreviación por miles
     } else if ( maxNumber >= 3000 ) {
-        return labelsFormats[yValueType].toThousands
+        return labelsFormats[axisFormat].toThousands
     
     // Formateo por defecto
     } else {
-        return labelsFormats[yValueType].raw
+        return labelsFormats[axisFormat].raw
     }
 }
 
 const formatTooltipLabels = ({
     chartType,
     options,
-    yValueType
+    yAxisFormat
 }) => {
 
     // Inicialización de objeto
@@ -469,7 +606,7 @@ const formatTooltipLabels = ({
     // Formateo de valores de etiquetas si el tipo de gráfica soporta ejes
     if ( CHARTS_WITH_AXES.indexOf(chartType) !== -1 ) {
         // Asignación de formateo
-        options.plugins.tooltip.callbacks.label = chartWithAxesFormat(yValueType)
+        options.plugins.tooltip.callbacks.label = chartWithAxesFormat(yAxisFormat)
     } else {
         // options.plugins.tooltip.callbacks.label = (context) => {console.log(context)}
     }
@@ -729,4 +866,18 @@ export const buildInitOptions = {
     [CHART_TYPES.POLARAREA]: buildRadialChartOptions,
 
     [CHART_TYPES.RADAR]: buildRadarChartOptions,
+}
+
+export const formatLabels = {
+    [CHART_TYPES.BUBBLE]: formatScatterLabels,
+    [CHART_TYPES.SCATTER]: formatScatterLabels,
+
+    [CHART_TYPES.BAR]: formatSquareLabels,
+    [CHART_TYPES.LINE]: formatSquareLabels,
+
+    [CHART_TYPES.PIE]: formatRadialLabels,
+    [CHART_TYPES.DOUGHNUT]: formatRadialLabels,
+    [CHART_TYPES.POLARAREA]: formatRadialLabels,
+
+    [CHART_TYPES.RADAR]: formatRadarLabels,
 }
