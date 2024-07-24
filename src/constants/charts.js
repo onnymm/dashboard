@@ -9,7 +9,7 @@ export const CHART_TYPES = {
     BUBBLE: 'bubble'
 }
 
-export const CHARTS_WITH_AXES = [
+export const SQUARE_CHARTS = [
     CHART_TYPES.BAR,
     CHART_TYPES.LINE,
     CHART_TYPES.SCATTER,
