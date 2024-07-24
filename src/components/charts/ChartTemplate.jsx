@@ -9,6 +9,7 @@ import LineChart from "./LineChart";
 import PieChart from "./PieChart";
 import PolarChart from "./PolarChart";
 import RadarChart from "./RadarChart";
+import ScatterChart from "./ScatterChart";
 
 const ChartTemplate = ({ chartData, labelsContainerID }) => {
     // Estado para carga inicial de los datos
@@ -55,8 +56,10 @@ const ChartTemplate = ({ chartData, labelsContainerID }) => {
             [CHART_TYPES.DOUGHNUT]: <DoughtnutChart dataContainer={dataContainer} />,
             // Gráfica de radar
             [CHART_TYPES.RADAR]: <RadarChart dataContainer={dataContainer} />,
+            // Gráfica de dispersión
+            [CHART_TYPES.SCATTER]: <ScatterChart dataContainer={dataContainer} />,
             // Gráfica de burbuja:
-            [CHART_TYPES.BUBBLE]: <BubbleChart dataContainer={dataContainer} />
+            [CHART_TYPES.BUBBLE]: <BubbleChart dataContainer={dataContainer} />,
         };
 
         return chartIndex[chartData.chartType];
