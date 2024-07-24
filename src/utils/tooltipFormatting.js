@@ -1,4 +1,4 @@
-import {labelsFormats} from "./utils";
+import { LABELS_FORMATS_SETTINGS } from "../constants/settings";
 
 export const chartWithAxesFormat = (yValueType) => {
     // Generación de función con el tipo de valor a formatear
@@ -12,7 +12,7 @@ export const chartWithAxesFormat = (yValueType) => {
         }
 
         // Formateo del valor de la etiqueta en función del tipo de valor del conjunto de datos
-        label += labelsFormats[yValueType].raw(context.parsed.y)
+        label += LABELS_FORMATS_SETTINGS[yValueType].raw(context.parsed.y)
 
         return label
     }
