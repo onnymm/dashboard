@@ -262,158 +262,8 @@ const buildRadarChartOptions = ({
     return options
 }
 
-const scaleSizes = (data) => {
-    // Obtención del número mayor en la matriz
-    const maxNum = Math.max(...data)
-
-    // Obtención del número máximo a escalar restando el número mínimo
-    const adjustedMaxSize = chartSettings[CHARTS_SETTINGS.MAX_BUBBLE_SIZE] - chartSettings[CHARTS_SETTINGS.MIN_BUBBLE_SIZE]
-
-    // Escalamiento de valores multiplicando por el número ajustado y sumando el valor mínimo permitido
-    const scaledValues = data.map(
-        (value) => ( (value / maxNum * adjustedMaxSize) + chartSettings[CHARTS_SETTINGS.MIN_BUBBLE_SIZE] )
-    )
-
-    // Retorno del objeto con los valores escalados
-    return scaledValues
-}
-
-export const mapColorsOnSeries = ({
-    series,
-    chartType,
-    backgroundColors,
-    backgroundOpacity,
-    borderColors,
-    borderOpacity
-}) => {
-
-    // Validación de tipos de gráfica
-    const isPolarArea = chartType === CHART_TYPES.POLARAREA
-    const isPie = chartType === CHART_TYPES.PIE
-    const isDoughtnut = chartType === CHART_TYPES.DOUGHNUT
-
-    // Asignación de opacidad de colores de fondo para gráficas de área polar
-    if ( isPolarArea && !backgroundOpacity ) {
-        backgroundOpacity = chartSettings[CHART_TYPES.POLARAREA][CHARTS_SETTINGS.BACKGROUND_OPACITY];
-    }
-
-    // Asignación de colores de borde para gráficas circulares
-    if ( (isPie || isDoughtnut) && !borderColors ) {
-        borderColors = chartSettings.circularCharts[CHARTS_SETTINGS.BORDER_COLORS];
-    }
-
-    // Asignación de opacidades y colores de borde para gráficas de área polar
-    if ( isPolarArea && !borderColors ) {
-        borderColors = backgroundColors; // Asignación de mismos colores de fondo para colores de borde
-        borderOpacity = chartSettings[CHART_TYPES.POLARAREA][CHARTS_SETTINGS.BORDER_OPACITY];
-    }
-
-    series = colorMapping({ series, backgroundColors, backgroundOpacity, borderColors, borderOpacity, chartType });
-
-    return series;
-}
-
-const integrateLegendsPlugIn = ({
-    options,
-    labelsContainerID,
-    labelsDisplay,
-    labelsList,
-    legendBox
-}) => {
-
-    // Integración de plugins
-    options.plugins = {
-
-        // Plug-in para etiquetas desacopladas de la gráfica
-        htmlLegend: {
-            containerID: labelsContainerID
-        },
-        
-        // Desactivación de muestra de etiquetas integradas en la gráfica
-        legend: {
-            display: false,
-        },
-
-        tooltip: {}
-    }
-
-    // Inicialización de objeto de extensión de opciones para uso de este proyecto
-    options.extension = {}
-
-    const legendParams = {
-        labelsDisplay,
-        labelsList,
-        legendBox
-    }
-
-    // Integración de parámetros personalizados de la gráfica en caso de ser provistos
-    Object.keys(legendParams).forEach(
-        (paramsKey) => {
-            if ( legendParams ) {
-                options.extension[paramsKey] = legendParams[paramsKey]
-            }
-        }
-    )
-
-    // Retorno del objeto contenedor de las opciones
-    return options
-}
-
-export const formatChartLabels = ({
-    chartType,
-    series,
-    options,
-    xAxisFormat,
-    yAxisFormat
-}) => {
-
-    // Validación de si la gráfica es de radar
-    const isRadar = chartType === CHART_TYPES.RADAR
-    const isRadial = RADIAL_CHARTS.indexOf(chartType) !== -1
-    let yLabelsFormatter
-
-    if ( isRadar ) {
-        return formatRadarLabels({ chartType, series, options, xAxisFormat, yAxisFormat })
-    }
-
-    // Definción del formateador de etiquetas numéricas
-    if ( yAxisFormat ) {
-        yLabelsFormatter = assignLabelsFormatter({ series, axisFormat: yAxisFormat })
-    }
-
-    // Formateo de etiquetas en el eje X
-    if ( xAxisFormat ) {
-        // Ajustes predeterminados para gráfica de radar
-        if ( isRadar ) {
-            options.scales.r.pointLabels.callback = labelsFormats[xAxisFormat]
-        } else {
-            // options.scales.x.ticks.callback = labelsCategoryFormats[xAxisFormat]
-            series.labels = series.labels.map((value) => {
-                return labelsFormats[xAxisFormat].raw(value)
-                // console.log(value)
-            })
-        } 
-        // Formateo de etiquetas en el eje Y
-    }
-
-    if ( yLabelsFormatter ) {
-        if ( isRadar ) {
-            options.scales.r.ticks.callback = yLabelsFormatter
-        } else if (!isRadial) {
-            // series.labels = series.labels.map((value) => labelsCategoryFormats[xAxisFormat](value))
-            options.scales.y.ticks.callback = yLabelsFormatter
-        }
-    }
-
-    // Formateo de etiquetas en el tooltip
-    options = formatTooltipLabels({chartType, options, yAxisFormat})
-
-    // Retorno de los conjuntos de datos y objeto de opciones
-    return [ series, options ]
-}
-
 // Funciones de formateo de etiquetas de ejes
-const formatRadarLabels = ({
+const formatRadarChartLabels = ({
     chartType,
     series,
     options,
@@ -438,7 +288,7 @@ const formatRadarLabels = ({
     // Retorno de los conjuntos de datos y objeto de opciones
     return [ series, options ]
 }
-const formatRadialLabels = ({
+const formatRadialChartsLabels = ({
     series,
     options,
 }) => {
@@ -446,7 +296,7 @@ const formatRadialLabels = ({
     // Retorno de los conjuntos de datos y objeto de opciones
     return [ series, options ]
 }
-const formatSquareLabels = ({
+const formatSquareChartLabels = ({
     chartType,
     series,
     options,
@@ -482,7 +332,7 @@ const formatSquareLabels = ({
     // Retorno de los conjuntos de datos y objeto de opciones
     return [ series, options ]
 }
-const formatScatterLabels = ({
+const formatScatterChartLabels = ({
     chartType,
     series,
     options,
@@ -515,102 +365,6 @@ const formatScatterLabels = ({
 
     // Retorno de los conjuntos de datos y objeto de opciones
     return [ series, options ]
-}
-
-
-export const scaleAxes = ({
-    chartType,
-    series,
-    options
-}) => {
-
-    // Prevención de corte en el eje Y
-    options = avoidYAxisCut({ chartType, series, options })
-
-    return options
-}
-
-const assignLabelsFormatter = ({
-    series,
-    axisFormat
-}) => {
-
-    // Inicialización de la función a retornar
-    let labelsFormatter
-    
-    if ( labelsFormats[axisFormat].type === Number ) {
-        labelsFormatter = assignNumericLabelsFormatter({ series, axisFormat })
-    } else {
-        labelsFormatter = labelsFormats[axisFormat].raw
-    }
-
-    // Retorno de la función
-    return labelsFormatter
-}
-
-const assignNumericLabelsFormatter = ({
-    series,
-    axisFormat,
-    axes = undefined
-}) => {
-
-    // Creación de contenedor de número mayor
-    let maxNumber = 0;
-
-    // Iteración de conjuntos de datos
-    series.datasets.forEach(
-        (dataset) => {
-            // Iteración por cada valor de cada conjunto de datos
-            dataset.data.forEach(
-                (value) => {
-                    // Búsqueda del número mayor en todos los conjuntos de datos de la gráfica
-                    if (axes) {
-                        // console.log("No hace nada")
-                        if (value[axes] > maxNumber ) {
-                            maxNumber = value[axes]
-                        }
-                    } else {
-                        if (value > maxNumber ) {
-                            maxNumber = value
-                        }
-                    }
-                }
-            )
-        }
-    )
-
-    // Asignación de abreviación por millones
-    if ( maxNumber >= 1000000 ) {
-        return labelsFormats[axisFormat].toMillions
-
-    // Asignación de abreviación por miles
-    } else if ( maxNumber >= 3000 ) {
-        return labelsFormats[axisFormat].toThousands
-    
-    // Formateo por defecto
-    } else {
-        return labelsFormats[axisFormat].raw
-    }
-}
-
-const formatTooltipLabels = ({
-    chartType,
-    options,
-    yAxisFormat
-}) => {
-
-    // Inicialización de objeto
-    options.plugins.tooltip.callbacks = {}
-
-    // Formateo de valores de etiquetas si el tipo de gráfica soporta ejes
-    if ( SQUARE_CHARTS.indexOf(chartType) !== -1 ) {
-        // Asignación de formateo
-        options.plugins.tooltip.callbacks.label = chartWithAxesFormat(yAxisFormat)
-    } else {
-        // options.plugins.tooltip.callbacks.label = (context) => {console.log(context)}
-    }
-
-    return options
 }
 
 const stratificateData = ({
@@ -717,6 +471,151 @@ const getLabels = ({
     return labels
 }
 
+const integrateLegendsPlugIn = ({
+    options,
+    labelsContainerID,
+    labelsDisplay,
+    labelsList,
+    legendBox
+}) => {
+
+    // Integración de plugins
+    options.plugins = {
+
+        // Plug-in para etiquetas desacopladas de la gráfica
+        htmlLegend: {
+            containerID: labelsContainerID
+        },
+        
+        // Desactivación de muestra de etiquetas integradas en la gráfica
+        legend: {
+            display: false,
+        },
+
+        tooltip: {}
+    }
+
+    // Inicialización de objeto de extensión de opciones para uso de este proyecto
+    options.extension = {}
+
+    const legendParams = {
+        labelsDisplay,
+        labelsList,
+        legendBox
+    }
+
+    // Integración de parámetros personalizados de la gráfica en caso de ser provistos
+    Object.keys(legendParams).forEach(
+        (paramsKey) => {
+            if ( legendParams ) {
+                options.extension[paramsKey] = legendParams[paramsKey]
+            }
+        }
+    )
+
+    // Retorno del objeto contenedor de las opciones
+    return options
+}
+
+const scaleSizes = (data) => {
+    // Obtención del número mayor en la matriz
+    const maxNum = Math.max(...data)
+
+    // Obtención del número máximo a escalar restando el número mínimo
+    const adjustedMaxSize = chartSettings[CHARTS_SETTINGS.MAX_BUBBLE_SIZE] - chartSettings[CHARTS_SETTINGS.MIN_BUBBLE_SIZE]
+
+    // Escalamiento de valores multiplicando por el número ajustado y sumando el valor mínimo permitido
+    const scaledValues = data.map(
+        (value) => ( (value / maxNum * adjustedMaxSize) + chartSettings[CHARTS_SETTINGS.MIN_BUBBLE_SIZE] )
+    )
+
+    // Retorno del objeto con los valores escalados
+    return scaledValues
+}
+
+const assignLabelsFormatter = ({
+    series,
+    axisFormat
+}) => {
+
+    // Inicialización de la función a retornar
+    let labelsFormatter
+    
+    if ( labelsFormats[axisFormat].type === Number ) {
+        labelsFormatter = assignNumericLabelsFormatter({ series, axisFormat })
+    } else {
+        labelsFormatter = labelsFormats[axisFormat].raw
+    }
+
+    // Retorno de la función
+    return labelsFormatter
+}
+
+const formatTooltipLabels = ({
+    chartType,
+    options,
+    yAxisFormat
+}) => {
+
+    // Inicialización de objeto
+    options.plugins.tooltip.callbacks = {}
+
+    // Formateo de valores de etiquetas si el tipo de gráfica soporta ejes
+    if ( SQUARE_CHARTS.indexOf(chartType) !== -1 ) {
+        // Asignación de formateo
+        options.plugins.tooltip.callbacks.label = chartWithAxesFormat(yAxisFormat)
+    } else {
+        // options.plugins.tooltip.callbacks.label = (context) => {console.log(context)}
+    }
+
+    return options
+}
+
+const assignNumericLabelsFormatter = ({
+    series,
+    axisFormat,
+    axes = undefined
+}) => {
+
+    // Creación de contenedor de número mayor
+    let maxNumber = 0;
+
+    // Iteración de conjuntos de datos
+    series.datasets.forEach(
+        (dataset) => {
+            // Iteración por cada valor de cada conjunto de datos
+            dataset.data.forEach(
+                (value) => {
+                    // Búsqueda del número mayor en todos los conjuntos de datos de la gráfica
+                    if (axes) {
+                        // console.log("No hace nada")
+                        if (value[axes] > maxNumber ) {
+                            maxNumber = value[axes]
+                        }
+                    } else {
+                        if (value > maxNumber ) {
+                            maxNumber = value
+                        }
+                    }
+                }
+            )
+        }
+    )
+
+    // Asignación de abreviación por millones
+    if ( maxNumber >= 1000000 ) {
+        return labelsFormats[axisFormat].toMillions
+
+    // Asignación de abreviación por miles
+    } else if ( maxNumber >= 3000 ) {
+        return labelsFormats[axisFormat].toThousands
+    
+    // Formateo por defecto
+    } else {
+        return labelsFormats[axisFormat].raw
+    }
+}
+
 const colorMapping = ({
     series,
     backgroundColors,
@@ -756,6 +655,43 @@ const colorMapping = ({
     }
 
     return series
+}
+
+const avoidYAxisCut = ({
+    chartType,
+    series,
+    options
+}) => {
+
+    const isRadial = RADIAL_CHARTS.indexOf(chartType) !== -1
+
+    // Inicialización del número menor
+    let minNumber = 0
+
+    // Iteración por cada conjunto de datos de la gráfica
+    series.datasets.forEach(
+        // Iteración por cada valor de cada conjunto de datos
+        (dataset) => dataset.data.forEach(
+            (value) => {
+                // Búsqueda del número menor
+                if ( value < minNumber ) {
+                    minNumber = value
+                }
+            }
+        )
+    )
+
+    // Asignación de la etiqueta mínima en el eje Y en 0 si el número menor no es negativo
+    if ( !(minNumber < 0) ) {
+        if ( isRadial ) {
+            options.scales.r.min = 0
+        } else {
+            options.scales.y.min = 0
+        }
+    }
+
+    // Retorno del objeto de opciones
+    return options
 }
 
 const mapOpacities = ({
@@ -803,43 +739,54 @@ const mapColors = ({
     return series;
 }
 
-const avoidYAxisCut = ({
+export const mapColorsOnSeries = ({
+    series,
+    chartType,
+    backgroundColors,
+    backgroundOpacity,
+    borderColors,
+    borderOpacity
+}) => {
+
+    // Validación de tipos de gráfica
+    const isPolarArea = chartType === CHART_TYPES.POLARAREA
+    const isPie = chartType === CHART_TYPES.PIE
+    const isDoughtnut = chartType === CHART_TYPES.DOUGHNUT
+
+    // Asignación de opacidad de colores de fondo para gráficas de área polar
+    if ( isPolarArea && !backgroundOpacity ) {
+        backgroundOpacity = chartSettings[CHART_TYPES.POLARAREA][CHARTS_SETTINGS.BACKGROUND_OPACITY];
+    }
+
+    // Asignación de colores de borde para gráficas circulares
+    if ( (isPie || isDoughtnut) && !borderColors ) {
+        borderColors = chartSettings.circularCharts[CHARTS_SETTINGS.BORDER_COLORS];
+    }
+
+    // Asignación de opacidades y colores de borde para gráficas de área polar
+    if ( isPolarArea && !borderColors ) {
+        borderColors = backgroundColors; // Asignación de mismos colores de fondo para colores de borde
+        borderOpacity = chartSettings[CHART_TYPES.POLARAREA][CHARTS_SETTINGS.BORDER_OPACITY];
+    }
+
+    series = colorMapping({ series, backgroundColors, backgroundOpacity, borderColors, borderOpacity, chartType });
+
+    return series;
+}
+
+export const scaleAxes = ({
     chartType,
     series,
     options
 }) => {
 
-    const isRadial = RADIAL_CHARTS.indexOf(chartType) !== -1
+    // Prevención de corte en el eje Y
+    options = avoidYAxisCut({ chartType, series, options })
 
-    // Inicialización del número menor
-    let minNumber = 0
-
-    // Iteración por cada conjunto de datos de la gráfica
-    series.datasets.forEach(
-        // Iteración por cada valor de cada conjunto de datos
-        (dataset) => dataset.data.forEach(
-            (value) => {
-                // Búsqueda del número menor
-                if ( value < minNumber ) {
-                    minNumber = value
-                }
-            }
-        )
-    )
-
-    // Asignación de la etiqueta mínima en el eje Y en 0 si el número menor no es negativo
-    if ( !(minNumber < 0) ) {
-        if ( isRadial ) {
-            options.scales.r.min = 0
-        } else {
-            options.scales.y.min = 0
-        }
-    }
-
-    // Retorno del objeto de opciones
     return options
 }
 
+// Funciones de formateo de valores
 export const labelsFormats = {
 
     // Formato numérico
@@ -893,15 +840,15 @@ export const buildInitOptions = {
 }
 
 export const formatLabels = {
-    [CHART_TYPES.BUBBLE]: formatScatterLabels,
-    [CHART_TYPES.SCATTER]: formatScatterLabels,
+    [CHART_TYPES.BUBBLE]: formatScatterChartLabels,
+    [CHART_TYPES.SCATTER]: formatScatterChartLabels,
 
-    [CHART_TYPES.BAR]: formatSquareLabels,
-    [CHART_TYPES.LINE]: formatSquareLabels,
+    [CHART_TYPES.BAR]: formatSquareChartLabels,
+    [CHART_TYPES.LINE]: formatSquareChartLabels,
 
-    [CHART_TYPES.PIE]: formatRadialLabels,
-    [CHART_TYPES.DOUGHNUT]: formatRadialLabels,
-    [CHART_TYPES.POLARAREA]: formatRadialLabels,
+    [CHART_TYPES.PIE]: formatRadialChartsLabels,
+    [CHART_TYPES.DOUGHNUT]: formatRadialChartsLabels,
+    [CHART_TYPES.POLARAREA]: formatRadialChartsLabels,
 
-    [CHART_TYPES.RADAR]: formatRadarLabels,
+    [CHART_TYPES.RADAR]: formatRadarChartLabels,
 }
