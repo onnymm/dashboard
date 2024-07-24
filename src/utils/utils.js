@@ -1,6 +1,6 @@
 import { CHARTS_SETTINGS } from "../constants/settings";
 import { chartSettings } from "../settings/dashboardSettings";
-import { buildInitSeries, mapColorsOnSeries, scaleAxes, buildInitOptions, formatLabels, formatTooltip } from "./dataFormatting";
+import { buildInitOptions, buildInitSeries, formatLabels, formatTooltip, mapColorsOnSeries, scaleAxes } from "./dataFormatting";
 
 export const buildData = ({
     data, // Objeto de datos retornado del API
@@ -42,4 +42,9 @@ export const buildData = ({
 
     // Retorno del objeto a ingresar al componente de graficación
     return { series, options };
+}
+
+export const capitalizeFirstLetter = str => {
+	if (str.length === 0) return str
+    return str.charAt(0).toUpperCase() + str.slice(1)
 }

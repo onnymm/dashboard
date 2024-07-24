@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { ContentListContext } from '../../../../contexts/NavbarActionButtonsContexts'
-import { capitalizeFirstLetter } from '../../../../utils/dataFormatting'
+import { capitalizeFirstLetter } from '../../../../utils/utils'
 import List from '../../../ui kit/List'
 
 const ContentList = () => {

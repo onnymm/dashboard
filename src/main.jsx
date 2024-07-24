@@ -7,5 +7,6 @@ import './styles/index.css'
 ReactDOM.createRoot(document.getElementById('root')).render(
     <RouterProvider router={Router}>
         <App />
+        <span></span>
     </RouterProvider> 
 )

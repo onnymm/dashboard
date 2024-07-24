@@ -1,4 +1,4 @@
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
+import { MagnifyingGlassIcon } from '@heroicons/react/16/solid'
 import { useState } from 'react'
 
 const NavbarSearch = () => {
@@ -6,8 +6,8 @@ const NavbarSearch = () => {
 
 	return (
 		<form className='ml-6 hidden gap-3 sm:flex'>
-			<button className=''>
-				<MagnifyingGlassIcon className='size-5 opacity-60 transition duration-300 hover:fill-navbar-icons-hover-d hover:opacity-100 dark:text-white dark:hover:fill-navbar-icons-hover-d dark:hover:opacity-100' />
+			<button className='opacity-60 transition duration-300 hover:text-navbar-icons-hover-d hover:opacity-100 dark:text-white dark:hover:text-navbar-icons-hover-d'>
+				<MagnifyingGlassIcon className='size-5' />
 			</button>
 			<input
 				className='bg-transparent text-sm opacity-80 focus:outline-none dark:text-white dark:placeholder-white'

@@ -8,7 +8,7 @@ const App = () => {
 	const [sidebarIsLocked, setSidebarIsLocked] = useState(false)
 
 	return (
-		<div className='relative h-screen overflow-y-auto overflow-x-hidden'>
+		<div className='relative z-0 h-screen overflow-y-auto overflow-x-hidden'>
 			<AppContext.Provider value={{ sidebarIsLocked, setSidebarIsLocked }}>
 				<Sidebar />
 				<div className='transition-color sticky top-0 flex h-20 select-none flex-row bg-navbar-background shadow duration-300 dark:bg-navbar-background-d'>
