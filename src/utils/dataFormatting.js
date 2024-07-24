@@ -1,9 +1,8 @@
-import { CHART_TYPES, CHARTS_WITH_AXES, RADIAL_CHARTS } from "../constants/charts";
+import { CHART_TYPES, SQUARE_CHARTS, RADIAL_CHARTS } from "../constants/charts";
 import { OPACITIES } from "../constants/colors";
-import { CHARTS_SERIES_SETTINGS, CHARTS_SETTINGS } from "../constants/settings";
+import { CHARTS_SERIES_SETTINGS, CHARTS_SETTINGS, LABELS_FORMATS_SETTINGS } from "../constants/settings";
 import { chartSettings } from "../settings/dashboardSettings";
 import { chartWithAxesFormat } from "./tooltipFormatting";
-import { labelsFormats} from "./utils";
 
 // Funciones de construcción de estructuras de datos
 const buildBubbleData = ({
@@ -604,7 +603,7 @@ const formatTooltipLabels = ({
     options.plugins.tooltip.callbacks = {}
 
     // Formateo de valores de etiquetas si el tipo de gráfica soporta ejes
-    if ( CHARTS_WITH_AXES.indexOf(chartType) !== -1 ) {
+    if ( SQUARE_CHARTS.indexOf(chartType) !== -1 ) {
         // Asignación de formateo
         options.plugins.tooltip.callbacks.label = chartWithAxesFormat(yAxisFormat)
     } else {
@@ -839,6 +838,31 @@ const avoidYAxisCut = ({
 
     // Retorno del objeto de opciones
     return options
+}
+
+export const labelsFormats = {
+
+    // Formato numérico
+    [LABELS_FORMATS_SETTINGS.NUMERIC]: {
+        raw: (num) => (num),
+        toThousands: (num) => (`${num / 1000} K`),
+        toMillions: (num) => (`${num / 1000000} M`),
+        type: Number,
+    },
+
+    // Formato en moneda nacional
+    [LABELS_FORMATS_SETTINGS.MONETARY]: {
+        raw: (num) => (num.toLocaleString('es-MX', {style: 'currency', currency: 'MXN'})),
+        toThousands: (num) => (`$${num / 1000} K`),
+        toMillions: (num) => (`$${num / 1000000} M`),
+        type: Number,
+    },
+
+    // Mostrar sólo el primer nombre en un String antes del espacio
+    [LABELS_FORMATS_SETTINGS.ONLY_NAME]: {
+        raw: (text) => (text.slice(0, text.indexOf(" "))),
+        type: String,
+    },
 }
 
 export const buildInitSeries = {
