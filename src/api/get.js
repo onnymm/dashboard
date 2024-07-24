@@ -1,5 +1,5 @@
 import axios from "axios"
-import { domains } from "../constants/backendDomains"
+import { domains } from "../settings/backendDomains"
 import { defaultDomain } from "../data/appConfig"
 
 export const getChartData = async (

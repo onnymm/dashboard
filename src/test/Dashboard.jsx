@@ -10,8 +10,11 @@ import {
     PointElement,
     RadialLinearScale,
     Title,
-    Tooltip
+    Tooltip,
 } from 'chart.js';
+import ChartTemplate from '../components/charts/ChartTemplate';
+import { dashboardData } from '../data/appConfig';
+import htmlLegendPlugin from '../plugins/htmlLegend';
 
 ChartJS.register(
     ArcElement,
@@ -25,11 +28,8 @@ ChartJS.register(
     Legend,
     Title,
     Tooltip,
+    htmlLegendPlugin
 )
-
-
-import ChartTemplate from '../components/charts/ChartTemplate';
-import { dashboardData } from '../data/appConfig';
 
 const Dashboard = () => {
 
@@ -39,7 +39,7 @@ const Dashboard = () => {
                     dashboardData.charts.map(
                         (chartData, index) => (
                             <div key={index} style={{width: '445px'}}>
-                                <ChartTemplate chartData={chartData} />
+                                <ChartTemplate chartData={chartData} labelsContainerID={`chart-${index}`} />
                             </div>
                         )
                     )

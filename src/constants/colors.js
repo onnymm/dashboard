@@ -1,10 +1,10 @@
 // Valores numéricos
-export const redHue = 353
+export const RED_HUE = 353
 
 // Colores en formato hexadecimal sin opacidad
-export const saturedRed = "#FF001E"
+export const SATURED_RED = "#FF001E"
 
-export const opacity = {
+export const OPACITIES = {
     0: "00",
     5: "0B",
     10: "18",
@@ -14,7 +14,7 @@ export const opacity = {
     100: "FF",
 }
 
-export const redPalette = [
+export const RED_PALETTE = [
     "#8C0413",
     "#B70217",
     "#DC001A",
@@ -24,8 +24,8 @@ export const redPalette = [
     "#FC7080"
 ]
 
-export const presetColors = {
-    white: "#FFFFFF",
-    black: "#000000",
-    lightMode: "#FFFFFF",
-} 
+export const PRESET_COLORS = {
+    WHITE: "#FFFFFF",
+    BLACK: "#000000",
+    LIGHT_MODE: "#FFFFFF",
+}
