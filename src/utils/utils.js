@@ -18,7 +18,6 @@ export const buildData = ({
     [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio = undefined, // Formateo en las etiquetas del eje X
     [CHARTS_SETTINGS.Y_AXIS_FORMAT]: yValueType = undefined,
     [CHARTS_SETTINGS.X_AXIS_FORMAT]: xLabelFormat = undefined, // Formateo en las etiquetas del eje X
-    [CHARTS_SETTINGS.Y_AXIS_FORMAT]: yLabelsFormatter = undefined, // Formateo los valores del eje Y,
     [CHARTS_SETTINGS.CATEGORY_STRATIFICATION_BY]: strat = undefined, // Variable de estratificación
     [CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay = undefined, // Estilo de contenedor de etiquetas
     [CHARTS_SETTINGS.LABELS_LIST]: labelsList = undefined, // Estilo de lista de etiquetas
@@ -35,7 +34,7 @@ export const buildData = ({
     let options = buildInitOptions[chartType]({series, chartType, labelsContainerID, aspectRatio, labelsDisplay, labelsList, legendBox });
     
     // Formateo de etiquetas en la gráfica
-    [ series, options ] = formatLabels({ chartType, series, options, xLabelFormat, yLabelsFormatter, yValueType });
+    [ series, options ] = formatLabels({ chartType, series, options, xLabelFormat, yValueType });
     
     // Formateo de escalas en ejes
     options = scaleAxes({ chartType, series, options });
