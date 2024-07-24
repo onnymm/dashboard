@@ -1,6 +1,6 @@
 import { CHARTS_SETTINGS } from "../constants/settings";
 import { chartSettings } from "../settings/dashboardSettings";
-import { buildInitSeries, mapColorsOnSeries, scaleAxes, buildInitOptions, formatLabels } from "./dataFormatting";
+import { buildInitSeries, mapColorsOnSeries, scaleAxes, buildInitOptions, formatLabels, formatTooltip } from "./dataFormatting";
 
 export const buildData = ({
     data, // Objeto de datos retornado del API
@@ -35,7 +35,8 @@ export const buildData = ({
     
     // Formateo de etiquetas en la gráfica
     [ series, options ] = formatLabels[chartType]({ chartType, series, options, xAxisFormat, yAxisFormat });
-    
+    options = formatTooltip({ chartType, options, xAxisFormat, yAxisFormat }) 
+
     // Formateo de escalas en ejes
     options = scaleAxes({ chartType, series, options });
 
