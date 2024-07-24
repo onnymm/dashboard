@@ -1,4 +1,4 @@
-import { chartsSettingsOptions } from "../data/_configData"
+import { CHARTS_SETTINGS_OPTIONS } from "../constants/settings"
 import { chartSettings } from "../settings/dashboardSettings"
 
 export const chartStyleSetter = (extension, element, styleSetting) => {
@@ -15,7 +15,7 @@ export const chartStyleSetter = (extension, element, styleSetting) => {
     }
 
     // Se obtienen los parámetros de apariencia
-    const styleParams = chartsSettingsOptions[styleSetting][settingOption]
+    const styleParams = CHARTS_SETTINGS_OPTIONS[styleSetting][settingOption]
 
     // Iteración por cada una de las llaves del objeto de parámetros
     Object.keys(styleParams).forEach(
