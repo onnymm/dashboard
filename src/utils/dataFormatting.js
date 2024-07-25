@@ -6,7 +6,8 @@ import { chartSettings } from "../settings/dashboardSettings";
 // Funciones de construcción de estructuras de datos
 const buildBubbleData = ({
     data,
-    labelsName
+    labelsName,
+    transposed
 }) => {
 
     // Inicialización de los objetos
@@ -14,16 +15,30 @@ const buildBubbleData = ({
     series.datasets = []
     let datasets
 
-    // Mepeo y transformación de los valores
-    datasets = Object.values(data).map(
-        (values) => {
-            return {
-                x: values[0],
-                y: values[1],
-                _custom: values[2]
+    // Validación de indicación de gráfica transpuesta
+    if ( transposed ) {
+        // Mepeo y transformación de los valores
+        datasets = Object.values(data).map(
+            (values) => {
+                return {
+                    x: values[1],
+                    y: values[0],
+                    _custom: values[2]
+                }
             }
-        }
-    );
+        );
+    } else {
+        // Mepeo y transformación de los valores
+        datasets = Object.values(data).map(
+            (values) => {
+                return {
+                    x: values[0],
+                    y: values[1],
+                    _custom: values[2]
+                }
+            }
+        );
+    }
 
     // Se ingresan los datos transformados al objeto de series
     series.datasets.push(
@@ -123,6 +138,7 @@ const buildGenericOptions = ({
     // Inicialización del objeto a retornar
     let options = {}
 
+    // Inversión de los ejes X y Y si se indica la transposición
     options.indexAxis = transposed ? 'y' : 'x';
     
     // Inicialización de atributos preestablecidos de opciones
@@ -154,10 +170,15 @@ const buildBubbleChartOptions = ({
     labelsDisplay = chartSettings[CHARTS_SETTINGS.LABEL_COLUMNS],
     labelsList = chartSettings[CHARTS_SETTINGS.LABELS_LIST],
     legendBox = chartSettings[CHARTS_SETTINGS.LEGEND_BOX],
+    transposed
 }) => {
 
     // Inicialización del objeto a retornar
     let options = {}
+
+    // Inversión de los ejes X y Y si se indica la transposición
+    options.indexAxis = transposed ? 'y' : 'x';
+    console.log(transposed)
     
     // Inicialización de atributos preestablecidos de opciones
     options.scales = {}
@@ -345,27 +366,35 @@ const formatScatterChartLabels = ({
     series,
     options,
     xAxisFormat,
-    yAxisFormat
+    yAxisFormat,
+    transposed
 }) => {
 
     // Inicialización de las funciones formateadoras
     let xLabelsFormatter
     let yLabelsFormatter
 
-    // Definción del formateador de etiquetas numéricas los ejes X y Y
-    if ( xAxisFormat ) {
-        xLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: xAxisFormat, axes: 'x' })
-    }
-    if ( yAxisFormat ) {
-        yLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: yAxisFormat, axes: 'y' })
-    }
-
-    // Formateo de etiquetas en ambos ejes
-    if ( xLabelsFormatter ) {
-        options.scales.x.ticks.callback = xLabelsFormatter
-    }
-    if ( yLabelsFormatter ) {
-        options.scales.y.ticks.callback = yLabelsFormatter
+    // Validación de indicación de gráfica transpuesta
+    if ( transposed ) {
+        // Formateo de etiquetas en ambos ejes
+        if ( xAxisFormat ) {
+            xLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: yAxisFormat, axes: 'y' })
+            options.scales.x.ticks.callback = xLabelsFormatter
+        }
+        if ( yAxisFormat ) {
+            yLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: xAxisFormat, axes: 'x' })
+            options.scales.y.ticks.callback = yLabelsFormatter
+        }
+    } else {
+        // Formateo de etiquetas en ambos ejes
+        if ( xAxisFormat ) {
+            xLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: xAxisFormat, axes: 'x' })
+            options.scales.x.ticks.callback = xLabelsFormatter
+        }
+        if ( yAxisFormat ) {
+            yLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: yAxisFormat, axes: 'y' })
+            options.scales.y.ticks.callback = yLabelsFormatter
+        }
     }
 
     // Retorno de los conjuntos de datos y objeto de opciones

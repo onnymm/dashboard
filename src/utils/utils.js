@@ -26,21 +26,22 @@ export const buildData = ({
 }) => {
 
     // Inicialización del contenedor de datos con formato dinámico
-    let series = buildInitSeries[chartType]({data, strat, datasetNames, labelsName, labels });
-    
+    let series = buildInitSeries[chartType]({ data, strat, datasetNames, labelsName, labels, transposed });
+
     // Mapeo de colores y opacidades preestablecidos a los conjuntos de datos
     series = mapColorsOnSeries({ series, chartType, backgroundColors, backgroundOpacity, borderColors, borderOpacity });
-    
+
     // Inicialización del contenedor de opciones
     let options = buildInitOptions[chartType]({series, chartType, labelsContainerID, aspectRatio, labelsDisplay, labelsList, legendBox, transposed });
-    
+
     // Formateo de etiquetas en la gráfica
     [ series, options ] = formatLabels[chartType]({ chartType, series, options, xAxisFormat, yAxisFormat, transposed });
-    options = formatTooltip({ chartType, options, xAxisFormat, yAxisFormat }) 
+    options = formatTooltip({ chartType, options, xAxisFormat, yAxisFormat })
 
     // Formateo de escalas en ejes
     options = scaleAxes({ chartType, series, options });
 
+    console.log(options)
 
     // Retorno del objeto a ingresar al componente de graficación
     return { series, options };
