@@ -118,9 +118,12 @@ const buildGenericOptions = ({
     labelsDisplay = chartSettings[CHARTS_SETTINGS.LABEL_COLUMNS],
     labelsList = chartSettings[CHARTS_SETTINGS.LABELS_LIST],
     legendBox = chartSettings[CHARTS_SETTINGS.LEGEND_BOX],
+    transposed
 }) => {
     // Inicialización del objeto a retornar
     let options = {}
+
+    options.indexAxis = transposed ? 'y' : 'x';
     
     // Inicialización de atributos preestablecidos de opciones
     options.scales = {}
@@ -295,29 +298,44 @@ const formatSquareChartLabels = ({
     series,
     options,
     xAxisFormat,
-    yAxisFormat
+    yAxisFormat,
+    transposed
 }) => {
 
     let yLabelsFormatter
+    let xLabelsFormatter
 
-
-    // Definción del formateador de etiquetas numéricas
-    if ( yAxisFormat ) {
-        yLabelsFormatter = assignLabelsFormatter({ series, axisFormat: yAxisFormat })
-    }
-
-    if ( xAxisFormat ) {
+    // Validación de indicación de gráfica transpuesta
+    if ( transposed ) {
         // Formateo de etiquetas en el eje X
-        series.labels = series.labels.map(
-            (value) => {
-                return labelsFormats[xAxisFormat].raw(value)
-            }
-        )
-    }
+        if ( yAxisFormat ) {
+            xLabelsFormatter = assignLabelsFormatter({ series, axisFormat: yAxisFormat })
+            options.scales.x.ticks.callback = xLabelsFormatter
+        }
 
-    // Formateo de etiquetas en el eje Y
-    if ( yLabelsFormatter ) {
-        options.scales.y.ticks.callback = yLabelsFormatter
+        // Formateo de etiquetas en el eje Y
+        if ( xAxisFormat ) {
+            series.labels = series.labels.map(
+                (value) => {
+                    return labelsFormats[xAxisFormat].raw(value)
+                }
+            )
+        }
+    } else {
+        // Formateo de etiquetas en el eje Y
+        if ( yAxisFormat ) {
+            yLabelsFormatter = assignLabelsFormatter({ series, axisFormat: yAxisFormat })
+            options.scales.y.ticks.callback = yLabelsFormatter
+        }
+
+        // Formateo de etiquetas en el eje X
+        if ( xAxisFormat ) {
+            series.labels = series.labels.map(
+                (value) => {
+                    return labelsFormats[xAxisFormat].raw(value)
+                }
+            )
+        }
     }
 
     // Retorno de los conjuntos de datos y objeto de opciones

@@ -15,8 +15,22 @@ export const dashboardData = {
 			[CHARTS_SETTINGS.DATASETS_NAMES]: ['amount_untaxed'],
 			[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
 			[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE,
-			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
+			[CHARTS_SETTINGS.BACKGROUND_OPACITY]: 75,
 			[CHARTS_SETTINGS.X_AXIS_FORMAT]: 'only name',
+			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
+		},
+		{
+			[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
+			[CHARTS_SETTINGS.CHART_TYPE]: 'bar',
+			[CHARTS_SETTINGS.NAME]: 'Cotizaciones por vendedora',
+			[CHARTS_SETTINGS.LABELS_NAME]: 'user_name',
+			[CHARTS_SETTINGS.DATASETS_NAMES]: ['amount_untaxed'],
+			[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
+			[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE,
+			[CHARTS_SETTINGS.BACKGROUND_OPACITY]: 75,
+			[CHARTS_SETTINGS.X_AXIS_FORMAT]: 'only name',
+			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
+			[CHARTS_SETTINGS.TRANSPOSED]: true
 		},
 		{
 			[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
