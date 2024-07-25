@@ -11,13 +11,13 @@ const NavbarProfile = () => {
 	let domNode = useClickOutside(() => setIsActive(false))
 
 	return (
-		<div className='relative flex items-center gap-2 transition duration-300 dark:text-white'>
+		<div className='relative flex items-center transition duration-300 dark:text-white sm:gap-1'>
 			<div className='hidden text-right lg:block'>
 				<span className='block text-sm opacity-80'>Master Yoda</span>
 				<span className='block text-xs opacity-60'>Force Advisor</span>
 			</div>
 
-			<div name='REFERENCE ---' ref={domNode} className='flex'>
+			<div ref={domNode} className='flex rounded-full border px-1 py-2'>
 				<button
 					className='flex items-center gap-1'
 					onClick={() => setIsActive(!isActive)}

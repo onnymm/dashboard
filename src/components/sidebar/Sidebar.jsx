@@ -1,5 +1,5 @@
 import { ArrowLeftIcon } from '@heroicons/react/16/solid'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { AppContext } from '../../contexts/AppContexts'
 import { useClickOutside } from '../../custom hooks/useClickOutside'
@@ -8,26 +8,15 @@ import SidebarToggle from './SidebarToggle'
 
 const Sidebar = () => {
 	const [isOpen, setIsOpen] = useState(false)
-	const { sidebarIsLocked: isLocked, setSidebarIsLocked: setIsLocked } =
-		useContext(AppContext)
-	const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+	const {
+		sidebarIsLocked: isLocked,
+		setSidebarIsLocked: setIsLocked,
+		isWideScreen
+	} = useContext(AppContext)
 
-	useEffect(() => {
-		const handleResize = () => {
-			setWindowWidth(window.innerWidth)
-			if (isLocked && windowWidth > 768) {
-				setIsOpen(true)
-			}
-		}
-
-		window.addEventListener('resize', handleResize)
-
-		return () => {
-			window.removeEventListener('resize', handleResize)
-		}
-	}, [setIsOpen, isLocked, windowWidth])
-
-	const isWideScreen = windowWidth > 768
+	if (isLocked && isWideScreen) {
+		!isOpen && setIsOpen(true)
+	}
 
 	const handleClick = () => {
 		isLocked && isWideScreen && setIsLocked(false)
@@ -66,7 +55,7 @@ const Sidebar = () => {
 					- Si está cerrada, bloqueada, o en pantalla completa: opacidad-0
 				*/}
 				<div
-					className={`${isOpen && (!isLocked || !isWideScreen) ? 'opacity-20' : 'opacity-0'} pointer-events-none absolute z-99 h-screen w-screen bg-black transition duration-300`}
+					className={`${isOpen && (!isLocked || !isWideScreen) ? 'opacity-20' : 'opacity-0'} pointer-events-none fixed z-99 h-screen w-screen bg-black transition duration-300`}
 				/>
 			</div>
 		</div>

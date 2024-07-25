@@ -11,7 +11,7 @@ const ContentList = () => {
 	} = useContext(ContentListContext)
 
 	return (
-		<div className='absolute -right-0 top-11 flex max-h-80 w-54 flex-col overflow-hidden rounded-xl shadow-back sm:top-10 sm:w-80'>
+		<div className='absolute -right-0 top-14 flex max-h-80 w-54 flex-col overflow-hidden rounded-xl shadow-back sm:top-12 sm:w-80'>
 			<div className='transition-color sticky top-0 z-10 bg-white p-3 text-sm duration-300 dark:bg-navbar-icons-background-d'>
 				<span className='transition-color opacity-80 duration-300 dark:text-white'>
 					{capitalizeFirstLetter(name)}

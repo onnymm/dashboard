@@ -1,24 +1,9 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { Outlet } from 'react-router-dom'
 import { AppContext } from '../../contexts/AppContexts'
 
 const Feed = () => {
-	const { sidebarIsLocked } = useContext(AppContext)
-	const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-
-	useEffect(() => {
-		const handleResize = () => {
-			setWindowWidth(window.innerWidth)
-		}
-
-		window.addEventListener('resize', handleResize)
-
-		return () => {
-			window.removeEventListener('resize', handleResize)
-		}
-	}, [windowWidth])
-
-	const isWideScreen = windowWidth > 1250
+	const { sidebarIsLocked, isWideScreen } = useContext(AppContext)
 
 	return (
 		<div className='flex'>

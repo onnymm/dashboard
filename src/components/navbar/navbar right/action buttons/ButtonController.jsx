@@ -11,18 +11,20 @@ import NavbarProfile from './NavbarProfile'
 const ActionButtonSwitch = () => {
 	return (
 		<>
-			<ActionButton
-				name='messages'
-				icon={ChatBubbleOvalLeftEllipsisIcon}
-				data={MESSAGES}
-				contains={Message}
-			/>
-			<ActionButton
-				name='notifications'
-				icon={BellIcon}
-				data={NOTIFICATIONS}
-				contains={Notification}
-			/>
+			<div className='flex sm:gap-2'>
+				<ActionButton
+					name='messages'
+					icon={ChatBubbleOvalLeftEllipsisIcon}
+					data={MESSAGES}
+					contains={Message}
+				/>
+				<ActionButton
+					name='notifications'
+					icon={BellIcon}
+					data={NOTIFICATIONS}
+					contains={Notification}
+				/>
+			</div>
 			<NavbarProfile />
 		</>
 	)
