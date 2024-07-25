@@ -17,7 +17,7 @@ const buildBubbleData = ({
 
     // Validación de indicación de gráfica transpuesta
     if ( transposed ) {
-        // Mepeo y transformación de los valores
+        // Mapeo y transformación de los valores
         datasets = Object.values(data).map(
             (values) => {
                 return {
@@ -28,7 +28,7 @@ const buildBubbleData = ({
             }
         );
     } else {
-        // Mepeo y transformación de los valores
+        // Mapeo y transformación de los valores
         datasets = Object.values(data).map(
             (values) => {
                 return {
@@ -56,7 +56,8 @@ const buildBubbleData = ({
 }
 const buildScatterData = ({
     data,
-    labelsName
+    labelsName,
+    transposed
 }) => {
 
     // Inicialización de los objetos
@@ -64,15 +65,28 @@ const buildScatterData = ({
     series.datasets = []
     let datasets
 
-    // Mepeo y transformación de los valores
-    datasets = Object.values(data).map(
-        (values) => {
-            return {
-                x: values[0],
-                y: values[1],
+    // Validación de indicación de gráfica transpuesta
+    if ( transposed ) {
+        // Mapeo y transformación de los valores
+        datasets = Object.values(data).map(
+            (values) => {
+                return {
+                    x: values[1],
+                    y: values[0],
+                }
             }
-        }
-    );
+        );
+    } else {
+        // Mapeo y transformación de los valores
+        datasets = Object.values(data).map(
+            (values) => {
+                return {
+                    x: values[0],
+                    y: values[1],
+                }
+            }
+        );
+    }
 
     // Se ingresan los datos transformados al objeto de series
     series.datasets.push(
