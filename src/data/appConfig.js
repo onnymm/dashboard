@@ -1,5 +1,5 @@
-import { CHARTS_SETTINGS } from '../constants/settings'
 import { PRESET_COLORS, RED_PALETTE } from '../constants/colors'
+import { CHARTS_SETTINGS } from '../constants/settings'
 
 // Dominios locales para obtener la información
 export const defaultDomain = 'localdomain'
@@ -16,7 +16,7 @@ export const dashboardData = {
 			[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
 			[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE,
 			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
-			[CHARTS_SETTINGS.X_AXIS_FORMAT]: 'only name',
+			[CHARTS_SETTINGS.X_AXIS_FORMAT]: 'only name'
 		},
 		{
 			[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
@@ -29,7 +29,7 @@ export const dashboardData = {
 			[CHARTS_SETTINGS.BACKGROUND_OPACITY]: 50,
 			[CHARTS_SETTINGS.BORDER_COLORS]: RED_PALETTE[3],
 			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
-			[CHARTS_SETTINGS.X_AXIS_FORMAT]: 'only name',
+			[CHARTS_SETTINGS.X_AXIS_FORMAT]: 'only name'
 		},
 		{
 			[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
@@ -50,7 +50,7 @@ export const dashboardData = {
 			[CHARTS_SETTINGS.DATASETS_NAMES]: ['amount_untaxed'],
 			[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
 			[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE,
-			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
+			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary'
 		},
 		{
 			[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
@@ -61,7 +61,7 @@ export const dashboardData = {
 			[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
 			[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE,
 			[CHARTS_SETTINGS.LABELS_DISPLAY]: 'grid3',
-			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
+			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary'
 		},
 		{
 			[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
@@ -121,7 +121,7 @@ export const dashboardData = {
 		{
 			[CHARTS_SETTINGS.CHART_TYPE]: 'bubble',
 			[CHARTS_SETTINGS.ENDPOINT]: 'products_week',
-			[CHARTS_SETTINGS.LABELS_NAME]: "Hola",
+			[CHARTS_SETTINGS.LABELS_NAME]: 'Hola',
 			[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
 			[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE[3],
 			[CHARTS_SETTINGS.BACKGROUND_OPACITY]: 10,
@@ -129,12 +129,12 @@ export const dashboardData = {
 			[CHARTS_SETTINGS.BORDER_OPACITY]: 0,
 			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
 			[CHARTS_SETTINGS.X_AXIS_FORMAT]: 'monetary',
-			[CHARTS_SETTINGS.LEGEND_BOX]: 'square',
+			[CHARTS_SETTINGS.LEGEND_BOX]: 'square'
 		},
 		{
 			[CHARTS_SETTINGS.CHART_TYPE]: 'scatter',
 			[CHARTS_SETTINGS.ENDPOINT]: 'products_week',
-			[CHARTS_SETTINGS.LABELS_NAME]: "Hola",
+			[CHARTS_SETTINGS.LABELS_NAME]: 'Hola',
 			[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
 			[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE[3],
 			[CHARTS_SETTINGS.BACKGROUND_OPACITY]: 25,
@@ -142,8 +142,8 @@ export const dashboardData = {
 			[CHARTS_SETTINGS.BORDER_OPACITY]: 0,
 			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
 			[CHARTS_SETTINGS.X_AXIS_FORMAT]: 'monetary',
-			[CHARTS_SETTINGS.LEGEND_BOX]: 'square',
-		},
+			[CHARTS_SETTINGS.LEGEND_BOX]: 'square'
+		}
 	]
 }
 
@@ -224,7 +224,7 @@ export const links = [
 	}
 ]
 
-export const SIDEBAR_LINKS = [
+export const DASHBOARD_LINKS = [
 	{
 		id: 1,
 		label: 'eCommerce',
@@ -234,5 +234,13 @@ export const SIDEBAR_LINKS = [
 		id: 2,
 		label: 'Analytics',
 		route: 'analytics'
+	}
+]
+
+export const TASKS_LINKS = [
+	{
+		id: 1,
+		label: 'To do',
+		route: 'to-do'
 	}
 ]
