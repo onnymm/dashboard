@@ -14,6 +14,7 @@ import {
 } from 'chart.js';
 import ChartTemplate from '../components/charts/ChartTemplate';
 import { dashboardData } from '../data/appConfig';
+import darkMode from '../plugins/darkMode';
 import htmlLegendPlugin from '../plugins/htmlLegend';
 
 ChartJS.register(
@@ -28,7 +29,8 @@ ChartJS.register(
     Legend,
     Title,
     Tooltip,
-    htmlLegendPlugin
+    htmlLegendPlugin,
+    darkMode
 )
 
 const Dashboard = () => {
@@ -39,7 +41,7 @@ const Dashboard = () => {
                     dashboardData.charts.map(
                         (chartData, index) => (
                             <div key={index} style={{width: '445px'}}>
-                                <ChartTemplate chartData={chartData} labelsContainerID={`chart-${index}`} />
+                                <ChartTemplate chartData={chartData} labelsContainerID={`chart-${index}`}/>
                             </div>
                         )
                     )

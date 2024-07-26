@@ -161,6 +161,8 @@ const buildGenericOptions = ({
     options.scales.y = {}
     options.scales.x.ticks = {}
     options.scales.y.ticks = {}
+    options.scales.x.grid = {color: undefined}
+    options.scales.y.grid = {color: undefined}
 
     // Configuración de relación de aspecto
     options.aspectRatio = aspectRatio 
@@ -192,7 +194,6 @@ const buildBubbleChartOptions = ({
 
     // Inversión de los ejes X y Y si se indica la transposición
     options.indexAxis = transposed ? 'y' : 'x';
-    console.log(transposed)
     
     // Inicialización de atributos preestablecidos de opciones
     options.scales = {}
@@ -282,6 +283,9 @@ const buildRadarChartOptions = ({
     options.scales.r.display = true
     options.scales.r.angleLines = {}
     options.scales.r.angleLines.display = true
+
+    options.scales.r.grid = {color: undefined}
+    options.font = {}
 
     // Configuración de relación de aspecto
     options.aspectRatio = aspectRatio 
