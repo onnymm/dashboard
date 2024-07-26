@@ -3,6 +3,7 @@ import { PRESET_COLORS, RED_PALETTE } from "../constants/colors";
 import { CHARTS_SERIES_SETTINGS, CHARTS_SETTINGS } from "../constants/settings";
 
 export const chartSettings = {
+    // Colores predefinidos
     [CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE,
     // Disposición de etiquetas
     [CHARTS_SETTINGS.LABEL_COLUMNS]: 1,

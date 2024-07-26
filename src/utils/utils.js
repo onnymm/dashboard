@@ -22,7 +22,7 @@ export const buildData = ({
     [CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay = undefined, // Estilo de contenedor de etiquetas
     [CHARTS_SETTINGS.LABELS_LIST]: labelsList = undefined, // Estilo de lista de etiquetas
     [CHARTS_SETTINGS.LEGEND_BOX]: legendBox = undefined, // Estilo de cajas de color de etiquetas
-    [CHARTS_SETTINGS.TRANSPOSED]: transposed = false
+    [CHARTS_SETTINGS.TRANSPOSED]: transposed = false // Indicador de transposición de ejes en la gráfica
 }) => {
 
     // Inicialización del contenedor de datos con formato dinámico
@@ -32,7 +32,7 @@ export const buildData = ({
     series = mapColorsOnSeries({ series, chartType, backgroundColors, backgroundOpacity, borderColors, borderOpacity });
 
     // Inicialización del contenedor de opciones
-    let options = buildInitOptions[chartType]({series, chartType, labelsContainerID, aspectRatio, labelsDisplay, labelsList, legendBox, transposed });
+    let options = buildInitOptions[chartType]({ series, chartType, labelsContainerID, aspectRatio, labelsDisplay, labelsList, legendBox, transposed });
 
     // Formateo de etiquetas en la gráfica
     [ series, options ] = formatLabels[chartType]({ chartType, series, options, xAxisFormat, yAxisFormat, transposed });
@@ -40,8 +40,6 @@ export const buildData = ({
 
     // Formateo de escalas en ejes
     options = scaleAxes({ chartType, series, options });
-
-    console.log(options)
 
     // Retorno del objeto a ingresar al componente de graficación
     return { series, options };
