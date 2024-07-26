@@ -33,11 +33,11 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 					className={`${isOpen ? 'translate-x-0' : '-translate-x-72'} fixed z-999 flex h-screen w-72 flex-col overflow-x-hidden bg-sidebar-background px-2 pb-2 transition duration-500`}
 				>
 					<div
-						className={`${isOpen ? 'opacity-100 delay-300' : 'opacity-0'} flex h-20 justify-between p-4 text-white transition`}
+						className={`${isOpen ? 'opacity-100 delay-200 duration-300' : 'opacity-0'} flex h-20 justify-between p-4 text-white transition-opacity`}
 					>
 						<NavLink to='' className='flex items-center'>
 							<img src='./logo.png' className='size-12' />
-							<h1 className={`mx-2 text-2xl font-medium`}>iaCele</h1>
+							<h1 className='mx-2 text-2xl font-medium'>iaCele</h1>
 						</NavLink>
 						{/* Si la sidebar no está bloqueada y la ventana es pequeña, mostrar flecha de cierre */}
 						{(!isLocked || !isWideScreen) && (
@@ -47,7 +47,6 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 						)}
 					</div>
 					<SidebarContent
-						isOpen={isOpen}
 						setIsOpen={setIsOpen}
 						isLocked={isLocked}
 						setIsLocked={setIsLocked}

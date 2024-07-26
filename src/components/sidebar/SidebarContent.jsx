@@ -10,24 +10,28 @@ import List from '../ui kit/List'
 import SidebarDropdown from './SidebarDropdown'
 import SidebarSection from './SidebarSection'
 
+const calculateHeight = content => {
+	return `h-${content.length * 8}`
+}
+
 const SIDEBAR_DROPDOWNS = [
 	{
 		id: 1,
 		icon: Squares2X2Icon,
 		label: 'Dashboard',
 		content: DASHBOARD_LINKS,
-		height: 'h-16'
+		height: calculateHeight(DASHBOARD_LINKS)
 	},
 	{
 		id: 2,
 		icon: ListBulletIcon,
 		label: 'Tasks',
 		content: TASKS_LINKS,
-		height: 'h-8'
+		height: calculateHeight(TASKS_LINKS)
 	}
 ]
 
-const SidebarContent = ({ isLocked, setIsLocked }) => {
+const SidebarContent = ({ isLocked, setIsLocked, setIsOpen }) => {
 	return (
 		<>
 			<div className='no-scrollbar flex flex-col overflow-y-auto rounded-sm p-2'>
@@ -38,8 +42,14 @@ const SidebarContent = ({ isLocked, setIsLocked }) => {
 					Contains={SidebarDropdown}
 					data={SIDEBAR_DROPDOWNS}
 					name='Dropdowns'
+					setter={setIsOpen}
 				/>
-				<SidebarSection icon={UserIcon} label='Profile' route='profile' />
+				<SidebarSection
+					icon={UserIcon}
+					label='Profile'
+					route='profile'
+					setter={setIsOpen}
+				/>
 			</div>
 			<button
 				className={`${isLocked ? 'bg-slate-900 shadow-md dark:bg-sidebar-background' : ''} ml-auto mt-auto hidden rounded-md p-2 text-white transition duration-500 hover:bg-slate-900 hover:shadow-md hover:dark:bg-sidebar-background md:block`}

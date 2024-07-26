@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom'
 import List from '../ui kit/List'
 import ListNavLink from '../ui kit/ListNavLink'
 
-const SidebarDropdown = ({ icon: Icon, label, content, height }) => {
+const SidebarDropdown = ({ icon: Icon, label, content, height, setter }) => {
 	const [isOpen, setIsOpen] = useState(false)
 	const [isOnPath, setIsOnPath] = useState(false)
 
@@ -40,7 +40,12 @@ const SidebarDropdown = ({ icon: Icon, label, content, height }) => {
 				<div
 					className={`${isOpen ? height : 'h-0'} overflow-hidden pl-6 transition-height duration-300`}
 				>
-					<List Contains={ListNavLink} data={content} name='links' />
+					<List
+						Contains={ListNavLink}
+						data={content}
+						name='links'
+						setter={setter}
+					/>
 				</div>
 			)}
 		</>
