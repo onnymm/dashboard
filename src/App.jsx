@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import Feed from './components/feed/Feed'
 import Navbar from './components/navbar/Navbar'
-import Sidebar from './components/sidebar/Sidebar'
 import { AppContext } from './contexts/AppContexts'
 
 const App = () => {
@@ -27,9 +26,10 @@ const App = () => {
 			<AppContext.Provider
 				value={{ sidebarIsLocked, setSidebarIsLocked, isWideScreen }}
 			>
-				<Sidebar />
-				<div className='transition-color sticky top-0 flex h-20 w-full select-none flex-row bg-navbar-background shadow duration-300 dark:bg-navbar-background-d'>
+				<div className='relative'>
+					{/* Barra de navegación */}
 					<Navbar />
+					{/* Contiene también la sidebar para limitar el dominio de render. */}
 				</div>
 				<div
 					className='transition-color -z-9 w-full overflow-y-auto bg-slate-100 duration-300 dark:bg-feed-background-d'
@@ -37,7 +37,9 @@ const App = () => {
 						minHeight: 'calc(100% - 5rem)'
 					}}
 				>
+					{/* Contenido de la página */}
 					<Feed />
+					{/* Contiene el outlet para componentes ruteados (se encuentran en el folder "pages") */}
 				</div>
 			</AppContext.Provider>
 		</div>
