@@ -5,7 +5,7 @@ import {
 	Squares2X2Icon,
 	UserIcon
 } from '@heroicons/react/24/outline'
-import { SIDEBAR_LINKS } from '../../data/appConfig'
+import { DASHBOARD_LINKS, TASKS_LINKS } from '../../data/appConfig'
 import List from '../ui kit/List'
 import SidebarDropdown from './SidebarDropdown'
 import SidebarSection from './SidebarSection'
@@ -15,14 +15,15 @@ const SIDEBAR_DROPDOWNS = [
 		id: 1,
 		icon: Squares2X2Icon,
 		label: 'Dashboard',
-		content: SIDEBAR_LINKS,
+		content: DASHBOARD_LINKS,
 		height: 'h-16'
 	},
 	{
 		id: 2,
 		icon: ListBulletIcon,
 		label: 'Tasks',
-		height: ''
+		content: TASKS_LINKS,
+		height: 'h-8'
 	}
 ]
 

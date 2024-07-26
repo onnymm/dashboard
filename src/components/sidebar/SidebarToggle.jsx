@@ -4,7 +4,7 @@ const SidebarToggle = ({ isOpen, setIsOpen }) => {
 	return (
 		<>
 			<button
-				className='fixed left-[4.5rem] top-5 z-9 p-2 transition duration-300 dark:text-white sm:left-44'
+				className='absolute bottom-1/4 left-[4.5rem] z-9 p-2 transition duration-300 dark:text-white dark:opacity-80 sm:left-44'
 				onClick={() => {
 					setIsOpen(!isOpen)
 				}}

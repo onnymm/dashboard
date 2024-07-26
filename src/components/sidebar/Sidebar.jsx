@@ -1,36 +1,34 @@
 import { ArrowLeftIcon } from '@heroicons/react/16/solid'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { AppContext } from '../../contexts/AppContexts'
 import { useClickOutside } from '../../custom hooks/useClickOutside'
 import SidebarContent from './SidebarContent'
-import SidebarToggle from './SidebarToggle'
 
-const Sidebar = () => {
-	const [isOpen, setIsOpen] = useState(false)
+const Sidebar = ({ isOpen, setIsOpen }) => {
 	const {
 		sidebarIsLocked: isLocked,
 		setSidebarIsLocked: setIsLocked,
 		isWideScreen
 	} = useContext(AppContext)
 
-	if (isLocked && isWideScreen) {
-		!isOpen && setIsOpen(true)
-	}
+	isLocked && isWideScreen && !isOpen && setIsOpen(true)
+	// Si la sidebar no está bloqueada, y el tamaño de ventana es grande, y la sidebar no está abierta, se manda a abrir
 
-	const handleClick = () => {
-		isLocked && isWideScreen && setIsLocked(false)
-		setIsOpen(!isOpen)
+	const handleArrowClick = () => {
+		// isLocked && isWideScreen && setIsLocked(false) // Si la sidebar está bloqueada y la ventana es grande, entonces desbloquéala bajo click
+		setIsOpen(!isOpen) // Cierra la sidebar
 	}
 
 	let domNode = useClickOutside(() => {
+		// Si se clickea fuera del nodo:
 		if (!isLocked || !isWideScreen) setIsOpen(false)
+		// Cerrar la sidebar siempre y cuando la sidebar no esté bloqueada o la ventana sea pequeña
 	})
 
 	return (
-		<div className='relative'>
+		<div className='fixed z-9999'>
 			<div ref={domNode} className='flex'>
-				<SidebarToggle isOpen={isOpen} setIsOpen={setIsOpen} />
 				<aside
 					className={`${isOpen ? 'translate-x-0' : '-translate-x-72'} fixed z-999 flex h-screen w-72 flex-col overflow-x-hidden bg-sidebar-background px-2 pb-2 transition duration-500`}
 				>
@@ -41,22 +39,29 @@ const Sidebar = () => {
 							<img src='./logo.png' className='size-12' />
 							<h1 className={`mx-2 text-2xl font-medium`}>iaCele</h1>
 						</NavLink>
-						<button onClick={() => handleClick()} className='ml-auto'>
-							<ArrowLeftIcon className='mx-4 size-6' />
-						</button>
+						{/* Si la sidebar no está bloqueada y la ventana es pequeña, mostrar flecha de cierre */}
+						{(!isLocked || !isWideScreen) && (
+							<button onClick={() => handleArrowClick()} className='ml-auto'>
+								<ArrowLeftIcon className='mx-4 size-6' />
+							</button>
+						)}
 					</div>
-					<SidebarContent isLocked={isLocked} setIsLocked={setIsLocked} />
+					<SidebarContent
+						isOpen={isOpen}
+						setIsOpen={setIsOpen}
+						isLocked={isLocked}
+						setIsLocked={setIsLocked}
+					/>
 				</aside>
 
-				{/*
-					FILTRO 
-					- Si la sidebar está abierta:
-						- Si está desbloqueada o la ventana es pequeña: opacidad-20
-					- Si está cerrada, bloqueada, o en pantalla completa: opacidad-0
-				*/}
+				{/* Filtro oscuro */}
 				<div
 					className={`${isOpen && (!isLocked || !isWideScreen) ? 'opacity-20' : 'opacity-0'} pointer-events-none fixed z-99 h-screen w-screen bg-black transition duration-300`}
 				/>
+				{/* 
+					Si la sidebar está abierta y está desbloqueada o la ventana es pequeña: opacidad-20
+					Si está cerrada, bloqueada, o en pantalla completa: opacidad-0
+				*/}
 			</div>
 		</div>
 	)
