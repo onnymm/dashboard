@@ -108,7 +108,7 @@ const updateLabels = (ul, chart) => {
 }
 
 // Plug-in de renderización etiquetas en div
-const htmlLegendPlugin = {
+const htmlLegend = {
     id: 'htmlLegend',
     afterUpdate(chart, args, options) {
         // Creación u obtención del elemento de lista del contenedor div
@@ -124,4 +124,4 @@ const htmlLegendPlugin = {
     }
 };
 
-export default htmlLegendPlugin;
+export default htmlLegend;
