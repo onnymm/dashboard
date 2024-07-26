@@ -31,16 +31,10 @@ const App = () => {
 					<Navbar />
 					{/* Contiene también la sidebar para limitar el dominio de render. */}
 				</div>
-				<div
-					className='transition-color -z-9 w-full overflow-y-auto bg-slate-100 duration-300 dark:bg-feed-background-d'
-					style={{
-						minHeight: 'calc(100% - 5rem)'
-					}}
-				>
-					{/* Contenido de la página */}
-					<Feed />
-					{/* Contiene el outlet para componentes ruteados (se encuentran en el folder "pages") */}
-				</div>
+
+				{/* Contenido de la página */}
+				<Feed />
+				{/* Contiene el outlet para componentes ruteados (se encuentran en el folder "pages") */}
 			</AppContext.Provider>
 		</div>
 	)

@@ -43,9 +43,8 @@ const PRICEGRID_DATA = [
 ]
 
 const Ecommerce = () => {
-
 	return (
-		<div className='grid w-full auto-cols-min auto-rows-auto grid-cols-12 gap-4'>
+		<div className='grid h-min w-full auto-cols-min auto-rows-auto grid-cols-12 gap-4'>
 			{PRICEGRID_DATA.map(item => (
 				<PriceGrid key={item.id} {...item} />
 			))}
