@@ -5,7 +5,7 @@ const ListNavLink = ({ label, route }) => {
 		<NavLink
 			to={route}
 			className={({ isActive }) =>
-				`rounded-sm ${isActive ? 'opacity-100' : 'opacity-60'} py-1 text-white transition duration-300 hover:opacity-100`
+				`rounded-sm ${isActive ? 'opacity-100' : 'opacity-60'} py-1 pl-6 text-white transition duration-300 hover:opacity-100`
 			}
 		>
 			{label}

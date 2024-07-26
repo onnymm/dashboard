@@ -10,10 +10,8 @@ const Button = ({ icon: Icon, isActive, setIsActive }) => {
 
 	return (
 		<button onClick={() => handleClick()}>
-			<div
-				name='HITBOX'
-				className='flex items-center rounded-full border px-1 py-2'
-			>
+			{/* Este div amplía el hitbox del switch. */}
+			<div className='flex items-center rounded-full px-1 py-2'>
 				<div
 					className={`${isAnimating && 'animate-button-click'} mb-0.5 flex size-min rounded-full p-1 shadow-darkmode-switch-s transition dark:bg-navbar-icons-background-d`}
 					onAnimationEnd={() => setIsAnimating(false)}

@@ -17,7 +17,7 @@ const NavbarProfile = () => {
 				<span className='block text-xs opacity-60'>Force Advisor</span>
 			</div>
 
-			<div ref={domNode} className='flex rounded-full border px-1 py-2'>
+			<div ref={domNode} className='flex rounded-full px-1 py-2'>
 				<button
 					className='flex items-center gap-1'
 					onClick={() => setIsActive(!isActive)}
