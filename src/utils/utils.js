@@ -1,6 +1,6 @@
 import { CHARTS_SETTINGS } from "../constants/settings";
 import { chartSettings } from "../settings/dashboardSettings";
-import { buildInitOptions, buildInitSeries, formatLabels, formatTooltip, mapColorsOnSeries, scaleAxes } from "./dataFormatting";
+import { assignCSSStyles, buildInitOptions, buildInitSeries, formatLabels, formatTooltip, mapColorsOnSeries, scaleAxes } from "./dataFormatting";
 
 export const buildData = ({
     data, // Objeto de datos retornado del API
@@ -33,6 +33,9 @@ export const buildData = ({
 
     // Inicialización del contenedor de opciones
     let options = buildInitOptions[chartType]({ series, chartType, labelsContainerID, aspectRatio, labelsDisplay, labelsList, legendBox, transposed });
+
+    // Asignación de nombres de clase a elementos HTML internos de la gráfica
+    options = assignCSSStyles({ options });
 
     // Formateo de etiquetas en la gráfica
     [ series, options ] = formatLabels[chartType]({ chartType, series, options, xAxisFormat, yAxisFormat, transposed });

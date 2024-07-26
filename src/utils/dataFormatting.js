@@ -1,6 +1,7 @@
 import { CHART_TYPES, RADIAL_CHARTS } from "../constants/charts";
 import { OPACITIES, PRESET_COLORS } from "../constants/colors";
 import { CHARTS_SERIES_SETTINGS, CHARTS_SETTINGS, LABELS_FORMATS_SETTINGS } from "../constants/settings";
+import { chartElementsStyling } from "../settings/chartElementsStyling";
 import { chartSettings } from "../settings/dashboardSettings";
 
 const midTransparentBlack = PRESET_COLORS.BLACK + OPACITIES[50] // Negro con transparencia media
@@ -941,6 +942,14 @@ export const formatTooltip = ({
     options.plugins.tooltip.callbacks.label = formatTooltips[chartType]({ xAxisFormat, yAxisFormat })
 
     // Retorno del objeto contenedor de opciones
+    return options
+}
+
+export const assignCSSStyles = ({ options }) => {
+    // Asignación de los estilos previamente configurados
+    options.plugins.stylingCSS = chartElementsStyling
+
+    // Retorno del nuevo objeto de opciones
     return options
 }
 
