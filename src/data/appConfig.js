@@ -68,7 +68,7 @@ export const dashboardData = {
 		},
 		{
 			[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
-			[CHARTS_SETTINGS.CHART_TYPE]: 'polar area',
+			[CHARTS_SETTINGS.CHART_TYPE]: 'polarArea',
 			[CHARTS_SETTINGS.NAME]: 'Cotizaciones por vendedora',
 			[CHARTS_SETTINGS.LABELS_NAME]: 'user_name',
 			[CHARTS_SETTINGS.DATASETS_NAMES]: ['amount_untaxed'],
