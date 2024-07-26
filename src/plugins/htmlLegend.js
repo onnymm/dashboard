@@ -39,6 +39,7 @@ const htmlLegendPlugin = {
 
         // Obtención de etiquetas de los conjuntos de datos de la gráfica
         const items = chart.options.plugins.legend.labels.generateLabels(chart);
+        console.log(chart.options.plugins.legend)
 
         items.forEach(
             (item) => {
@@ -79,7 +80,7 @@ const htmlLegendPlugin = {
                 const textContainer = document.createElement('p');
                 // Asignación de estilos provenientes de las propiedades del conjunto de datos
                 textContainer.style.textDecoration = item.hidden ? 'line-through' : '';
-                textContainer.style.color = item.fontColor;
+                textContainer.style.color = chart.options.font.color;
 
                 // Asignación del nombre del conjunto de datos o categoría del conjunto de datos
                 const text = document.createTextNode(item.text);

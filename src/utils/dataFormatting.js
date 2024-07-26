@@ -1,7 +1,9 @@
 import { CHART_TYPES, RADIAL_CHARTS } from "../constants/charts";
-import { OPACITIES } from "../constants/colors";
+import { OPACITIES, PRESET_COLORS } from "../constants/colors";
 import { CHARTS_SERIES_SETTINGS, CHARTS_SETTINGS, LABELS_FORMATS_SETTINGS } from "../constants/settings";
 import { chartSettings } from "../settings/dashboardSettings";
+
+const midTransparentBlack = PRESET_COLORS.BLACK + OPACITIES[50] // Negro con transparencia media
 
 // Funciones de construcción de estructuras de datos
 const buildBubbleData = ({
@@ -163,6 +165,7 @@ const buildGenericOptions = ({
     options.scales.y.ticks = {}
     options.scales.x.grid = {color: undefined}
     options.scales.y.grid = {color: undefined}
+    options.font = {color: midTransparentBlack}
 
     // Configuración de relación de aspecto
     options.aspectRatio = aspectRatio 
@@ -201,6 +204,7 @@ const buildBubbleChartOptions = ({
     options.scales.y = {}
     options.scales.x.ticks = {}
     options.scales.y.ticks = {}
+    options.font = {color: midTransparentBlack}
 
     // Configuración de relación de aspecto
     options.aspectRatio = aspectRatio
@@ -245,6 +249,7 @@ const buildRadialChartOptions = ({
     options.scales.r.display = false // Se desactiva la vista del eje radial
     options.scales.r.angleLines = {}
     options.scales.r.angleLines.display = false // Se desactiva la vista de las líneas categóricas radiales
+    options.font = {color: midTransparentBlack}
 
     // Configuración de relación de aspecto
     options.aspectRatio = aspectRatio 
@@ -285,7 +290,7 @@ const buildRadarChartOptions = ({
     options.scales.r.angleLines.display = true
 
     options.scales.r.grid = {color: undefined}
-    options.font = {}
+    options.font = {color: midTransparentBlack}
 
     // Configuración de relación de aspecto
     options.aspectRatio = aspectRatio 

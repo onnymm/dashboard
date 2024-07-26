@@ -15,6 +15,8 @@ const setCartesianChartColors = ({mode, options}) => {
         // Asignación de colores a las etiquetas
         options.scales.x.ticks.color = midTransparentWhite
         options.scales.y.ticks.color = midTransparentWhite
+        // Color de fuente
+        options.font.color = midTransparentWhite
     } else {
         // Asignación de colores a la cuadrícula
         options.scales.x.grid.color = highTransparentBlack
@@ -22,6 +24,8 @@ const setCartesianChartColors = ({mode, options}) => {
         // Asignación de colores a las etiquetas
         options.scales.x.ticks.color = midTransparentBlack
         options.scales.y.ticks.color = midTransparentBlack
+        // Color de fuente
+        options.font.color = midTransparentBlack
     }
 
     // Retorno del nuevo objeto de opciones
