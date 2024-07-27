@@ -14,8 +14,7 @@ import {
 } from 'chart.js';
 import ChartTemplate from '../components/charts/ChartTemplate';
 import { dashboardData } from '../data/appConfig';
-import darkMode from '../plugins/darkMode';
-import htmlLegendPlugin from '../plugins/htmlLegend';
+import htmlLegend from '../plugins/htmlLegend';
 
 ChartJS.register(
     ArcElement,
@@ -29,8 +28,7 @@ ChartJS.register(
     Legend,
     Title,
     Tooltip,
-    htmlLegendPlugin,
-    darkMode
+    htmlLegend,
 )
 
 const Dashboard = () => {

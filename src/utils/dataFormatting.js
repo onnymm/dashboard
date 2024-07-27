@@ -172,7 +172,7 @@ const buildGenericOptions = ({
     options.aspectRatio = aspectRatio 
 
     // Integración del plug-in de etiquetas
-    options = integrateLegendsPlugIn({
+    options = setPlugInsConfig({
         options,
         labelsContainerID,
         labelsDisplay,
@@ -219,7 +219,7 @@ const buildBubbleChartOptions = ({
     options.radius = scaledValues
 
     // Integración del plug-in de etiquetas
-    options = integrateLegendsPlugIn({
+    options = setPlugInsConfig({
         options,
         labelsContainerID,
         labelsDisplay,
@@ -256,7 +256,7 @@ const buildRadialChartOptions = ({
     options.aspectRatio = aspectRatio 
 
     // Integración del plug-in de etiquetas
-    options = integrateLegendsPlugIn({
+    options = setPlugInsConfig({
         options,
         labelsContainerID,
         labelsDisplay,
@@ -297,7 +297,7 @@ const buildRadarChartOptions = ({
     options.aspectRatio = aspectRatio 
 
     // Integración del plug-in de etiquetas
-    options = integrateLegendsPlugIn({
+    options = setPlugInsConfig({
         options,
         labelsContainerID,
         labelsDisplay,
@@ -636,7 +636,7 @@ const getLabels = ({
     return labels
 }
 
-const integrateLegendsPlugIn = ({
+const setPlugInsConfig = ({
     options,
     labelsContainerID,
     labelsDisplay,
@@ -644,12 +644,19 @@ const integrateLegendsPlugIn = ({
     legendBox
 }) => {
 
+    const legendParams = {
+        labelsDisplay,
+        labelsList,
+        legendBox,
+    }
+
     // Integración de plugins
     options.plugins = {
 
         // Plug-in para etiquetas desacopladas de la gráfica
         htmlLegend: {
-            containerID: labelsContainerID
+            containerID: labelsContainerID,
+            config: legendParams
         },
         
         // Desactivación de muestra de etiquetas integradas en la gráfica
@@ -659,24 +666,6 @@ const integrateLegendsPlugIn = ({
 
         tooltip: {}
     }
-
-    // Inicialización de objeto de extensión de opciones para uso de este proyecto
-    options.extension = {}
-
-    const legendParams = {
-        labelsDisplay,
-        labelsList,
-        legendBox
-    }
-
-    // Integración de parámetros personalizados de la gráfica en caso de ser provistos
-    Object.keys(legendParams).forEach(
-        (paramsKey) => {
-            if ( legendParams ) {
-                options.extension[paramsKey] = legendParams[paramsKey]
-            }
-        }
-    )
 
     // Retorno del objeto contenedor de las opciones
     return options

@@ -1,14 +1,14 @@
 import { CHARTS_SETTINGS_OPTIONS } from "../constants/settings"
 import { chartSettings } from "../settings/dashboardSettings"
 
-export const chartStyleSetter = (extension, element, styleSetting) => {
+export const chartStyleSetter = (config, element, styleSetting) => {
     // Declaración de variable sin valor
     let settingOption
 
     // Validación de si se provee un parámetro en el JSON de configuración de datos
-    if ( extension[styleSetting] ) {
+    if ( config[styleSetting] ) {
         // De haberlo se utiliza el valor
-        settingOption = extension[styleSetting]
+        settingOption = config[styleSetting]
     } else {
         // De no haberlo, se utiliza el valor por defecto
         settingOption = chartSettings[styleSetting]
