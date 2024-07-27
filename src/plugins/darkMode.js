@@ -7,7 +7,11 @@ const highTransparentWhite = PRESET_COLORS.WHITE + OPACITIES[10] // Blanco con t
 const midTransparentBlack = PRESET_COLORS.BLACK + OPACITIES[50] // Negro con transparencia media
 const highTransparentBlack = PRESET_COLORS.BLACK + OPACITIES[10] // Negro con transparencia alta
 
-const setCartesianChartColors = ({mode, options}) => {
+const setCartesianChartColors = ({
+    mode, // Modo oscuro o claro de la aplicación
+    options, // Objeto de opciones de la gráfica
+}) => {
+
     if ( mode === 'dark' ) {
         // Asignación de colores a la cuadrícula
         options.scales.x.grid.color = highTransparentWhite
@@ -17,6 +21,7 @@ const setCartesianChartColors = ({mode, options}) => {
         options.scales.y.ticks.color = midTransparentWhite
         // Color de fuente
         options.font.color = midTransparentWhite
+
     } else {
         // Asignación de colores a la cuadrícula
         options.scales.x.grid.color = highTransparentBlack
@@ -32,7 +37,11 @@ const setCartesianChartColors = ({mode, options}) => {
     return options
 }
 
-const setRadialChartColors = ({mode, options}) => {
+const setRadarChartColors = ({
+    mode, // Modo oscuro o claro de la aplicación
+    options, // Objeto de opciones de la gráfica
+}) => {
+
     if ( mode === 'dark' ) {
         // Asignación de colores a las etiquetas centrales
         options.scales.r.ticks.color = midTransparentWhite
@@ -42,6 +51,7 @@ const setRadialChartColors = ({mode, options}) => {
         options.scales.r.angleLines.color = highTransparentWhite
         // Asignación de colores a las etiquetas radiales
         options.scales.r.pointLabels.color = midTransparentWhite
+
     } else {
         // Asignación de colores a las etiquetas centrales
         options.scales.r.ticks.color = midTransparentBlack
@@ -57,8 +67,20 @@ const setRadialChartColors = ({mode, options}) => {
     return options
 }
 
-// No hace nada
-const noHaceNada = ({options}) => {
+const setRadialChartColors = ({
+    mode, // Modo oscuro o claro de la aplicación
+    options, // Objeto de opciones de la gráfica
+}) => {
+
+    if ( mode === 'dark' ) {
+        // Color de fuente
+        options.font.color = midTransparentWhite
+    } else {
+        // Color de fuente
+        options.font.color = midTransparentBlack
+    }
+
+    // Retorno del nuevo objeto de opciones 
     return options
 }
 
@@ -69,11 +91,11 @@ const setChartsColors = {
     [CHART_TYPES.BAR]: setCartesianChartColors,
     [CHART_TYPES.LINE]: setCartesianChartColors,
 
-    [CHART_TYPES.PIE]: noHaceNada,
-    [CHART_TYPES.DOUGHNUT]: noHaceNada,
-    [CHART_TYPES.POLARAREA]: noHaceNada,
+    [CHART_TYPES.PIE]: setRadialChartColors,
+    [CHART_TYPES.DOUGHNUT]: setRadialChartColors,
+    [CHART_TYPES.POLARAREA]: setRadialChartColors,
 
-    [CHART_TYPES.RADAR]: setRadialChartColors,
+    [CHART_TYPES.RADAR]: setRadarChartColors,
 }
 
 // Plug-in interruptor de modo oscuro
@@ -93,10 +115,13 @@ const darkMode = {
         const observer = new MutationObserver(
             // Lista de cambios
             (mutationList) => {
+
                 // Iteración por cada una de las mutaciones 
                 for (let mutation of mutationList) {
+
                     // Búsqueda de la mutación objetivo, que sea de tipo atributos y que sea de nombre 'class'
                     if ( mutation.type === 'attributes' && mutation.attributeName === 'class' ) {
+
                         // Ejecución si el modo oscuro está activado
                         if ( htmlElement.classList.contains('dark') ) {
                             // Ejecución de la función y asignación al objeto de opciones de la gráfica
@@ -105,7 +130,8 @@ const darkMode = {
                             chart.update();
                             // Desconexión del observador
                             observer.disconnect();
-                            // Ejecución si el modo oscuro está desactivado
+
+                        // Ejecución si el modo oscuro está desactivado
                         } else {
                             // Ejecución de la función y asignación al objeto de opciones de la gráfica
                             chart.config._config.options = setChartsColors[chartType]({mode: 'light', options: chartOptions})
@@ -121,7 +147,6 @@ const darkMode = {
 
         // Se inicia la observación por atributos al elemento HTML
         observer.observe(htmlElement, {attributes: true})
-
     }
 };
 
