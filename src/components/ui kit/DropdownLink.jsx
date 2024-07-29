@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 
-const ListNavLink = ({ label, route, setter }) => {
+const DropdownLink = ({ label, route, setter }) => {
 	return (
 		<NavLink
 			to={route}
@@ -14,4 +14,4 @@ const ListNavLink = ({ label, route, setter }) => {
 	)
 }
 
-export default ListNavLink
+export default DropdownLink

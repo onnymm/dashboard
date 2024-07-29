@@ -5,11 +5,17 @@ import { AppContext } from './contexts/AppContexts'
 
 const App = () => {
 	const [sidebarIsLocked, setSidebarIsLocked] = useState(false)
-	const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+	const [screenIsWide, setScreenIsWide] = useState(window.innerWidth > 768)
 
+	// Hook para cambio de estado dependiendo del ancho de la pantalla
 	useEffect(() => {
 		const handleResize = () => {
-			setWindowWidth(window.innerWidth)
+			const currentWidth = window.innerWidth
+			if (currentWidth > 768 && !screenIsWide) {
+				setScreenIsWide(true)
+			} else if (currentWidth <= 768 && screenIsWide) {
+				setScreenIsWide(false)
+			}
 		}
 
 		window.addEventListener('resize', handleResize)
@@ -17,24 +23,17 @@ const App = () => {
 		return () => {
 			window.removeEventListener('resize', handleResize)
 		}
-	}, [windowWidth])
-
-	const isWideScreen = windowWidth > 768
+	}, [screenIsWide])
 
 	return (
-		<div className='relative z-0 flex h-svh flex-col overflow-x-hidden'>
+		<div className='relative z-0 flex h-svh flex-col overflow-x-hidden overflow-y-hidden'>
 			<AppContext.Provider
-				value={{ sidebarIsLocked, setSidebarIsLocked, isWideScreen }}
+				value={{ sidebarIsLocked, setSidebarIsLocked, screenIsWide }}
 			>
-				<div className='relative'>
-					{/* Barra de navegación */}
-					<Navbar />
-					{/* Contiene también la sidebar para limitar el dominio de render. */}
-				</div>
-
-				{/* Contenido de la página */}
+				{/* Barra de navegación (contiene también la sidebar para limitar el dominio de render) */}
+				<Navbar />
+				{/* Contenido de la página (contiene el outlet para componentes ruteados)*/}
 				<Feed />
-				{/* Contiene el outlet para componentes ruteados (se encuentran en el folder "pages") */}
 			</AppContext.Provider>
 		</div>
 	)
