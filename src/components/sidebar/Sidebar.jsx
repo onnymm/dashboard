@@ -26,9 +26,9 @@ const Sidebar = () => {
 				className={`${isOpen && (!isLocked || !screenIsWide) ? 'opacity-20' : 'opacity-0'} pointer-events-none fixed z-99 h-screen w-screen bg-black transition duration-300`}
 			/>
 			{/* 
-					Si la sidebar está abierta y está desbloqueada o la ventana es pequeña: opacidad-20
-					Si está cerrada, bloqueada, o en pantalla completa: opacidad-0
-				*/}
+				Si la sidebar está abierta y está desbloqueada o la ventana es pequeña: opacidad-20
+				Si está cerrada, bloqueada, o en pantalla completa: opacidad-0
+			}*/}
 		</div>
 	)
 }
