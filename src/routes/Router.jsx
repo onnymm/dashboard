@@ -5,6 +5,7 @@ import Ecommerce from '../components/pages/ecommerce/Ecommerce'
 import Homepage from '../components/pages/homepage/Homepage'
 import Profile from '../components/pages/profile/Profile'
 import ToDo from '../components/pages/to do/ToDo'
+import UiTests from '../components/pages/ui tests/UiTests'
 
 const Router = createBrowserRouter([
 	{
@@ -30,6 +31,10 @@ const Router = createBrowserRouter([
 			{
 				path: 'to-do',
 				element: <ToDo />
+			},
+			{
+				path: 'ui-tests',
+				element: <UiTests />
 			}
 		]
 	}
