@@ -1,17 +1,22 @@
 import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/16/solid'
+import { useContext } from 'react'
+import { AppContext } from '../../../contexts/AppContexts'
 
-const GridStuff = ({ icon: Icon, amount, label, percent, gain }) => {
-	const arrowTail = 'size-3'
+const GridItem = ({ icon: Icon, amount, label, percent, gain }) => {
+	const { sidebarIsLocked } = useContext(AppContext)
+	const arrowStyle = 'size-3'
 
+	// Ícono dependiendo si hay ganancia definida
 	const arrowIcon =
 		gain === true ? (
-			<ArrowUpIcon className={arrowTail} />
+			<ArrowUpIcon className={arrowStyle} />
 		) : gain === false ? (
-			<ArrowDownIcon className={arrowTail} />
+			<ArrowDownIcon className={arrowStyle} />
 		) : (
 			''
 		)
 
+	// Color dependiendo si hay ganancia definida
 	const textColor =
 		gain === true
 			? 'text-green-600'
@@ -20,7 +25,10 @@ const GridStuff = ({ icon: Icon, amount, label, percent, gain }) => {
 				: 'dark:text-white opacity-70'
 
 	return (
-		<div className='col-span-12 h-40 w-full rounded bg-white px-7 py-6 shadow-md transition duration-300 dark:bg-navbar-background-d sm:col-span-6 lg:col-span-3'>
+		<div
+			className={`${sidebarIsLocked ? 'xl:col-span-3' : 'lg:col-span-3'} col-span-12 h-40 w-full rounded bg-white px-7 py-6 shadow-md transition duration-300 dark:bg-navbar-background-d sm:col-span-6`}
+		>
+			{/* Ícono */}
 			{Icon && (
 				<div className='mb-3 flex'>
 					<div className='dark: rounded-full bg-slate-100 p-3 opacity-80 transition dark:bg-navbar-icons-background-d'>
@@ -29,6 +37,7 @@ const GridStuff = ({ icon: Icon, amount, label, percent, gain }) => {
 				</div>
 			)}
 			<div className='flex justify-between'>
+				{/* Cantidad y subtítulo */}
 				<div className='flex flex-col gap-1'>
 					<h1 className='text-xl font-bold transition duration-300 dark:text-white'>
 						{amount}
@@ -37,6 +46,7 @@ const GridStuff = ({ icon: Icon, amount, label, percent, gain }) => {
 						{label}
 					</p>
 				</div>
+				{/* Porcentaje y flecha */}
 				<div
 					className={`text-gray flex items-center gap-1 self-end font-medium ${textColor}`}
 				>
@@ -48,4 +58,4 @@ const GridStuff = ({ icon: Icon, amount, label, percent, gain }) => {
 	)
 }
 
-export default GridStuff
+export default GridItem

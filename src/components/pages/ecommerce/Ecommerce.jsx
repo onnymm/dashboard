@@ -5,7 +5,7 @@ import {
 	ShoppingBagIcon
 } from '@heroicons/react/24/outline'
 
-import PriceGrid from './PriceGrid'
+import GridItem from './GridItem'
 
 const PRICEGRID_DATA = [
 	{
@@ -46,7 +46,7 @@ const Ecommerce = () => {
 	return (
 		<div className='grid h-min w-full auto-cols-min auto-rows-auto grid-cols-12 gap-4'>
 			{PRICEGRID_DATA.map(item => (
-				<PriceGrid key={item.id} {...item} />
+				<GridItem key={item.id} {...item} />
 			))}
 		</div>
 	)
