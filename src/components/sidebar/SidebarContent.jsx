@@ -1,26 +1,37 @@
 import {
+	BeakerIcon,
 	ListBulletIcon,
-	LockClosedIcon,
-	LockOpenIcon,
 	Squares2X2Icon,
 	UserIcon
 } from '@heroicons/react/24/outline'
+import { useContext } from 'react'
+import { AppContext } from '../../contexts/AppContexts'
+import { SidebarContext } from '../../contexts/SidebarContext'
 import { DASHBOARD_LINKS, TASKS_LINKS } from '../../data/appConfig'
 import List from '../ui kit/List'
+import LockToggle from '../ui kit/LockToggle'
+import StickySectionTag from '../ui kit/StickySectionTag'
 import SidebarDropdown from './SidebarDropdown'
 import SidebarSection from './SidebarSection'
 
+// Función para cálculo de altura dependiendo del número de elementos contenidos
 const calculateHeight = content => {
-	return `h-${content.length * 8}`
+	return content.length * 2 //rem
+	/* 
+	Por cada elemento contenido se devuelven n unidades,
+	en el caso de los del dropdown, dos por elemento. El
+	estilo dentro del componente dropdown maneja rems.
+	*/
 }
 
+// Contenido de la lista generadora de dropdowns
 const SIDEBAR_DROPDOWNS = [
 	{
-		id: 1,
-		icon: Squares2X2Icon,
-		label: 'Dashboard',
-		content: DASHBOARD_LINKS,
-		height: calculateHeight(DASHBOARD_LINKS)
+		id: 1, // Id (se usará como llave)
+		icon: Squares2X2Icon, // Ícono
+		label: 'Dashboard', // Etiqueta (título, texto)
+		content: DASHBOARD_LINKS, // Objeto con las rutas contenidas, a partir de este se creará una segunda lista de navlinks dentro del dropdown
+		height: calculateHeight(DASHBOARD_LINKS) // Se calcula la altura del contenedor de la lista, se usaron valores fijos para poder animar transición de altura
 	},
 	{
 		id: 2,
@@ -31,36 +42,47 @@ const SIDEBAR_DROPDOWNS = [
 	}
 ]
 
-const SidebarContent = ({ isLocked, setIsLocked, setIsOpen }) => {
+const SidebarContent = () => {
+	const { setIsOpen } = useContext(SidebarContext)
+	const { sidebarIsLocked, setSidebarIsLocked } = useContext(AppContext)
+
 	return (
 		<>
-			<div className='no-scrollbar flex flex-col overflow-y-auto rounded-sm p-2'>
-				<span className='px-5 py-3 text-sm font-medium text-white opacity-50'>
-					MENU
-				</span>
+			{/* 
+			El contenido de la sidebar tiene scroll oculto, en caso de haber un exceso de objetos, se mantiene
+			limitado al área que se le asigna
+			*/}
+			<div className='no-scrollbar flex flex-col overflow-y-auto rounded-sm px-2 pb-2'>
+				{/* Etiqueta de sección */}
+				<StickySectionTag>MENU</StickySectionTag>
+				{/* Lista generadora de componentes */}
 				<List
 					Contains={SidebarDropdown}
 					data={SIDEBAR_DROPDOWNS}
 					name='Dropdowns'
 					setter={setIsOpen}
+					/* 
+					El setter se pasa aquí para que los navlinks contenidos dentro de él
+					puedan darle uso, y cerrar la sidebar cuando se haga click en ellos
+					*/
 				/>
+				{/* Navlink estilizado */}
 				<SidebarSection
 					icon={UserIcon}
 					label='Profile'
 					route='profile'
 					setter={setIsOpen}
 				/>
+				{/* Navlink estilizado */}
+				<SidebarSection
+					icon={BeakerIcon}
+					label='UI Tests'
+					route='ui-tests'
+					setter={setIsOpen}
+				/>
 			</div>
-			<button
-				className={`${isLocked ? 'bg-slate-900 shadow-md dark:bg-sidebar-background' : ''} ml-auto mt-auto hidden rounded-md p-2 text-white transition duration-500 hover:bg-slate-900 hover:shadow-md hover:dark:bg-sidebar-background md:block`}
-				onClick={() => setIsLocked(!isLocked)}
-			>
-				{isLocked ? (
-					<LockClosedIcon className='size-5' />
-				) : (
-					<LockOpenIcon className='size-5' />
-				)}
-			</button>
+			{/* Botón candado, controlador del bloqueo de sidebar */}
+			<LockToggle state={sidebarIsLocked} setter={setSidebarIsLocked} />
 		</>
 	)
 }
