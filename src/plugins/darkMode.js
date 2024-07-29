@@ -37,6 +37,23 @@ const setCartesianChartColors = ({
     return options
 }
 
+const setRadialChartColors = ({
+    mode, // Modo oscuro o claro de la aplicación
+    options, // Objeto de opciones de la gráfica
+}) => {
+
+    if ( mode === 'dark' ) {
+        // Color de fuente
+        options.font.color = midTransparentWhite
+    } else {
+        // Color de fuente
+        options.font.color = midTransparentBlack
+    }
+
+    // Retorno del nuevo objeto de opciones 
+    return options
+}
+
 const setRadarChartColors = ({
     mode, // Modo oscuro o claro de la aplicación
     options, // Objeto de opciones de la gráfica
@@ -51,6 +68,8 @@ const setRadarChartColors = ({
         options.scales.r.angleLines.color = highTransparentWhite
         // Asignación de colores a las etiquetas radiales
         options.scales.r.pointLabels.color = midTransparentWhite
+        // Color de fuente
+        options.font.color = midTransparentWhite
 
     } else {
         // Asignación de colores a las etiquetas centrales
@@ -61,21 +80,6 @@ const setRadarChartColors = ({
         options.scales.r.angleLines.color = highTransparentBlack
         // Asignación de colores a las etiquetas radiales
         options.scales.r.pointLabels.color = midTransparentBlack
-    }
-
-    // Retorno del nuevo objeto de opciones 
-    return options
-}
-
-const setRadialChartColors = ({
-    mode, // Modo oscuro o claro de la aplicación
-    options, // Objeto de opciones de la gráfica
-}) => {
-
-    if ( mode === 'dark' ) {
-        // Color de fuente
-        options.font.color = midTransparentWhite
-    } else {
         // Color de fuente
         options.font.color = midTransparentBlack
     }
@@ -126,20 +130,17 @@ const darkMode = {
                         if ( htmlElement.classList.contains('dark') ) {
                             // Ejecución de la función y asignación al objeto de opciones de la gráfica
                             chart.config._config.options = setChartsColors[chartType]({mode: 'dark', options: chartOptions})
-                            // Actualización de la gráfica
-                            chart.update();
-                            // Desconexión del observador
-                            observer.disconnect();
 
                         // Ejecución si el modo oscuro está desactivado
                         } else {
                             // Ejecución de la función y asignación al objeto de opciones de la gráfica
                             chart.config._config.options = setChartsColors[chartType]({mode: 'light', options: chartOptions})
-                            // Actualización de la gráfica
-                            chart.update();
-                            // Desconexión del observador
-                            observer.disconnect();
                         }
+
+                        // Actualización de la gráfica
+                        chart.update();
+                        // Desconexión del observador
+                        observer.disconnect();
                     }
                 }
             }
