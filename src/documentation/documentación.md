@@ -53,6 +53,7 @@ const estoEsUnaVariable = 5
 **Plug-ins de Charts.js**
 
 - [htmlLegend: Desacoplamiento de etiquetas de conjuntos de datos](#htmllegend-desacoplamiento-de-etiquetas-de-conjuntos-de-datos)
+- [darkMode: Integración de modo oscuro](#darkmode-integración-de-modo-oscuro)
 
 ----
 
@@ -174,6 +175,42 @@ export const dashboardData = {
 ```
 
 De esta forma se pueden rebautizar los nombres de los atributos de entrada de una función y los argumentos que ésta recibe sin romper el código o generar errores por cambios en nombres no realizados correctamente.
+
+## Mapas de funciones
+
+Los mapas de funciones son patrones utlizados en la ejecución de diferentes funciones basadas en algún valor dinámico y evitan el uso de múltiples estructuras de control `if-else` o `switch-case`. Por ejemplo lo siguiente:
+```js
+// Funciones
+const funcSuma = (a, b) => (a + b)
+const funcResta = (a, b) => (a - b)
+const funcMult = (a, b) => (a * b)
+const funcDiv = (a, b) => (a / b)
+
+// Mapa de funciones de operaciones matemáticas
+const opMat = {
+    suma: funcSuma,
+    resta: funcResta,
+    mult: funcMult,
+    div: funcDiv
+}
+
+// Ejecuciones
+opMat['suma'](a, b) // Esto retornará la suma de a y b
+opMat['resta'](a, b) // Esto retornará la resta de a y b
+opMat['mult'](a, b) // Esto retornará la multiplicación de a y b
+opMat['div'](a, b) // Esto retornará la división de a y b
+```
+
+Esto es útil para ejecutar una función cuando se desconoce el tipo de valor:
+```js
+const unaFuncion = (modo) => {
+    ...
+    res = opMat[modo](a, b) // Ejecución dinámica
+    ...
+
+    return ...
+}
+```
 
 ## Datos de la aplicación
 
@@ -459,18 +496,10 @@ Antes de comenzar a utilizar este plug-in se debe realizar el registro en la cla
 ```js
 // Importación de los plug-ins nativos de Charts.js
 import {
+    Chart as ChartJS,
     ArcElement,
     BarElement,
     CategoryScale,
-    Chart as ChartJS,
-    Filler,
-    Legend,
-    LinearScale,
-    LineElement,
-    PointElement,
-    RadialLinearScale,
-    Title,
-    Tooltip,
 } from 'chart.js';
 
 // Importación del plug-in personalizado
@@ -481,14 +510,6 @@ ChartJS.register(
     ArcElement,
     BarElement,
     CategoryScale,
-    LinearScale,
-    LineElement,
-    PointElement,
-    RadialLinearScale,
-    Filler,
-    Legend,
-    Title,
-    Tooltip,
     htmlLegend,
 )
 ```
@@ -895,3 +916,468 @@ const updateLabels = (ul, chart) => {
 >   >   Se termina el ciclo `forEach`.
 >   
 >   Se termina la ejecución de la función, no se requiere un retorno.
+
+## darkMode: Integración de modo oscuro
+
+Este plug-in personalizado permite el cambio de colores en las gráficas cuando el modo oscuro se activa o se desactiva en la aplicación.
+
+### Integración
+
+Antes de comenzar a utilizar este plug-in se debe realizar el registro en la clase `ChartsJS` junto con los plug-ins integrados de Charts.js.
+```js
+// Importación de los plug-ins nativos de Charts.js
+import {
+    Chart as ChartJS,
+    ArcElement,
+    BarElement,
+    CategoryScale,
+} from 'chart.js';
+
+// Importación del plug-in personalizado
+import darkMode from '../plugins/darkMode';
+
+// Registro de los plug-ins
+ChartJS.register(
+    ArcElement,
+    BarElement,
+    CategoryScale,
+    darkMode,
+)
+```
+
+### Funcionamiento
+
+A continuación se detalla el funcionamiento del plug-in a nivel código. Cabe aclarar que, antes de leer la documentación del funcionamiento del plug-in se recomienda estar familiarizado con el funcionamiento de los plug-ins, descrito en la [documentación de Charts.js sobre plug-ins](https://www.chartjs.org/docs/latest/developers/plugins.html).
+
+**Conexión con el API de Charts.js**
+
+Este plug-in se ejecuta únicamente por medio del método provisto por la interfaz del API de Charts.js `afterUpdate` declarado en el objeto que se registra. Este método recibe un parámetro:
+
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `chart` | `Chart` | Instancia de la gráfica |
+
+La declaración del plug-in se realiza de esta manera:
+```js
+const htmlLegend = {
+    id: 'htmlLegend',
+    afterUpdate(chart, args, options) {
+        ...
+    }
+}
+```
+
+La declaración del plug-in se realiza de esta manera:
+```js
+const darkMode = {
+    id: 'darkMode',
+    afterUpdate(chart) {
+        ...
+    }
+};
+```
+
+>   Nótese que la declaración de la función afterUpdate se utiliza también como nombre del atributo del objeto, así no es necesario declarar el nombre dos veces o declarar la función con otro nombre o dejarla como flecha.
+
+**Estructura del plug-in**
+
+Este plug-in utiliza constantes de colores, un mapa de funciones distribuidas por tipo de gráfico y la función principal integra un observador que se conecta al documento de la página y revisa un cambio en éste. De esta manera puede detectar cuando el modo oscuro se habilita o se deshabilita cuando la clase `dark` se agrega a su lista de clases o se remueve de ésta:
+```js
+const darkMode = {
+    id: 'darkMode',
+    afterUpdate(chart) {
+
+        // Extracción del objeto de opciones
+        const chartOptions = chart.config._config.options
+        // Extracción del tipo de gráfica
+        const chartType = chart.config._config.type
+
+        // Se toma el documento HTML para observarlo
+        const htmlElement = document.documentElement;
+
+        // Se inicia un observador de mutaciones del elemento HTML
+        const observer = new MutationObserver(
+            // Lista de cambios
+            (mutationList) => {
+
+                // Iteración por cada una de las mutaciones 
+                for (let mutation of mutationList) {
+
+                    // Búsqueda de la mutación objetivo, que sea de tipo atributos y que sea de nombre 'class'
+                    if ( mutation.type === 'attributes' && mutation.attributeName === 'class' ) {
+
+                        // Ejecución si el modo oscuro está activado
+                        if ( htmlElement.classList.contains('dark') ) {
+                            // Ejecución de la función y asignación al objeto de opciones de la gráfica
+                            chart.config._config.options = setChartsColors[chartType]({mode: 'dark', options: chartOptions})
+
+                        // Ejecución si el modo oscuro está desactivado
+                        } else {
+                            // Ejecución de la función y asignación al objeto de opciones de la gráfica
+                            chart.config._config.options = setChartsColors[chartType]({mode: 'light', options: chartOptions})
+                        }
+
+                        // Actualización de la gráfica
+                        chart.update();
+                        // Desconexión del observador
+                        observer.disconnect();
+                    }
+                }
+            }
+        )
+
+        // Se inicia la observación por atributos al elemento HTML
+        observer.observe(htmlElement, {attributes: true})
+    }
+};
+```
+
+>   - Para saber más sobre el uso de colores por constantes, consultar la sencción [Constantes de colores](#colores).
+>   - Para saber más sobre el uso de constantes, consultar la sección [Constantes para la aplicación](#constantes-para-la-aplicación).
+>   - Para saber más sobre los mapas de funciones, consultar la sección [Mapas de funciones](#mapas-de-funciones).
+
+**Uso de constantes de colores**
+
+La declaración de colores se realiza de la siguiente forma:
+```js
+// Definición de los colores a utilizar
+const midTransparentWhite = PRESET_COLORS.WHITE + OPACITIES[50] // Blanco con transparencia media
+const highTransparentWhite = PRESET_COLORS.WHITE + OPACITIES[10] // Blanco con transparencia alta
+const midTransparentBlack = PRESET_COLORS.BLACK + OPACITIES[50] // Negro con transparencia media
+const highTransparentBlack = PRESET_COLORS.BLACK + OPACITIES[10] // Negro con transparencia alta
+```
+
+>   - Se declara un color blanco con opacidad del 50%
+>   - Se declara un color blanco con opacidad del 10%
+>   - Se declara un color negro con opacidad del 50%
+>   - Se declara un color negro con opacidad del 10%
+
+**Cambio de colores en gráficas cartesianas**
+
+La función `setCartesianChartColors` asigna los colores de la gráfica para todos los tipos de gráfica que contienen ejes cartesianos, es decir, ejes $X$ y $Y$.
+```js
+const setCartesianChartColors = ({
+    mode, // Modo oscuro o claro de la aplicación
+    options, // Objeto de opciones de la gráfica
+}) => {
+
+    if ( mode === 'dark' ) {
+        // Asignación de colores a la cuadrícula
+        options.scales.x.grid.color = highTransparentWhite
+        options.scales.y.grid.color = highTransparentWhite
+        // Asignación de colores a las etiquetas
+        options.scales.x.ticks.color = midTransparentWhite
+        options.scales.y.ticks.color = midTransparentWhite
+        // Color de fuente
+        options.font.color = midTransparentWhite
+
+    } else {
+        // Asignación de colores a la cuadrícula
+        options.scales.x.grid.color = highTransparentBlack
+        options.scales.y.grid.color = highTransparentBlack
+        // Asignación de colores a las etiquetas
+        options.scales.x.ticks.color = midTransparentBlack
+        options.scales.y.ticks.color = midTransparentBlack
+        // Color de fuente
+        options.font.color = midTransparentBlack
+    }
+
+    // Retorno del nuevo objeto de opciones
+    return options
+}
+```
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   ```js
+>   if ( mode === 'dark' ) {
+>       ...
+>       } else {
+>       ...
+>   }
+>   ```
+>   
+>   >   - Se realiza una validación por el modo de la aplicación si está establecido en oscuro o en claro usando una estructura de control condicional.
+>   
+>   >   Si la condición es verdadera se ejecuta el siguiente bloque de código:
+>   >   ```js
+>   >   // Asignación de colores a la cuadrícula
+>   >   options.scales.x.grid.color = highTransparentWhite
+>   >   options.scales.y.grid.color = highTransparentWhite
+>   >   // Asignación de colores a las etiquetas
+>   >   options.scales.x.ticks.color = midTransparentWhite
+>   >   options.scales.y.ticks.color = midTransparentWhite
+>   >   // Color de fuente
+>   >   options.font.color = midTransparentWhite
+>   >   ```
+>   >   
+>   >   >   - Se asigna el color blanco transparente alto a las líneas de cuadrícula en los ejes $X$ y $Y$.
+>   >   >   - Se asigna el color blanco transparente medio a las leyendas de los ejes $X$ y $Y$ que es en donde se encuentran las referencias de los valores.
+>   >   >   - Se asigna el color blanco transparente medio al color de fuente de la gráfica.
+>   >   
+>   >   Si la condición es falsa se ejecuta el siguiente bloque de código:
+>   >   ```js
+>   >   // Asignación de colores a la cuadrícula
+>   >   options.scales.x.grid.color = highTransparentBlack
+>   >   options.scales.y.grid.color = highTransparentBlack
+>   >   // Asignación de colores a las etiquetas
+>   >   options.scales.x.ticks.color = midTransparentBlack
+>   >   options.scales.y.ticks.color = midTransparentBlack
+>   >   // Color de fuente
+>   >   options.font.color = midTransparentBlack
+>   >   ```
+>   >   
+>   >   >   - Se asigna el color negro transparente alto a las líneas de cuadrícula en los ejes $X$ y $Y$.
+>   >   >   - Se asigna el color negro transparente medio a las leyendas de los ejes $X$ y $Y$ que es en donde se encuentran las referencias de los valores.
+>   >   >   - Se asigna el color negro transparente medio al color de fuente de la gráfica.
+>   
+>   Finalmente se retorna el objeto de opciones modificado:
+>   ```js
+>   // Retorno del nuevo objeto de opciones
+>   return options
+>   ```
+
+**Cambio de colores en gráficas radiales**
+
+La función `setRadialChartColors` asigna los colores de la gráfica para casi todos los tipos de gráfica que utilizan ejes radiales. En este caso, sólo se requiere cambiar el color de fuente ya que las gráficas que utilizan esta función no muestran líneas de ejes ni leyendas de referecia:
+```js
+const setRadialChartColors = ({
+    mode, // Modo oscuro o claro de la aplicación
+    options, // Objeto de opciones de la gráfica
+}) => {
+
+    if ( mode === 'dark' ) {
+        // Color de fuente
+        options.font.color = midTransparentWhite
+    } else {
+        // Color de fuente
+        options.font.color = midTransparentBlack
+    }
+
+    // Retorno del nuevo objeto de opciones 
+    return options
+}
+```
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   ```js
+>   if ( mode === 'dark' ) {
+>       ...
+>       } else {
+>       ...
+>   }
+>   ```
+>   
+>   >   - Se realiza una validación por el modo de la aplicación si está establecido en oscuro o en claro usando una estructura de control condicional.
+>   
+>   >   Si la condición es verdadera se ejecuta el siguiente bloque de código:
+>   >   ```js
+>   >   // Color de fuente
+>   >   options.font.color = midTransparentWhite
+>   >   ```
+>   >   
+>   >   >   - Se asigna el color blanco transparente medio al color de fuente de la gráfica.
+>   >   
+>   >   Si la condición es falsa se ejecuta el siguiente bloque de código:
+>   >   ```js
+>   >   // Color de fuente
+>   >   options.font.color = midTransparentBlack
+>   >   ```
+>   >   
+>   >   >   - Se asigna el color negro transparente medio al color de fuente de la gráfica.
+>   
+>   Finalmente se retorna el objeto de opciones modificado:
+>   ```js
+>   // Retorno del nuevo objeto de opciones
+>   return options
+>   ```
+
+**Cambio de colores en gráficas de radar**
+
+La función `setRadarChartColors` asigna los colores de la gráfica de radar que utiliza ejes radiales:
+```js
+const setRadarChartColors = ({
+    mode, // Modo oscuro o claro de la aplicación
+    options, // Objeto de opciones de la gráfica
+}) => {
+
+    if ( mode === 'dark' ) {
+        // Asignación de colores a las etiquetas centrales
+        options.scales.r.ticks.color = midTransparentWhite
+        // Asignación de colores a las líneas
+        options.scales.r.grid.color = highTransparentWhite
+        // Asignación de colores a las líneas de ángulo
+        options.scales.r.angleLines.color = highTransparentWhite
+        // Asignación de colores a las etiquetas radiales
+        options.scales.r.pointLabels.color = midTransparentWhite
+        // Color de fuente
+        options.font.color = midTransparentWhite
+
+    } else {
+        // Asignación de colores a las etiquetas centrales
+        options.scales.r.ticks.color = midTransparentBlack
+        // Asignación de colores a las líneas
+        options.scales.r.grid.color = highTransparentBlack
+        // Asignación de colores a las líneas de ángulo
+        options.scales.r.angleLines.color = highTransparentBlack
+        // Asignación de colores a las etiquetas radiales
+        options.scales.r.pointLabels.color = midTransparentBlack
+        // Color de fuente
+        options.font.color = midTransparentBlack
+    }
+
+    // Retorno del nuevo objeto de opciones 
+    return options
+}
+```
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   ```js
+>   if ( mode === 'dark' ) {
+>       ...
+>       } else {
+>       ...
+>   }
+>   ```
+>   
+>   >   - Se realiza una validación por el modo de la aplicación si está establecido en oscuro o en claro usando una estructura de control condicional.
+>   
+>   >   Si la condición es verdadera se ejecuta el siguiente bloque de código:
+>   >   ```js
+>   >   // Asignación de colores a las etiquetas centrales
+>   >   options.scales.r.ticks.color = midTransparentWhite
+>   >   // Asignación de colores a las líneas
+>   >   options.scales.r.grid.color = highTransparentWhite
+>   >   // Asignación de colores a las líneas de ángulo
+>   >   options.scales.r.angleLines.color = highTransparentWhite
+>   >   // Asignación de colores a las etiquetas radiales
+>   >   options.scales.r.pointLabels.color = midTransparentWhite
+>   >   // Color de fuente
+>   >   options.font.color = midTransparentWhite
+>   >   ```
+>   >   >   - Se asigna el color blanco transparente medio a las etiquetas centrales de la gráfica, que son los valores de referencia.
+>   >   >   - Se asigna el color blanco transparente alto a las líneas radiales de la gráfica.
+>   >   >   - Se asigna el color blanco transparente alto a las líneas angulares que señalan las categorías.
+>   >   >   - Se asigna el color blanco transparente medio a las leyendas categóricas.
+>   >   >   - Se asigna el color blanco transparente medio al color de fuente de la gráfica.
+>   >   
+>   >   Si la condición es falsa se ejecuta el siguiente bloque de código:
+>   >   ```js
+>   >   // Asignación de colores a las etiquetas centrales
+>   >   options.scales.r.ticks.color = midTransparentBlack
+>   >   // Asignación de colores a las líneas
+>   >   options.scales.r.grid.color = highTransparentBlack
+>   >   // Asignación de colores a las líneas de ángulo
+>   >   options.scales.r.angleLines.color = highTransparentBlack
+>   >   // Asignación de colores a las etiquetas radiales
+>   >   options.scales.r.pointLabels.color = midTransparentBlack
+>   >   // Color de fuente
+>   >   options.font.color = midTransparentBlack
+>   >   ```
+>   >   
+>   >   >   - Se asigna el color blanco transparente medio a las etiquetas centrales de la gráfica, que son los valores de referencia.
+>   >   >   - Se asigna el color blanco transparente alto a las líneas radiales de la gráfica.
+>   >   >   - Se asigna el color blanco transparente alto a las líneas angulares que señalan las categorías.
+>   >   >   - Se asigna el color blanco transparente medio a las leyendas categóricas.
+>   >   >   - Se asigna el color negro transparente medio al color de fuente de la gráfica.
+
+**Mapa de funciones de cambio de color en las gráficas**
+
+Para la ejecución de la función dinámica se un mapa de funciones distribuidas por el tipo de gráficos y utiliza las tres funciones descritas anteriormente. Para este mapa de funciones se utilizan las declaraciones con propiedades computadas. Para saber más, consultar la sección de [Destructuración y propiedades computadas](#destructuración-y-propiedades-computadas):
+```js
+// Funciones de asignación de colores en modo oscuro y modo claro
+const setChartsColors = {
+    [CHART_TYPES.BUBBLE]: setCartesianChartColors,
+    [CHART_TYPES.SCATTER]: setCartesianChartColors,
+    [CHART_TYPES.BAR]: setCartesianChartColors,
+    [CHART_TYPES.LINE]: setCartesianChartColors,
+
+    [CHART_TYPES.PIE]: setRadialChartColors,
+    [CHART_TYPES.DOUGHNUT]: setRadialChartColors,
+    [CHART_TYPES.POLARAREA]: setRadialChartColors,
+
+    [CHART_TYPES.RADAR]: setRadarChartColors,
+}
+```
+
+>   Para entender cómo funcionan los mapas de funciones, consultar la sección [Mapas de funciones](#mapas-de-funciones).
+
+>   - Todas las funciones reciben dos argumentos:
+>       - `mode`: Indicador de modo oscuro o claro en la aplicación.
+>       - `options`: Objeto de opciones de la gráfica.
+- Para las gráficas de burbuja, dispersión, barras y líneas se utiliza la función `setCartesianChartColors`. 
+- Para las gráficas de pastel, dona y área polar se utiliza la función `setRadialChartColors`. 
+- Para la gráfica de radar se utiliza la función `setRadarChartColors`. 
+
+**Función principal del plug-in**
+
+La función principal integra un observador que se conecta al documento de la página y revisa un cambio en éste. De esta manera puede detectar cuando el modo oscuro se habilita o se deshabilita cuando la clase `dark` se agrega a su lista de clases o se remueve de ésta:
+
+```js
+// Extracción del objeto de opciones
+const chartOptions = chart.config._config.options
+// Extracción del tipo de gráfica
+const chartType = chart.config._config.type
+
+// Se toma el documento HTML para observarlo
+const htmlElement = document.documentElement;
+```
+
+>   - Se extrae el objeto de opciones desde los atributos de la instancia de la gráfica.
+>   - Se extrae el tipo de gráfica.
+>   - Se extrae el elemento <html> del documento de la página.
+
+Se crea un observador de mutaciones:
+```js
+const observer = new MutationObserver(
+    // Lista de cambios
+    (mutationList) => {
+        ...
+    }
+)
+```
+
+>   Dentro de la ejecución de la función del observador se itera por cada elemento de la lista de mutaciones:
+>   ```js
+>   // Iteración por cada una de las mutaciones
+>   for (let mutation of mutationList) {
+>       ...
+>   }
+>   ```
+>   
+>   >   Dentro del ciclo se realiza la búsqueda de una mutación que sea de tipo `attributes` y que se llame `class`.
+>   >   ```js
+>   >   // Búsqueda de la mutación objetivo, que sea de tipo atributos y que sea de nombre 'class'
+>   >   if ( mutation.type === 'attributes' && mutation.attributeName === 'class' ) {
+>   >       ...
+>   >   }
+>   >   ```
+>   >   
+>   >   >   Se realiza una validación del modo oscuro y, dependiendo de su valor, se ejecuta uno u otro fragmento de código:
+>   >   >   ```js
+>   >   >   // Ejecución si el modo oscuro está activado
+>   >   >   if ( htmlElement.classList.contains('dark') ) {
+>   >   >       // Ejecución de la función y asignación al objeto de opciones de la gráfica
+>   >   >       chart.config._config.options = setChartsColors[chartType]({mode: 'dark', options: chartOptions})
+>   >   >   
+>   >   >   // Ejecución si el modo oscuro está desactivado
+>   >   >   } else {
+>   >   >       // Ejecución de la función y asignación al objeto de opciones de la gráfica
+>   >   >       chart.config._config.options = setChartsColors[chartType]({mode: 'light', options: chartOptions})
+>   >   >   }
+>   >   >   ```
+>   >   >   
+>   >   >   >   - Si el documento está en modo oscuro se ejecuta el mapa de funciones usando la función respectiva en base al tipo de gráfica. Se le proveen como atributos el modo con valor `'dark'` y el objeto de opciones de la instancia de la gráfica. Esto se reasigna en el objeto de opciones de la instancia de la gráfica.
+>   >   >   >   - Si el documento no está en modo oscuro, también ejecuta la función del mapa de funciones pero con el modo con valor `'light'`.
+>   >   >   
+>   >   >   Tras la ejecución de la función se ejecuta el método de actualización de la instancia de la gráfica y se procede a desconectar al observador para evitar creaciones de instancias de observadores innecesarias y que la aplicación comience a ralentizarse:
+>   >   >   ```js
+>   >   >   // Actualización de la gráfica
+>   >   >   chart.update();
+>   >   >   // Desconexión del observador
+>   >   >   observer.disconnect();
+>   >   >   ```
+>   >   >   Se termina el bloque de la estructura de control `if`.
+>   >   
+>   >   Se termina el ciclo `for`.
+>   
+>   Se termina la declaración de la función del observador.
