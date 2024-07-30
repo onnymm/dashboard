@@ -46,8 +46,9 @@ const NavbarSearch = () => {
 
 	return (
 		<>
+			{/* Este div desplaza el search cuando se bloquea la pantalla (solo si la pantalla es grande) */}
 			<div
-				className={`${sidebarIsLocked && screenIsWide ? 'w-36' : 'w-14 sm:w-20'} flex transition-width duration-500`}
+				className={`${sidebarIsLocked && screenIsWide ? 'w-40' : 'w-14 sm:w-20'} flex transition-width duration-500`}
 			/>
 			<form className='relative flex' ref={domNode}>
 				{/* Barra de búsqueda principal (se muestra cuando la ventana es lo suficientemente grande) */}
