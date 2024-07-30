@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { AppContext } from '../../contexts/AppContexts'
 import { SidebarContext } from '../../contexts/SidebarContext'
 import SidebarContent from './SidebarContent'
@@ -8,7 +8,11 @@ const Sidebar = () => {
 	const { isOpen, setIsOpen } = useContext(SidebarContext)
 	const { sidebarIsLocked: isLocked, screenIsWide } = useContext(AppContext)
 
-	isLocked && screenIsWide && !isOpen && setIsOpen(true)
+	useEffect(() => {
+		if (isLocked && screenIsWide && !isOpen) {
+			!isOpen && setIsOpen(true)
+		}
+	}, [isLocked, screenIsWide, isOpen, setIsOpen])
 	// Si la sidebar no está bloqueada, y el tamaño de ventana es grande, y la sidebar no está abierta, se manda a abrir
 
 	return (
