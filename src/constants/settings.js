@@ -37,6 +37,8 @@ export const CHARTS_SETTINGS = {
     MIN_BUBBLE_SIZE: 'minBubbleSize',
     // Tamaño máximo de elementos de burbuja
     MAX_BUBBLE_SIZE: 'maxBubbleSize',
+    // Indicador de transposición de gráfica
+    TRANSPOSED: 'transposed'
 }
 
 export const CHARTS_SERIES_SETTINGS = {

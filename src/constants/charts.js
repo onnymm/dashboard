@@ -3,7 +3,7 @@ export const CHART_TYPES = {
     LINE: 'line',
     PIE: 'pie',
     DOUGHNUT: 'doughnut',
-    POLARAREA: 'polar area',
+    POLARAREA: 'polarArea',
     RADAR: 'radar',
     SCATTER: 'scatter',
     BUBBLE: 'bubble'

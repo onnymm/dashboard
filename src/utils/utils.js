@@ -1,6 +1,6 @@
 import { CHARTS_SETTINGS } from "../constants/settings";
 import { chartSettings } from "../settings/dashboardSettings";
-import { buildInitOptions, buildInitSeries, formatLabels, formatTooltip, mapColorsOnSeries, scaleAxes } from "./dataFormatting";
+import { assignCSSStyles, buildInitOptions, buildInitSeries, formatLabels, formatTooltip, mapColorsOnSeries, scaleAxes } from "./dataFormatting";
 
 export const buildData = ({
     data, // Objeto de datos retornado del API
@@ -22,20 +22,24 @@ export const buildData = ({
     [CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay = undefined, // Estilo de contenedor de etiquetas
     [CHARTS_SETTINGS.LABELS_LIST]: labelsList = undefined, // Estilo de lista de etiquetas
     [CHARTS_SETTINGS.LEGEND_BOX]: legendBox = undefined, // Estilo de cajas de color de etiquetas
+    [CHARTS_SETTINGS.TRANSPOSED]: transposed = false // Indicador de transposición de ejes en la gráfica
 }) => {
 
     // Inicialización del contenedor de datos con formato dinámico
-    let series = buildInitSeries[chartType]({data, strat, datasetNames, labelsName, labels });
+    let series = buildInitSeries[chartType]({ data, strat, datasetNames, labelsName, labels, transposed });
 
     // Mapeo de colores y opacidades preestablecidos a los conjuntos de datos
     series = mapColorsOnSeries({ series, chartType, backgroundColors, backgroundOpacity, borderColors, borderOpacity });
 
     // Inicialización del contenedor de opciones
-    let options = buildInitOptions[chartType]({series, chartType, labelsContainerID, aspectRatio, labelsDisplay, labelsList, legendBox });
-    
+    let options = buildInitOptions[chartType]({ series, chartType, labelsContainerID, aspectRatio, labelsDisplay, labelsList, legendBox, transposed });
+
+    // Asignación de nombres de clase a elementos HTML internos de la gráfica
+    options = assignCSSStyles({ options });
+
     // Formateo de etiquetas en la gráfica
-    [ series, options ] = formatLabels[chartType]({ chartType, series, options, xAxisFormat, yAxisFormat });
-    options = formatTooltip({ chartType, options, xAxisFormat, yAxisFormat }) 
+    [ series, options ] = formatLabels[chartType]({ chartType, series, options, xAxisFormat, yAxisFormat, transposed });
+    options = formatTooltip({ chartType, options, xAxisFormat, yAxisFormat })
 
     // Formateo de escalas en ejes
     options = scaleAxes({ chartType, series, options });

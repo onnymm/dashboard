@@ -1,12 +1,16 @@
 import { CHART_TYPES, RADIAL_CHARTS } from "../constants/charts";
-import { OPACITIES } from "../constants/colors";
+import { OPACITIES, PRESET_COLORS } from "../constants/colors";
 import { CHARTS_SERIES_SETTINGS, CHARTS_SETTINGS, LABELS_FORMATS_SETTINGS } from "../constants/settings";
+import { chartElementsStyling } from "../settings/chartElementsStyling";
 import { chartSettings } from "../settings/dashboardSettings";
+
+const midTransparentBlack = PRESET_COLORS.BLACK + OPACITIES[50] // Negro con transparencia media
 
 // Funciones de construcción de estructuras de datos
 const buildBubbleData = ({
     data,
-    labelsName
+    labelsName,
+    transposed
 }) => {
 
     // Inicialización de los objetos
@@ -14,16 +18,30 @@ const buildBubbleData = ({
     series.datasets = []
     let datasets
 
-    // Mepeo y transformación de los valores
-    datasets = Object.values(data).map(
-        (values) => {
-            return {
-                x: values[0],
-                y: values[1],
-                _custom: values[2]
+    // Validación de indicación de gráfica transpuesta
+    if ( transposed ) {
+        // Mapeo y transformación de los valores
+        datasets = Object.values(data).map(
+            (values) => {
+                return {
+                    x: values[1],
+                    y: values[0],
+                    _custom: values[2]
+                }
             }
-        }
-    );
+        );
+    } else {
+        // Mapeo y transformación de los valores
+        datasets = Object.values(data).map(
+            (values) => {
+                return {
+                    x: values[0],
+                    y: values[1],
+                    _custom: values[2]
+                }
+            }
+        );
+    }
 
     // Se ingresan los datos transformados al objeto de series
     series.datasets.push(
@@ -41,7 +59,8 @@ const buildBubbleData = ({
 }
 const buildScatterData = ({
     data,
-    labelsName
+    labelsName,
+    transposed
 }) => {
 
     // Inicialización de los objetos
@@ -49,15 +68,28 @@ const buildScatterData = ({
     series.datasets = []
     let datasets
 
-    // Mepeo y transformación de los valores
-    datasets = Object.values(data).map(
-        (values) => {
-            return {
-                x: values[0],
-                y: values[1],
+    // Validación de indicación de gráfica transpuesta
+    if ( transposed ) {
+        // Mapeo y transformación de los valores
+        datasets = Object.values(data).map(
+            (values) => {
+                return {
+                    x: values[1],
+                    y: values[0],
+                }
             }
-        }
-    );
+        );
+    } else {
+        // Mapeo y transformación de los valores
+        datasets = Object.values(data).map(
+            (values) => {
+                return {
+                    x: values[0],
+                    y: values[1],
+                }
+            }
+        );
+    }
 
     // Se ingresan los datos transformados al objeto de series
     series.datasets.push(
@@ -118,9 +150,13 @@ const buildGenericOptions = ({
     labelsDisplay = chartSettings[CHARTS_SETTINGS.LABEL_COLUMNS],
     labelsList = chartSettings[CHARTS_SETTINGS.LABELS_LIST],
     legendBox = chartSettings[CHARTS_SETTINGS.LEGEND_BOX],
+    transposed
 }) => {
     // Inicialización del objeto a retornar
     let options = {}
+
+    // Inversión de los ejes X y Y si se indica la transposición
+    options.indexAxis = transposed ? 'y' : 'x';
     
     // Inicialización de atributos preestablecidos de opciones
     options.scales = {}
@@ -128,12 +164,15 @@ const buildGenericOptions = ({
     options.scales.y = {}
     options.scales.x.ticks = {}
     options.scales.y.ticks = {}
+    options.scales.x.grid = {color: undefined}
+    options.scales.y.grid = {color: undefined}
+    options.font = {color: midTransparentBlack}
 
     // Configuración de relación de aspecto
     options.aspectRatio = aspectRatio 
 
     // Integración del plug-in de etiquetas
-    options = integrateLegendsPlugIn({
+    options = setPlugInsConfig({
         options,
         labelsContainerID,
         labelsDisplay,
@@ -151,10 +190,14 @@ const buildBubbleChartOptions = ({
     labelsDisplay = chartSettings[CHARTS_SETTINGS.LABEL_COLUMNS],
     labelsList = chartSettings[CHARTS_SETTINGS.LABELS_LIST],
     legendBox = chartSettings[CHARTS_SETTINGS.LEGEND_BOX],
+    transposed
 }) => {
 
     // Inicialización del objeto a retornar
     let options = {}
+
+    // Inversión de los ejes X y Y si se indica la transposición
+    options.indexAxis = transposed ? 'y' : 'x';
     
     // Inicialización de atributos preestablecidos de opciones
     options.scales = {}
@@ -162,6 +205,7 @@ const buildBubbleChartOptions = ({
     options.scales.y = {}
     options.scales.x.ticks = {}
     options.scales.y.ticks = {}
+    options.font = {color: midTransparentBlack}
 
     // Configuración de relación de aspecto
     options.aspectRatio = aspectRatio
@@ -175,7 +219,7 @@ const buildBubbleChartOptions = ({
     options.radius = scaledValues
 
     // Integración del plug-in de etiquetas
-    options = integrateLegendsPlugIn({
+    options = setPlugInsConfig({
         options,
         labelsContainerID,
         labelsDisplay,
@@ -206,12 +250,13 @@ const buildRadialChartOptions = ({
     options.scales.r.display = false // Se desactiva la vista del eje radial
     options.scales.r.angleLines = {}
     options.scales.r.angleLines.display = false // Se desactiva la vista de las líneas categóricas radiales
+    options.font = {color: midTransparentBlack}
 
     // Configuración de relación de aspecto
     options.aspectRatio = aspectRatio 
 
     // Integración del plug-in de etiquetas
-    options = integrateLegendsPlugIn({
+    options = setPlugInsConfig({
         options,
         labelsContainerID,
         labelsDisplay,
@@ -245,11 +290,14 @@ const buildRadarChartOptions = ({
     options.scales.r.angleLines = {}
     options.scales.r.angleLines.display = true
 
+    options.scales.r.grid = {color: undefined}
+    options.font = {color: midTransparentBlack}
+
     // Configuración de relación de aspecto
     options.aspectRatio = aspectRatio 
 
     // Integración del plug-in de etiquetas
-    options = integrateLegendsPlugIn({
+    options = setPlugInsConfig({
         options,
         labelsContainerID,
         labelsDisplay,
@@ -295,29 +343,44 @@ const formatSquareChartLabels = ({
     series,
     options,
     xAxisFormat,
-    yAxisFormat
+    yAxisFormat,
+    transposed
 }) => {
 
     let yLabelsFormatter
+    let xLabelsFormatter
 
-
-    // Definción del formateador de etiquetas numéricas
-    if ( yAxisFormat ) {
-        yLabelsFormatter = assignLabelsFormatter({ series, axisFormat: yAxisFormat })
-    }
-
-    if ( xAxisFormat ) {
+    // Validación de indicación de gráfica transpuesta
+    if ( transposed ) {
         // Formateo de etiquetas en el eje X
-        series.labels = series.labels.map(
-            (value) => {
-                return labelsFormats[xAxisFormat].raw(value)
-            }
-        )
-    }
+        if ( yAxisFormat ) {
+            xLabelsFormatter = assignLabelsFormatter({ series, axisFormat: yAxisFormat })
+            options.scales.x.ticks.callback = xLabelsFormatter
+        }
 
-    // Formateo de etiquetas en el eje Y
-    if ( yLabelsFormatter ) {
-        options.scales.y.ticks.callback = yLabelsFormatter
+        // Formateo de etiquetas en el eje Y
+        if ( xAxisFormat ) {
+            series.labels = series.labels.map(
+                (value) => {
+                    return labelsFormats[xAxisFormat].raw(value)
+                }
+            )
+        }
+    } else {
+        // Formateo de etiquetas en el eje Y
+        if ( yAxisFormat ) {
+            yLabelsFormatter = assignLabelsFormatter({ series, axisFormat: yAxisFormat })
+            options.scales.y.ticks.callback = yLabelsFormatter
+        }
+
+        // Formateo de etiquetas en el eje X
+        if ( xAxisFormat ) {
+            series.labels = series.labels.map(
+                (value) => {
+                    return labelsFormats[xAxisFormat].raw(value)
+                }
+            )
+        }
     }
 
     // Retorno de los conjuntos de datos y objeto de opciones
@@ -327,27 +390,35 @@ const formatScatterChartLabels = ({
     series,
     options,
     xAxisFormat,
-    yAxisFormat
+    yAxisFormat,
+    transposed
 }) => {
 
     // Inicialización de las funciones formateadoras
     let xLabelsFormatter
     let yLabelsFormatter
 
-    // Definción del formateador de etiquetas numéricas los ejes X y Y
-    if ( xAxisFormat ) {
-        xLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: xAxisFormat, axes: 'x' })
-    }
-    if ( yAxisFormat ) {
-        yLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: yAxisFormat, axes: 'y' })
-    }
-
-    // Formateo de etiquetas en ambos ejes
-    if ( xLabelsFormatter ) {
-        options.scales.x.ticks.callback = xLabelsFormatter
-    }
-    if ( yLabelsFormatter ) {
-        options.scales.y.ticks.callback = yLabelsFormatter
+    // Validación de indicación de gráfica transpuesta
+    if ( transposed ) {
+        // Formateo de etiquetas en ambos ejes
+        if ( xAxisFormat ) {
+            xLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: yAxisFormat, axes: 'y' })
+            options.scales.x.ticks.callback = xLabelsFormatter
+        }
+        if ( yAxisFormat ) {
+            yLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: xAxisFormat, axes: 'x' })
+            options.scales.y.ticks.callback = yLabelsFormatter
+        }
+    } else {
+        // Formateo de etiquetas en ambos ejes
+        if ( xAxisFormat ) {
+            xLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: xAxisFormat, axes: 'x' })
+            options.scales.x.ticks.callback = xLabelsFormatter
+        }
+        if ( yAxisFormat ) {
+            yLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: yAxisFormat, axes: 'y' })
+            options.scales.y.ticks.callback = yLabelsFormatter
+        }
     }
 
     // Retorno de los conjuntos de datos y objeto de opciones
@@ -565,7 +636,7 @@ const getLabels = ({
     return labels
 }
 
-const integrateLegendsPlugIn = ({
+const setPlugInsConfig = ({
     options,
     labelsContainerID,
     labelsDisplay,
@@ -573,12 +644,19 @@ const integrateLegendsPlugIn = ({
     legendBox
 }) => {
 
+    const legendParams = {
+        labelsDisplay,
+        labelsList,
+        legendBox,
+    }
+
     // Integración de plugins
     options.plugins = {
 
         // Plug-in para etiquetas desacopladas de la gráfica
         htmlLegend: {
-            containerID: labelsContainerID
+            containerID: labelsContainerID,
+            config: legendParams
         },
         
         // Desactivación de muestra de etiquetas integradas en la gráfica
@@ -588,24 +666,6 @@ const integrateLegendsPlugIn = ({
 
         tooltip: {}
     }
-
-    // Inicialización de objeto de extensión de opciones para uso de este proyecto
-    options.extension = {}
-
-    const legendParams = {
-        labelsDisplay,
-        labelsList,
-        legendBox
-    }
-
-    // Integración de parámetros personalizados de la gráfica en caso de ser provistos
-    Object.keys(legendParams).forEach(
-        (paramsKey) => {
-            if ( legendParams ) {
-                options.extension[paramsKey] = legendParams[paramsKey]
-            }
-        }
-    )
 
     // Retorno del objeto contenedor de las opciones
     return options
@@ -871,6 +931,14 @@ export const formatTooltip = ({
     options.plugins.tooltip.callbacks.label = formatTooltips[chartType]({ xAxisFormat, yAxisFormat })
 
     // Retorno del objeto contenedor de opciones
+    return options
+}
+
+export const assignCSSStyles = ({ options }) => {
+    // Asignación de los estilos previamente configurados
+    options.plugins.stylingCSS = chartElementsStyling
+
+    // Retorno del nuevo objeto de opciones
     return options
 }
 
