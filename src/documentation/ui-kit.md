@@ -1,5 +1,11 @@
 # Componentes de UI
 
+## Ávatar
+
+- **Archivo:** `Avatar.jsx`
+
+Avatar animado. Recibe una ruta de imágen,
+
 ## Botón
 
 - **Archivo:** `Button.jsx`
@@ -41,3 +47,9 @@ Formato para ícono de búsqueda con estilo de hover.
 - **Archivo:** `StickySectionTag.jsx`
 
 Etiqueta de sección pegajosa, se adhiere al tope del contenedor cuando lo alcanza por desplazo de scroll. Si se declaran múltiples etiquetas, se van encimando una sobre otra cuando llegan al tope, la última en llegar es la que queda hasta arriba. Se pueden devolver a su lugar haciendo scroll de vuelta.
+
+## Link al home
+
+- **Archivo:** `LogoLink.jsx`
+
+Navlink que bajo click manda al home, consiste de una imágen y un h1. Recibe path de la imágen, ruta,
