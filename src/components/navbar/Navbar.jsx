@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import LogoLink from '../ui kit/LogoLink'
 import NavbarDarkMode from './NavbarDarkMode'
 import NavbarSearch from './NavbarSearch'
 import SidebarContainer from './SidebarContainer'
@@ -13,12 +13,11 @@ const Navbar = () => {
 				<nav className='transition-color sticky top-0 flex h-20 w-full flex-grow select-none items-center justify-between bg-navbar-background px-4 shadow duration-300 dark:bg-navbar-background-d'>
 					<div className='relative flex'>
 						{/* Logotipo/link a la página principal */}
-						<NavLink to='' className='flex items-center'>
-							<img src='./logo.png' className='size-12 rotate-50' />
-							<h1 className='mx-2 hidden text-2xl font-medium transition duration-300 dark:text-white sm:block'>
+						<LogoLink imgSource='./logo.png' extraStyles='dark:text-white'>
+							<h1 className='hidden transition duration-300 sm:block'>
 								iaCele
 							</h1>
-						</NavLink>
+						</LogoLink>
 						{/* Barra de búsqueda */}
 						<NavbarSearch />
 					</div>

@@ -2,11 +2,27 @@ import { ChevronDownIcon } from '@heroicons/react/16/solid'
 import { useState } from 'react'
 import { useClickOutside } from '../../../custom hooks/useClickOutside'
 import { links } from '../../../data/appConfig'
+import Avatar from '../../ui kit/Avatar'
 import List from '../../ui kit/List'
 import ProfileLink from '../../ui kit/ProfileLink'
 
-const NavbarProfile = () => {
+const NavbarProfile = ({ name, occupation, avatarSource }) => {
 	const [isActive, setIsActive] = useState(false)
+	const [hasBeenClicked, setHasBeenClicked] = useState(false)
+	/*
+		El estado hasBeenClicked está para prevenir la animación de fade out hasta que se use por
+		primera vez el botón, si no se usa este estado, la animación de fade out se ejecutará cada
+		carga de página
+	*/
+
+	const handleProfileClick = () => {
+		setIsActive(!isActive)
+		setHasBeenClicked(true)
+	}
+
+	const handleProfileContentClick = () => {
+		setIsActive(false)
+	}
 
 	let domNode = useClickOutside(() => setIsActive(false))
 
@@ -14,38 +30,33 @@ const NavbarProfile = () => {
 		<div className='relative flex items-center transition duration-300 dark:text-white sm:gap-1'>
 			{/* Nombre y ocupación */}
 			<div className='hidden text-right lg:block'>
-				<span className='block text-sm opacity-80'>Master Yoda</span>
-				<span className='block text-xs opacity-60'>Force Advisor</span>
+				<span className='block text-sm opacity-80'>{name}</span>
+				<span className='block text-xs opacity-60'>{occupation}</span>
 			</div>
 			{/* Este div agranda la hitbox */}
 			<div ref={domNode} className='flex rounded-full px-1 py-2'>
 				{/* Botón dropdown de ávatar */}
 				<button
 					className='flex items-center gap-1'
-					onClick={() => setIsActive(!isActive)}
-					ref={domNode}
+					onClick={handleProfileClick}
 				>
-					<img
-						src='./profile_test.jpg'
-						className='w-12 rounded-full'
-						draggable='false'
-					/>
+					<Avatar imgSource={avatarSource} animateOnClick={true} />
 					<ChevronDownIcon className='hidden size-6 opacity-50 sm:block' />
 				</button>
 				{/* Contenido del dropdown */}
 				<div
-					className={`${isActive ? 'opacity-100' : 'pointer-events-none opacity-0'} absolute right-0 top-14 z-30 min-h-12 w-48 rounded-xl bg-white p-3 shadow-back transition duration-300 dark:bg-navbar-icons-background-d`}
+					className={`${isActive ? 'animate-fade-grow-in' : hasBeenClicked ? 'animate-fade-shrink-out pointer-events-none' : 'pointer-events-none opacity-0'} absolute right-0 top-16 z-30 min-h-12 w-48 rounded-md bg-white p-3 shadow-back dark:bg-navbar-icons-background-d`}
 				>
 					<List
 						Contains={ProfileLink}
 						data={links}
 						name='Links'
-						setter={setIsActive}
 						extraStyles='gap-1'
+						handleClick={handleProfileContentClick}
 					/>
 					{/* Barra separadora */}
 					<hr className='my-2 border border-gray-300' />
-					{/* Este link está separado por motivos de diseño */}
+					{/* Logout (este link está separado por motivos de diseño) */}
 					<ProfileLink icon='log_out' label='Log out' route='' />
 				</div>
 			</div>

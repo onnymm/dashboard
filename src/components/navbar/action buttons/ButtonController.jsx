@@ -12,12 +12,14 @@ const ActionButtonSwitch = () => {
 	return (
 		<>
 			<div className='flex sm:gap-2'>
+				{/* Botón de despliegue de mensajes */}
 				<ActionButton
 					name='messages'
 					icon={ChatBubbleOvalLeftEllipsisIcon}
 					data={MESSAGES}
 					contains={Message}
 				/>
+				{/* Botón de despliegue de notificaciones */}
 				<ActionButton
 					name='notifications'
 					icon={BellIcon}
@@ -25,7 +27,12 @@ const ActionButtonSwitch = () => {
 					contains={Notification}
 				/>
 			</div>
-			<NavbarProfile />
+			{/* Perfil con despliegue de links */}
+			<NavbarProfile
+				name='Amelia Earhart'
+				occupation='Tech Lead'
+				avatarSource='./avatar.jpg'
+			/>
 		</>
 	)
 }

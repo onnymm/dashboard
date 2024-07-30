@@ -7,9 +7,9 @@ const NavbarDarkMode = () => {
 
 	useEffect(() => {
 		if (theme === 'dark') {
-			document.documentElement.classList.add('dark')
+			document.documentElement.classList.add('dark') // Si el tema es 'dark', añade la clase 'dark' al elemento raíz del documento
 		} else {
-			document.documentElement.classList.remove('dark')
+			document.documentElement.classList.remove('dark') // Si no, remueve la clase 'dark' al elemento raíz del documento
 		}
 	}, [theme])
 
