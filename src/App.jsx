@@ -7,7 +7,7 @@ const App = () => {
 	const [sidebarIsLocked, setSidebarIsLocked] = useState(false)
 	const [screenIsWide, setScreenIsWide] = useState(window.innerWidth > 768)
 
-	// Hook para cambio de estado dependiendo del ancho de la pantalla
+	// Hook para cambio de estado dependiendo del ancho de la pantalla, si es <= 768, la pantalla es pequeña
 	useEffect(() => {
 		const handleResize = () => {
 			const currentWidth = window.innerWidth
