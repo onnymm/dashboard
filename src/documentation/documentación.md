@@ -26,6 +26,7 @@ const estoEsUnaVariable = 5
 - [Descripción general de la estructura del proyecto](#descripción-general-de-la-estructura-del-proyecto)
 - [Uso de constantes](#uso-de-constantes)
 - [Destructuración y propiedades computadas](#destructuración-y-propiedades-computadas)
+- [Mapas de funciones](#mapas-de-funciones)
 - [Datos de la aplicación](#datos-de-la-aplicación)
 - [Ajustes predefinidos](#ajustes-predefinidos)
 - [Funciones de utilidades](#funciones-de-utilidades)
@@ -54,6 +55,7 @@ const estoEsUnaVariable = 5
 
 - [htmlLegend: Desacoplamiento de etiquetas de conjuntos de datos](#htmllegend-desacoplamiento-de-etiquetas-de-conjuntos-de-datos)
 - [darkMode: Integración de modo oscuro](#darkmode-integración-de-modo-oscuro)
+- [stylingCSS: Asignación de clases CSS a elementos HTML generados por gráficas](#stylingcss-asignación-de-clases-css-a-elementos-html-generados-por-gráficas)
 
 ----
 
@@ -286,6 +288,43 @@ export const buildData = ({
 También se utilizan las declaraciones con propiedades computadas. Para saber más, consultar la sección de [destructuración y propiedades computadas](#destructuración-y-propiedades-computadas)
 
 ----
+
+## Funciones recursivas
+
+Este proyecto utiliza funciones recursivas. La recursividad es una técnica de programación donde una función se llama a sí misma para resolver un problema. Es una herramienta poderosa que se utiliza para simplificar soluciones a problemas complejos al descomponerlos en subproblemas más pequeños y manejables. Una función recursiva siempre debe tener dos componentes principales:
+- Caso base: La condición que detiene las llamadas recursivas. Es el punto en el que la función deja de llamarse a sí misma y empieza a regresar.
+- Caso recursivo: La parte de la función que reduce el problema en tamaño o complejidad y hace la llamada recursiva.
+
+Un ejemplo de recursividad puede ser la función para calcular el factorial de un número. El factorial de un número $n$ (denotado como $𝑛!$) se define como el producto de todos los números enteros positivos desde 1 hasta $𝑛$. Por ejemplo, $5!$ es igual a $1×2×3×4×5$ lo que es igual a $120$.
+
+En el siguiente fragmento de código se observa una función recursiva básica:
+
+```js
+const factorial = (n) => {
+    // Caso base: si n es 0 o 1, el factorial es 1
+    if (n === 0 || n === 1) {
+        return 1;
+    }
+    // Caso recursivo: n * factorial(n-1)
+    return n * factorial(n - 1);
+}
+```
+
+- Si `n` es igual a 0 ó a 1 la función retorna `1` como resultado.
+- Si `n` es mayor a 1 la función retorna el valor de `n` multiplicado por la llamada de sí misma proporcionando como argumento el valor de `n - 1`, de esta manera las siguientes llamadas de la función se harán con números más pequeños en donde se terminará ejecutando con un `1` como valor y las llamadas recursivas se detendrán.
+
+Por ejemplo, si tenemos la llamada de la siguiente manera, con un `5`, la función hará lo siguiente. Se recomienda leer tantas veces como sea necesario para entender el funcionamiento esta función:
+- Retorno de `5 × factorial(4)`:
+    - Retorno de `4 × factorial(3)`:
+        - Retorno de `3 × factorial(2)`:
+            - Retorno de `2 × factorial(1)`:
+                - Retorno de `1`. Aquí se detiene la recursividad ya que la condición ya no ejecuta la función de sí misma.
+            - Retorno de `2 × 1` que es igual a `2`.
+        - Retorno de `3 × 2` que es igual a `6`.
+    - Retorno de `4 × 6` que es igual a `24`.
+- Retorno de `5 × 24` que es igual a `120`.
+
+La recursividad es una herramienta poderosa en la programación, especialmente cuando se trata de estructuras de datos anidadas o jerárquicas. Puede ser más adecuada que los ciclos en ciertos casos, como la iteración de estructuras anidadas ya que permite expresar soluciones complejas de manera más simple y clara. En el caso de estructuras anidadas, como árboles, gráficos, o JSON anidados, la recursividad puede recorrer estas estructuras de forma natural. En el uso de ciclos se tendría que manejar manualmente una pila o una lista de estructuras pendientes de procesar, lo que puede complicar el código y hacerlo menos legible.
 
 # Configuración del Dashboard
 
@@ -1304,9 +1343,10 @@ const setChartsColors = {
 >   - Todas las funciones reciben dos argumentos:
 >       - `mode`: Indicador de modo oscuro o claro en la aplicación.
 >       - `options`: Objeto de opciones de la gráfica.
-- Para las gráficas de burbuja, dispersión, barras y líneas se utiliza la función `setCartesianChartColors`. 
-- Para las gráficas de pastel, dona y área polar se utiliza la función `setRadialChartColors`. 
-- Para la gráfica de radar se utiliza la función `setRadarChartColors`. 
+
+>   - Para las gráficas de burbuja, dispersión, barras y líneas se utiliza la función `setCartesianChartColors`. 
+>   - Para las gráficas de pastel, dona y área polar se utiliza la función `setRadialChartColors`. 
+>   - Para la gráfica de radar se utiliza la función `setRadarChartColors`. 
 
 **Función principal del plug-in**
 
@@ -1381,3 +1421,448 @@ const observer = new MutationObserver(
 >   >   Se termina el ciclo `for`.
 >   
 >   Se termina la declaración de la función del observador.
+
+## stylingCSS: Asignación de clases CSS a elementos HTML generados por gráficas
+
+Este plug-in permite la declaración de clases CSS en un objeto que se proporciona a la configuración de opciones de las gráficas. De esta manera se facilita declarar los nombres de clases CSS en elementos HTML generados dinámicamente por los componentes de gráficas y a su vez también modificarlos o realizar pruebas de forma más rápida y legible.
+
+### Integración
+
+Antes de comenzar a utilizar este plug-in se debe realizar el registro en la clase `ChartsJS` junto con los plug-ins integrados de Charts.js.
+```js
+// Importación de los plug-ins nativos de Charts.js
+import {
+    Chart as ChartJS,
+    ArcElement,
+    BarElement,
+    CategoryScale,
+} from 'chart.js';
+
+// Importación del plug-in personalizado
+import stylingCSS from '../plugins/stylingCSS';
+
+// Registro de los plug-ins
+ChartJS.register(
+    ArcElement,
+    BarElement,
+    CategoryScale,
+    stylingCSS,
+)
+```
+
+### Configuración
+
+La declaración de las clases CSS se encuentra en la ubicación `src/settings/` en el archivo `chartElementsStyling.js`:
+```js
+export const chartElementsStyling = {
+    // Configuración para elementos renderizados por plug-ins
+    plugins: {
+        // Plug-in de etiquetas desacopladas
+        htmlLegend: {
+            // Tipo de plug-in
+            type: "externalElement",
+            // Nombre de la llave del ID de mapeo en las opciones de la gráfica
+            idKey: "containerID",
+            // Elementos del contenedor a estilizar
+            elements: [
+                {
+                    // Elemento de lista desorganizada
+                    element: "ul",
+                    // Nombres de clase asignados
+                    styling: "flex",
+                    // Elementos hijos
+                    children: [
+                        {
+                            // Elemento de lista
+                            element: "li",
+                            // Nombres de clase asignados
+                            styling: "flex gap-1",
+                            // Elementos hijos
+                            children: [
+                                {
+                                    // Elemento span
+                                    element: "span",
+                                    // Nombres de clase asignados
+                                    styling: "block",
+                                },
+                                {
+                                    // Elemento de párrafo
+                                    element: "p",
+                                    // Nombres de clase asignados
+                                    styling: "font-extralight transition duration-300"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
+```
+
+>   Primeramente se establece la configuración para elementos renderizados por plug-ins (que, por ahora, es la única configuración disponible):
+>   ```js
+>   export const chartElementsStyling = {
+>       plugins: {
+>           ...
+>       }
+>   }
+>   ```
+
+| Atributo | Tipo | Descripción |
+|----------|------|-------------|
+| `plugins` | `object` | Configuración para elementos renderizados por plug-ins |
+
+### Configuración para plug-ins
+
+**Configuración del objeto**
+
+Se declara un atributo con el nombre de la ID del plug-in dentro del atributo de estilos `plugins`, por ejemplo, `htmlLegend`.
+```js
+export const chartElementsStyling = {
+    plugins: {
+        // Plug-in de etiquetas desacopladas
+        htmlLegend: {
+            // Tipo de plug-in
+            type: "externalElement",
+            // Nombre de la llave del ID de mapeo en las opciones de la gráfica
+            idKey: "containerID",
+            // Elementos del contenedor a estilizar
+            elements: [...]
+        }
+    }
+}
+```
+
+**Configuración raíz**
+
+Los atributos disponibles para configuración raíz son los siguientes:
+
+| Atributo | Tipo | Descripción |
+|----------|------|-------------|
+| `type` | `(Opción)`: <br> <br> `externalElement`: Elementos externos | Tipo de plug-in |
+| `idKey` | `string` | Nombre llave del atributo (no su valor) del ID del contenedor `<div>` en donde se renderizarán los objetos. |
+| `elements` | `array` | Matriz de objetos de estilización que se asignarán a los elementos hijos de este elemento. |
+
+**Configuración del árbol de elementos**
+
+Para declarar los nombres de las clases CSS de cada uno de los elementos contenidos dentro del elemento contenedor `<div>` se construye una matriz de objetos, cada objeto declarando el elemento hijo directo del contenedor `<div>`. Si éstos objetos hijos directos a su vez tienen elementos hijos se declara otra matriz de objetos para su configuración. Se pueden anidar tantas matrices de objetos como se desee.
+```js
+[
+    {
+        element: "ul",
+        styling: "flex",
+        children: [...]
+    }
+]
+```
+
+Los atributos disponibles para configuración de elementos son los siguientes:
+
+| Atributo | Tipo | Descripción |
+|----------|------|-------------|
+| `element` | `string` | Tipo de elemento HTML. |
+| `styling` | `string` | Nombres de clases CSS a asignar al elemento. Cada nombre debe estar separado por un espacio. |
+| `children` | `array` | Matriz de objetos de estilización que se asignarán a los elementos hijos de este elemento. |
+
+La estructura de datos que se encontraría dentro la matriz del atributo `children` tendría exactamente el mismo formato que el objeto mostrado en el ejemplo anterior, es decir, algo como esto:
+```js
+[
+    {
+        element: "ul",
+        styling: "flex",
+        children: [
+            {
+                element: "li",
+                styling: "flex",
+                children: [...]
+            }
+        ]
+    }
+]
+```
+
+>   Nótese que el código anterior a éste se copió y se pegó en el lugar de la matriz contenedora de los `...` de éste y sólo se cambió el valor `ul` por el valor `li`.
+
+### Funcionamiento
+
+Este plug-in cuenta con una función de asignación de clases, una función recursiva que recorre toda la estructura de configuración y la declaración del plug-in principal.
+
+**Asignación de clases**
+
+La función `classListAssigner` toma una lista de clases CSS desde una cadena de texto provista a la función y las asigna a un elemento HTML también provisto a la función:
+```js
+const classListAssigner = ({
+    htmlElement, // Elemento HTML al cual se le asignarán los nombres de clase
+    styling, // Cadena de texto de todos los nombres de clase a asignar
+}) => {
+
+    // Transformación de la cadena de texto a una matriz de nombres de clase CSS
+    const classNames = styling.split(" ")
+
+    // Iteración por cada uno de los nombres de clase CSS
+    classNames.forEach(
+
+        // Asignación de cada nombre CSS a la lista de clases del elemento HTML
+        (className) => {
+            htmlElement.classList.add(className)
+        }
+    )
+}
+```
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   ```js
+>   const classNames = styling.split(" ")
+>   ```
+>   
+>   >   - Se toma el valor de tipo `string` y se convierte a una matriz de valores `string` divididos por un caracter de espacio.
+>   
+>   ```js
+>   classNames.forEach(
+>       (className) => {
+>           ...
+>       }
+>   )
+>   ```
+>   
+>   >   - Se itera por cada uno de los nombres de clase de la matriz creada en el paso anterior.
+>   
+>   >   Se añade el nombre de clase a la lista de clases del elemento HTML.
+>   >   ```js
+>   >   htmlElement.classList.add(className)
+>   >   ```
+>   >   Se termina la iteración del ciclo `forEach`.
+
+**Recorrido recursivo del objeto de estilización**
+
+La función `recursiveStyleSetter` recibe un elemento HTML padre del cual buscar elementos hijos además de un objeto de configuración de estilos `config` y recorre el objeto de configuración de estilos usando recursividad. Esto le permite iterar en una cantidad ilimitada de anidaciones dentro del objeto. Para saber cómo funciona la recursividad, consultar la sección de [Funciones recursivas](#funciones-recursivas):
+```js
+const recursiveStyleSetter = ({
+    parentElement, // Elemento HTML padre
+    config, // Objeto de configuración de estilos
+}) => {
+
+    // Extracción del tipo de etiqueta HTML
+    const elementType = config.element
+
+    // Iteración por cada hijo del elemento HTML
+    for (let i = 0; i < parentElement.children.length; i++) {
+        // Se extrae el elemento HTML hijo
+        let childElement = parentElement.children[i]
+
+        // Ejecución si el tipo de elemento coincide con el tipo de elemento de la configuración a asignar
+        if ( childElement.matches(elementType) ) {
+            // Asignación de nombres de clases
+            classListAssigner({ htmlElement: childElement, styling: config.styling })
+
+            // Validación de si el objeto de configuración de estilos contiene una matriz de elementos hijos a configurar
+            if ( config.children ) {
+
+                // Iteración de cada elemento hijo de configuración
+                for (let j = 0; j < config.children.length; j++) {
+                    // Llamada a función recursiva para iterar por ilimitada cantidad anidaciones
+                    recursiveStyleSetter({ parentElement: childElement, config: config.children[j] })
+                }
+            }
+        }
+    }
+}
+```
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   Se extrae el tipo de elemento HTML a buscar:
+>   ```js
+>   // Extracción del tipo de etiqueta HTML
+>   const elementType = config.element
+>   ```
+>   
+>   Se itera en `i` por la cantidad de hijos que contiene el elemento padre provisto:
+>   ```js
+>   // Iteración por cada hijo del elemento HTML
+>   for (let i = 0; i < parentElement.children.length; i++) {
+>       ...
+>   }
+>   ```
+>   
+>   >   Se extrae la referencia del nodo del elemento hijo que se encuentra en índice de la iteración:
+>   >   ```js
+>   >   // Se extrae el elemento HTML hijo
+>   >   let childElement = parentElement.children[i]
+>   >   ```
+>   >   
+>   >   Se valida si el elemento obtenido coincide con el tipo de elemento buscado
+>   >   ```js
+>   >   // Ejecución si el tipo de elemento coincide con el tipo de elemento buscado
+>   >   if ( childElement.matches(elementType) ) {
+>   >       ...
+>   >   }
+>   >   ```
+>   >   
+>   >   >   Si la condición se cumple, se ejecuta el código siguiente:
+>   >   >   
+>   >   >   Se ejecuta la función de asignación de nombres de clase. Se provee el elemento HTML de la iteración actual y el atributo `styling` del objeto de configuración de estilos `config`:
+>   >   >   ```js
+>   >   >   // Asignación de nombres de clases
+>   >   >   classListAssigner({ htmlElement: childElement, styling: config.styling })
+>   >   >   ```
+>   >   >   
+>   >   >   Se valida si el objeto de configuración de estilos `config` contiene elementos hijos:
+>   >   >   ```js
+>   >   >   // Validación de si el objeto de configuración de estilos contiene una matriz de elementos hijos a configurar
+>   >   >   if ( config.children ) {
+>   >   >       ...
+>   >   >   }
+>   >   >   ```
+>   >   >   
+>   >   >   >   De cumplirse la condición se ejecutan los siguientes fragmentos de código:
+>   >   >   >   
+>   >   >   >   Se ejecuta otro ciclo en `j` por la cantidad de objetos de configuración contenidos en la matriz del atributo `children` del objeto de configuración de estilos `config`:
+>   >   >   >   ```js
+>   >   >   >   // Iteración de cada elemento hijo de configuración
+>   >   >   >   for (let j = 0; j < config.children.length; j++) {
+>   >   >   >       ...
+>   >   >   >   }
+>   >   >   >   ```
+>   >   >   >   
+>   >   >   >   >   Por cada iteración se realiza una llamada recursiva de esta función:
+>   >   >   >   >   ```js
+>   >   >   >   >   // Llamada a función recursiva para iterar por ilimitada cantidad anidaciones
+>   >   >   >   >   recursiveStyleSetter({ parentElement: childElement, config: config.children[j] })
+>   >   >   >   >   ```
+>   >   >   >   >   
+>   >   >   >   >   - Como elemento padre se provee el elemento HTML encontrado (ya que se realizará una búsqueda y configuración de estilos a los elementos hijos de éste).
+>   >   >   >   >   - Como objeto de configuración de estilos se provee el objeto contenido en la posición del índice del ciclo que se encuentre dentro del atributo `children` del objeto de configuración de estilos `config` actual.
+>   >   >   >   >   
+>   >   >   >   >   Se termina la iteración del ciclo `for` en `j`.
+>   >   >   >   
+>   >   >   >   De no cumplirse la condición se omite la ejecución.
+>   >   >   
+>   >   >   De no cumplirse la condición se omite la ejecución.
+>   >   
+>   >   Se termina la iteración del ciclo `for` en `i`.
+>   
+>   Se termina la ejecución de la función, no se requiere un retorno.
+
+**Función principal del plug-in**
+
+```js
+// Extracción de la lista de plug-ins
+const plugins = chart.config._config.options.plugins
+// Extracción del objeto de estilización declarado previamente
+const styler = chart.config._config.options.plugins.stylingCSS
+
+// Validación de elementos de plug-ins terceros existentes a estilizar
+if ( styler.plugins ) {
+    // Iteración por las declaraciones de cada plug-in
+    Object.keys(styler.plugins).forEach(
+        // Declaración de la variable por iteración
+        (pluginID) => {
+            
+            // Si el tipo de plug-in renderiza elementos externos, se ejecuta esto
+            if ( styler.plugins[pluginID].type === "externalElement" ) {
+                // Extracción del nombre de la llave contenedora a buscar en las opciones del plug-in
+                const elementID = styler.plugins[pluginID].idKey
+                // Extracción del elemento HTML usando la ID contenida en la variable con nombre de la llave, desde las opciones del plug-in
+                const htmlElement = document.getElementById(plugins[pluginID][elementID])
+                
+                // Iteración por cada uno de los objetos de configuración de estilos correspondientes a los hijos del elemento HTML
+                styler.plugins[pluginID].elements.forEach(
+                    // Declaración de la variable por iteración
+                    (elementConfig) => {
+                        
+                        // Llamada a función recursiva para iterar por ilimitada cantidad anidaciones
+                        recursiveStyleSetter({ parentElement: htmlElement, config: elementConfig })
+                    }
+                )
+            }
+        }
+    )
+}
+```
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   ```js
+>   // Extracción de la lista de plug-ins
+>   const plugins = chart.config._config.options.plugins
+>   // Extracción del objeto de estilización declarado previamente
+>   const styler = chart.config._config.options.plugins.stylingCSS
+>   ```
+>   
+>   >   - Se extrae la matriz de plug-ins a configurar desde el objeto de opciones de la instancia de la gráfica.
+>   >   - Se extgrae el objeto de configuración de estilos desde el objeto de opciones de la instancia de la gráfica.
+>   
+>   ```js
+>   // Validación de elementos de plug-ins terceros existentes a estilizar
+>   if ( styler.plugins ) {
+>       ...
+>   }
+>   ```
+>   
+>   >   - Se valida que existan configuraciones de estilos para los plug-ins.
+>   
+>   >   De cumplirse la condición se ejecutan los siguientes fragmentos de código:
+>   >   
+>   >   Se itera cada una de las llaves del objeto contenido en el atributo `plugins` del objeto estilizador:
+>   >   ```js
+>   >   // Iteración por las declaraciones de cada plug-in
+>   >   Object.keys(styler.plugins).forEach(
+>   >       // Declaración de la variable por iteración
+>   >       (pluginID) => {
+>   >           ...
+>   >       }
+>   >   )
+>   >   ```
+>   >   
+>   >   >   Se valida que el tipo de configuración del plug-in contenido dentro del índice de la iteración sea del tipo `externalElement`:
+>   >   >   ```js
+>   >   >   // Si el tipo de plug-in renderiza elementos externos, se ejecuta esto
+>   >   >   if ( styler.plugins[pluginID].type === "externalElement" ) {
+>   >   >       ...
+>   >   >   }
+>   >   >   ```
+>   >   >   
+>   >   >   >   De cumplirse la condición se ejecutan los siguientes fragmentos de código:
+>   >   >   >   
+>   >   >   >   Se obtiene el elemento HTML contenedor del cual se estilizarán sus elementos contenidos:
+>   >   >   >   ```js
+>   >   >   >   // Extracción del nombre de la llave contenedora a buscar en las opciones del plug-in
+>   >   >   >   const elementID = styler.plugins[pluginID].idKey
+>   >   >   >   // Extracción del elemento HTML usando la ID contenida en la variable con nombre de la llave, desde las opciones del plug-in
+>   >   >   >   const htmlElement = document.getElementById(plugins[pluginID][elementID])
+>   >   >   >   ```
+>   >   >   >   
+>   >   >   >   >   - Se extrae el nombre de la llave (no el valor) del atributo de referencia para buscar el ID del elemento HTML contenedor de los elementos a estilizar.
+>   >   >   >   >   - Con el nombre de la llave se extrae el elemento HTML en cuestión por búsqueda de su ID única.
+>   >   >   >   
+>   >   >   >   Se hace una iteración por cada uno de los objetos de configuración del plug-in contenidos dentro de una matriz en el atributo `elements` de su configuración raíz:
+>   >   >   >   ```js
+>   >   >   >   // Iteración por cada uno de los objetos de configuración de estilos correspondientes a los hijos del elemento HTML
+>   >   >   >   styler.plugins[pluginID].elements.forEach(
+>   >   >   >       // Declaración de la variable por iteración
+>   >   >   >       (elementConfig) => {
+>   >   >   >           ...
+>   >   >   >       }
+>   >   >   >   )
+>   >   >   >   ```
+>   >   >   >   
+>   >   >   >   >   Por cada iteración se hace una ejecución de la función recursiva `recursiveStyleSetter`:
+>   >   >   >   >   ```js
+>   >   >   >   >   // Llamada a función recursiva para iterar por ilimitada cantidad anidaciones
+>   >   >   >   >   recursiveStyleSetter({ parentElement: htmlElement, config: elementConfig })
+>   >   >   >   >   ```
+>   >   >   >   >   
+>   >   >   >   >   >   - Como elemento padre se provee el elemento HTML de ID única obtenido en los fragmentos de código anteriores.
+>   >   >   >   >   >   - Como objeto de configuración de estilos se provee el elemento de la iteración actual de la matriz
+>   >   >   >   >   
+>   >   >   >   >   Se termina la iteración del ciclo `forEach`.
+>   >   >   >   
+>   >   >   >   De no cumplirse la condición no se realiza ninguna ejecución de código.
+>   >   >   
+>   >   >   Se termina la iteración del ciclo `forEach`.
+>   >   
+>   >   De no cumplirse la condición no se realiza ninguna ejecución de código.
+>   
+>   Se termina la ejecución de la función, no se requiere un retorno.
