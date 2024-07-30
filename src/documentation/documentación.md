@@ -27,6 +27,7 @@ const estoEsUnaVariable = 5
 - [Uso de constantes](#uso-de-constantes)
 - [Destructuración y propiedades computadas](#destructuración-y-propiedades-computadas)
 - [Mapas de funciones](#mapas-de-funciones)
+- [Funciones recursivas](#funciones-recursivas)
 - [Datos de la aplicación](#datos-de-la-aplicación)
 - [Ajustes predefinidos](#ajustes-predefinidos)
 - [Funciones de utilidades](#funciones-de-utilidades)
@@ -49,7 +50,16 @@ const estoEsUnaVariable = 5
 **Manejadores de solicitudes a APIs (Métodos GET)**
 - [Obtener datos para las gráficas](#obtener-datos-para-las-gráficas)
 
+### Funciones de utilidad
+
+**Funciones para componentes de gráficas**
+- [Estratificación de conjunto de datos por variable categórica](#estratificación-de-conjunto-de-datos-por-variable-categórica)
+- [Obtención de un único conjunto de datos](#obtención-de-un-único-conjunto-de-datos)
+- [Obtención de etiquetas de un conjunto de datos](#obtención-de-etiquetas-de-un-conjunto-de-datos)
+
 ### Funcionamiento interno
+
+**Funciones de utilidad**
 
 **Plug-ins de Charts.js**
 
@@ -214,6 +224,43 @@ const unaFuncion = (modo) => {
 }
 ```
 
+## Funciones recursivas
+
+Este proyecto utiliza funciones recursivas. La recursividad es una técnica de programación donde una función se llama a sí misma para resolver un problema. Es una herramienta poderosa que se utiliza para simplificar soluciones a problemas complejos al descomponerlos en subproblemas más pequeños y manejables. Una función recursiva siempre debe tener dos componentes principales:
+- Caso base: La condición que detiene las llamadas recursivas. Es el punto en el que la función deja de llamarse a sí misma y empieza a regresar.
+- Caso recursivo: La parte de la función que reduce el problema en tamaño o complejidad y hace la llamada recursiva.
+
+Un ejemplo de recursividad puede ser la función para calcular el factorial de un número. El factorial de un número $n$ (denotado como $𝑛!$) se define como el producto de todos los números enteros positivos desde 1 hasta $𝑛$. Por ejemplo, $5!$ es igual a $1×2×3×4×5$ lo que es igual a $120$.
+
+En el siguiente fragmento de código se observa una función recursiva básica:
+
+```js
+const factorial = (n) => {
+    // Caso base: si n es 0 o 1, el factorial es 1
+    if (n === 0 || n === 1) {
+        return 1;
+    }
+    // Caso recursivo: n * factorial(n-1)
+    return n * factorial(n - 1);
+}
+```
+
+- Si `n` es igual a 0 ó a 1 la función retorna `1` como resultado.
+- Si `n` es mayor a 1 la función retorna el valor de `n` multiplicado por la llamada de sí misma proporcionando como argumento el valor de `n - 1`, de esta manera las siguientes llamadas de la función se harán con números más pequeños en donde se terminará ejecutando con un `1` como valor y las llamadas recursivas se detendrán.
+
+Por ejemplo, si tenemos la llamada de la siguiente manera, con un `5`, la función hará lo siguiente. Se recomienda leer tantas veces como sea necesario para entender el funcionamiento esta función:
+- Retorno de `5 × factorial(4)`:
+    - Retorno de `4 × factorial(3)`:
+        - Retorno de `3 × factorial(2)`:
+            - Retorno de `2 × factorial(1)`:
+                - Retorno de `1`. Aquí se detiene la recursividad ya que la condición ya no ejecuta la función de sí misma.
+            - Retorno de `2 × 1` que es igual a `2`.
+        - Retorno de `3 × 2` que es igual a `6`.
+    - Retorno de `4 × 6` que es igual a `24`.
+- Retorno de `5 × 24` que es igual a `120`.
+
+La recursividad es una herramienta poderosa en la programación, especialmente cuando se trata de estructuras de datos anidadas o jerárquicas. Puede ser más adecuada que los ciclos en ciertos casos, como la iteración de estructuras anidadas ya que permite expresar soluciones complejas de manera más simple y clara. En el caso de estructuras anidadas, como árboles, gráficos, o JSON anidados, la recursividad puede recorrer estas estructuras de forma natural. En el uso de ciclos se tendría que manejar manualmente una pila o una lista de estructuras pendientes de procesar, lo que puede complicar el código y hacerlo menos legible.
+
 ## Datos de la aplicación
 
 Este proyecto también estructura los datos de la aplicación en una ubicación específica para facilitar cambios y actualizaciones sin tener que realizar cambios en muchos archivos lo que también reduce los errores humanos evitando que algunos valores que tenían que cambiarse pasen desapercibidos.
@@ -288,43 +335,6 @@ export const buildData = ({
 También se utilizan las declaraciones con propiedades computadas. Para saber más, consultar la sección de [destructuración y propiedades computadas](#destructuración-y-propiedades-computadas)
 
 ----
-
-## Funciones recursivas
-
-Este proyecto utiliza funciones recursivas. La recursividad es una técnica de programación donde una función se llama a sí misma para resolver un problema. Es una herramienta poderosa que se utiliza para simplificar soluciones a problemas complejos al descomponerlos en subproblemas más pequeños y manejables. Una función recursiva siempre debe tener dos componentes principales:
-- Caso base: La condición que detiene las llamadas recursivas. Es el punto en el que la función deja de llamarse a sí misma y empieza a regresar.
-- Caso recursivo: La parte de la función que reduce el problema en tamaño o complejidad y hace la llamada recursiva.
-
-Un ejemplo de recursividad puede ser la función para calcular el factorial de un número. El factorial de un número $n$ (denotado como $𝑛!$) se define como el producto de todos los números enteros positivos desde 1 hasta $𝑛$. Por ejemplo, $5!$ es igual a $1×2×3×4×5$ lo que es igual a $120$.
-
-En el siguiente fragmento de código se observa una función recursiva básica:
-
-```js
-const factorial = (n) => {
-    // Caso base: si n es 0 o 1, el factorial es 1
-    if (n === 0 || n === 1) {
-        return 1;
-    }
-    // Caso recursivo: n * factorial(n-1)
-    return n * factorial(n - 1);
-}
-```
-
-- Si `n` es igual a 0 ó a 1 la función retorna `1` como resultado.
-- Si `n` es mayor a 1 la función retorna el valor de `n` multiplicado por la llamada de sí misma proporcionando como argumento el valor de `n - 1`, de esta manera las siguientes llamadas de la función se harán con números más pequeños en donde se terminará ejecutando con un `1` como valor y las llamadas recursivas se detendrán.
-
-Por ejemplo, si tenemos la llamada de la siguiente manera, con un `5`, la función hará lo siguiente. Se recomienda leer tantas veces como sea necesario para entender el funcionamiento esta función:
-- Retorno de `5 × factorial(4)`:
-    - Retorno de `4 × factorial(3)`:
-        - Retorno de `3 × factorial(2)`:
-            - Retorno de `2 × factorial(1)`:
-                - Retorno de `1`. Aquí se detiene la recursividad ya que la condición ya no ejecuta la función de sí misma.
-            - Retorno de `2 × 1` que es igual a `2`.
-        - Retorno de `3 × 2` que es igual a `6`.
-    - Retorno de `4 × 6` que es igual a `24`.
-- Retorno de `5 × 24` que es igual a `120`.
-
-La recursividad es una herramienta poderosa en la programación, especialmente cuando se trata de estructuras de datos anidadas o jerárquicas. Puede ser más adecuada que los ciclos en ciertos casos, como la iteración de estructuras anidadas ya que permite expresar soluciones complejas de manera más simple y clara. En el caso de estructuras anidadas, como árboles, gráficos, o JSON anidados, la recursividad puede recorrer estas estructuras de forma natural. En el uso de ciclos se tendría que manejar manualmente una pila o una lista de estructuras pendientes de procesar, lo que puede complicar el código y hacerlo menos legible.
 
 # Configuración del Dashboard
 
@@ -518,6 +528,147 @@ getChartData(setLoadData, "endpoint_example", "https://www.midominioespecifico.c
 ```
 
 >   Esta función realizaría una solicitud a la URL `https://www.midominioespecifico.com/endpoint_example`.
+
+----
+
+# Funciones de utilidad
+
+## Estratificación de conjunto de datos por variable categórica
+- **Ubicación:** `dataFormatting.js`
+- **Función:** `stratificateData`
+
+Esta función recibe un conjunto de datos de entrada, un nombre de variable categórica, nombres de variables del conjunto de datos y un nombre de variable para grupo de etiquetas.
+
+### Ejemplo de uso:
+```js
+// Conjunto de datos
+let data = [
+    {
+        ammount: 7538.25,
+        warehouse: "A1",
+        month: "Enero",
+    },
+    {
+        ammount: 6825.32,
+        warehouse: "A2",
+        month: "Enero",
+    },
+    {
+        ammount: 6578.46,
+        warehouse: "A1",
+        month: "Febrero",
+    },
+    {
+        ammount: 7750.82,
+        warehouse: "A2",
+        month: "Febrero",
+    },
+]
+```
+
+Su retorno es una lista de conjuntos de datos formateados para mapeo en un componente de gráfica.
+
+```js
+[datasets, labels] = stratificateData(
+    data, // Conjunto de datos
+    "warehouse", // Nombre de variable categórica
+    ["amount"], // Nombres de variables del conjunto de datos en matriz
+    "month", // Nombre de variable para grupo de etiquetas
+)
+
+// Salida 1 [datasets]
+[
+    {
+        label: "A1",
+        data: [7538.25, 6825.32]
+    },
+    {
+        label: "A2",
+        data: [6578.46, 7750.82]
+    },
+]
+// Salida 2 [labels]
+[
+    "A1",
+    "A2"
+]
+// Formato de retorno
+[datasets, labels]
+```
+
+## Obtención de un único conjunto de datos
+- **Ubicación:** `dataFormatting.js`
+- **Función:** `getSingleDataset`
+
+Esta función recibe una matriz de datos de entrada, un nombre de etiqueta única y un nombre de variable (Contenido en la matriz de datos de entrada) contenedora de los valores a graficar y formatea la información de entrada para mapearse como un único conjunto de datos en un componente de graficación.
+
+Ejemplo de uso:
+```js
+const data = [
+    {
+        name: 'name 1',
+        amount: 7654.28
+    },
+    {
+        name: 'name 2',
+        amount: 4683.72
+    },
+    {
+        name: 'name 3',
+        amount: 6729.85
+    },
+]
+
+const datasets = getSingleDataset(
+    data, // Objeto de datos
+    "Ventas", // Nombre de etiqueta
+    "amount" // Nombre de variable contenedora de valores a graficar
+)
+```
+
+Esto retorna un conjunto de datos formateado para poder mapearse en un componente de graficación.
+
+```js
+//Salida
+{
+    label: "Ventas",
+    data: [7654.28, 4683.72, 6729.85]
+}
+```
+
+## Obtención de etiquetas de un conjunto de datos
+- **Ubicación:** `dataFormatting.js`
+- **Función:** `getLabels`
+
+Esta función recibe un objeto de datos y un nombre de variable contenedora de valores categóricos que se utilizarán como etiquetas y retorna una matriz de etiquetas.
+
+Ejemplo de uso:
+```js
+const data = [
+    {
+        name: 'name 1',
+        amount: 7654.28
+    },
+    {
+        name: 'name 2',
+        amount: 4683.72
+    },
+    {
+        name: 'name 3',
+        amount: 6729.85
+    },
+]
+
+const labels = getLabels(
+    data, // Objeto de datos
+    "name" // Nombre de variable categórica
+)
+```
+
+Retorno de la función:
+```js
+['name 1', 'name 2', 'name 3']
+```
 
 ----
 
