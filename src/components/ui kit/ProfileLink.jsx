@@ -12,14 +12,14 @@ const ICONS = {
 	log_out: <ArrowLeftStartOnRectangleIcon />
 }
 
-const ProfileLink = ({ icon, label, route, setter }) => {
+const ProfileLink = ({ icon, label, route, handleClick }) => {
 	return (
 		<NavLink
 			className={({ isActive }) =>
-				`${isActive ? 'bg-gray-300' : ''} flex size-full h-8 items-center gap-1 rounded-md text-sm text-black opacity-80 transition duration-300 hover:bg-gray-300 dark:text-white dark:hover:bg-slate-800`
+				`${isActive ? 'bg-gray-300 dark:bg-sidebar-background-d' : ''} flex size-full h-8 items-center gap-1 rounded-sm text-sm text-black opacity-80 transition duration-300 hover:bg-gray-300 dark:text-white dark:hover:bg-sidebar-background-d`
 			}
 			to={route}
-			onClick={() => setter && setter(false)}
+			onClick={handleClick}
 		>
 			<div className='aspect-square h-full p-1.5'>{ICONS[icon]}</div>
 			<span>{label}</span>
