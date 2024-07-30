@@ -12,7 +12,7 @@ const SidebarDropdown = ({
 	handleContentClick
 }) => {
 	const [isOpen, setIsOpen] = useState(false)
-	const [ARouteIsOnPath, setARouteIsOnPath] = useState(false)
+	const [aRouteIsOnPath, setARouteIsOnPath] = useState(false)
 
 	const lowercasedPath = useLocation().pathname.toLowerCase().substring(1)
 	// Extrae la ruta actual de la app
@@ -22,9 +22,9 @@ const SidebarDropdown = ({
 		if (content) {
 			const matchPath = content.some(item => lowercasedPath === item.route)
 			setARouteIsOnPath(matchPath) // Marcar que una ruta en el dropdown está activa
-			ARouteIsOnPath ? setIsOpen(true) : setIsOpen(false) // Si una ruta en el dropdown está activa, mantenerlo abierto, si no, cerrarlo
+			aRouteIsOnPath ? setIsOpen(true) : setIsOpen(false) // Si una ruta en el dropdown está activa, mantenerlo abierto, si no, cerrarlo
 		}
-	}, [content, lowercasedPath, ARouteIsOnPath])
+	}, [content, lowercasedPath, aRouteIsOnPath])
 
 	const handleDropdownClick = () => {
 		setIsOpen(!isOpen)
@@ -34,7 +34,7 @@ const SidebarDropdown = ({
 		<>
 			{/* Dropdown */}
 			<div
-				className={`${ARouteIsOnPath ? 'bg-sidebar-section-hover shadow-md' : ''} mb-1 flex cursor-pointer items-center px-5 py-2 text-white transition duration-300 hover:bg-sidebar-section-hover hover:shadow-md dark:hover:bg-sidebar-section-hover-d`}
+				className={`${aRouteIsOnPath ? 'bg-sidebar-section-hover shadow-md' : ''} mb-1 flex cursor-pointer items-center px-5 py-2 text-white transition duration-300 hover:bg-sidebar-section-hover hover:shadow-md dark:hover:bg-sidebar-section-hover-d`}
 				onClick={handleDropdownClick}
 			>
 				<div className='flex gap-2'>

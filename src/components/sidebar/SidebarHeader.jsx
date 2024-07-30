@@ -22,7 +22,7 @@ const SidebarHeader = () => {
 		>
 			{/* Logotipo/link a la página principal */}
 			<LogoLink handleClick={handleLogoClick} imgSource='./logo.png'>
-				iaCele
+				<h1>iaCele</h1>
 			</LogoLink>
 			{/* Botón flecha para cierre de sidebar */}
 			<button
