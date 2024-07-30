@@ -29,7 +29,7 @@ const recursiveStyleSetter = ({
         // Se extrae el elemento HTML hijo
         let childElement = parentElement.children[i]
 
-        // Ejecución si el tipo de elemento coincide con el tipo de elemento de la configuración a asignar
+        // Ejecución si el tipo de elemento coincide con el tipo de elemento buscado
         if ( childElement.matches(elementType) ) {
             // Asignación de nombres de clases
             classListAssigner({ htmlElement: childElement, styling: config.styling })
