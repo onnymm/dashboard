@@ -57,9 +57,12 @@ const estoEsUnaVariable = 5
 - [Obtención de un único conjunto de datos](#obtención-de-un-único-conjunto-de-datos)
 - [Obtención de etiquetas de un conjunto de datos](#obtención-de-etiquetas-de-un-conjunto-de-datos)
 
-### Funcionamiento interno
+**Construcción de estructuras de datos**
+- [Construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja)
+- [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión)
+- [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales)
 
-**Funciones de utilidad**
+### Funcionamiento interno
 
 **Plug-ins de Charts.js**
 
@@ -669,6 +672,256 @@ Retorno de la función:
 ```js
 ['name 1', 'name 2', 'name 3']
 ```
+
+## Construcción de estructura de datos para gráficas de burbuja
+
+Uso declarando el gráfico de burbujas en un `string`:
+```js
+const series = buildInitSeries['bubble']({ data, labelsName, transposed })
+```
+
+Uso declarando el gráfico de burbujas usando constante (recomendado):
+```js
+const series = buildInitSeries[CHART_TYPES.BUBBLE]({ data, labelsName, transposed })
+```
+
+>   Para saber más sobre el uso de constantes, leer las secciones [Uso de constantes](#uso-de-constantes) y [Tipos de gráficas](#tipos-de-gráficas)
+
+La construcción de estructura de datos para gráficas de burbuja recibe los siguientes parámetros:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `data` | `object` | *Requerido | Objeto de datos a transformar y formatear. |
+| `labelsName` | `string` | *Requerido | Nombre de la variable categórica a mostrar en las etiquetas. |
+| `transposed` | `boolean` | `false` | Indicador de transposición de los ejes $X$ y $Y$ de la gráfica. |
+
+**`data`: Estructura de datos entrante**
+
+La estructura de datos entrante debe contener 3 variables numéricas distribuidas en una matriz, contenida dentro del valor categórico, que a su vez es el nombre de la llave del objeto de datos. La estructura debe ser de la siguiente forma:
+```js
+{
+    producto1: [50.15, 37.68, 44.65],
+    producto2: [10.14, 64.88, 80.16],
+    producto3: [97.05, 46.56, 32.12],
+}
+```
+
+**`labelsName`: Nombre de la variable categórica**
+
+Este nombre representará las variables categóricas del conjunto de datos:
+```js
+const labelsName: "Productos"
+```
+
+**`transposed`: Transposición de la gráfica**
+
+Este valor le indica al componente de la gráfica que muestre el eje $X$ en el eje $Y$ y el eje $Y$ en el eje $X$.
+
+### Objeto resultante
+
+La estructura de salida, en base a los valores de ejemplo, sería la siguiente:
+```js
+{
+    datasets: [
+        {
+            data: [
+                    {x: 50.15, y: 37.68, _custom: 44.65},
+                    {x: 10.14, y: 64.88, _custom: 80.16},
+                    {x: 97.05, y: 46.56, _custom: 32.12},
+            ],
+            label: "Productos"
+        }
+    ],
+    labels: [
+        "producto1",
+        "producto2",
+        "producto3",
+    ]
+}
+```
+
+Este objeto puede ser ingresado al argumento `series` del componente de gráfica de burbujas.
+
+## Construcción de estructura de datos para gráficas de dispersión
+
+Uso declarando el gráfico de burbujas en un `string`:
+```js
+const series = buildInitSeries['scatter']({ data, labelsName, transposed })
+```
+
+Uso declarando el gráfico de burbujas usando constante (recomendado):
+```js
+const series = buildInitSeries[CHART_TYPES.SCATTER]({ data, labelsName, transposed })
+```
+
+>   Para saber más sobre el uso de constantes, leer las secciones [Uso de constantes](#uso-de-constantes) y [Tipos de gráficas](#tipos-de-gráficas)
+
+La construcción de estructura de datos para gráficas de burbuja recibe los siguientes parámetros:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `data` | `object` | *Requerido | Objeto de datos a transformar y formatear. |
+| `labelsName` | `string` | *Requerido | Nombre de la variable categórica a mostrar en las etiquetas. |
+| `transposed` | `boolean` | `false` | Indicador de transposición de los ejes $X$ y $Y$ de la gráfica. |
+
+**`data`: Estructura de datos entrante**
+
+La estructura de datos entrante debe contener 2 variables numéricas distribuidas en una matriz, contenida dentro del valor categórico, que a su vez es el nombre de la llave del objeto de datos. La estructura debe ser de la siguiente forma:
+```js
+{
+    producto1: [50.15, 37.68],
+    producto2: [10.14, 64.88],
+    producto3: [97.05, 46.56],
+}
+```
+
+**`labelsName`: Nombre de la variable categórica**
+
+Este nombre representará las variables categóricas del conjunto de datos:
+```js
+const labelsName: "Productos"
+```
+
+**`transposed`: Transposición de la gráfica**
+
+Este valor le indica al componente de la gráfica que muestre el eje $X$ en el eje $Y$ y el eje $Y$ en el eje $X$.
+
+### Objeto resultante
+
+La estructura de salida, en base a los valores de ejemplo, sería la siguiente:
+```js
+{
+    datasets: [
+        {
+            data: [
+                    {x: 50.15, y: 37.68},
+                    {x: 10.14, y: 64.88},
+                    {x: 97.05, y: 46.56},
+            ],
+            label: "Productos"
+        }
+    ],
+    labels: [
+        "producto1",
+        "producto2",
+        "producto3",
+    ]
+}
+```
+
+Este objeto puede ser ingresado al argumento `series` del componente de gráfica de dispersión.
+
+## Construcción de estructura de datos para gráficas cartesianas y radiales
+
+Uso declarando el gráfico de burbujas en un `string`:
+```js
+const series = buildInitSeries['bar']({ data, strat, datasetNames, labelsName, labels })
+const series = buildInitSeries['line']({ data, strat, datasetNames, labelsName, labels })
+const series = buildInitSeries['pie']({ data, strat, datasetNames, labelsName, labels })
+const series = buildInitSeries['doughnut']({ data, strat, datasetNames, labelsName, labels })
+const series = buildInitSeries['polarArea']({ data, strat, datasetNames, labelsName, labels })
+const series = buildInitSeries['radar']({ data, strat, datasetNames, labelsName, labels })
+```
+
+Uso declarando el gráfico de burbujas usando constante (recomendado):
+```js
+const series = buildInitSeries[CHART_TYPES.BAR]({ data, strat, datasetNames, labelsName, labels })
+const series = buildInitSeries[CHART_TYPES.LINE]({ data, strat, datasetNames, labelsName, labels })
+const series = buildInitSeries[CHART_TYPES.PIE]({ data, strat, datasetNames, labelsName, labels })
+const series = buildInitSeries[CHART_TYPES.DOUGHTNUT]({ data, strat, datasetNames, labelsName, labels })
+const series = buildInitSeries[CHART_TYPES.POLAR_AREA]({ data, strat, datasetNames, labelsName, labels })
+const series = buildInitSeries[CHART_TYPES.RADAR]({ data, strat, datasetNames, labelsName, labels })
+```
+
+>   Para saber más sobre el uso de constantes, leer las secciones [Uso de constantes](#uso-de-constantes) y [Tipos de gráficas](#tipos-de-gráficas)
+
+La construcción de estructura de datos para gráficas de burbuja recibe los siguientes parámetros:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `data` | `object` | *Requerido | Objeto de datos a transformar y formatear. |
+| `strat` | `string` | `undefined` | Variable categórica para estratificar un conjunto de datos en varios conjuntos de datos. |
+| `datasetNames` | `array [string]` | *Requerido | Nombres de variables numéricas por las cuales se estratificará un conjunto de datos en varios conjuntos de datos. |
+| `labelsName` | `string` | *Requerido | Nombre de la variable categórica a mostrar en las etiquetas. |
+
+**`data`: Estructura de datos entrante**
+
+La estructura de datos entrante debe ser un objeto de objetos, cada uno con las variables numéricas y categóricas disponibles para renderizar en el componente de gráfica. La estructura debe ser de la siguiente forma:
+```js
+{
+    0: {
+        warehouse: "Cabo San Lucas",
+        month: "Enero",
+        total_amount: 3448797.99
+    },
+    1: {
+        warehouse: "Cabo San Lucas",
+        month: "Febrero",
+        total_amount: 3163207.88
+    },
+    2: {
+        warehouse: "San José Del Cabo",
+        month: "Enero",
+        total_amount: 3738516.74
+    },
+    3: {
+        warehouse: "San José Del Cabo",
+        month: "Febrero",
+        total_amount: 3223205.3
+    }
+}
+```
+
+**`strat`: Variable categórica para estratificar un conjunto de datos**
+
+Este valor divide el conjunto de datos en subconjunto de datos, agrupándolos por su valor categórico en esta variable:
+```js
+const strat = "warehouse"
+```
+
+**`datasetNames`: Nombres de variables numéricas para estratificar un conjunto de datos**
+
+Este valor divide el conjunto de datos en subconjunto de datos, agrupándolos por sus llaves de variables numéricas. No hay un ejemplo ilustrativo para este caso:
+```js
+const datasetNames: ["total_amount"]
+```
+
+**`labelsName`: Nombre de la variable categórica**
+
+Este nombre representará las variables categóricas del conjunto de datos:
+```js
+const labelsName: "month"
+```
+
+### Objeto resultante
+
+La estructura de salida, en base a los valores de ejemplo, sería la siguiente:
+```js
+{
+    datasets: [
+        {
+            data: [
+                    3448797.99,
+                    3163207.88,
+            ],
+            label: "Cabo San Lucas"
+        },
+        {
+            data: [
+                    3738516.74,
+                    3223205.3,
+            ],
+            label: "San José Del Cabo"
+        },
+    ],
+    labels: [
+        "Enero",
+        "Febrero",
+    ]
+}
+```
+
+Este objeto puede ser ingresado al argumento `series` del componente de gráfica de dispersión.
 
 ----
 
