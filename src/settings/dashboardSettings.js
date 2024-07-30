@@ -7,7 +7,7 @@ export const chartSettings = {
     [CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE,
     // Disposición de etiquetas
     [CHARTS_SETTINGS.LABEL_COLUMNS]: 1,
-    // Alineación de elementos dentro de las etiquetas
+    // Orientación de elementos dentro de las etiquetas
     [CHARTS_SETTINGS.LABELS_LIST]: 'default',
     // Apariencia del indicador de color de etiqueta
     [CHARTS_SETTINGS.LEGEND_BOX]: 'rounded',

@@ -63,7 +63,9 @@ export const dashboardData = {
 			[CHARTS_SETTINGS.LABELS_NAME]: 'user_name',
 			[CHARTS_SETTINGS.DATASETS_NAMES]: ['amount_untaxed'],
 			[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
+			[CHARTS_SETTINGS.LABEL_COLUMNS]: 2,
 			[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE,
+			[CHARTS_SETTINGS.X_AXIS_FORMAT]: 'only name',
 			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
 		},
 		{
@@ -116,6 +118,7 @@ export const dashboardData = {
 			[CHARTS_SETTINGS.BACKGROUND_OPACITY]: 50,
 			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
 			[CHARTS_SETTINGS.CATEGORY_STRATIFICATION_BY]: 'warehouse',
+			[CHARTS_SETTINGS.LABEL_COLUMNS]: 1,
 			[CHARTS_SETTINGS.LEGEND_BOX]: 'circle'
 		},
 		{
