@@ -95,12 +95,34 @@ export default {
 						opacity: '1',
 						display: 'block'
 					}
+				},
+				shrinkGrow: {
+					'0%': {
+						transform: 'scale(1)'
+					},
+					'50%': {
+						transform: 'scale(0.9)'
+					},
+					'100%': {
+						transform: 'scale(1)'
+					}
+				},
+				fadeGrowIn: {
+					'0%': { opacity: '0', transform: 'scale(0.95)' },
+					'100%': { opacity: '1', transform: 'scale(1)' }
+				},
+				fadeShrinkOut: {
+					'0%': { opacity: '1', transform: 'scale(1)' },
+					'100%': { opacity: '0', transform: 'scale(0.95)' }
 				}
 			},
 			animation: {
 				'button-click': 'click 0.35s ease-in-out',
 				'hide-unmount': 'hideAndUnmount 0.3s forwards',
-				'mount-unhide': 'mountAndUnhide 0.3s forwards'
+				'mount-unhide': 'mountAndUnhide 0.3s forwards',
+				'shrink-grow': 'shrinkGrow 0.3s ease',
+				'fade-grow-in': 'fadeGrowIn 0.1s ease-out forwards',
+				'fade-shrink-out': 'fadeShrinkOut 0.1s ease-in forwards'
 			},
 			transitionProperty: {
 				width: 'width',
