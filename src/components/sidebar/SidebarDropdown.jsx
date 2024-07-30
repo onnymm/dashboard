@@ -4,7 +4,13 @@ import { useLocation } from 'react-router-dom'
 import DropdownLink from '../ui kit/DropdownLink'
 import List from '../ui kit/List'
 
-const SidebarDropdown = ({ icon: Icon, label, content, height, setter }) => {
+const SidebarDropdown = ({
+	icon: Icon,
+	label,
+	content,
+	height,
+	handleContentClick
+}) => {
 	const [isOpen, setIsOpen] = useState(false)
 	const [ARouteIsOnPath, setARouteIsOnPath] = useState(false)
 
@@ -20,12 +26,16 @@ const SidebarDropdown = ({ icon: Icon, label, content, height, setter }) => {
 		}
 	}, [content, lowercasedPath, ARouteIsOnPath])
 
+	const handleDropdownClick = () => {
+		setIsOpen(!isOpen)
+	}
+
 	return (
 		<>
 			{/* Dropdown */}
 			<div
 				className={`${ARouteIsOnPath ? 'bg-sidebar-section-hover shadow-md' : ''} mb-1 flex cursor-pointer items-center px-5 py-2 text-white transition duration-300 hover:bg-sidebar-section-hover hover:shadow-md dark:hover:bg-sidebar-section-hover-d`}
-				onClick={() => setIsOpen(!isOpen)}
+				onClick={handleDropdownClick}
 			>
 				<div className='flex gap-2'>
 					<Icon className='size-6 opacity-80' />
@@ -47,7 +57,7 @@ const SidebarDropdown = ({ icon: Icon, label, content, height, setter }) => {
 						Contains={DropdownLink}
 						data={content}
 						name='links'
-						setter={setter}
+						handleClick={handleContentClick}
 					/>
 				</div>
 			)}

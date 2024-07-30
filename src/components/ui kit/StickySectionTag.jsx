@@ -4,7 +4,7 @@ const StickySectionTag = ({ children }) => {
         lleguen al tope.
     */
 	return (
-		<div className='sticky top-0 z-9999 bg-sidebar-background p-2 dark:bg-sidebar-background-d'>
+		<div className='sticky top-0 z-9999 bg-sidebar-background p-2'>
 			<span className='px-5 py-3 text-sm font-medium text-white opacity-50'>
 				{children}
 			</span>

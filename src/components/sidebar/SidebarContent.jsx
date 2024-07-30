@@ -46,6 +46,10 @@ const SidebarContent = () => {
 	const { setIsOpen } = useContext(SidebarContext)
 	const { sidebarIsLocked, setSidebarIsLocked } = useContext(AppContext)
 
+	const closeSidebar = () => {
+		setIsOpen(false)
+	}
+
 	return (
 		<>
 			{/* 
@@ -60,7 +64,7 @@ const SidebarContent = () => {
 					Contains={SidebarDropdown}
 					data={SIDEBAR_DROPDOWNS}
 					name='Dropdowns'
-					setter={setIsOpen}
+					handleContentClick={closeSidebar}
 					/* 
 					El setter se pasa aquí para que los navlinks contenidos dentro de él
 					puedan darle uso, y cerrar la sidebar cuando se haga click en ellos
@@ -71,14 +75,16 @@ const SidebarContent = () => {
 					icon={UserIcon}
 					label='Profile'
 					route='profile'
-					setter={setIsOpen}
+					handleClick={closeSidebar}
 				/>
+				{/* Etiqueta de sección */}
+				<StickySectionTag>EXTRA</StickySectionTag>
 				{/* Navlink estilizado */}
 				<SidebarSection
 					icon={BeakerIcon}
 					label='UI Tests'
 					route='ui-tests'
-					setter={setIsOpen}
+					handleClick={closeSidebar}
 				/>
 			</div>
 			{/* Botón candado, controlador del bloqueo de sidebar */}

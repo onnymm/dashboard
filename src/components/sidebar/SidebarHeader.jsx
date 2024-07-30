@@ -1,33 +1,36 @@
 import { ArrowLeftIcon } from '@heroicons/react/16/solid'
 import { useContext } from 'react'
-import { NavLink } from 'react-router-dom'
 import { AppContext } from '../../contexts/AppContexts'
 import { SidebarContext } from '../../contexts/SidebarContext'
+import LogoLink from '../ui kit/LogoLink'
 
 const SidebarHeader = () => {
 	const { isOpen, setIsOpen } = useContext(SidebarContext)
 	const { sidebarIsLocked, screenIsWide } = useContext(AppContext)
+
+	const handleLogoClick = () => {
+		setIsOpen(false)
+	}
+
+	const handleArrowClick = () => {
+		setIsOpen(!isOpen)
+	}
 
 	return (
 		<div
 			className={`${isOpen ? 'opacity-100 delay-200 duration-300' : 'opacity-0'} flex h-20 justify-between p-4 text-white transition-opacity`}
 		>
 			{/* Logotipo/link a la página principal */}
-			<NavLink
-				to=''
-				className='flex items-center gap-1'
-				onClick={() => setIsOpen(false)}
-			>
-				<img src='./logo.png' className='size-12 rotate-50' />
-				<h1 className='text-2xl font-medium'>iaCele</h1>
-			</NavLink>
+			<LogoLink handleClick={handleLogoClick} imgSource='./logo.png'>
+				iaCele
+			</LogoLink>
 			{/* Botón flecha para cierre de sidebar */}
 			<button
-				onClick={() => setIsOpen(!isOpen)}
-				className={`${!sidebarIsLocked || !screenIsWide ? 'opacity-100' : 'pointer-events-none opacity-0'} ml-auto transition duration-150`}
+				onClick={handleArrowClick}
+				className={`${!sidebarIsLocked || !screenIsWide ? 'opacity-100' : 'pointer-events-none opacity-0'} mx-4 ml-auto transition duration-150`}
 				/* Si la sidebar no está bloqueada y la ventana es pequeña, mostrar botón */
 			>
-				<ArrowLeftIcon className='mx-4 size-6' />
+				<ArrowLeftIcon className='size-6' />
 			</button>
 		</div>
 	)
