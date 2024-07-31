@@ -62,6 +62,9 @@ const estoEsUnaVariable = 5
 - [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión)
 - [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales)
 
+**Construcción de objeto de opciones**
+- [Construcción de objeto de opciones para gráfica de burbujas](#construcción-de-objeto-de-opciones-para-gráfica-de-burbujas)
+
 ### Funcionamiento interno
 
 **Plug-ins de Charts.js**
@@ -69,6 +72,12 @@ const estoEsUnaVariable = 5
 - [htmlLegend: Desacoplamiento de etiquetas de conjuntos de datos](#htmllegend-desacoplamiento-de-etiquetas-de-conjuntos-de-datos)
 - [darkMode: Integración de modo oscuro](#darkmode-integración-de-modo-oscuro)
 - [stylingCSS: Asignación de clases CSS a elementos HTML generados por gráficas](#stylingcss-asignación-de-clases-css-a-elementos-html-generados-por-gráficas)
+
+**Mapeo de colores en gráficas**
+- [Mapeo de opacidades en formato hexadecimal](#mapeo-de-opacidades-en-formato-hexadecimal)
+- [Mapeo de colores a conjuntos de datos](#mapeo-de-colores-a-conjuntos-de-datos)
+- [Mapeo de opacidades y tipos de colores en los conjuntos de datos](#mapeo-de-opacidades-y-tipos-de-colores-en-los-conjuntos-de-datos)
+- [Mapeo de colores en conjuntos de datos](#mapeo-de-colores-en-conjuntos-de-datos)
 
 ----
 
@@ -362,7 +371,7 @@ const dashboardData = {
 | Atributo | Tipo | Valor por defecto | Descripción |
 |--------------|----------|--------------------|------------------------------|
 | `ENDPOINT` | `string` | *Requerido | Endpoint de la URL de donde se solicitará la información. Por ejemplo, si la URL completa es `https://www.estoesunsitio.com/esto_es_el_endpoint`, en este campo se debe ingresar el fragmento `esto_es_el_endpoint`. |
-| `CHART_TYPE` | `(opción)` <br><br> `'bar'`: Gráfica de barras <br> `'line'`: Gráfica de líneas <br> `'pie'`: Gráfica de pastel <br> `'doughnut'`: Gráfica de dona <br> `'polar area'`: Gráfica de área polar <br> `'radar'`: Gráfica de radar <br> `'scatter'`: Gráfica de dispersión <br> `'bubble'`: Gráfica de burbujas  | *Requerido | Tipo de gráfica a renderizar. |
+| `CHART_TYPE` | `(opción)` <br><br> • `'bar'`: Gráfica de barras <br> • `'line'`: Gráfica de líneas <br> • `'pie'`: Gráfica de pastel <br> • `'doughnut'`: Gráfica de dona <br> • `'polar area'`: Gráfica de área polar <br> • `'radar'`: Gráfica de radar <br> • `'scatter'`: Gráfica de dispersión <br> • `'bubble'`: Gráfica de burbujas  | *Requerido | Tipo de gráfica a renderizar. |
 | `NAME` | `string` | *Requerido | Nombre de la gráfica a renderizar .|
 | `DATASET_NAMES` | `array [string]` | *Requerido | Nombre de la variable del JSON del endpoint de la cual se obtendrán los valores del o los conjuntos de datos a renderizar en los elementos de la gráfica. |
 | `LABELS` | `string` | *Requerido | Nombre de la variable del JSON del endpoint de la cual se obtendrá la variable categórica que funcionará para segmentar el o los conjuntos de datos. |
@@ -372,12 +381,12 @@ const dashboardData = {
 | `BORDER_COLORS` | `Color` - `array[Color]` | `RED_PALETTE` | Colores de borde para los elementos de la gráfica. El formato de cada color debe ser hexadecimal, por ejemplo `#FFFFFF`. Los colores deben tener ser RGB en formato hexadecimal y contener el símbolo `#` antes de éstos. |
 | `BORDER_OPACITY` | `number` | `100` | Opacidad de los colores de borde de los elementos de la gráfica. Debe ser un número del `0` al `100` en donde el `0` representa la transparencia total y el `100` un color totalmente sólido sin transparencia. |
 | `ASPECT_RATIO` | `number` - `(División)` | `1.5` | Relación de aspecto de la gráfica. Puede ser un número, como por ejemplo `1.5` o una división como `3/2` en donde el primer número o numerador representa la proporción horizontal y el segundo número o denominador representa la proporción vertical. Por ejemplo, `3/2` significa que, por cada 3 pixeles de ancho, la gráfica tendrá 2 pixeles de alto. |
-| `Y_VALUE_TYPE` | `(Opción)` <br> <br> `'numeric'`: Numérico <br> `'monetary'`: Moneda nacional <br> `'only name'` | `undefined` | Tipo de valor numérico que se representará en las etiquetas numéricas y el tooltip. |
-| `X_VALUE_TYPE` | `(Opción)` <br> <br> `'numeric'`: Numérico <br> `'monetary'`: Moneda nacional <br> `'only name'` | `undefined` | Tipo de valor numérico que se representará en las etiquetas numéricas y el tooltip. |
+| `Y_VALUE_TYPE` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico que se representará en las etiquetas numéricas y el tooltip. |
+| `X_VALUE_TYPE` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico que se representará en las etiquetas numéricas y el tooltip. |
 | `CATEGORY_STRATIFICATION_BY` | `string` | `undefined` | Variable categórica de estratificación para segmentar un conjunto de datos en varios conjuntos de datos para renderizarse en la gráfica. |
-| `LABEL_COLUMNS` | `(Opción)` <br> <br> `1`: Organización en forma de lista <br> `2`: Organización en lista de 2 columnas <br> `3`: Organización en lista de 3 columnas <br> `4`: Organización en lista de 4 columnas <br> `6`: Organización en lista de 6 columnas | `1` | Orientación y alineación de las etiquetas. |
-| `LABELS_LIST` | `(Opción)` <br> <br> `'default'`: Disposición por defecto | `'default'` | Orientación y alineación de cada contenedor de etiqueta. |
-| `LEGEND_BOX` | `(Opción)` <br> <br> `'circle'`: Cajas circulares <br> `'rounded'`: Cajas cuadradas con bordes redondeados <br> `'square'`: Cajas cuadradas | `'square'` | Apariencia de la caja de color de las etiquetas. |
+| `LABEL_COLUMNS` | `(Opción)` <br> <br> • `1`: Organización en forma de lista <br> • `2`: Organización en lista de 2 columnas <br> • `3`: Organización en lista de 3 columnas <br> • `4`: Organización en lista de 4 columnas <br> • `6`: Organización en lista de 6 columnas | `1` | Orientación y alineación de las etiquetas. |
+| `LABELS_LIST` | `(Opción)` <br> <br> • `'default'`: Disposición por defecto | `'default'` | Orientación y alineación de cada contenedor de etiqueta. |
+| `LEGEND_BOX` | `(Opción)` <br> <br> • `'circle'`: Cajas circulares <br> • `'rounded'`: Cajas cuadradas con bordes redondeados <br> • `'square'`: Cajas cuadradas | `'square'` | Apariencia de la caja de color de las etiquetas. |
 | `MIN_BUBBLE_SIZE` | `number` | `2` | Tamaño mínimo de elementos de burbuja en gráfica de burbuja. |
 | `MAX_BUBBLE_SIZE` | `number` | `16` | Tamaño máximo de elementos de burbuja en gráfica de burbuja. |
 | `TRANSPOSED` | `boolean` | `false` | Transponer gráfica. Si se activa este parámetro, los datos de los ejes $X$ y $Y$ se invertirán. Esto sólo es válido para gráficas de barras, de dispersión y de burbuja. |
@@ -923,6 +932,101 @@ La estructura de salida, en base a los valores de ejemplo, sería la siguiente:
 
 Este objeto puede ser ingresado al argumento `series` del componente de gráfica de dispersión.
 
+## Construcción de objeto de opciones para gráfica de burbujas
+
+Esta función construye el objeto de opciones para el componente de gráfica de burbujas.
+
+Uso declarando el gráfico de burbujas en un `string`:
+```js
+// Declaración de los parámetros en un objeto para mejorar visualización
+const params = {
+    series,
+    labelsContainerID,
+    aspectRatio,
+    labelsDisplay,
+    labelsList,
+    legendBox,
+    transposed
+}
+
+const series = buildInitOptions['bubble']( params )
+```
+
+Uso declarando el gráfico de burbujas usando constante (recomendado):
+```js
+// Declaración de los parámetros en un objeto para mejorar visualización
+const params = {
+    series,
+    labelsContainerID,
+    aspectRatio,
+    labelsDisplay,
+    labelsList,
+    legendBox,
+    transposed
+}
+
+const series = buildInitOptions[CHART_TYPES.BUBBLE]( params )
+```
+
+>   Para saber más sobre el uso de constantes, leer las secciones [Uso de constantes](#uso-de-constantes) y [Tipos de gráficas](#tipos-de-gráficas)
+
+La construcción del objeto de opciones para gráficas de burbuja recibe los siguientes parámetros:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `series` | `object` | *Requerido | Objeto de datos transformado por la función de [construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja) |
+| `labelsContainerID` | `id` | *Requerido | ID del contenedor HTML `<div>` en donde se renderizarán las etiquetas del conjunto de datos. |
+| `aspectRatio` | `number - (División)` | *Declarado en los ajustes predeterminados* | Relación de aspecto de la gráfica |
+| `labelsDisplay` | `(Opción)` <br> <br> • `1`: Una columna <br> • `2`: 2 columnas <br> • `3`: 3 columnas <br> • `4`: 4 columnas <br> • `6`: 6 columnas | `1` | Número de columnas a ocupar por la lista de etiquetas. |
+| `labelsList` | `(Opción)` <br> <br> • `'default'`: Orientación por default (Fila) | `'default'` | Orientación de los elementos dentro de la etiqueta |
+| `legendBox` | `(Opción)` <br> <br> • `'circle'`: Cajas en forma de círculo <br> • `'rounded'`: Cajas cuadradas con bordes redondeados <br> • `'square'`: Cajas cuadradas | `'square'` | Forma de las cajas de color de las etiquetas. |
+| `transposed` | `boolean` | `false` | Indicador de transposición de los ejes $X$ y $Y$ de la gráfica. |
+
+**`series`: Objeto de datos transformado**
+
+Este objeto de datos se obtiene de la función de [construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja) y tiene la siguiente estructura:
+```js
+const series = {
+    datasets: [
+        {
+            data: [
+                    {x: 50.15, y: 37.68, _custom: 44.65},
+                    {x: 10.14, y: 64.88, _custom: 80.16},
+                    {x: 97.05, y: 46.56, _custom: 32.12},
+            ],
+            label: "Productos"
+        }
+    ],
+    labels: [
+        "producto1",
+        "producto2",
+        "producto3",
+    ]
+}
+```
+
+**`labelsContainerID`: ID del elemento HTML contenedor de etiquetas**
+
+Este valor se obtiene de la ID asignada a un elemento HTML:
+```jsx
+const ChartComponent = ({...}) => {
+    ...
+    return (
+        <div>
+            {/* Elemento donde se renderizarán las gráficas */}
+            <div id="labels-container"></div>
+            {/* Componente de gráfica de ejemplo */}
+            <Bar {...}>
+        </div>
+    )
+}
+```
+
+En este caso, el ID sería `labels-container`:
+```js
+const labelsContainerID = "labels-container"
+```
+
 ----
 
 # Plug-ins de Charts.js
@@ -1000,9 +1104,9 @@ Los parámetros disponibles se listan a continuación:
 
 | Atributo | Tipo | Valor por defecto | Descripción |
 |----------|------|-------------------|-------------|
-| `labelsDisplay` | `(Opción)` <br> <br> `1`: Una columna <br> `2`: 2 columnas <br> `3`: 3 columnas <br> `4`: 4 columnas <br> `6`: 6 columnas | `1` | Número de columnas a ocupar por la lista de etiquetas. |
-| `labelsList` | `(Opción)` <br> <br> `'default'`: Orientación por default (Fila) | `'default'` | Orientación de los elementos dentro de la etiqueta |
-| `legendBox` | `(Opción)` <br> <br> `'circle'`: Cajas en forma de círculo <br> `'rounded'`: Cajas cuadradas con bordes redondeados <br> `'square'`: Cajas cuadradas | `'square'` | Forma de las cajas de color de las etiquetas. |
+| `labelsDisplay` | `(Opción)` <br> <br> • `1`: Una columna <br> • `2`: 2 columnas <br> • `3`: 3 columnas <br> • `4`: 4 columnas <br> • `6`: 6 columnas | `1` | Número de columnas a ocupar por la lista de etiquetas. |
+| `labelsList` | `(Opción)` <br> <br> • `'default'`: Orientación por default (Fila) | `'default'` | Orientación de los elementos dentro de la etiqueta |
+| `legendBox` | `(Opción)` <br> <br> • `'circle'`: Cajas en forma de círculo <br> • `'rounded'`: Cajas cuadradas con bordes redondeados <br> • `'square'`: Cajas cuadradas | `'square'` | Forma de las cajas de color de las etiquetas. |
 
 ### Funcionamiento
 
@@ -1945,7 +2049,7 @@ Los atributos disponibles para configuración raíz son los siguientes:
 
 | Atributo | Tipo | Descripción |
 |----------|------|-------------|
-| `type` | `(Opción)`: <br> <br> `externalElement`: Elementos externos | Tipo de plug-in |
+| `type` | `(Opción)`: <br> <br> • `externalElement`: Elementos externos | Tipo de plug-in |
 | `idKey` | `string` | Nombre llave del atributo (no su valor) del ID del contenedor `<div>` en donde se renderizarán los objetos. |
 | `elements` | `array` | Matriz de objetos de estilización que se asignarán a los elementos hijos de este elemento. |
 
@@ -2270,3 +2374,425 @@ if ( styler.plugins ) {
 >   >   De no cumplirse la condición no se realiza ninguna ejecución de código.
 >   
 >   Se termina la ejecución de la función, no se requiere un retorno.
+
+----
+
+# Mapeo de colores en gráficas
+
+Las funciones de mapeo de colores facilitan la asignación y reasignación de colores a partir de múltiples opciones como asignación de colores individuales, paletas de colores o series de paletas de colores, además de que las funciones reciben los parámetros de colores explícitamente en un mismo sitio y estos valores se propagan por la gráfica de la forma más adecuada posible, lo que resulta mucho más rápido y legible que si se hiciera directamente en el objeto de opciones y series manualmente.
+
+## Mapeo de opacidades en formato hexadecimal
+- Ubicación: `src/utils/dataFormatting.js`
+- Función: `mapOpacities`
+
+Esta función recibe una matriz de colores en formato hexadecimal y les mapea un valor de opacidad en la escala del 0 al 100 en un formato hexadecimal también.
+
+Ejemplo de uso:
+```js
+const colors = [
+    "#8C0413",
+    "#B70217",
+    "#DC001A",
+    "#EC112B",
+    "#FE3249",
+    "#FE5165",
+    "#FC7080",
+]
+
+const opacity = 50
+
+const colorsWithOpacity = mapOpacities({ colors, colorOpacity })
+```
+
+Los argumentos de entrada disponibles son:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `colors` | `Color` - `array[Color]` | *Requerido | Color o paleta de colores a asignarles la opacidad. |
+| `colorOpacity` | `number` | *Requerido | Valor de opacidad a mapear en el color en donde `0` representa transparencia total y `100` representa opacidad total. |
+
+### Funcionamiento
+
+La función `mapOpacities` utiliza el mapeo de opacidades desde la constante `OPACITIES` ubicada en `src/constants/colors.js` la cual cuenta con valores predefinidos de opacidad a los cuales se accede por valor entero en un rango del 1% al 100%:
+```js
+export const OPACITIES = {
+    0: "00",
+    5: "0B",
+    10: "18",
+    ...
+}
+```
+
+Entonces, si el mapeo es del 50%, se accedería al valor ubicado en la llave `50`:
+```js
+OPACITIES[50]
+
+// Valor hexadecimal
+"7F"
+```
+
+La función `mapOpacities` luce de esta forma:
+```js
+// Concatenación de la opacidad si el color es un texto
+if (typeof colors === 'string') {
+    return (colors + OPACITIES[colorOpacity])
+
+// Concatenación de la opacidad a cada uno de los valores de la matriz
+} else {
+    return (
+        colors.map(
+            (color) => (color + OPACITIES[colorOpacity])
+        )
+    )
+}
+```
+
+>   - Si la entrada de la variable `color` es un único valor, se concatena el color junto con la opacidad correspondiente en formato hexadecimal.
+>   - En caso contrario el color sería una matriz de colores hexadecimales y se mapea cada uno de los colores concatenado con la opacidad correspondiente en formato hexadecimal.
+
+Retorno de la función:
+```js
+[
+    "#8C04137F",
+    "#B702177F",
+    "#DC001A7F",
+    "#EC112B7F",
+    "#FE32497F",
+    "#FE51657F",
+    "#FC70807F",
+]
+```
+
+>   Se retorna un color en formato RGBA hexadecimal o una matriz de colores RGBA hexadecimales.
+
+## Mapeo de colores a conjuntos de datos
+
+La función `mapColors` mapea los colores de fondo y borde a uno o varios conjuntos de datos según su estructura y la cantidad de colores provista en sus argumentos.
+
+Declaración del tipo de color usando un `string`:
+```js
+series = mapColors({ series, colors: ..., colorType: `backgroundColor` })
+```
+
+Declaraciónel tipo de color usando una constante (recomendado):
+```js
+series = mapColors({ series, colors: ..., colorType: CHARTS_SERIES_SETTINGS.BACKGROUND_COLOR })
+```
+
+Los argumentos de entrada disponibles son:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `series` | `object` | *Requerido | Objeto de datos transformado por alguna de las siguietes funciones: <br> • [Construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja)  <br> • [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión) <br> • [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales) |
+| `colors` | `Color` - `array[Color]` | *Requerido | Color o paleta de colores a mapear en el o los conjuntos de datos. |
+| `colorType` | `(Opción)` <br> <br> • `backgroundColor`: Color de fondo <br> • `borderColor`: Color de borde | *Requerido | Color o paleta de colores a mapear en el o los conjuntos de datos. |
+
+La función por dentro luce así:
+```js
+const mapColors = ({
+    series,
+    colors,
+    colorType
+}) => {
+
+    if (series.datasets.length === 1) {
+        series.datasets[0][colorType] = colors
+
+    // Mapeo de paleta de colores a varios conjuntos de datos
+    } else if (colors.length > 1) {
+        for (let i = 0; i < series.datasets.length; i++) {
+            series.datasets[i][colorType] = colors[i]
+        }
+
+    // Mapeo de color a varios conjuntos de datos
+    } else {
+        for (let i = 0; i < series.datasets.length; i++) {
+            series.datasets[i][colorType] = colors
+        }
+    }
+
+    // Retorno de los datos con colores mapeados
+    return series;
+}
+```
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   Mapeo de colores a un solo conjunto de datos:
+>   ```js
+>   if (series.datasets.length === 1) {
+>       series.datasets[0][colorType] = colors
+>   }
+>   ```
+>   
+>   >   - Si el objeto `series` sólo contiene un elemento en su atributo `datasets`, es decir, si el objeto de datos solo contiene un solo conjunto de datos se mapea el valor de colores en ese único elemento en su atributo correspondiente, ya sea color de fondo o de borde.
+>   
+>   Mapeo de paleta de colores a varios conjuntos de datos:
+>   ```js
+>       if (...) {
+>           ...
+>       } else if (colors.length > 1) {
+>           for (let i = 0; i < series.datasets.length; i++) {
+>               series.datasets[i][colorType] = colors[i]
+>           }
+>       }
+>   ```
+>   
+>   >   - De no cumplirse la condición de un sólo conjunto de datos, se asume que el objeto de datos contiene más de un conjunto de datos y sólo se realiza una validación de la matriz de colores en la que su longitud sea mayor a 1.
+>   >   - De ser así realiza una iteración para mapear cada color a cada conjunto de datos en su atributo correspondiente, ya sea color de fondo o de borde.
+>   
+>   Mapeo de un solo color a varios conjuntos de datos:
+>   ```js
+>       {
+>           ...
+>       } else {
+>           for (let i = 0; i < series.datasets.length; i++) {
+>               series.datasets[i][colorType] = colors
+>           }
+>       }
+>   ```
+>   
+>   - De no cumplirse la condición se asume que el objeto de datos contiene más de un conjunto de datos y la matriz de colores sólo contiene un color.
+>   - Se realiza una iteración para mapear el color a cada conjunto de datos en su atributo correspondiente, ya sea color de fondo o de borde.
+>   
+>   Retorno del objeto de datos
+>   ```js
+>   return series;
+>   ```
+
+## Mapeo de opacidades y tipos de colores en los conjuntos de datos
+
+La función `colorMapping` mapea las opacidades de color en los valores de colores provistos, mapea los colores de fondo, de borde y, en caso de que la gráfica sea de tipo línea o radar, se mapea color de relleno usando los colores de fondo:
+```js
+const colorMapping = ({
+    series,
+    backgroundColors,
+    backgroundOpacity,
+    borderColors,
+    borderOpacity,
+    chartType,
+}) => {
+
+    // Variables booleanas
+    const isFillableChart = chartType === CHART_TYPES.LINE || chartType === CHART_TYPES.RADAR
+
+    // Mapeo de opacidad a los colores de fondo
+    if ( backgroundOpacity !== undefined ) {
+        backgroundColors = mapOpacities({ colors: backgroundColors, colorOpacity: backgroundOpacity })
+    }
+    // Mapeo de opacidad a los colores de borde
+    if ( borderOpacity !== undefined ) {
+        borderColors = mapOpacities({ colors: borderColors, colorOpacity: borderOpacity })
+    }
+
+    // Mapeo de colores de fondo a los conjuntos de datos
+    if ( backgroundColors ) {
+        series = mapColors({ series, colors: backgroundColors, colorType: CHARTS_SERIES_SETTINGS.BACKGROUND_COLOR })
+    }
+    // Mapeo de colores de borde a los conjuntos de datos
+    if ( borderColors ) {
+        series = mapColors({ series, colors: borderColors, colorType: CHARTS_SERIES_SETTINGS.BORDER_COLOR })
+    }
+
+    // Activación de color de fondo para gráficas de línea y radar
+    if ( isFillableChart && backgroundColors ) {
+        // Activación por dataset
+        series.datasets.forEach(
+            (dataset) => {
+                dataset.fill = chartSettings.fillableCharts[CHARTS_SERIES_SETTINGS.FILL]
+            }
+        )
+    }
+
+    return series
+}
+```
+
+Los argumentos de entrada disponibles son:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `series` | `object` | *Requerido | Objeto de datos transformado por alguna de las siguietes funciones: <br> • [Construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja)  <br> • [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión) <br> • [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales) |
+| `backgroundColors` | `Color` - `array[Color]` | *Declarado en los ajustes predeterminados* | Color o paleta de colores de fondo para la gráfica. |
+| `backgroundOpacity` | `number` | *Declarado en los ajustes predeterminados* | Valor de opacidad a mapear en los colores de fondo en donde `0` representa transparencia total y `100` representa opacidad total. |
+| `borderColors` | `Color` - `array[Color]` | *Declarado en los ajustes predeterminados* | Color o paleta de colores de borde para la gráfica. |
+| `borderOpacity` | `number` | *Declarado en los ajustes predeterminados* | Valor de opacidad a mapear en los colores de borde en donde `0` representa transparencia total y `100` representa opacidad total. |
+| `chartType` | `string` | *Requerido | Valor de opacidad a mapear en los colores de borde en donde `0` representa transparencia total y `100` representa opacidad total. |
+
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   Se realizan validaciones para crear variables booleanas y usarlas en estructuras de control condicionales más legibles:
+>   ```js
+>   const isFillableChart = chartType === CHART_TYPES.LINE || chartType === CHART_TYPES.RADAR
+>   ```
+>   
+>   >   - Se valida que la gráfica sea rellenable, esto es, que la gráfica sea de tipo línea o de tipo radar.
+>   
+>   Mapeo de opacidad a los colores de fondo:
+>   ```js
+>       if ( backgroundOpacity !== undefined ) {
+>           backgroundColors = mapOpacities({ colors: backgroundColors, colorOpacity: backgroundOpacity })
+>       }
+>   ```
+>   
+>   >   - Si existe un valor de opacidad de fondo proporcionado a la función se realiza el mapeo de opacidad a los colores de fondo con la función de [mapeo de opacidades](#mapeo-de-opacidades-en-formato-hexadecimal).
+>   
+>   Mapeo de opacidad a los colores de borde:
+>   ```js
+>       if ( borderColors ) {
+>           series = mapColors({ series, colors: borderColors, colorType: CHARTS_SERIES_SETTINGS.BORDER_COLOR })
+>       }
+>   ```
+>   
+>   >   - Si existe un valor de opacidad de borde proporcionado a la función se realiza el mapeo de opacidad a los colores de borde con la función de [mapeo de opacidades](#mapeo-de-opacidades-en-formato-hexadecimal).
+>   
+>   Mapeo de colores de fondo a los conjuntos de datos:
+>   ```js
+>       if ( backgroundColors ) {
+>           series = mapColors({ series, colors: backgroundColors, colorType: CHARTS_SERIES_SETTINGS.BACKGROUND_COLOR })
+>       }
+>   ```
+>   
+>   >   - Si existe un valor de colores de fondo proporcionado a la función se realiza el mapeo de colores en el o los conjuntos de datos del objeto de datos usando la función de [mapeo de colores a conjuntos de datos](#mapeo-de-colores-a-conjuntos-de-datos), especificando en el argumento `colorType` que se hará el mapeo de los colores de fondo.
+>   
+>   Mapeo de colores de borde a los conjuntos de datos:
+>   ```js
+>       if ( borderColors ) {
+>           series = mapColors({ series, colors: borderColors, colorType: CHARTS_SERIES_SETTINGS.BORDER_COLOR })
+>       }
+>   ```
+>   
+>   >   - Si existe un valor de colores de borde proporcionado a la función se realiza el mapeo de colores en el o los conjuntos de datos del objeto de datos usando la función de [mapeo de colores a conjuntos de datos](#mapeo-de-colores-a-conjuntos-de-datos), especificando en el argumento `colorType` que se hará el mapeo de los colores de borde.
+>   
+>   Activación de color de fondo para gráficas de línea y radar:
+>   ```js
+>   if ( isFillableChart && backgroundColors ) {
+>       ...
+>   }
+>   ```
+>   
+>   >   - Para excepciones en las que el tipo de gráfica sea rellenable y se hayan proporcionado colores de fondo se ejecuta el siguiente bloque de código:
+>   >   Se ejecuta una activación de color de relleno por cada conjunto de datos del objeto de datos: 
+>   >   ```js
+>   >   // Activación por dataset
+>   >   series.datasets.forEach(
+>   >       (dataset) => {
+>   >           dataset.fill = chartSettings.fillableCharts[CHARTS_SERIES_SETTINGS.FILL]
+>   >       }
+>   >   )
+>   >   ```
+>   >   
+>   >   >   - Se realiza una iteración por cada conjunto de datos
+>   >   >   - Se le indica a cada conjunto de datos en su atributo `fill` que debe contener el valor preestablecido en los *ajustes predeterminados*. Por defecto la gráfica tomará los valores de color de fondo como colores de relleno de estos elementos de línea y radar dependiendo del tipo de ésta.
+>   >   
+>   >   Finaliza iteración del ciclo `forEach`.
+>   
+>   Retorno del objeto de datos:
+>   ```js
+>   return series
+>   ```
+
+## Mapeo de colores en conjuntos de datos
+
+La función `mapColorsOnSeries` toma los colores declarados o por default en la entrada de la función `buildData` y los distribuye o reasigna dependiendo del tipo de gráfica y los valores definidos e indefinidos para mapearlos con usando las funciones de mapeo de colores y opacidades:
+```js
+export const mapColorsOnSeries = ({
+    series,
+    chartType,
+    backgroundColors,
+    backgroundOpacity,
+    borderColors,
+    borderOpacity
+}) => {
+
+    // Validación de tipos de gráfica
+    const isPolarArea = chartType === CHART_TYPES.POLARAREA
+    const isPie = chartType === CHART_TYPES.PIE
+    const isDoughtnut = chartType === CHART_TYPES.DOUGHNUT
+
+    // Asignación de opacidad de colores de fondo para gráficas de área polar
+    if ( isPolarArea && !backgroundOpacity ) {
+        backgroundOpacity = chartSettings[CHART_TYPES.POLARAREA][CHARTS_SETTINGS.BACKGROUND_OPACITY];
+    }
+
+    // Asignación de colores de borde para gráficas circulares
+    if ( (isPie || isDoughtnut) && !borderColors ) {
+        borderColors = chartSettings.circularCharts[CHARTS_SETTINGS.BORDER_COLORS];
+    }
+
+    // Asignación de opacidades y colores de borde para gráficas de área polar
+    if ( isPolarArea && !borderColors ) {
+        borderColors = backgroundColors; // Asignación de mismos colores de fondo para colores de borde
+        borderOpacity = chartSettings[CHART_TYPES.POLARAREA][CHARTS_SETTINGS.BORDER_OPACITY];
+    }
+
+    series = colorMapping({ series, backgroundColors, backgroundOpacity, borderColors, borderOpacity, chartType });
+
+    return series;
+}
+```
+
+Los argumentos de entrada disponibles son:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `series` | `object` | *Requerido | Objeto de datos transformado por alguna de las siguietes funciones: <br> • [Construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja)  <br> • [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión) <br> • [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales) |
+| `chartType` | `string` | *Requerido | Valor de opacidad a mapear en los colores de borde en donde `0` representa transparencia total y `100` representa opacidad total. |
+| `backgroundColors` | `Color` - `array[Color]` | *Declarado en los ajustes predeterminados* | Color o paleta de colores de fondo para la gráfica. |
+| `backgroundOpacity` | `number` | *Declarado en los ajustes predeterminados* | Valor de opacidad a mapear en los colores de fondo en donde `0` representa transparencia total y `100` representa opacidad total. |
+| `borderColors` | `Color` - `array[Color]` | *Declarado en los ajustes predeterminados* | Color o paleta de colores de borde para la gráfica. |
+| `borderOpacity` | `number` | *Declarado en los ajustes predeterminados* | Valor de opacidad a mapear en los colores de borde en donde `0` representa transparencia total y `100` representa opacidad total. |
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   Se realizan validaciones para crear variables booleanas y usarlas en estructuras de control condicionales más legibles:
+>   ```js
+>   // Validación de tipos de gráfica
+>   const isPolarArea = chartType === CHART_TYPES.POLARAREA
+>   const isPie = chartType === CHART_TYPES.PIE
+>   const isDoughtnut = chartType === CHART_TYPES.DOUGHNUT
+>   ```
+>   
+>   >   - Se crea un valor booleano de la validación de si la gráfica es de área polar.
+>   >   - Se crea un valor booleano de la validación de si la gráfica es de pastel.
+>   >   - Se crea un valor booleano de la validación de si la gráfica es de dona.
+>   
+>   Asignación de opacidad de colores de fondo para gráficas de área polar:
+>   ```js
+>   if ( isPolarArea && !backgroundOpacity ) {
+>       backgroundOpacity = chartSettings[CHART_TYPES.POLARAREA][CHARTS_SETTINGS.BACKGROUND_OPACITY];
+>   }
+>   ```
+>   
+>   >   - Si la gráfica es de área polar y no hay valores de opacidad definidos se asigna el valor de opacidad preestablecido en los *ajustes predeterminados*.
+>   
+>   Asignación de colores de borde para gráficas circulares:
+>   ```js
+>   if ( (isPie || isDoughtnut) && !borderColors ) {
+>       borderColors = chartSettings.circularCharts[CHARTS_SETTINGS.BORDER_COLORS];
+>   }
+>   ```
+>   >   - Si la gráfica es de pastel o dona y no hay colores de borde definidos se asignan los colores de borde preestablecidos en los *ajustes predeterminados*.
+>   
+>   Asignación de opacidades y colores de borde para gráficas de área polar:
+>   ```js
+>   if ( isPolarArea && !borderColors ) {
+>       borderColors = backgroundColors; // Asignación de mismos colores de fondo para colores de borde
+>       borderOpacity = chartSettings[CHART_TYPES.POLARAREA][CHARTS_SETTINGS.BORDER_OPACITY];
+>   }
+>   ```
+>   
+>   >   - SI la gráfica es de área polar y no hay colores de borde definidos se asignan los colores de borde y valores de opacidad preestablecidos en los *ajustes predeterminados*.
+>   
+>   Una vez que se definieron los colores preestablecidos se realiza la llamada a la función `colorMapping` que a su vez mapea opacidades y los colores convertidos a los conjuntos de datos al objeto de datos `series`:
+>   ```js
+>   series = colorMapping({ series, backgroundColors, backgroundOpacity, borderColors, borderOpacity, chartType });
+>   ```
+>   
+>   >   - Se realiza una llamada a la función de [mapeo de opacidades y tipos de colores en los conjuntos de datos](#mapeo-de-opacidades-y-tipos-de-colores-en-los-conjuntos-de-datos).
+>   
+>   Finalmente se retorna el objeto de datos:
+>   ```js
+>   return series;
+>   ```
