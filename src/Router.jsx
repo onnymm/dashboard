@@ -1,11 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom'
-import App from '../App'
-import Analytics from '../components/pages/analytics/Analytics'
-import Ecommerce from '../components/pages/ecommerce/Ecommerce'
-import Homepage from '../components/pages/homepage/Homepage'
-import Profile from '../components/pages/profile/Profile'
-import ToDo from '../components/pages/to do/ToDo'
-import UiTests from '../components/pages/ui tests/UiTests'
+import App from './App'
+import Analytics from './routes/analytics/Analytics'
+import Ecommerce from './routes/ecommerce/Ecommerce'
+import Homepage from './routes/homepage/Homepage'
+import Profile from './routes/profile/Profile'
+import ToDo from './routes/to do/ToDo'
+import UiTests from './routes/ui tests/UiTests'
 
 const Router = createBrowserRouter([
 	{

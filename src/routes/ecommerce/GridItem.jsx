@@ -1,6 +1,6 @@
 import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/16/solid'
 import { useContext } from 'react'
-import { AppContext } from '../../../contexts/AppContexts'
+import { AppContext } from '../../contexts/AppContexts'
 
 const GridItem = ({ icon: Icon, amount, label, percent, gain }) => {
 	const { sidebarIsLocked } = useContext(AppContext)
