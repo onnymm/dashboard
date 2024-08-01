@@ -144,7 +144,7 @@ const buildGenericData = ({
 }
 
 // Funciones de construcción de opciones predefinidas
-const buildGenericOptions = ({
+const buildCartesianChartOptions = ({
     labelsContainerID,
     aspectRatio = chartSettings[CHARTS_SETTINGS.ASPECT_RATIO],
     labelsDisplay = chartSettings[CHARTS_SETTINGS.LABEL_COLUMNS],
@@ -765,14 +765,16 @@ const colorMapping = ({
     if ( backgroundOpacity !== undefined ) {
         backgroundColors = mapOpacities({ colors: backgroundColors, colorOpacity: backgroundOpacity })
     }
+    // Mapeo de opacidad a los colores de borde
     if ( borderOpacity !== undefined ) {
         borderColors = mapOpacities({ colors: borderColors, colorOpacity: borderOpacity })
     }
 
-    // Mapeo de colores a los conjuntos de datos
+    // Mapeo de colores de fondo a los conjuntos de datos
     if ( backgroundColors ) {
         series = mapColors({ series, colors: backgroundColors, colorType: CHARTS_SERIES_SETTINGS.BACKGROUND_COLOR })
     }
+    // Mapeo de colores de borde a los conjuntos de datos
     if ( borderColors ) {
         series = mapColors({ series, colors: borderColors, colorType: CHARTS_SERIES_SETTINGS.BORDER_COLOR })
     }
@@ -852,6 +854,7 @@ const mapColors = ({
     colorType
 }) => {
 
+    // Mapeo de colores a un solo conjunto de datos
     if (series.datasets.length === 1) {
         series.datasets[0][colorType] = colors
 
@@ -984,9 +987,9 @@ export const buildInitSeries = {
 export const buildInitOptions = {
     [CHART_TYPES.BUBBLE]: buildBubbleChartOptions,
 
-    [CHART_TYPES.SCATTER]: buildGenericOptions,
-    [CHART_TYPES.BAR]: buildGenericOptions,
-    [CHART_TYPES.LINE]: buildGenericOptions,
+    [CHART_TYPES.SCATTER]: buildCartesianChartOptions,
+    [CHART_TYPES.BAR]: buildCartesianChartOptions,
+    [CHART_TYPES.LINE]: buildCartesianChartOptions,
 
     [CHART_TYPES.PIE]: buildRadialChartOptions,
     [CHART_TYPES.DOUGHNUT]: buildRadialChartOptions,
