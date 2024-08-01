@@ -53,7 +53,7 @@ const NavbarSearch = () => {
 			<form className='relative flex' ref={domNode}>
 				{/* Barra de búsqueda principal (se muestra cuando la ventana es lo suficientemente grande) */}
 				<div
-					className={`${!bottomIsDisplayed ? 'opacity-100' : 'opacity-0'} flex transition duration-100`}
+					className={`${!bottomIsDisplayed ? 'opacity-100' : 'pointer-events-none opacity-0'} flex transition duration-100`}
 				>
 					<SearchIcon
 						handleClick={screenIsWide ? handleSearch : displayMiniSearch}
@@ -68,7 +68,7 @@ const NavbarSearch = () => {
 				/>
 				{/* Barra de búsqueda flotante (se muestra cuando la ventana no es lo suficientemente grande) */}
 				<div
-					className={`${!screenIsWide && bottomIsDisplayed ? 'animate-fade-grow-in' : hasBeenClicked ? 'animate-fade-shrink-out pointer-events-none' : 'pointer-events-none opacity-0'} absolute -left-14 top-14 flex w-min gap-2 rounded-md bg-white px-4 shadow-back transition dark:bg-darkmode-switch-background-d sm:left-0`}
+					className={`${!screenIsWide && bottomIsDisplayed ? 'animate-fade-grow-in' : hasBeenClicked ? 'pointer-events-none animate-fade-shrink-out' : 'pointer-events-none opacity-0'} absolute -left-14 top-14 flex w-min gap-2 rounded-md bg-white px-4 shadow-back transition dark:bg-darkmode-switch-background-d sm:left-0`}
 				>
 					<input
 						className={`z-9 h-12 ${sharedSearchTail}`}

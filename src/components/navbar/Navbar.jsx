@@ -22,7 +22,7 @@ const Navbar = () => {
 						<NavbarSearch />
 					</div>
 					{/* Switch de darkmode, botón de mensaje, notificaciones, perfil y detalles */}
-					<div className='flex items-center gap-0 sm:gap-2'>
+					<div className='flex items-center sm:gap-2'>
 						{/* Switch de darkmode */}
 						<NavbarDarkMode />
 						{/* Manejador de botones (mensajes, notificaciones, perfil) */}
