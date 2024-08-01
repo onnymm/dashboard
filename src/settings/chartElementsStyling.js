@@ -10,27 +10,27 @@ export const chartElementsStyling = {
             // Elementos del contenedor a estilizar
             elements: [
                 {
-                    // Elemento de lista desorganizada
+                    // Lista de etiquetas de conjuntos de datos de gráficas
                     element: "ul",
                     // Nombres de clase asignados
                     styling: "flex",
                     // Elementos hijos
                     children: [
                         {
-                            // Elemento de lista
+                            // Etiquetas de conjuntos de datos de gráficas
                             element: "li",
                             // Nombres de clase asignados
                             styling: "flex gap-1",
                             // Elementos hijos
                             children: [
                                 {
-                                    // Elemento span
+                                    // Cajas de colores de etiquetas de conjuntos de datos de gráficas
                                     element: "span",
                                     // Nombres de clase asignados
                                     styling: "block",
                                 },
                                 {
-                                    // Elemento de párrafo
+                                    // Título de conjunto de datos en etiquetas de conjuntos de datos de gráficas
                                     element: "p",
                                     // Nombres de clase asignados
                                     styling: "font-extralight transition duration-300"
