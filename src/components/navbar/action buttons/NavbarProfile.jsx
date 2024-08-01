@@ -1,4 +1,3 @@
-import { ChevronDownIcon } from '@heroicons/react/16/solid'
 import { useState } from 'react'
 import { useClickOutside } from '../../../custom hooks/useClickOutside'
 import { links } from '../../../data/appConfig'
@@ -29,7 +28,7 @@ const NavbarProfile = ({ name, occupation, avatarSource }) => {
 	return (
 		<div className='relative flex items-center transition duration-300 dark:text-white sm:gap-1'>
 			{/* Nombre y ocupación */}
-			<div className='hidden text-right lg:block'>
+			<div className='hidden px-1 text-right lg:block'>
 				<span className='block text-sm opacity-80'>{name}</span>
 				<span className='block text-xs opacity-60'>{occupation}</span>
 			</div>
@@ -40,12 +39,15 @@ const NavbarProfile = ({ name, occupation, avatarSource }) => {
 					className='flex items-center gap-1'
 					onClick={handleProfileClick}
 				>
-					<Avatar imgSource={avatarSource} animateOnClick={true} />
-					<ChevronDownIcon className='hidden size-6 opacity-50 sm:block' />
+					<Avatar
+						imgSource={avatarSource}
+						animateOnClick={true}
+						// extraStyles={`outline-none hover:outline-black ${isActive && 'outline-black'} transition-color duration-300`}
+					/>
 				</button>
 				{/* Contenido del dropdown */}
 				<div
-					className={`${isActive ? 'animate-fade-grow-in' : hasBeenClicked ? 'animate-fade-shrink-out pointer-events-none' : 'pointer-events-none opacity-0'} absolute right-0 top-16 z-30 min-h-12 w-48 rounded-md bg-white p-3 shadow-back dark:bg-navbar-icons-background-d`}
+					className={`${isActive ? 'animate-fade-grow-in' : hasBeenClicked ? 'pointer-events-none animate-fade-shrink-out' : 'pointer-events-none opacity-0'} absolute right-0 top-16 z-30 min-h-12 w-48 rounded-md bg-white p-3 shadow-back dark:bg-navbar-icons-background-d`}
 				>
 					<List
 						Contains={ProfileLink}
