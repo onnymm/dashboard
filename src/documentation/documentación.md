@@ -39,11 +39,13 @@ const estoEsUnaVariable = 5
 
 ### Constantes para la aplicación
 
+**Constantes globales**
+- [Colores](#colores)
+
 **Estilos para las gráficas**
 - [Tipos de gráficas](#tipos-de-gráficas)
 - [Nombres de ajustes de gráficas](#nombres-de-ajustes-de-gráficas)
 - [Nombres de ajustes de series de los conjuntos de datos](#nombres-de-ajustes-de-series-de-los-conjuntos-de-datos)
-- [Colores](#colores)
 
 ### Manejadores de solicitudes a APIs
 
@@ -90,7 +92,7 @@ Este proyecto utiliza varias librerías para su funcionamiento, listadas a conti
 - **React Router**: Es una biblioteca estándar para enrutamiento en aplicaciones React. Proporciona una manera declarativa para gestionar la navegación y el enrutamiento en aplicaciones de una sola página .Permite definir rutas de manera declarativa, lo que permite especificar qué componentes deben renderizarse para diferentes rutas además de soportar rutas anidadas. Para saber más, consultar su [documentación](https://reactrouter.com/en/main).
 
 - **Charts.js**
-Es una biblioteca de código abierto que permite crear gráficos y visualizaciones de datos de manera sencilla y atractiva. Es altamente personalizable y fácil de usar y  soporta varios tipos de gráficos interactivos, lo que permite al usuario interactuar con el gráfico para ver información adicional. Para saber más, consultar su [documentación](https://www.chartjs.org/docs/latest/)
+Es una biblioteca de código abierto que permite crear gráficos y visualizaciones de datos de manera sencilla y atractiva. Es altamente personalizable y fácil de usar y  soporta varios tipos de gráficos interactivos, lo que permite al usuario interactuar con el gráfico para ver información adicional. Para saber más, consultar su [documentación](https://www.chartjs.org/docs/latest/).
 
 ----
 
@@ -115,11 +117,13 @@ Las constantes son una implementación en la aplicación que ayudan a reducir *t
 
 ## Destructuración y propiedades computadas
 
-La declaración de funciones en este proyecto utiliza propiedades computadas a partir de [constantes](#uso-de-constantes) declaradas en la ubicación `src/constants/`. Las propiedades computadas permiten definir propiedades de objetos usando expresiones dinámicas que se evalúan en tiempo de ejecución además de que centralizan las claves en un solo objeto, lo que facilita la actualización de las constantes y hace explícito qué propiedades del objeto de entrada se están utilizando y asignando a variables específicas.
+La declaración de funciones en este proyecto utiliza propiedades computadas a partir de constantes declaradas en la ubicación `src/constants/`. Las propiedades computadas permiten definir propiedades de objetos usando expresiones dinámicas que se evalúan en tiempo de ejecución además de que centralizan las claves en un solo objeto, lo que facilita la actualización de las constantes y hace explícito qué propiedades del objeto de entrada se están utilizando y asignando a variables específicas.
+
+>   Para saber más sobre el uso de constantes, consultar la sección [Uso de constates](#uso-de-constantes).
 
 ### Ejemplo de uso
 
-En el archivo `settings.js` que se encuentra en la ubicación antes mencionada, se cuenta con una constante llamada `CHARTS_SETTINGS` utilizada para definir los atributos configurables de componentes de gráficas. Para más información sobre estos ajustes, leer la sección de [gráficas](#gráficas). La constante está declarada de la siguiente forma:
+En el archivo `settings.js` que se encuentra en la ubicación antes mencionada, se cuenta con una constante llamada `CHARTS_SETTINGS` utilizada para definir los atributos configurables de componentes de gráficas. La constante está declarada de la siguiente forma:
 ```js
 export const CHARTS_SETTINGS = {
     // Tipo de gráfica
@@ -131,6 +135,8 @@ export const CHARTS_SETTINGS = {
     ...
 }
 ```
+
+>   Para más información sobre estos ajustes, leer la sección [Gráficas](#gráficas).
 
 En la función `buildData` que se encuentra en `src/utils/utils.js` se utilizan estas constantes como declaración de los atributos de entrada de la función, destructurando los valores dentro de `[]` y definiendo cómo se llamará el atributo dentro de la función de la siguiente forma:
 ```js
@@ -307,7 +313,9 @@ export const links = [
 ]
 ```
 
-Generalmente estos valores se declaran en colecciones de objetos y se mapean usando el método nativo de los *arrays* `map` en los componentes a renderizar. También se utilizan las declaraciones con propiedades computadas. Para saber más, consultar la sección de [destructuración y propiedades computadas](#destructuración-y-propiedades-computadas).
+Generalmente estos valores se declaran en colecciones de objetos y se mapean usando el método nativo de los *arrays* `map` en los componentes a renderizar.
+
+>   La declaración de estos objetos utiliza propiedades computadas. Para saber más, consultar la sección [Destructuración y propiedades computadas](#destructuración-y-propiedades-computadas).
 
 ## Ajustes predefinidos
 
@@ -325,7 +333,7 @@ export const chartSettings = {
 }
 ```
 
-También se utilizan las declaraciones con propiedades computadas. Para saber más, consultar la sección de [destructuración y propiedades computadas](#destructuración-y-propiedades-computadas).
+>   La declaración de estos ajustes predefinidos utiliza propiedades computadas. Para saber más, consultar la sección [Destructuración y propiedades computadas](#destructuración-y-propiedades-computadas).
 
 ## Funciones de utilidades
 
@@ -344,7 +352,7 @@ export const buildData = ({
 }
 ```
 
-También se utilizan las declaraciones con propiedades computadas. Para saber más, consultar la sección de [destructuración y propiedades computadas](#destructuración-y-propiedades-computadas)
+>   La declaración de la mayor parte del nombre de los argumentos de entrada utiliza propiedades computadas. Para saber más, consultar la sección [Destructuración y propiedades computadas](#destructuración-y-propiedades-computadas).
 
 ----
 
@@ -354,6 +362,7 @@ La información mostrada en el Dashboard es configurada en el archivo `appConfig
 
 ## Gráficas
 **índice**: `[charts]`
+
 En este índice se encuentra la configuración de las gráficas a mostrar en el Dashboard. Esta colección de datos debe ser una matriz y se debe declarar un objeto dentro de ésta por cada gráfica. Para acceder a la lista de atributos disponibles se importa la constante `CHARTS_SETTINGS` proveniente de la ubicación relativa `../constants/settings`. Para declarar el atributo se utiliza la destructuración de la siguiente forma:
 
 ```js
@@ -368,8 +377,10 @@ const dashboardData = {
 }
 ```
 
+Los argumentos de entrada disponibles para cada objeto de la matriz, estructurados en la forma `[CHART_SETTINGS.<argumento>]` (como se describe en el bloque de código anterior) son los siguientes:
+
 | Atributo | Tipo | Valor por defecto | Descripción |
-|--------------|----------|--------------------|------------------------------|
+|----------|------|-------------------|-------------|
 | `ENDPOINT` | `string` | *Requerido | Endpoint de la URL de donde se solicitará la información. Por ejemplo, si la URL completa es `https://www.estoesunsitio.com/esto_es_el_endpoint`, en este campo se debe ingresar el fragmento `esto_es_el_endpoint`. |
 | `CHART_TYPE` | `(opción)` <br><br> • `'bar'`: Gráfica de barras <br> • `'line'`: Gráfica de líneas <br> • `'pie'`: Gráfica de pastel <br> • `'doughnut'`: Gráfica de dona <br> • `'polar area'`: Gráfica de área polar <br> • `'radar'`: Gráfica de radar <br> • `'scatter'`: Gráfica de dispersión <br> • `'bubble'`: Gráfica de burbujas  | *Requerido | Tipo de gráfica a renderizar. |
 | `NAME` | `string` | *Requerido | Nombre de la gráfica a renderizar .|
@@ -391,9 +402,44 @@ const dashboardData = {
 | `MAX_BUBBLE_SIZE` | `number` | `16` | Tamaño máximo de elementos de burbuja en gráfica de burbuja. |
 | `TRANSPOSED` | `boolean` | `false` | Transponer gráfica. Si se activa este parámetro, los datos de los ejes $X$ y $Y$ se invertirán. Esto sólo es válido para gráficas de barras, de dispersión y de burbuja. |
 
+Los objetos declarados en la matriz se renderizarán, cada uno, en un componente de gráfica.
+
 ----
 
 # Constantes para la aplicación
+
+## Colores
+- **Ubicación:** `src/constants/colors.js`
+
+En este archivo se encuentran los valores de colores y otros parámetros utilizados por la aplicación completa, desde la paleta de colores, colores preestablecidos en formato hexadecimal hasta valores de opacidad en formato hexadecimal. Los colores preestablecidos en formato hexadecimal se pueden concatenar con los valores de opacidad en los casos en los que los componentes lo requieran como en el caso de los componentes de graficación:
+```js
+export const SATURED_RED = "#FF001E"
+
+export const OPACITIES = {
+    0: "00",
+    5: "0B",
+    ...
+}
+
+export const RED_PALETTE = [
+    "#8C0413",
+    "#B70217",
+    ...
+]
+```
+
+Uso:
+```js
+setData(
+    buildBarData(
+        // ...argumentos
+        `${saturedRed}${opacity[75]}`,
+        // ...más argumentos
+    )
+)
+```
+
+>   En este caso, el color a utilizar sería un rojo saturado con opacidad de 75%, lo que resultaría en el valor `#FF001EBF` en formato hexadecimal. Nótese que estas constantes se utilizan en funciones internas y el ejemplo sólo es ilustrativo y pertenece a una versión antigua de la declaración de las gráficas.
 
 ## Tipos de gráficas
 - **Archivo:** `src/constants/charts.js`
@@ -457,7 +503,7 @@ export const dashboardData = {
 }
 ```
 
->   Para más información sobre esta declaración, leer la sección [Gráficas](#gráficas)
+>   Estas constantes se utilizan mayormente para la configuración del Dashboard y declaración de los nombres de los parámetros de funciones de utilidad. Para más información sobre los parámetros disponibles, leer la sección [Gráficas](#gráficas).
 
 ## Nombres de ajustes de series de los conjuntos de datos
 - **Ubicación:** `src/constants/settings.js`
@@ -474,39 +520,6 @@ Este objeto contiene los nombres de ajustes de los conjuntos de datos individual
     FILL: 'fill',
 }
 ```
-
-## Colores
-- **Ubicación:** `src/constants/colors.js`
-
-En este archivo se encuentran los valores utilizados por los componentes de gráficas, desde la paleta de colores, colores preestablecidos en formato hexadecimal hasta valores de opacidad en formato hexadecimal. Los colores preestablecidos en formato hexadecimal se pueden concatenar con los valores de opacidad en los casos en los que los componentes de graficación lo requieran, por ejemplo:
-```js
-export const SATURED_RED = "#FF001E"
-
-export const OPACITIES = {
-    0: "00",
-    5: "0B",
-    ...
-}
-
-export const RED_PALETTE = [
-    "#8C0413",
-    "#B70217",
-    ...
-]
-```
-
-Uso:
-```js
-setData(
-    buildBarData(
-        // ...argumentos
-        `${saturedRed}${opacity[75]}`,
-        // ...más argumentos
-    )
-)
-```
-
->   En este caso, el color a utilizar sería un rojo saturado con opacidad de 75%, lo que resultaría en el valor `#FF001EBF` en formato hexadecimal. Nótese que estas constantes se utilizan en funciones internas y el ejemplo sólo es ilustrativo y pertenece a una versión antigua de la declaración de las gráficas.
 
 ----
 
@@ -954,7 +967,7 @@ const series = buildInitOptions['bubble']( params )
 
 Uso declarando el gráfico de burbujas usando constante (recomendado):
 ```js
-// Declaración de los parámetros en un objeto para mejorar visualización
+// Declaración de los parámetros en un objeto para mejorar visualización de este ejemplo
 const params = {
     series,
     labelsContainerID,
@@ -1026,6 +1039,31 @@ En este caso, el ID sería `labels-container`:
 ```js
 const labelsContainerID = "labels-container"
 ```
+
+Retorno de la función:
+```js
+// Objeto de opciones preestablecidas para el componente de gráfica
+{
+    aspectRatio: ...,
+    font: {
+        color: ...
+    },
+    indexAxis: "x",
+    plugins: {...},
+    tooltip: {},
+    radius: [...],
+    scales: {
+        x: {
+            ticks: {}
+        },
+        y: {
+            ticks: {}
+        },
+    }
+}
+```
+
+Este objeto de opciones ya puede ingresarse como propiedad predefinida de `options` al componente de gráfica de burbujas.
 
 ----
 
