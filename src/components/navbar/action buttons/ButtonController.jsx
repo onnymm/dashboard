@@ -11,22 +11,20 @@ import NavbarProfile from './NavbarProfile'
 const ActionButtonSwitch = () => {
 	return (
 		<>
-			<div className='flex sm:gap-2'>
-				{/* Botón de despliegue de mensajes */}
-				<ActionButton
-					name='messages'
-					icon={ChatBubbleOvalLeftEllipsisIcon}
-					data={MESSAGES}
-					contains={Message}
-				/>
-				{/* Botón de despliegue de notificaciones */}
-				<ActionButton
-					name='notifications'
-					icon={BellIcon}
-					data={NOTIFICATIONS}
-					contains={Notification}
-				/>
-			</div>
+			{/* Botón de despliegue de mensajes */}
+			<ActionButton
+				name='messages'
+				icon={ChatBubbleOvalLeftEllipsisIcon}
+				data={MESSAGES}
+				contains={Message}
+			/>
+			{/* Botón de despliegue de notificaciones */}
+			<ActionButton
+				name='notifications'
+				icon={BellIcon}
+				data={NOTIFICATIONS}
+				contains={Notification}
+			/>
 			{/* Perfil con despliegue de links */}
 			<NavbarProfile
 				name='Amelia Earhart'
