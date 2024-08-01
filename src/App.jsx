@@ -32,7 +32,7 @@ const App = () => {
 			>
 				{/* Barra de navegación (contiene también la sidebar para limitar el dominio de render) */}
 				<Navbar />
-				{/* Contenido de la página (contiene el Outlet para componentes ruteados)*/}
+				{/* Contenido de la página (contiene el Outlet para componentes ruteados) */}
 				<Feed />
 			</AppContext.Provider>
 		</div>
