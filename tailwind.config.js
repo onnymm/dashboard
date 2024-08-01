@@ -107,6 +107,17 @@ export default {
 						transform: 'scale(1)'
 					}
 				},
+				shrinkGrowSmall: {
+					'0%': {
+						transform: 'scale(1)'
+					},
+					'50%': {
+						transform: 'scale(0.75)'
+					},
+					'100%': {
+						transform: 'scale(1)'
+					}
+				},
 				fadeGrowIn: {
 					'0%': { opacity: '0', transform: 'scale(0.95)' },
 					'100%': { opacity: '1', transform: 'scale(1)' }
@@ -120,7 +131,9 @@ export default {
 				'button-click': 'click 0.35s ease-in-out',
 				'hide-unmount': 'hideAndUnmount 0.3s forwards',
 				'mount-unhide': 'mountAndUnhide 0.3s forwards',
-				'shrink-grow': 'shrinkGrow 0.3s ease',
+				'avatar-click': 'shrinkGrow 0.25s ease',
+				'bars3-click': 'shrinkGrowSmall 0.15s ease',
+				'bars3-click-sm': 'shrinkGrowSmall 0.25s ease',
 				'fade-grow-in': 'fadeGrowIn 0.1s ease-out forwards',
 				'fade-shrink-out': 'fadeShrinkOut 0.1s ease-in forwards'
 			},
