@@ -74,6 +74,7 @@ const estoEsUnaVariable = 5
 
 **Construcción de objeto de opciones**
 - [Construcción de objeto de opciones para gráfica de burbujas](#construcción-de-objeto-de-opciones-para-gráfica-de-burbujas)
+- [Construcción de objeto de opciones para gráficas cartesianas](#construcción-de-objeto-de-opciones-para-gráficas-cartesianas)
 
 **Plug-ins de Charts.js**
 
@@ -98,7 +99,7 @@ Este proyecto utiliza varias librerías para su funcionamiento, listadas a conti
 - **React Router**: Es una biblioteca estándar para enrutamiento en aplicaciones React. Proporciona una manera declarativa para gestionar la navegación y el enrutamiento en aplicaciones de una sola página .Permite definir rutas de manera declarativa, lo que permite especificar qué componentes deben renderizarse para diferentes rutas además de soportar rutas anidadas. Para saber más, consultar su [documentación](https://reactrouter.com/en/main).
 
 - **Charts.js**
-Es una biblioteca de código abierto que permite crear gráficos y visualizaciones de datos de manera sencilla y atractiva. Es altamente personalizable y fácil de usar y  soporta varios tipos de gráficos interactivos, lo que permite al usuario interactuar con el gráfico para ver información adicional. Para saber más, consultar su [documentación](https://www.chartjs.org/docs/latest/).
+Es una biblioteca de código abierto que permite crear gráficas y visualizaciones de datos de manera sencilla y atractiva. Es altamente personalizable y fácil de usar y  soporta varios tipos de gráficas interactivos, lo que permite al usuario interactuar con el gráfico para ver información adicional. Para saber más, consultar su [documentación](https://www.chartjs.org/docs/latest/).
 
 ----
 
@@ -1380,7 +1381,7 @@ Este objeto puede ser ingresado al argumento `series` del componente de gráfica
 
 Esta función construye el objeto de opciones para el componente de gráfica de burbujas.
 
-Uso declarando el gráfico de burbujas en un `string`:
+Uso declarando la gráfica de burbujas en un `string`:
 ```js
 // Declaración de los parámetros en un objeto para mejorar visualización
 const params = {
@@ -1396,7 +1397,7 @@ const params = {
 const series = buildInitOptions['bubble']( params )
 ```
 
-Uso declarando el gráfico de burbujas usando constante (recomendado):
+Uso declarando la gráfica de burbujas usando constante (recomendado):
 ```js
 // Declaración de los parámetros en un objeto para mejorar visualización de este ejemplo
 const params = {
@@ -1485,16 +1486,109 @@ Retorno de la función:
     radius: [...],
     scales: {
         x: {
-            ticks: {}
+            ticks: {...}
         },
         y: {
-            ticks: {}
+            ticks: {...}
         },
     }
 }
 ```
 
 Este objeto de opciones ya puede ingresarse como propiedad predefinida de `options` al componente de gráfica de burbujas.
+
+## Construcción de objeto de opciones para gráficas cartesianas
+
+Esta función construye el objeto de opciones para el componente de gráfica cartesiana.
+
+Uso declarando la gráfica cartesiana en un `string`:
+```js
+// Declaración de los parámetros en un objeto para mejorar visualización
+const params = {
+    labelsContainerID,
+    aspectRatio,
+    labelsDisplay,
+    labelsList,
+    legendBox,
+    transposed
+}
+
+const series = buildInitOptions['scatter']( params )
+const series = buildInitOptions['bar']( params )
+const series = buildInitOptions['line']( params )
+```
+
+Uso declarando la gráfica cartesiana usando constante (recomendado):
+```js
+// Declaración de los parámetros en un objeto para mejorar visualización de este ejemplo
+const params = {
+    labelsContainerID,
+    aspectRatio,
+    labelsDisplay,
+    labelsList,
+    legendBox,
+    transposed
+}
+
+let series = buildInitOptions[CHART_TYPES.SCATTER]( params )
+let series = buildInitOptions[CHART_TYPES.BAR]( params )
+let series = buildInitOptions[CHART_TYPES.LINE]( params )
+```
+
+>   Para saber más sobre el uso de constantes, leer las secciones [Uso de constantes](#uso-de-constantes) y [Tipos de gráficas](#tipos-de-gráficas)
+
+La construcción del objeto de opciones para gráficas cartesianas recibe los siguientes parámetros:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `labelsContainerID` | `id` | *Requerido | ID del contenedor HTML `<div>` en donde se renderizarán las etiquetas del conjunto de datos. |
+| `aspectRatio` | `number - (División)` | *Declarado en los ajustes predeterminados* | Relación de aspecto de la gráfica |
+| `labelsDisplay` | `(Opción)` <br> <br> • `1`: Una columna <br> • `2`: 2 columnas <br> • `3`: 3 columnas <br> • `4`: 4 columnas <br> • `6`: 6 columnas | `1` | Número de columnas a ocupar por la lista de etiquetas. |
+| `labelsList` | `(Opción)` <br> <br> • `'default'`: Orientación por default (Fila) | `'default'` | Orientación de los elementos dentro de la etiqueta |
+| `legendBox` | `(Opción)` <br> <br> • `'circle'`: Cajas en forma de círculo <br> • `'rounded'`: Cajas cuadradas con bordes redondeados <br> • `'square'`: Cajas cuadradas | `'square'` | Forma de las cajas de color de las etiquetas. |
+| `transposed` | `boolean` | `false` | Indicador de transposición de los ejes $X$ y $Y$ de la gráfica. |
+
+**`labelsContainerID`: ID del elemento HTML contenedor de etiquetas**
+
+Este valor se obtiene de la ID asignada a un elemento HTML:
+```jsx
+const ChartComponent = ({...}) => {
+    ...
+    return (
+        <div>
+            {/* Elemento donde se renderizarán las gráficas */}
+            <div id="labels-container"></div>
+            {/* Componente de gráfica de ejemplo */}
+            <Bar {...}>
+        </div>
+    )
+}
+```
+
+En este caso, el ID sería `labels-container`:
+```js
+const labelsContainerID = "labels-container"
+```
+
+Retorno de la función:
+```js
+{
+    aspectRatio: ...,
+    font: {...},
+    indexAxis: "x",
+    plugins: {...},
+    scales: {
+        x: {
+            ticks: {...}
+        },
+        y: {
+            ticks: {...}
+        },
+    }
+}
+```
+
+Este objeto de opciones ya puede ingresarse como propiedad predefinida de `options` al componente de gráfica cartesiana.
 
 ----
 
@@ -1997,7 +2091,7 @@ const darkMode = {
 
 **Estructura del plug-in**
 
-Este plug-in utiliza constantes de colores, un mapa de funciones distribuidas por tipo de gráfico y la función principal integra un observador que se conecta al documento de la página y revisa un cambio en éste. De esta manera puede detectar cuando el modo oscuro se habilita o se deshabilita cuando la clase `dark` se agrega a su lista de clases o se remueve de ésta:
+Este plug-in utiliza constantes de colores, un mapa de funciones distribuidas por tipo de gráfica y la función principal integra un observador que se conecta al documento de la página y revisa un cambio en éste. De esta manera puede detectar cuando el modo oscuro se habilita o se deshabilita cuando la clase `dark` se agrega a su lista de clases o se remueve de ésta:
 ```js
 const darkMode = {
     id: 'darkMode',
@@ -2298,7 +2392,7 @@ const setRadarChartColors = ({
 
 **Mapa de funciones de cambio de color en las gráficas**
 
-Para la ejecución de la función dinámica se un mapa de funciones distribuidas por el tipo de gráficos y utiliza las tres funciones descritas anteriormente. Para este mapa de funciones se utilizan las declaraciones con propiedades computadas. Para saber más, consultar la sección de [Destructuración y propiedades computadas](#destructuración-y-propiedades-computadas):
+Para la ejecución de la función dinámica se un mapa de funciones distribuidas por el tipo de gráfica y utiliza las tres funciones descritas anteriormente. Para este mapa de funciones se utilizan las declaraciones con propiedades computadas. Para saber más, consultar la sección de [Destructuración y propiedades computadas](#destructuración-y-propiedades-computadas):
 ```js
 // Funciones de asignación de colores en modo oscuro y modo claro
 const setChartsColors = {
