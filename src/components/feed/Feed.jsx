@@ -13,11 +13,14 @@ const Feed = () => {
 				// El cálculo de minHeight es para considerar la altura de la navbar
 			}}
 		>
-			{/* Margen dinámico de contenido para cuando se bloquée la sidebar */}
+			{/* Margen dinámico de contenido para cuando se bloquee la sidebar */}
 			<div
 				className={`${sidebarIsLocked && screenIsWide ? 'w-72' : 'w-0'} transition-width duration-500`}
 			/>
-			{/* Contenido de la página */}
+			{/*
+			Contenido de la página, el tamaño se ajusta al contenido, si se requiere que las páginas contenidas en
+			Outlet ocupen toda la pantalla *siempre*, añadirles flex-grow a su contenedor.
+			*/}
 			<main className='mx-auto flex h-min min-h-full max-w-feed-width flex-grow p-6'>
 				<Outlet />
 			</main>
