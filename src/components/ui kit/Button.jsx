@@ -17,7 +17,7 @@ const Button = ({ icon: Icon, handleClick }) => {
 			{/* Este div amplía el hitbox del botón */}
 			<div className='flex items-center rounded-full px-1 py-2'>
 				<div
-					className={`${isAnimating && 'animate-button-click'} mb-0.5 flex size-min rounded-full p-1 shadow-darkmode-switch-s transition dark:bg-navbar-icons-background-d`}
+					className={`${isAnimating && 'animate-button-click'} mb-0.5 flex size-min rounded-full p-1 shadow-darkmode-switch-s transition duration-300 dark:bg-navbar-icons-background-d`}
 					onAnimationEnd={handleAnimationEnd}
 				>
 					{Icon && (

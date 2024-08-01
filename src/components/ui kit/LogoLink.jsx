@@ -7,7 +7,7 @@ const LogoLink = ({ imgSource, handleClick, children, route, extraStyles }) => {
 			className={`flex items-center gap-1 text-2xl font-medium ${extraStyles}`}
 			onClick={handleClick}
 		>
-			<img src={imgSource} className='size-12 rotate-50' />
+			<img src={imgSource} className='aspect-square size-12 rotate-50' />
 			{children}
 		</NavLink>
 	)
