@@ -3,7 +3,7 @@ import { AppContext } from '../../contexts/AppContexts'
 import { SidebarContext } from '../../contexts/SidebarContext'
 import { useClickOutside } from '../../custom hooks/useClickOutside'
 import Sidebar from '../sidebar/Sidebar'
-import SidebarToggle from '../sidebar/SidebarToggle'
+import Bars3Button from '../ui kit/Bars3Button'
 
 const SidebarContainer = () => {
 	const [isOpen, setIsOpen] = useState(false)
@@ -15,12 +15,19 @@ const SidebarContainer = () => {
 		// Cerrar la sidebar siempre y cuando la sidebar no esté bloqueada o la ventana sea pequeña
 	})
 
+	const handleToggleClick = () => {
+		!isOpen && setIsOpen(true)
+	}
+
 	return (
-		<div ref={domNode}>
+		<div ref={domNode} className='border-black'>
 			<SidebarContext.Provider value={{ isOpen, setIsOpen }}>
 				<Sidebar />
-				<SidebarToggle />
 			</SidebarContext.Provider>
+			<Bars3Button
+				handleClick={handleToggleClick}
+				extraStyles='absolute bottom-1/4 left-[4.5rem] z-9 sm:left-[10.5rem]'
+			/>
 		</div>
 	)
 }
