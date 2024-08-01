@@ -6,7 +6,7 @@
 */
 
 const List = ({ Contains, data, name, extraStyles, ...rest }) => {
-	/* Genera una lista en colummna de componentes */
+	/* Genera una columna de componentes */
 
 	return (
 		<>
