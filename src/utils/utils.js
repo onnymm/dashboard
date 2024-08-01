@@ -3,26 +3,44 @@ import { chartSettings } from "../settings/dashboardSettings";
 import { assignCSSStyles, buildInitOptions, buildInitSeries, formatLabels, formatTooltip, mapColorsOnSeries, scaleAxes } from "./dataFormatting";
 
 export const buildData = ({
-    data, // Objeto de datos retornado del API
-    labelsContainerID, // ID del contenedor de etiquetas
-    [CHARTS_SETTINGS.CHART_TYPE]: chartType, // Tipo de gráfica
-    [CHARTS_SETTINGS.LABELS_NAME]: labelsName, // Variable de etiquetas de la gráfica de barras
-    [CHARTS_SETTINGS.DATASETS_NAMES]: datasetNames, // Variable de cada uno de los conjuntos de datos en el objeto
-    [CHARTS_SETTINGS.LABELS]: labels, // Nombres visibles en la gráfica para cada conjunto de datos
+    // Objeto de datos retornado del API
+    data, 
+    // ID del contenedor de etiquetas
+    labelsContainerID, 
+    // Tipo de gráfica
+    [CHARTS_SETTINGS.CHART_TYPE]: chartType, 
+    // Variable de etiquetas de la gráfica de barras
+    [CHARTS_SETTINGS.LABELS_NAME]: labelsName, 
+    // Variable de cada uno de los conjuntos de datos en el objeto
+    [CHARTS_SETTINGS.DATASETS_NAMES]: datasetNames, 
+    // Nombres visibles en la gráfica para cada conjunto de datos
+    [CHARTS_SETTINGS.LABELS]: labels, 
 
     // Argumentos opcionales
-    [CHARTS_SETTINGS.BACKGROUND_COLORS]: backgroundColors = chartSettings.backgroundColors, // Colores de fondo de los conjuntos de datos
-    [CHARTS_SETTINGS.BACKGROUND_OPACITY]: backgroundOpacity = undefined, // Opacidad de los colores de fondo
-    [CHARTS_SETTINGS.BORDER_COLORS]: borderColors = undefined, // Colores de borde de los conjuntos de datos
-    [CHARTS_SETTINGS.BORDER_OPACITY]: borderOpacity = undefined, // Opacidad de los colores de borde
-    [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio = undefined, // Relación de aspecto de la gráfica
-    [CHARTS_SETTINGS.X_AXIS_FORMAT]: xAxisFormat = undefined, // Formateo en las etiquetas del eje X
-    [CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat = undefined, // Formateo en las etiquetas del eje Y
-    [CHARTS_SETTINGS.CATEGORY_STRATIFICATION_BY]: strat = undefined, // Variable de estratificación
-    [CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay = undefined, // Estilo de contenedor de etiquetas
-    [CHARTS_SETTINGS.LABELS_LIST]: labelsList = undefined, // Estilo de lista de etiquetas
-    [CHARTS_SETTINGS.LEGEND_BOX]: legendBox = undefined, // Estilo de cajas de color de etiquetas
-    [CHARTS_SETTINGS.TRANSPOSED]: transposed = false // Indicador de transposición de ejes en la gráfica
+    // Colores de fondo de los conjuntos de datos
+    [CHARTS_SETTINGS.BACKGROUND_COLORS]: backgroundColors = chartSettings.backgroundColors, 
+    // Opacidad de los colores de fondo
+    [CHARTS_SETTINGS.BACKGROUND_OPACITY]: backgroundOpacity = chartSettings[ [CHARTS_SETTINGS.BACKGROUND_OPACITY] ], 
+    // Colores de borde de los conjuntos de datos
+    [CHARTS_SETTINGS.BORDER_COLORS]: borderColors = chartSettings[ [CHARTS_SETTINGS.BORDER_COLORS] ], 
+    // Opacidad de los colores de borde
+    [CHARTS_SETTINGS.BORDER_OPACITY]: borderOpacity = chartSettings[ [CHARTS_SETTINGS.BORDER_OPACITY] ], 
+    // Relación de aspecto de la gráfica
+    [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio = chartSettings[ [CHARTS_SETTINGS.ASPECT_RATIO] ], 
+    // Formateo en las etiquetas del eje X
+    [CHARTS_SETTINGS.X_AXIS_FORMAT]: xAxisFormat = chartSettings[ [CHARTS_SETTINGS.X_AXIS_FORMAT] ], 
+    // Formateo en las etiquetas del eje Y
+    [CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat = chartSettings[ [CHARTS_SETTINGS.Y_AXIS_FORMAT] ], 
+    // Variable de estratificación
+    [CHARTS_SETTINGS.CATEGORY_STRATIFICATION_BY]: strat = chartSettings[ [CHARTS_SETTINGS.CATEGORY_STRATIFICATION_BY] ], 
+    // Estilo de contenedor de etiquetas
+    [CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay = chartSettings[ [CHARTS_SETTINGS.LABEL_COLUMNS] ], 
+    // Estilo de lista de etiquetas
+    [CHARTS_SETTINGS.LABELS_LIST]: labelsList = chartSettings[ [CHARTS_SETTINGS.LABELS_LIST] ], 
+    // Estilo de cajas de color de etiquetas
+    [CHARTS_SETTINGS.LEGEND_BOX]: legendBox = chartSettings[ [CHARTS_SETTINGS.LEGEND_BOX] ], 
+    // Indicador de transposición de ejes en la gráfica
+    [CHARTS_SETTINGS.TRANSPOSED]: transposed = chartSettings[ [CHARTS_SETTINGS.TRANSPOSED] ] 
 }) => {
 
     // Inicialización del contenedor de datos con formato dinámico
