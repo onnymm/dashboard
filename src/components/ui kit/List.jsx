@@ -1,8 +1,8 @@
 /*
-	Contains: componente formato del contenido
-	data: colección con los detalles de cada componente a generar
-	name: nombre (solo se le da uso para la notificación de falta de datos de entrada)
-	extraStyles: estilos extra
+Contains: componente formato del contenido
+data: colección con los detalles de cada componente a generar
+name: nombre (solo se le da uso para la notificación de falta de datos de entrada)
+extraStyles: estilos extra
 */
 
 const List = ({ Contains, data, name, extraStyles, ...rest }) => {

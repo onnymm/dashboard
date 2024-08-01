@@ -5,6 +5,10 @@ import { useClickOutside } from '../../custom hooks/useClickOutside'
 import Sidebar from '../sidebar/Sidebar'
 import Bars3Button from '../ui kit/Bars3Button'
 
+/*
+El componente se contiene dentro de la navbar
+para limitar el dominio de render.
+*/
 const SidebarContainer = () => {
 	const [isOpen, setIsOpen] = useState(false)
 	const { sidebarIsLocked, screenIsWide } = useContext(AppContext)

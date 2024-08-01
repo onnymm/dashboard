@@ -18,7 +18,7 @@ import SidebarSection from './SidebarSection'
 const calculateHeight = content => {
 	return content.length * 2 //rem
 	/* 
-	Por cada elemento contenido se devuelven n unidades,
+	Por cada elemento contenido se devuelven 2 unidades,
 	en el caso de los del dropdown, dos por elemento. El
 	estilo dentro del componente dropdown maneja rems.
 	*/

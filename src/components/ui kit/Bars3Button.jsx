@@ -16,7 +16,7 @@ const Bars3Button = ({ handleClick, extraStyles }) => {
 	return (
 		<>
 			{/* 
-				El contenedor relativo del botón es del tamaño de la pantalla.
+			El contenedor relativo del botón es del tamaño de la pantalla.
 			*/}
 			<button
 				onClick={handleTaskAndAnimation}

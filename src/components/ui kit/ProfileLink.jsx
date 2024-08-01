@@ -5,7 +5,7 @@ import {
 } from '@heroicons/react/24/outline'
 import { NavLink } from 'react-router-dom'
 
-// Ïconos predefinidos para solo recibir strings
+// Íconos predefinidos para solo recibir strings
 const ICONS = {
 	user: <UserIcon />,
 	face_frown: <FaceFrownIcon />,

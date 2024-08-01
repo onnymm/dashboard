@@ -7,9 +7,9 @@ const ActionButton = ({ name, icon, data, contains }) => {
 	const [isActive, setIsActive] = useState(false)
 	const [hasBeenClicked, setHasBeenClicked] = useState(false)
 	/*
-		El estado hasBeenClicked está para prevenir la animación de fade out hasta que se use por
-		primera vez el botón, si no se usa este estado, la animación de fade out se ejecutará cada
-		carga de página
+	El estado hasBeenClicked está para prevenir la animación de fade out hasta que se use por
+	primera vez el botón, si no se usa este estado, la animación de fade out se ejecutará cada
+	carga de página
 	*/
 
 	const handleButtonClick = () => {
@@ -25,7 +25,7 @@ const ActionButton = ({ name, icon, data, contains }) => {
 			<Button icon={icon} state={isActive} handleClick={handleButtonClick} />
 			{/* Contenido */}
 			<div
-				className={`${isActive ? 'animate-fade-grow-in' : hasBeenClicked ? 'animate-fade-shrink-out pointer-events-none' : 'pointer-events-none opacity-0'}`}
+				className={`${isActive ? 'animate-fade-grow-in' : hasBeenClicked ? 'pointer-events-none animate-fade-shrink-out' : 'pointer-events-none opacity-0'}`}
 			>
 				<ContentList name={name} data={data} contains={contains} />
 			</div>

@@ -1,7 +1,7 @@
 const StickySectionTag = ({ children }) => {
 	/*
-	    Se pega al tope del contendedor cuando hay scroll, si se llaman varias, se pueden encimar una sobre la otra cuando
-        lleguen al tope.
+	Se pega al tope del contendedor cuando hay scroll, si se llaman varias, se pueden encimar una sobre la otra cuando
+	lleguen al tope.
     */
 	return (
 		<div className='sticky top-0 z-9999 bg-sidebar-background p-2'>
