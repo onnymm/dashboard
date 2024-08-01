@@ -81,6 +81,10 @@ const estoEsUnaVariable = 5
 - [Mapeo de opacidades y tipos de colores en los conjuntos de datos](#mapeo-de-opacidades-y-tipos-de-colores-en-los-conjuntos-de-datos)
 - [Mapeo de colores en conjuntos de datos](#mapeo-de-colores-en-conjuntos-de-datos)
 
+### Componentes
+
+- [Componente principal de gráfica](#componente-principal-de-gráfica)
+
 ----
 
 # Librerías de terceros
@@ -2862,3 +2866,254 @@ Los argumentos de entrada disponibles son:
 >   ```js
 >   return series;
 >   ```
+
+## Componente principal de gráfica
+- Ubicación: `src/components/charts`
+- Nombre: `ChartTemplate.jsx`
+
+Este es el componente central de la librería Charts.js en donde se concentra gran parte de las funciones, estructura y configuraciones en esta documentación.
+
+El componente de gráfica concentra los componentes de Chart.js de gráficas y renderiza el que se le indique por medio de los argumentos. Esto facilita el cambio entre un tipo de gráfica u otro sin tener que importar diferentes componentes, lo que lo hace más limpio y mutable al momento de configurar el dashboard.
+
+Este es el flujo que sigue el componente de gráfica para facilitar su renderización:
+```js
+import { useEffect, useState } from "react";
+import { getChartData } from "../../api/get";
+import { CHART_TYPES } from "../../constants/charts";
+import { buildData } from "../../utils/utils";
+import BarChart from "./BarChart";
+import BubbleChart from "./BubbleChart";
+import DoughtnutChart from "./DoughtnutChart";
+import LineChart from "./LineChart";
+import PieChart from "./PieChart";
+import PolarChart from "./PolarChart";
+import RadarChart from "./RadarChart";
+import ScatterChart from "./ScatterChart";
+
+const ChartTemplate = ({ chartData, labelsContainerID }) => {
+    // Estado para carga inicial de los datos
+    const [loadData, setLoadData] = useState();
+    // Estado para transformación de datos
+    const [data, setData] = useState();
+
+    // Carga inicial de los datos
+    useEffect(() => {
+        getChartData(setLoadData, chartData.endpoint)
+    }, [chartData.endpoint])
+
+    // Transformación de los datos
+    useEffect(
+        () => {
+            if (loadData) {
+                setData(
+                    buildData(
+                        {
+                            data: loadData,
+                            ...chartData,
+                            labelsContainerID
+                        }
+                    )
+                )
+            }
+        }, [loadData, chartData, labelsContainerID]
+    );
+
+    // Renderización de la gráfica
+    const RenderedChart = ({ dataContainer }) => {
+        const chartIndex = {
+            // Gráfica de barras
+            [CHART_TYPES.BAR]: <BarChart dataContainer={dataContainer} />,
+            // Gráfica de líneas
+            [CHART_TYPES.LINE]: <LineChart dataContainer={dataContainer} />,
+            // Gráfica de pastel
+            [CHART_TYPES.PIE]: <PieChart dataContainer={dataContainer} />,
+            // Gráfica de área polar
+            [CHART_TYPES.POLARAREA]: <PolarChart dataContainer={dataContainer} />,
+            // Gráfica de dona
+            [CHART_TYPES.DOUGHNUT]: <DoughtnutChart dataContainer={dataContainer} />,
+            // Gráfica de radar
+            [CHART_TYPES.RADAR]: <RadarChart dataContainer={dataContainer} />,
+            // Gráfica de dispersión
+            [CHART_TYPES.SCATTER]: <ScatterChart dataContainer={dataContainer} />,
+            // Gráfica de burbuja:
+            [CHART_TYPES.BUBBLE]: <BubbleChart dataContainer={dataContainer} />,
+        };
+
+        return chartIndex[chartData.chartType]
+    }
+
+    // Renderización de la gráfica indicada
+    if ( data ) {
+        return (
+            <div>
+                <div id={`${labelsContainerID}`}></div>
+                <RenderedChart
+                    dataContainer={data}
+                />
+            </div>
+        );
+    // Indicación de carga inicial en caso de no haber cargado datos aún
+    } else {
+        return (
+            <div>
+                Cargando...
+            </div>
+        );
+    }
+}
+
+export default ChartTemplate
+```
+
+Los argumentos de entrada disponibles son los siguientes:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `chartData` | `object` | *Requerido | Objeto de datos de renderización y endpoint de donde se tomará la información al conectarse con el API. Para más información sobre cómo declarar este objeto, leer la sección de configuración de [gráficas](#gráficas). |
+| `labelsContainerID` | `string` | *Requerido | ID del contenedor HTML `<div>` en donde se renderizarán las etiquetas del conjunto de datos. |
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   Primeramente se importan todos los componentes, hooks, constantes y funciones requeridos para el funcionamiento de este componente:
+>   ```jsx
+>   import { useEffect, useState } from "react";
+>   import { getChartData } from "../../api/get";
+>   import { CHART_TYPES } from "../../constants/charts";
+>   import { buildData } from "../../utils/utils";
+>   import BarChart from "./BarChart";
+>   import BubbleChart from "./BubbleChart";
+>   import DoughtnutChart from "./DoughtnutChart";
+>   import LineChart from "./LineChart";
+>   import PieChart from "./PieChart";
+>   import PolarChart from "./PolarChart";
+>   import RadarChart from "./RadarChart";
+>   import ScatterChart from "./ScatterChart";
+>   ```
+>   
+>   Declaración del componente:
+>   ```jsx
+>   const ChartTemplate = ({ chartData, labelsContainerID }) => {
+>       ...
+>   }
+>   ```
+>   
+>   Declaración de los estados para el componente:
+>   ```jsx
+>   // Estado para carga inicial de los datos
+>   const [loadData, setLoadData] = useState();
+>   // Estado para transformación de datos
+>   const [data, setData] = useState();
+>   ```
+>   
+>   >   - El estado `loadData` se utiliza para la solicitud de datos al API.
+>   >   - El estado `data` se obtiene de la transformación de `loadData` por medio de funciones de transformación y formateo de datos para ingresarse como argumento al componente a renderizar.
+>   
+>   Se ejecuta la llamada al API para obtención de los datos de la gráfica usando un hook `useEffect`:
+>   ```jsx
+>   // Carga inicial de los datos
+>   useEffect(
+>       () => {
+>           getChartData(setLoadData, chartData.endpoint)
+>       }, [chartData.endpoint]
+>   )
+>   ```
+>   
+>   >   - Se utiliza la función `getChartData` y se le provee la función de cambio del estado `loadData` así como el atributo `endpoint` que es a donde se realizará la solicitud GET de la información para la gráfica.
+>   
+>   Para más información sobre el funcionamiento de la función `getChartData` consultar la sección [Obtener datos para las gráficas](#obtener-datos-para-las-gráficas).
+
+>   Tras la obtención de los datos de la gráfica se ejecuta el siguiente hook `useEffect`:
+>   ```jsx
+>   // Transformación de los datos
+>   useEffect(
+>       () => {
+>           if (loadData) {
+>               ...
+>           }
+>       }, [loadData, chartData, labelsContainerID]
+>   );
+>   ```
+>   
+>   >   Se realiza el cambio del estado `data` con el valor del resultado de la ejecución de la función `buildData`:
+>   >   ```jsx
+>   >   setData(
+>   >       buildData(
+>   >           {
+>   >               data: loadData,
+>   >               ...chartData,
+>   >               labelsContainerID
+>   >           }
+>   >       )
+>   >   )
+>   >   ```
+>   >   
+>   >   -  Se proveen los siguientes atributos a la función `buildData`:
+>   >       - `data`: `loadData`, la información obtenida de la solicitud al API.
+>   >       - La deconstrucción del objeto `chartData`
+>   >       - El ID del contenedor HTML `<div>` en donde se renderizarán las etiquetas del conjunto de datos.
+>   
+>   Se declara el componente a renderizar:
+>   ```jsx
+>   // Renderización de la gráfica
+>   const RenderedChart = ({ dataContainer }) => {
+>       const chartIndex = {
+>           // Gráfica de barras
+>           [CHART_TYPES.BAR]: <BarChart dataContainer={dataContainer} />,
+>           // Gráfica de líneas
+>           [CHART_TYPES.LINE]: <LineChart dataContainer={dataContainer} />,
+>           // Gráfica de pastel
+>           [CHART_TYPES.PIE]: <PieChart dataContainer={dataContainer} />,
+>           // Gráfica de área polar
+>           [CHART_TYPES.POLARAREA]: <PolarChart dataContainer={dataContainer} />,
+>           // Gráfica de dona
+>           [CHART_TYPES.DOUGHNUT]: <DoughtnutChart dataContainer={dataContainer} />,
+>           // Gráfica de radar
+>           [CHART_TYPES.RADAR]: <RadarChart dataContainer={dataContainer} />,
+>           // Gráfica de dispersión
+>           [CHART_TYPES.SCATTER]: <ScatterChart dataContainer={dataContainer} />,
+>           // Gráfica de burbuja:
+>           [CHART_TYPES.BUBBLE]: <BubbleChart dataContainer={dataContainer} />,
+>       };
+>   
+>       return chartIndex[chartData.chartType]
+>   }
+>   ```
+>   
+>   >   - El componente recibe una propiedad llamada `dataContainer` la cual usará para renderizar la gráfica correspondiente con sus datos y configuraciones correspondientes.
+>   >   - Dentro de este componente se declara un mapa de componentes con el tipo de gráfico como índice y el componente a renderizar como valor.
+>   >   - El retorno de este componente es el valor del mapa de componentes con índice en el tipo de gráfica.
+>   
+>   El mapa de componentes sigue la misma estructura que los mapas de funciones. Para saber más sobre los mapas de funciones y su funcionamiento, consultar la sección [Mapas de funciones](#mapas-de-funciones).
+>   
+>   La declaración de los índices utiliza propiedades computadas. Para saber más sobre el uso de propiedades computadas, consultar la sección [Destructuración y propiedades computadas](#destructuración-y-propiedades-computadas).
+>   
+>   Se realiza el retorno condicional:
+>   ```jsx
+>   // Renderización de la gráfica indicada
+>   if ( data ) {
+>       return (
+>           ...
+>       );
+>   // Indicación de carga inicial en caso de no haber cargado datos aún
+>   } else {
+>       return (
+>           ...
+>       );
+>   }
+>   ```
+>   
+>   >   - El elemento JSX a retornoar dependerá de si el estado `data` ya contiene datos o aún no.
+>   
+>   Si el estado `data` ya contiene información se retorna el siguiente elemento JSX:
+>   ```jsx
+>   <div>
+>       <div id={`${labelsContainerID}`}></div>
+>       <RenderedChart
+>           dataContainer={data}
+>       />
+>   </div>
+>   ```
+>   
+>   >   - Se retorna un contenedor `<div>`.
+>   >   - Dentro de éste se crea un `<div>` al que se le asigna el nombre de ID provisto al componente, que es el que usará para renderizar las etiquetas de la gráfica.
+>   >   - También se retona dentro el componente resultado de la llamada al mapa de componentes `RenderedChart` y se le provee el estado de `data` al argumento `dataContainer`.
