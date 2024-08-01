@@ -1590,6 +1590,97 @@ Retorno de la función:
 
 Este objeto de opciones ya puede ingresarse como propiedad predefinida de `options` al componente de gráfica cartesiana.
 
+## Construcción de objeto de opciones para gráficas radiales
+
+Esta función construye el objeto de opciones para el componente de gráfica radial.
+
+Uso declarando la gráfica radial en un `string`:
+```js
+// Declaración de los parámetros en un objeto para mejorar visualización
+const params = {
+    labelsContainerID,
+    aspectRatio,
+    labelsDisplay,
+    labelsList,
+    legendBox,
+}
+
+const series = buildInitOptions['pie']( params )
+const series = buildInitOptions['doughnut']( params )
+const series = buildInitOptions['polarArea']( params )
+```
+
+Uso declarando la gráfica radial usando constante (recomendado):
+```js
+// Declaración de los parámetros en un objeto para mejorar visualización de este ejemplo
+const params = {
+    labelsContainerID,
+    aspectRatio,
+    labelsDisplay,
+    labelsList,
+    legendBox,
+}
+
+let series = buildInitOptions[CHART_TYPES.PIE]( params )
+let series = buildInitOptions[CHART_TYPES.DOUGHNUT]( params )
+let series = buildInitOptions[CHART_TYPES.POLAR_AREA]( params )
+```
+
+>   Para saber más sobre el uso de constantes, leer las secciones [Uso de constantes](#uso-de-constantes) y [Tipos de gráficas](#tipos-de-gráficas)
+
+La construcción del objeto de opciones para gráficas radiales recibe los siguientes parámetros:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `labelsContainerID` | `id` | *Requerido | ID del contenedor HTML `<div>` en donde se renderizarán las etiquetas del conjunto de datos. |
+| `labelsDisplay` | `(Opción)` <br> <br> • `1`: Una columna <br> • `2`: 2 columnas <br> • `3`: 3 columnas <br> • `4`: 4 columnas <br> • `6`: 6 columnas | `1` | Número de columnas a ocupar por la lista de etiquetas. |
+| `labelsList` | `(Opción)` <br> <br> • `'default'`: Orientación por default (Fila) | `'default'` | Orientación de los elementos dentro de la etiqueta |
+| `legendBox` | `(Opción)` <br> <br> • `'circle'`: Cajas en forma de círculo <br> • `'rounded'`: Cajas cuadradas con bordes redondeados <br> • `'square'`: Cajas cuadradas | `'square'` | Forma de las cajas de color de las etiquetas. |
+| `transposed` | `boolean` | `false` | Indicador de transposición de los ejes $X$ y $Y$ de la gráfica. |
+
+**`labelsContainerID`: ID del elemento HTML contenedor de etiquetas**
+
+Este valor se obtiene de la ID asignada a un elemento HTML:
+```jsx
+const ChartComponent = ({...}) => {
+    ...
+    return (
+        <div>
+            {/* Elemento donde se renderizarán las gráficas */}
+            <div id="labels-container"></div>
+            {/* Componente de gráfica de ejemplo */}
+            <Bar {...}>
+        </div>
+    )
+}
+```
+
+En este caso, el ID sería `labels-container`:
+```js
+const labelsContainerID = "labels-container"
+```
+
+Retorno de la función:
+```js
+{
+    aspectRatio: ...,
+    font: {...},
+    plugins: {...},
+    scales: {
+        r: {
+            angleLines: {
+                display: false
+            },
+            display: false,
+            pointLabels: {},
+            ticks: {...}
+        }
+    }
+}
+```
+
+Este objeto de opciones ya puede ingresarse como propiedad predefinida de `options` al componente de gráfica radial.
+
 ----
 
 # Plug-ins de Charts.js
