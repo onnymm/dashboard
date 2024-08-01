@@ -1,3 +1,4 @@
+import { DOMAINS } from "../constants/backendDomains";
 import { CHART_TYPES } from "../constants/charts";
 import { PRESET_COLORS, RED_PALETTE } from "../constants/colors";
 import { CHARTS_SERIES_SETTINGS, CHARTS_SETTINGS } from "../constants/settings";
@@ -29,3 +30,6 @@ export const chartSettings = {
         [CHARTS_SERIES_SETTINGS.FILL]: 'origin'
     }
 }
+
+// Dominios locales para obtener la información
+export const defaultDomain = DOMAINS.LOCAL_DOMAIN

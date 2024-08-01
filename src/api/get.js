@@ -1,6 +1,5 @@
 import axios from "axios"
-import { domains } from "../settings/backendDomains"
-import { defaultDomain } from "../data/appConfig"
+import { defaultDomain } from "../settings/dashboardSettings"
 
 export const getChartData = async (
     stateSetter, // Función useState para cambio de estado
@@ -14,7 +13,7 @@ export const getChartData = async (
     }
 
     // Se obtiene la información desde el API
-    const response = await axios.get(`${domains[domain]}${endpoint}`)
+    const response = await axios.get(`${domain}${endpoint}`)
     // Se retorna la información transformada
     stateSetter(response.data)
 }
