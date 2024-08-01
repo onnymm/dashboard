@@ -356,6 +356,34 @@ export const buildData = ({
 
 ----
 
+# Configuraciones globales
+
+## Ajustes predefinidos
+
+En esta sección se encuentra un índice de todos los ajustes predefinidos:
+
+| Tipo | Nombre | Entidad | Descripción | Ubicación | Valor predefinido |
+|------|--------|---------|-------------|-----------|-------------------|
+| Ajustes de gráficas | Colores de borde en gráficas circulares | `chartSettings...` | Colores de borde en gráficas circulares (pastel y dona) | `dashboardSettings.js` | `"#FFFFFF"` |
+| Ajustes de gráficas | Colores de fondo | `chartSettings.BACKGROUND_COLORS` | Colores de fondo de categorías/conjuntos de datos | `dashboardSettings.js` | `["#8C0413", "#B70217", "#DC001A", "#EC112B", "#FE3249", "#FE5165", "#FC7080"]` |
+| Ajustes de gráficas | Columnas de etiquetas | `chartSettings.LABEL_COLUMNS` | Número de columnas en `display: grid` en las que se distribuirán las etiquetas categóricas/de conjuntos de datos de las gráficas por default | `dashboardSettings.js` | `1` |
+| Ajustes de gráficas | Forma del indicador de etiqueta | `chartSettings.LEGEND_BOX` | Forma del indicador de color de etiqueta de la gráfica | `dashboardSettings.js` | `'rounded'` |
+| Ajustes de gráficas | Opacidad de borde en gráfica de área polar | `chartSettings...` | Opacidad de los colores de borde en las gráficas de de área polar | `dashboardSettings.js` | `100` |
+| Ajustes de gráficas | Opacidad de fondo en gráfica de área polar | `chartSettings...` | Opacidad de los colores de fondo en las gráficas de de área polar | `dashboardSettings.js` | `75` |
+| Ajustes de gráficas | Orientación de elementos dentro de las etiquetas | `chartSettings.LABELS_LIST` | Orientación de los elementos HTML dentro de las etiquetas | `dashboardSettings.js` | `'default'` |
+| Ajustes de gráficas | Relación de aspecto | `chartSettings.ASPECT_RATIO` | Relación de aspecto de la gráfica | `dashboardSettings.js` | `1.5` |
+| Ajustes de gráficas | Tamaño máximo de elementos de burbuja | `chartSettings.MAX_BUBBLE_SIZE` | Tamaño máximo en pixeles de los elementos de burbuja en gráficas de burbuja | `dashboardSettings.js` | `16` |
+| Ajustes de gráficas | Tamaño mínimo de elementos de burbuja | `chartSettings.MIN_BUBBLE_SIZE` | Tamaño mínimo en pixeles de los elementos de burbuja en gráficas de burbuja | `dashboardSettings.js` | `2` |
+| Ajustes de gráficas | Tipo de relleno en gráficas rellenables | `chartSettings...` | Tipo de relleno en gráficas rellenables (líneas y barras) | `dashboardSettings.js` | `"origin"` |
+| Apariencia | Cajas de colores de etiquetas de conjuntos de datos de gráficas | `chartElementsStyling...` | Estilización de elementos `<span>` (cajas de color de conjunto de datos) de componente de gráfica | `chartElementsStyling.js` | `"block"` |
+| Apariencia | Etiquetas de conjuntos de datos de gráficas | `chartElementsStyling...` | Estilización de elementos `<li>` de lista de contenedor de etiquetas de componente de gráfica | `chartElementsStyling.js` | `"flex gap-1"` |
+| Apariencia | Lista de etiquetas de conjuntos de datos de gráficas | `chartElementsStyling...` | Estilización de elemento `<ul>` de contenedor de etiquetas de componente de gráfica | `chartElementsStyling.js` | `"flex"` |
+| Apariencia | Título de conjunto de datos en etiquetas de conjuntos de datos de gráficas | `chartElementsStyling...` | Estilización de elemento `<p>` (nombre de la categoría o conjunto de datos) de contenedor de etiquetas de componente de gráfica | `chartElementsStyling.js` | `"font-extralight transition duration-300"` |
+| Conexión a APIs | Dominio Backend default | `DOMAINS.DEFAULT_DOMAIN` | Dominio Backend default para conexión con API | `backendDomains.js` | `localhost` |
+
+
+----
+
 # Configuración del Dashboard
 
 La información mostrada en el Dashboard es configurada en el archivo `appConfig.js` específicamente en la colección de datos `dashboardData`. Este archivo está destinado a ser un punto de partida para poder realizar la configuración de la aplicación completa cambiando valores y configurando componentes usando simplemente colecciones de datos que automáticamente se mapean en la aplicación.
