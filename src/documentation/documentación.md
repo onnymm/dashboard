@@ -87,6 +87,7 @@ const estoEsUnaVariable = 5
 - [Asignación de formateo de etiquetas](#asignación-de-formateo-de-etiquetas)
 - [Formateo de etiquetas en ejes de gráfica de dispersión y burbujas](#formateo-de-etiquetas-en-ejes-de-gráfica-de-dispersión-y-burbujas)
 - [Formateo de etiquetas en ejes de gráficas cartesianas](#formateo-de-etiquetas-en-ejes-de-gráficas-cartesianas)
+- [Formateo de etiquetas en ejes de gráficas radiales](#formateo-de-etiquetas-en-ejes-de-gráficas-radiales)
 
 **Plug-ins de Charts.js**
 
@@ -2428,6 +2429,44 @@ const formatCartesianChartLabels = ({
 >   ```js
 >   return [ series, options ]
 >   ```
+
+## Formateo de etiquetas en ejes de gráficas radiales
+
+No hace nada.
+
+Uso declarando el tipo de gráfico en un `string`:
+```js
+formatLabels['pie']({ series, options })
+formatLabels['doughnut']({ series, options })
+formatLabels['polarArea']({ series, options })
+```
+
+Uso declarando el tipo de gráfico usando constante (recomendado):
+```js
+formatLabels[CHART_TYPES.PIE]({ series, options })
+formatLabels[CHART_TYPES.DOUGHNUT]({ series, options })
+formatLabels[CHART_TYPES.POLAR_AREA]({ series, options })
+```
+
+Los argumentos de entrada disponibles son:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `series` | `object` | *Requerido | Objeto de datos transformado por alguna de las siguietes funciones: <br> • [Construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja)  <br> • [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión) <br> • [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales) |
+| `options` | `object` | *Requerido | Objeto de opciones base construido por alguna de las siguientes funciones: <br> • [Construcción de objeto de opciones para gráfica de burbujas](#construcción-de-objeto-de-opciones-para-gráfica-de-burbujas) <br> • [Construcción de objeto de opciones para gráficas cartesianas](#construcción-de-objeto-de-opciones-para-gráficas-cartesianas) <br> • [Construcción de objeto de opciones para gráficas radiales](#construcción-de-objeto-de-opciones-para-gráficas-radiales) <br> • [Construcción de objeto de opciones para gráficas de radar](#construcción-de-objeto-de-opciones-para-gráficas-de-radar) |
+
+```js
+const formatRadialChartsLabels = ({
+    series,
+    options,
+}) => {
+
+    // Retorno de los conjuntos de datos y objeto de opciones
+    return [ series, options ]
+}
+```
+
+>   No hace nada.
 
 ----
 
