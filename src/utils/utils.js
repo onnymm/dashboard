@@ -50,7 +50,7 @@ export const buildData = ({
     series = mapColorsOnSeries({ series, chartType, backgroundColors, backgroundOpacity, borderColors, borderOpacity });
 
     // Inicialización del contenedor de opciones
-    let options = buildInitOptions[chartType]({ series, chartType, labelsContainerID, aspectRatio, labelsDisplay, labelsList, legendBox, transposed });
+    let options = buildInitOptions[chartType]({ series, labelsContainerID, aspectRatio, labelsDisplay, labelsList, legendBox, transposed });
 
     // Asignación de nombres de clase a elementos HTML internos de la gráfica
     options = assignCSSStyles({ options });

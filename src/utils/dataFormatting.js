@@ -402,21 +402,21 @@ const formatScatterChartLabels = ({
     if ( transposed ) {
         // Formateo de etiquetas en ambos ejes
         if ( xAxisFormat ) {
-            xLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: yAxisFormat, axes: 'y' })
-            options.scales.x.ticks.callback = xLabelsFormatter
+            yLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: xAxisFormat, axis: 'x' })
+            options.scales.y.ticks.callback = yLabelsFormatter
         }
         if ( yAxisFormat ) {
-            yLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: xAxisFormat, axes: 'x' })
-            options.scales.y.ticks.callback = yLabelsFormatter
+            xLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: yAxisFormat, axis: 'y' })
+            options.scales.x.ticks.callback = xLabelsFormatter
         }
     } else {
         // Formateo de etiquetas en ambos ejes
         if ( xAxisFormat ) {
-            xLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: xAxisFormat, axes: 'x' })
+            xLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: xAxisFormat, axis: 'x' })
             options.scales.x.ticks.callback = xLabelsFormatter
         }
         if ( yAxisFormat ) {
-            yLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: yAxisFormat, axes: 'y' })
+            yLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: yAxisFormat, axis: 'y' })
             options.scales.y.ticks.callback = yLabelsFormatter
         }
     }
@@ -708,7 +708,7 @@ const assignLabelsFormatter = ({
 const assignNumericLabelsFormatter = ({
     series,
     axisFormat,
-    axes = undefined
+    axis = undefined
 }) => {
 
     // Creación de contenedor de número mayor
@@ -721,9 +721,9 @@ const assignNumericLabelsFormatter = ({
             dataset.data.forEach(
                 (value) => {
                     // Búsqueda del número mayor en todos los conjuntos de datos de la gráfica
-                    if (axes) {
-                        if (value[axes] > maxNumber ) {
-                            maxNumber = value[axes]
+                    if (axis) {
+                        if (value[axis] > maxNumber ) {
+                            maxNumber = value[axis]
                         }
                     } else {
                         if (value > maxNumber ) {
