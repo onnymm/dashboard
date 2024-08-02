@@ -11,7 +11,7 @@ Los parámetros listados que contengan un `*` son requeridos
 const estoEsUnaVariable = 5
 ```
 
->   Esto es un contenedor de texto que indica el funcionamiento de un fragmento código que se encuentre previo a este mismo contenedor
+>   Esto es un contenedor de texto que indica el funcionamiento de un fragmento código que se encuentre previo a este mismo contenedor.
 
 ----
 
@@ -80,6 +80,11 @@ const estoEsUnaVariable = 5
 
 **Estilización de etiquetas de gráficas**
 - [Estilización de etiquetas HTML de gráficas](#estilización-de-etiquetas-html-de-gráficas)
+
+**Formateo de etiquetas en los ejes de gráficas**
+- [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto)
+- [Asignación de formateo numérico](#asignación-de-formateo-numérico)
+- [Formateo de etiquetas en ejes de gráfica de dispersión y burbujas](#formateo-de-etiquetas-en-ejes-de-gráfica-de-dispersión-y-burbujas)
 
 **Plug-ins de Charts.js**
 
@@ -1811,7 +1816,191 @@ export const assignCSSStyles = ({ options }) => {
 
 >   Para saber más sobre el plug-in `htmlLegend`, consultar la sección [htmlLegend: Desacoplamiento de etiquetas de conjuntos de datos](#htmllegend-desacoplamiento-de-etiquetas-de-conjuntos-de-datos)
 
-----
+## Funciones de formateo numérico y de texto
+
+Este mapa de funciones contiene funciones de formateo clasificadas en su tipo de formateo y tipo de abreviación para números grandes respectivamente:
+```js
+export const labelsFormats = {
+
+    // Formato numérico
+    [LABELS_FORMATS_SETTINGS.NUMERIC]: {
+        raw: (num) => (num),
+        toThousands: (num) => (`${num / 1000} K`),
+        toMillions: (num) => (`${num / 1000000} M`),
+        type: Number,
+    },
+
+    // Formato en moneda nacional
+    [LABELS_FORMATS_SETTINGS.MONETARY]: {
+        raw: (num) => (num.toLocaleString('es-MX', {style: 'currency', currency: 'MXN'})),
+        toThousands: (num) => (`$${num / 1000} K`),
+        toMillions: (num) => (`$${num / 1000000} M`),
+        type: Number,
+    },
+
+    // Mostrar sólo el primer nombre en un String antes del espacio
+    [LABELS_FORMATS_SETTINGS.ONLY_NAME]: {
+        raw: (text) => (text.slice(0, text.indexOf(" "))),
+        type: String,
+    },
+}
+```
+
+Para tomar alguna de las funciones, se accede de la siguiente forma, sin incluir los paréntesis que indican la ejecución de la función:
+```js
+const callback = labelsFormats[<formatType>].raw
+const callback = labelsFormats[<formatType>].toThousands
+const callback = labelsFormats[<formatType>].toMillions
+```
+
+>   En el caso de las funciones para formateo de texto, sólo existen las de tipo `raw` pues no abrevian en miles o millones por obvias razones.
+> Cada índice contiene un atributo `type` para un fácil uso en la validación del tipo de formateo que se realizará, en base al tipo de valor que formatea.
+
+## Asignación de formateo numérico
+
+Esta función recibe el objeto de datos para el componente de gráfica, un tipo de formateo numérico y el eje en donde se aplicará. Retorna una función para formateo de las etiquetas numéricas y también realiza una evaluación del valor máximo en los conjuntos de datos para determinar si requieren una abreviación, por ejemplo, números más grandes como `1234567` se mostrarán como `1.2 M`:
+```js
+const assignNumericLabelsFormatter = ({
+    series,
+    axisFormat,
+    axis = undefined
+}) => {
+
+    // Creación de contenedor de número mayor
+    let maxNumber = 0;
+
+    // Iteración de conjuntos de datos
+    series.datasets.forEach(
+        (dataset) => {
+            // Iteración por cada valor de cada conjunto de datos
+            dataset.data.forEach(
+                (value) => {
+                    // Búsqueda del número mayor en todos los conjuntos de datos de la gráfica
+                    if (axis) {
+                        if (value[axis] > maxNumber ) {
+                            maxNumber = value[axis]
+                        }
+                    } else {
+                        if (value > maxNumber ) {
+                            maxNumber = value
+                        }
+                    }
+                }
+            )
+        }
+    )
+
+    // Asignación de abreviación por millones
+    if ( maxNumber >= 1000000 ) {
+        return labelsFormats[axisFormat].toMillions
+
+    // Asignación de abreviación por miles
+    } else if ( maxNumber >= 3000 ) {
+        return labelsFormats[axisFormat].toThousands
+    
+    // Formateo por defecto
+    } else {
+        return labelsFormats[axisFormat].raw
+    }
+}
+```
+
+Los argumentos de entrada disponibles son:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `series` | `object` | *Requerido | Objeto de datos transformado por alguna de las siguietes funciones: <br> • [Construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja)  <br> • [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión) <br> • [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales) |
+| `axisFormat` | `(Opción)` <br> <br> • `'numeric'`: Valor numérico con punto decimal <br> • `'monetary'`: Valor de tipo moneda nacional | *Requerido | Tipo de formateo numérico a aplicar. |
+| `axis` | `string` | `undefined` | Eje a aplicar el formateo. Se omite este argumento en objetos de datos que no almacenen los valores numéricos en un eje sino en una matriz. |
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   Se crea una variable para almacenar el número mayor encontrado:
+>   ```js
+>   // Creación de contenedor de número mayor
+>   let maxNumber = 0;
+>   ```
+>   
+>   Se itera el objeto de datos por cada uno de sus conjuntos de datos para buscar el número mayor:
+>   ```js
+>   // Iteración de conjuntos de datos
+>   series.datasets.forEach(
+>       (dataset) => {
+>           ...
+>       }
+>   )
+>   ```
+>   
+>   >   Se hace una iteración por cada uno de los valores de cada uno de los conjuntos de datos:
+>   >   ```js
+>   >   // Iteración por cada valor de cada conjunto de datos
+>   >   dataset.data.forEach(
+>   >       (value) => {
+>   >           ...
+>   >       }
+>   >   )
+>   >   ```
+>   >   
+>   >   >   Se realiza una evaluación de si existe un valor en la variable `axis` y se ejecuta alguno de los dos bloques de código a continuación si es que la función se cumple o no:
+>   >   >   ```js
+>   >   >   // Búsqueda del número mayor en todos los conjuntos de datos de la gráfica
+>   >   >   if (axis) {
+>   >   >       if (value[axis] > maxNumber ) {
+>   >   >           maxNumber = value[axis]
+>   >   >       }
+>   >   >   } else {
+>   >   >       if (value > maxNumber ) {
+>   >   >           maxNumber = value
+>   >   >       }
+>   >   >   }
+>   >   >   ```
+>   >   >   
+>   >   >   >   Si la condición se cumple significa que cada uno de los valores no son números individuales sino objetos. Por lo tanto se ejecuta el siguiente bloque de código:
+>   >   >   >   
+>   >   >   >   ```js
+>   >   >   >   if (value[axis] > maxNumber ) {
+>   >   >   >       maxNumber = value[axis]
+>   >   >   >   }
+>   >   >   >   ```
+>   >   >   >   >   - Se evalúa si el valor numérico en el índice de `axis` es mayor al número máximo registrado.
+>   >   >   >   >   - Se ser así, este valor numérico sobreescribe el valor del número máximo en la variable `maxNumber`.
+>   >   >   >   
+>   >   >   >   Si la condición no se cumple significa que cada uno de los valores son numéricos y sólo se procede a evaluar cada uno:
+>   >   >   >   ```js
+>   >   >   >   else {
+>   >   >   >       if (value > maxNumber ) {
+>   >   >   >           maxNumber = value
+>   >   >   >       }
+>   >   >   >   }
+>   >   >   >   ```
+>   >   >   >   >   - Se evalúa si el valor es mayor al número máximo registrado.
+>   >   >   >   >   - Se ser así, este valor sobreescribe el valor del número máximo en la variable `maxNumber`.
+>   >   >   
+>   >   >   Finaliza el ciclo `forEach` de iteración por valores.
+>   >   
+>   >   Finaliza el ciclo `forEach` de iteración por conjuntos de datos.
+>   
+>   Finalmente se valida el número máximo para determinar la función a retornar, en base al tipo de formateo numérico provisto:
+>   ```js
+>   // Asignación de abreviación por millones
+>   if ( maxNumber >= 1000000 ) {
+>       return labelsFormats[axisFormat].toMillions
+>   
+>   // Asignación de abreviación por miles
+>   } else if ( maxNumber >= 3000 ) {
+>       return labelsFormats[axisFormat].toThousands
+>   
+>   // Formateo por defecto
+>   } else {
+>       return labelsFormats[axisFormat].raw
+>   }
+>   ```
+>   
+>   >   - Si el valor máximo es igual o mayor a 1 millón se retorna la función encontrada en el atributo `toMillios` del mapa de funciones de formateo.
+>   >   - De no cumplirse la primera condición se valida si el valor máximo es igual o mayor a 1 millón y se retorna la función encontrada en el atributo `toThousands` del mapa de funciones de formateo.
+>   >   - De no cumplirse la segunda condición se retorna la función encontrada en el atributo `raw` del mapa de funciones de formateo, que es la función que sólo formatea el número sin abreviarlo.
+>   
+>   >   Para saber más sobre el mapa de funciones de formateo, consultar la sección [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto).
 
 # Plug-ins de Charts.js
 
