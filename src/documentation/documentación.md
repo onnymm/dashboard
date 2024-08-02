@@ -84,6 +84,7 @@ const estoEsUnaVariable = 5
 **Formateo de etiquetas en los ejes de gráficas**
 - [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto)
 - [Asignación de formateo numérico](#asignación-de-formateo-numérico)
+- [Asignación de formateo de etiquetas](#asignación-de-formateo-de-etiquetas)
 - [Formateo de etiquetas en ejes de gráfica de dispersión y burbujas](#formateo-de-etiquetas-en-ejes-de-gráfica-de-dispersión-y-burbujas)
 
 **Plug-ins de Charts.js**
@@ -2002,6 +2003,78 @@ Los argumentos de entrada disponibles son:
 >   
 >   >   Para saber más sobre el mapa de funciones de formateo, consultar la sección [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto).
 
+## Asignación de formateo de etiquetas
+
+Esta función recibe el objeto de datos para el componente de gráfica y un tipo de formateo numérico o de texto. Retorna una función para formateo de las etiquetas:
+```js
+const assignLabelsFormatter = ({
+    series,
+    axisFormat
+}) => {
+
+    // Inicialización de la función a retornar
+    let labelsFormatter
+    
+    if ( labelsFormats[axisFormat].type === Number ) {
+        labelsFormatter = assignNumericLabelsFormatter({ series, axisFormat })
+    } else {
+        labelsFormatter = labelsFormats[axisFormat].raw
+    }
+
+    // Retorno de la función
+    return labelsFormatter
+}
+```
+
+Los argumentos de entrada disponibles son:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `series` | `object` | *Requerido | Objeto de datos transformado por alguna de las siguietes funciones: <br> • [Construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja)  <br> • [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión) <br> • [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales) |
+| `axisFormat` | `(Opción)` <br> <br> • `'numeric'`: Valor numérico con punto decimal <br> • `'monetary'`: Valor de tipo moneda nacional | *Requerido | Tipo de formateo numérico a aplicar. |
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   Se inicializa la variable para almacenar la función a retornar
+>   ```js
+>   let labelsFormatter
+>   ```
+>   
+>   >   - Se valida si el tipo de formateo en el índice de funciones de formateo es numérico:
+>   ```js
+>   if ( labelsFormats[axisFormat].type === Number ) {
+>       ...
+>   } else {
+>       ...
+>   }
+>   ```
+>   
+>   >   De cumplirse esta condición se ejecuta el siguiente bloque de código:
+>   >   ```js
+>   >   labelsFormatter = assignNumericLabelsFormatter({ series, axisFormat })
+>   >   ```
+>   >   
+>   >   >   - Se realiza la llamada a la función de asignación de valores numéricos proporcionándole los siguientes argumentos:
+>   >   >       - `series`: `series`.
+>   >   >       - `axisFormat`: `xAxisFormat`.
+>   >   
+>   >   >   Para saber más sobre el uso de las funciones de formateo, consultar la sección [Asignación de formateo numérico](#asignación-de-formateo-numérico)
+>   >   
+>   >   De no cumplirse esta condición se asume que el formateo es de tipo texto y se ejecuta el siguiente bloque de código:
+>   >   ```js
+>   >   labelsFormatter = labelsFormats[axisFormat].raw
+>   >   ```
+>   >   
+>   >   >   - Se asigna la función encontrada en el atributo `raw` del mapa de funciones de formateo de etiquetas de ejes en el índice del tipo de formateo.
+>   >   
+>   >   >   Para saber más sobre el mapa de funciones de formateo, consultar la sección [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto).
+>   >   
+>   
+>   Finalmente se retorna esta función:
+>   ```js
+>   return labelsFormatter
+>   ```
+
 ## Formateo de etiquetas en ejes de gráfica de dispersión y burbujas
 
 Esta función formatea la visualización de las etiquetas numéricas en los ejes $X$ y $Y$ de gráficas de dispersión y burbujas si éstas fueron provistas como argumento.
@@ -2170,7 +2243,6 @@ const formatScatterChartLabels = ({
 >   >   >   >   - El resultado del retorno de la función `assignNumericLabelsFormatter` se asigna al atributo `callback` del atributo `ticks` del eje $Y$ de la configuración de escalas del objeto de opciones.
 >   >   >   
 >   >   >   >   Para saber más sobre el mapa de funciones de formateo numérico, consular la sección [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto).
-
 
 ----
 
