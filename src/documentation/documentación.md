@@ -78,6 +78,9 @@ const estoEsUnaVariable = 5
 - [Construcción de objeto de opciones para gráficas radiales](#construcción-de-objeto-de-opciones-para-gráficas-radiales)
 - [Construcción de objeto de opciones para gráficas de radar](#construcción-de-objeto-de-opciones-para-gráficas-de-radar)
 
+**Estilización de etiquetas de gráficas**
+- [Estilización de etiquetas HTML de gráficas](#estilización-de-etiquetas-html-de-gráficas)
+
 **Plug-ins de Charts.js**
 
 - [htmlLegend: Desacoplamiento de etiquetas de conjuntos de datos](#htmllegend-desacoplamiento-de-etiquetas-de-conjuntos-de-datos)
@@ -1789,6 +1792,24 @@ Retorno de la función:
 ```
 
 Este objeto de opciones ya puede ingresarse como propiedad predefinida de `options` al componente de gráfica de radar.
+
+## Estilización de etiquetas HTML de gráficas
+
+Esta función recibe el objeto de opciones `options` y le asigna el objeto de estilización `chartElementsStyling` de etiquetas para uso del plug-in `htmlLegend`.
+
+```js
+export const assignCSSStyles = ({ options }) => {
+    // Asignación de los estilos previamente configurados
+    options.plugins.stylingCSS = chartElementsStyling
+
+    // Retorno del nuevo objeto de opciones
+    return options
+}
+```
+
+>   - El objeto de estilización de etiquetas se añade como valor del plug-in `stylingCSS` que a su vez se encuentra como atributo del objeto `plugins` del objeto de opciones.
+
+>   Para saber más sobre el plug-in `htmlLegend`, consultar la sección [htmlLegend: Desacoplamiento de etiquetas de conjuntos de datos](#htmllegend-desacoplamiento-de-etiquetas-de-conjuntos-de-datos)
 
 ----
 
