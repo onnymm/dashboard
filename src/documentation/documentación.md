@@ -2002,6 +2002,178 @@ Los argumentos de entrada disponibles son:
 >   
 >   >   Para saber más sobre el mapa de funciones de formateo, consultar la sección [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto).
 
+## Formateo de etiquetas en ejes de gráfica de dispersión y burbujas
+
+Esta función formatea la visualización de las etiquetas numéricas en los ejes $X$ y $Y$ de gráficas de dispersión y burbujas si éstas fueron provistas como argumento.
+
+Uso declarando el tipo de gráfico en un `string`:
+```js
+formatLabels['bubble']({ series, options, xAxisFormat, yAxisFormat, transposed })
+formatLabels['scatter']({ series, options, xAxisFormat, yAxisFormat, transposed })
+```
+
+Uso declarando el tipo de gráfico usando constante (recomendado):
+```js
+formatLabels[CHART_TYPES.BUBBLE]({ series, options, xAxisFormat, yAxisFormat, transposed })
+formatLabels[CHART_TYPES.SCATTER]({ series, options, xAxisFormat, yAxisFormat, transposed })
+```
+
+Los argumentos de entrada disponibles son:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `series` | `object` | *Requerido | Objeto de datos transformado por alguna de las siguietes funciones: <br> • [Construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja)  <br> • [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión) <br> • [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales) |
+| `options` | `object` | *Requerido | Objeto de opciones base construido por alguna de las siguientes funciones: <br> • [Construcción de objeto de opciones para gráfica de burbujas](#construcción-de-objeto-de-opciones-para-gráfica-de-burbujas) <br> • [Construcción de objeto de opciones para gráficas cartesianas](#construcción-de-objeto-de-opciones-para-gráficas-cartesianas) <br> • [Construcción de objeto de opciones para gráficas radiales](#construcción-de-objeto-de-opciones-para-gráficas-radiales) <br> • [Construcción de objeto de opciones para gráficas de radar](#construcción-de-objeto-de-opciones-para-gráficas-de-radar) |
+| `xAxisFormat` | `(Opción)` <br> <br> • `'numeric'`: Valor numérico con punto decimal <br> • `'monetary'`: Valor de tipo moneda nacional <br> • `'only name'`: Sólo nombre | `undefined` | Tipo de formateo para las etiquetas del eje $X$. |
+| `yAxisFormat` | `(Opción)` <br> <br> • `'numeric'`: Valor numérico con punto decimal <br> • `'monetary'`: Valor de tipo moneda nacional <br> • `'only name'`: Sólo nombre | `undefined` | Tipo de formateo para las etiquetas del eje $Y$. |
+| `transposed` | `boolean` | `false` | Indicador de transposición de los ejes $X$ y $Y$ de la gráfica. |
+
+Por dentro la función luce así:
+```js
+const formatScatterChartLabels = ({
+    series,
+    options,
+    xAxisFormat,
+    yAxisFormat,
+    transposed
+}) => {
+
+    // Inicialización de las funciones formateadoras
+    let xLabelsFormatter
+    let yLabelsFormatter
+
+    // Validación de indicación de gráfica transpuesta
+    if ( transposed ) {
+        // Formateo de etiquetas en ambos ejes
+        if ( xAxisFormat ) {
+            yLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: xAxisFormat, axis: 'x' })
+            options.scales.y.ticks.callback = yLabelsFormatter
+        }
+        if ( yAxisFormat ) {
+            xLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: yAxisFormat, axis: 'y' })
+            options.scales.x.ticks.callback = xLabelsFormatter
+        }
+    } else {
+        // Formateo de etiquetas en ambos ejes
+        if ( xAxisFormat ) {
+            xLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: xAxisFormat, axis: 'x' })
+            options.scales.x.ticks.callback = xLabelsFormatter
+        }
+        if ( yAxisFormat ) {
+            yLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: yAxisFormat, axis: 'y' })
+            options.scales.y.ticks.callback = yLabelsFormatter
+        }
+    }
+
+    // Retorno de los conjuntos de datos y objeto de opciones
+    return [ series, options ]
+}
+```
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   Se inicializan las variables contenedoras de las funciones de formateo:
+>   >   ```js
+>   >       // Inicialización de las funciones formateadoras
+>   >       let xLabelsFormatter
+>   >       let yLabelsFormatter
+>   >   ```
+>   
+>   Se valida si `transposed` es `true`:
+>   ```js
+>       // Validación de indicación de gráfica transpuesta
+>       if ( transposed ) {
+>           ...
+>       } else {
+>           ...
+>       }
+>   ```
+>   
+>   >   En caso de cumplirse la condición se ejecuta lo siguiente:
+>   >   
+>   >   >   **IMPORTANTE**: Leer cuidadosamente ya que la ejecución puede ser un poco antiintuitiva ya que se toman las declaraciones del formateo en un eje y los resultados se almacenan en la configuración del otro eje.
+>   >   
+>   >   ```js
+>   >   // Formateo de etiquetas en ambos ejes
+>   >   if ( xAxisFormat ) {
+>   >       ...
+>   >   }
+>   >   if ( yAxisFormat ) {
+>   >       ...
+>   >   }
+>   >   ```
+>   >   
+>   >   >   - Se valida si existe un tipo de formateo para el eje $X$. En caso de existir se ejecuta el siguiente bloque de código:
+>   >   >   ```js
+>   >   >   yLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: xAxisFormat, axis: 'x' })
+>   >   >   options.scales.y.ticks.callback = yLabelsFormatter
+>   >   >   ```
+>   >   >   
+>   >   >   >   - Se realiza la llamada a la función de asignación de valores numéricos proporcionándole los siguientes argumentos:
+>   >   >   >       - `series`: `series`.
+>   >   >   >       - `axisFormat`: `xAxisFormat`
+>   >   >   >       - `axis`: `'x'`
+>   >   >   >   - El resultado del retorno de la función `assignNumericLabelsFormatter` se asigna al atributo `callback` del atributo `ticks` del eje $Y$ de la configuración de escalas del objeto de opciones.
+>   >   >   
+>   >   >   >   Para saber más sobre el mapa de funciones de formateo numérico, consular la sección [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto).
+>   >   >   
+>   >   >   - Se valida si existe un tipo de formateo para el eje $Y$. En caso de existir se ejecuta el siguiente bloque de código:
+>   >   >   ```js
+>   >   >   xLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: yAxisFormat, axis: 'y' })
+>   >   >   options.scales.x.ticks.callback = xLabelsFormatter
+>   >   >   ```
+>   >   >   
+>   >   >   >   - Se realiza la llamada a la función de asignación de valores numéricos proporcionándole los siguientes argumentos:
+>   >   >   >       - `series`: `series`.
+>   >   >   >       - `axisFormat`: `yAxisFormat`
+>   >   >   >       - `axis`: `'y'`
+>   >   >   >   - El resultado del retorno de la función `assignNumericLabelsFormatter` se asigna al atributo `callback` del atributo `ticks` del eje $X$ de la configuración de escalas del objeto de opciones.
+>   >   >   
+>   >   >   >   Para saber más sobre el mapa de funciones de formateo numérico, consular la sección [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto).
+>   >   
+>   >   En caso de no cumplirse la condición se ejecuta lo siguiente:
+>   >   
+>   >   ```js
+>   >   // Formateo de etiquetas en ambos ejes
+>   >   if ( xAxisFormat ) {
+>   >       ...
+>   >   }
+>   >   if ( yAxisFormat ) {
+>   >       ...
+>   >   }
+>   >   ```
+>   >   
+>   >   >   - Se valida si existe un tipo de formateo para el eje $X$. En caso de existir se ejecuta el siguiente bloque de código:
+>   >   >   ```js
+>   >   >   xLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: xAxisFormat, axis: 'x' })
+>   >   >   options.scales.x.ticks.callback = xLabelsFormatter
+>   >   >   ```
+>   >   >   
+>   >   >   >   - Se realiza la llamada a la función de asignación de valores numéricos proporcionándole los siguientes argumentos:
+>   >   >   >       - `series`: `series`.
+>   >   >   >       - `axisFormat`: `xAxisFormat`
+>   >   >   >       - `axis`: `'x'`
+>   >   >   >   - El resultado del retorno de la función `assignNumericLabelsFormatter` se asigna al atributo `callback` del atributo `ticks` del eje $X$ de la configuración de escalas del objeto de opciones.
+>   >   >   
+>   >   >   >   Para saber más sobre el mapa de funciones de formateo numérico, consular la sección [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto).
+>   >   >   
+>   >   >   - Se valida si existe un tipo de formateo para el eje $Y$. En caso de existir se ejecuta el siguiente bloque de código:
+>   >   >   ```js
+>   >   >   yLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: yAxisFormat, axis: 'y' })
+>   >   >   options.scales.y.ticks.callback = yLabelsFormatter
+>   >   >   ```
+>   >   >   
+>   >   >   >   - Se realiza la llamada a la función de asignación de valores numéricos proporcionándole los siguientes argumentos:
+>   >   >   >       - `series`: `series`.
+>   >   >   >       - `axisFormat`: `yAxisFormat`
+>   >   >   >       - `axis`: `'y'`
+>   >   >   >   - El resultado del retorno de la función `assignNumericLabelsFormatter` se asigna al atributo `callback` del atributo `ticks` del eje $Y$ de la configuración de escalas del objeto de opciones.
+>   >   >   
+>   >   >   >   Para saber más sobre el mapa de funciones de formateo numérico, consular la sección [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto).
+
+
+----
+
 # Plug-ins de Charts.js
 
 La librería de Charts.js ofrece una integración para plug-ins personalizados, independientemente de los plug-ins que utiliza para mostrar elementos en sus componentes de gráficas. Esto incrementa potencialmente el nivel de personalización y funcionalidad además de que permite cambiar el comportamiento de las gráficas a nivel visual o funcional. Para saber más sobre cómo funcionan los plug-ins personalizados, consultar la [documentación de Charts.js sobre plug-ins](https://www.chartjs.org/docs/latest/developers/plugins.html).
