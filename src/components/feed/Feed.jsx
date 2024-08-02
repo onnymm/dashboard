@@ -1,9 +1,12 @@
 import { useContext } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigation } from 'react-router-dom'
 import { AppContext } from '../../contexts/AppContexts'
 
 const Feed = () => {
 	const { sidebarIsLocked, screenIsWide } = useContext(AppContext)
+	const navigationState = useNavigation().state // (idle | loading | submitting)
+
+	console.log(navigationState)
 
 	return (
 		<div
@@ -15,7 +18,7 @@ const Feed = () => {
 		>
 			{/* Margen dinámico de contenido para cuando se bloquee la sidebar */}
 			<div
-				className={`${sidebarIsLocked && screenIsWide ? 'w-72' : 'w-0'} transition-width duration-500`}
+				className={`${navigationState === 'loading' ? 'opacity-50' : ''} ${sidebarIsLocked && screenIsWide ? 'w-72' : 'w-0'} transition-width duration-500`}
 			/>
 			{/*
 			Contenido de la página, el tamaño se ajusta al contenido, si se requiere que las páginas contenidas en
