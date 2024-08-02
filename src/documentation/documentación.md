@@ -75,6 +75,8 @@ const estoEsUnaVariable = 5
 **Construcción de objeto de opciones**
 - [Construcción de objeto de opciones para gráfica de burbujas](#construcción-de-objeto-de-opciones-para-gráfica-de-burbujas)
 - [Construcción de objeto de opciones para gráficas cartesianas](#construcción-de-objeto-de-opciones-para-gráficas-cartesianas)
+- [Construcción de objeto de opciones para gráficas radiales](#construcción-de-objeto-de-opciones-para-gráficas-radiales)
+- [Construcción de objeto de opciones para gráficas de radar](#construcción-de-objeto-de-opciones-para-gráficas-de-radar)
 
 **Plug-ins de Charts.js**
 
@@ -963,6 +965,12 @@ export const buildData = ({
 >   let options = buildInitOptions[chartType]({ series, chartType, labelsContainerID, aspectRatio, labelsDisplay, labelsList, legendBox, transposed });
 >   ```
 >   
+>   - Se inicializa el objeto de opciones usando las funciones de construcción de opciones. Dependiendo del tipo de gráfica, las posibles ejecuciones son:
+>       - [Construcción de objeto de opciones para gráfica de burbujas](#construcción-de-objeto-de-opciones-para-gráfica-de-burbujas)
+>       - [Construcción de objeto de opciones para gráficas cartesianas](#construcción-de-objeto-de-opciones-para-gráficas-cartesianas)
+>       - [Construcción de objeto de opciones para gráficas radiales](#construcción-de-objeto-de-opciones-para-gráficas-radiales)
+>       - [Construcción de objeto de opciones para gráficas de radar](#construcción-de-objeto-de-opciones-para-gráficas-de-radar)
+>   
 >   Se realiza la asignación de clases CSS para uso del plug-in `htmlLegend`:
 >   ```js
 >   // Asignación de nombres de clase a elementos HTML internos de la gráfica
@@ -1574,7 +1582,9 @@ Retorno de la función:
 ```js
 {
     aspectRatio: ...,
-    font: {...},
+    font: {
+        color: ...
+    },
     indexAxis: "x",
     plugins: {...},
     scales: {
@@ -1664,7 +1674,9 @@ Retorno de la función:
 ```js
 {
     aspectRatio: ...,
-    font: {...},
+    font: {
+        color: ...
+    },
     plugins: {...},
     scales: {
         r: {
@@ -1680,6 +1692,103 @@ Retorno de la función:
 ```
 
 Este objeto de opciones ya puede ingresarse como propiedad predefinida de `options` al componente de gráfica radial.
+
+## Construcción de objeto de opciones para gráficas de radar
+
+Esta función construye el objeto de opciones para el componente de gráfica de radar.
+
+Uso declarando la gráfica de radar en un `string`:
+```js
+// Declaración de los parámetros en un objeto para mejorar visualización
+const params = {
+    labelsContainerID,
+    aspectRatio,
+    labelsDisplay,
+    labelsList,
+    legendBox,
+}
+
+const series = buildInitOptions['radar']( params )
+```
+
+Uso declarando la gráfica de radar usando constante (recomendado):
+```js
+// Declaración de los parámetros en un objeto para mejorar visualización de este ejemplo
+const params = {
+    labelsContainerID,
+    aspectRatio,
+    labelsDisplay,
+    labelsList,
+    legendBox,
+}
+
+const series = buildInitOptions[CHART_TYPES.RADAR]( params )
+```
+
+>   Para saber más sobre el uso de constantes, leer las secciones [Uso de constantes](#uso-de-constantes) y [Tipos de gráficas](#tipos-de-gráficas)
+
+La construcción del objeto de opciones para gráficas de burbuja recibe los siguientes parámetros:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `labelsContainerID` | `id` | *Requerido | ID del contenedor HTML `<div>` en donde se renderizarán las etiquetas del conjunto de datos. |
+| `aspectRatio` | `number - (División)` | *Declarado en los ajustes predeterminados* | Relación de aspecto de la gráfica |
+| `labelsDisplay` | `(Opción)` <br> <br> • `1`: Una columna <br> • `2`: 2 columnas <br> • `3`: 3 columnas <br> • `4`: 4 columnas <br> • `6`: 6 columnas | `1` | Número de columnas a ocupar por la lista de etiquetas. |
+| `labelsList` | `(Opción)` <br> <br> • `'default'`: Orientación por default (Fila) | `'default'` | Orientación de los elementos dentro de la etiqueta |
+| `legendBox` | `(Opción)` <br> <br> • `'circle'`: Cajas en forma de círculo <br> • `'rounded'`: Cajas cuadradas con bordes redondeados <br> • `'square'`: Cajas cuadradas | `'square'` | Forma de las cajas de color de las etiquetas. |
+
+**`labelsContainerID`: ID del elemento HTML contenedor de etiquetas**
+
+Este valor se obtiene de la ID asignada a un elemento HTML:
+```jsx
+const ChartComponent = ({...}) => {
+    ...
+    return (
+        <div>
+            {/* Elemento donde se renderizarán las gráficas */}
+            <div id="labels-container"></div>
+            {/* Componente de gráfica de ejemplo */}
+            <Bar {...}>
+        </div>
+    )
+}
+```
+
+En este caso, el ID sería `labels-container`:
+```js
+const labelsContainerID = "labels-container"
+```
+
+Retorno de la función:
+```js
+// Objeto de opciones preestablecidas para el componente de gráfica
+
+{
+    aspectRatio: ...,
+    font: {
+        color: ...
+    },
+    plugins: {...},
+    scales: {
+        r: {
+            angleLines: {
+                display: true
+            },
+            display: true,
+            grid: {
+                color: ...
+            },
+            pointLabels: {},
+            ticks: {
+                backdropColor: ...,
+                callback: ...
+            }
+        }
+    }
+}
+```
+
+Este objeto de opciones ya puede ingresarse como propiedad predefinida de `options` al componente de gráfica de radar.
 
 ----
 
