@@ -442,9 +442,13 @@ const formatBubbleChartTooltip = ({
         }
     
         // Formateo del valor de la etiqueta en función del tipo de valor del conjunto de datos
-        label += "[" + labelsFormats[xAxisFormat].raw(context.parsed.x) + ", "
-        label += labelsFormats[yAxisFormat].raw(context.parsed.y) + ", "
-        label += labelsFormats[yAxisFormat].raw(context.parsed._custom) + "]"
+        label += "["
+        label += labelsFormats[xAxisFormat].raw(context.parsed.x)
+        label += ", "
+        label += labelsFormats[yAxisFormat].raw(context.parsed.y)
+        label += ", "
+        label += labelsFormats[yAxisFormat].raw(context.parsed._custom)
+        label += "]"
     
         return label
     }
@@ -465,8 +469,11 @@ const formatScatterChartTooltip = ({
         }
     
         // Formateo del valor de la etiqueta en función del tipo de valor del conjunto de datos
-        label += "[" + labelsFormats[xAxisFormat].raw(context.parsed.x) + ", "
-        label += labelsFormats[yAxisFormat].raw(context.parsed.y) + "]"
+        label += "["
+        label += labelsFormats[xAxisFormat].raw(context.parsed.x)
+        label += ", "
+        label += labelsFormats[yAxisFormat].raw(context.parsed.y)
+        label += "]"
     
         return label
     }
