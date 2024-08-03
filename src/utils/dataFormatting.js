@@ -428,7 +428,8 @@ const formatRadarChartLabels = ({
 // Funciones de formateo en tooltip
 const formatBubbleChartTooltip = ({
     xAxisFormat,
-    yAxisFormat
+    yAxisFormat,
+    zAxisFormat,
 }) => {
 
     // Generación de función con el tipo de valor a formatear
@@ -447,7 +448,7 @@ const formatBubbleChartTooltip = ({
         label += ", "
         label += labelsFormats[yAxisFormat].raw(context.parsed.y)
         label += ", "
-        label += labelsFormats[yAxisFormat].raw(context.parsed._custom)
+        label += labelsFormats[zAxisFormat].raw(context.parsed._custom)
         label += "]"
     
         return label
@@ -943,12 +944,13 @@ export const formatTooltip = ({
     chartType,
     options,
     xAxisFormat,
-    yAxisFormat
+    yAxisFormat,
+    zAxisFormat,
 }) => {
 
     // Inicialización de las variables
     options.plugins.tooltip.callbacks = {}
-    options.plugins.tooltip.callbacks.label = formatTooltips[chartType]({ xAxisFormat, yAxisFormat })
+    options.plugins.tooltip.callbacks.label = formatTooltips[chartType]({ xAxisFormat, yAxisFormat, zAxisFormat })
 
     // Retorno del objeto contenedor de opciones
     return options
@@ -967,7 +969,7 @@ export const labelsFormats = {
 
     // Formato numérico
     [LABELS_FORMATS_SETTINGS.NUMERIC]: {
-        raw: (num) => (num),
+        raw: (num) => (num.toFixed(2)),
         toThousands: (num) => (`${num / 1000} K`),
         toMillions: (num) => (`${num / 1000000} M`),
         type: Number,

@@ -557,8 +557,9 @@ Los argumentos de entrada disponibles para cada objeto de la matriz, estructurad
 | `BORDER_COLORS` | `Color` - `array[Color]` | `RED_PALETTE` | Colores de borde para los elementos de la gráfica. El formato de cada color debe ser hexadecimal, por ejemplo `#FFFFFF`. Los colores deben tener ser RGB en formato hexadecimal y contener el símbolo `#` antes de éstos. |
 | `BORDER_OPACITY` | `number` | `100` | Opacidad de los colores de borde de los elementos de la gráfica. Debe ser un número del `0` al `100` en donde el `0` representa la transparencia total y el `100` un color totalmente sólido sin transparencia. |
 | `ASPECT_RATIO` | `number` - `(División)` | `1.5` | Relación de aspecto de la gráfica. Puede ser un número, como por ejemplo `1.5` o una división como `3/2` en donde el primer número o numerador representa la proporción horizontal y el segundo número o denominador representa la proporción vertical. Por ejemplo, `3/2` significa que, por cada 3 pixeles de ancho, la gráfica tendrá 2 pixeles de alto. |
-| `Y_VALUE_TYPE` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico que se representará en las etiquetas numéricas y el tooltip. |
-| `X_VALUE_TYPE` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico que se representará en las etiquetas numéricas y el tooltip. |
+| `X_AXIS_FORMAT` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico en el eje $X$ que se representará en las etiquetas numéricas y el tooltip. |
+| `Y_AXIS_FORMAT` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico en el eje $Y$ que se representará en las etiquetas numéricas y el tooltip. |
+| `Z_AXIS_FORMAT` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico en el eje $Z$ que se representará en las etiquetas numéricas y el tooltip. Disponible sólo para gráficas de burbuja |
 | `CATEGORY_STRATIFICATION_BY` | `string` | `undefined` | Variable categórica de estratificación para segmentar un conjunto de datos en varios conjuntos de datos para renderizarse en la gráfica. |
 | `LABEL_COLUMNS` | `(Opción)` <br> <br> • `1`: Organización en forma de lista <br> • `2`: Organización en lista de 2 columnas <br> • `3`: Organización en lista de 3 columnas <br> • `4`: Organización en lista de 4 columnas <br> • `6`: Organización en lista de 6 columnas | `1` | Orientación y alineación de las etiquetas. |
 | `LABELS_LIST` | `(Opción)` <br> <br> • `'default'`: Disposición por defecto | `'default'` | Orientación y alineación de cada contenedor de etiqueta. |
@@ -861,25 +862,26 @@ Los argumentos de entrada disponibles son:
 |----------|------|-------------------|-------------|
 | `data` | `object` | *Requerido | Objeto de datos recibido por medio de la solicitud GET al API. Para saber más, consulta la sección [Obtener datos para las gráficas](#obtener-datos-para-las-gráficas) |
 | `labelsContainerID` | `string` | *Requerido | ID del contenedor HTML `<div>` en donde se renderizarán las etiquetas del conjunto de datos. |
-| `[CHART_SETTINGS.CHART_TYPE ]` | `(opción)` <br><br> • `'bar'`: Gráfica de barras <br> • `'line'`: Gráfica de líneas <br> • `'pie'`: Gráfica de pastel <br> • `'doughnut'`: Gráfica de dona <br> • `'polar area'`: Gráfica de área polar <br> • `'radar'`: Gráfica de radar <br> • `'scatter'`: Gráfica de dispersión <br> • `'bubble'`: Gráfica de burbujas  | *Requerido | Tipo de gráfica a renderizar. |
-| `[CHART_SETTINGS.NAME ]` | `string` | *Requerido | Nombre de la gráfica a renderizar .|
-| `[CHART_SETTINGS.DATASET_NAMES ]` | `array [string]` | *Requerido | Nombre de la variable del JSON del endpoint de la cual se obtendrán los valores del o los conjuntos de datos a renderizar en los elementos de la gráfica. |
-| `[CHART_SETTINGS.LABELS ]` | `string` | *Requerido | Nombre de la variable del JSON del endpoint de la cual se obtendrá la variable categórica que funcionará para segmentar el o los conjuntos de datos. |
-| `[CHART_SETTINGS.LABELS_NAME ]` | `string` | *Requerido | Nombre descriptivo del grupo de etiquetas que se renderizará en la gráfica. |
-| `[CHART_SETTINGS.BACKGROUND_COLORS ]` | `Color` - `array [color]` | `[CHART_SETTINGS.RED_PALETTE ]` | Colores de fondo para los elementos de la gráfica. El formato de cada color debe ser hexadecimal, por ejemplo `#FFFFFF`. Los colores deben tener ser RGB en formato hexadecimal y contener el símbolo `#` antes de éstos. |
-| `[CHART_SETTINGS.BACKGROUND_OPACITY ]` | `number` | `100` | Opacidad de los colores de fondo de los elementos de la gráfica. Debe ser un número del `0` al `100` en donde el `0` representa la transparencia total y el `100` un color totalmente sólido sin transparencia. |
-| `[CHART_SETTINGS.BORDER_COLORS ]` | `Color` - `array[Color]` | `[CHART_SETTINGS.RED_PALETTE ]` | Colores de borde para los elementos de la gráfica. El formato de cada color debe ser hexadecimal, por ejemplo `#FFFFFF`. Los colores deben tener ser RGB en formato hexadecimal y contener el símbolo `#` antes de éstos. |
-| `[CHART_SETTINGS.BORDER_OPACITY ]` | `number` | `100` | Opacidad de los colores de borde de los elementos de la gráfica. Debe ser un número del `0` al `100` en donde el `0` representa la transparencia total y el `100` un color totalmente sólido sin transparencia. |
-| `[CHART_SETTINGS.ASPECT_RATIO ]` | `number` - `(División)` | `1.5` | Relación de aspecto de la gráfica. Puede ser un número, como por ejemplo `1.5` o una división como `3/2` en donde el primer número o numerador representa la proporción horizontal y el segundo número o denominador representa la proporción vertical. Por ejemplo, `3/2` significa que, por cada 3 pixeles de ancho, la gráfica tendrá 2 pixeles de alto. |
-| `[CHART_SETTINGS.Y_VALUE_TYPE ]` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico que se representará en las etiquetas numéricas y el tooltip. |
-| `[CHART_SETTINGS.X_VALUE_TYPE ]` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico que se representará en las etiquetas numéricas y el tooltip. |
-| `[CHART_SETTINGS.CATEGORY_STRATIFICATION_BY ]` | `string` | `undefined` | Variable categórica de estratificación para segmentar un conjunto de datos en varios conjuntos de datos para renderizarse en la gráfica. |
-| `[CHART_SETTINGS.LABEL_COLUMNS ]` | `(Opción)` <br> <br> • `1`: Organización en forma de lista <br> • `2`: Organización en lista de 2 columnas <br> • `3`: Organización en lista de 3 columnas <br> • `4`: Organización en lista de 4 columnas <br> • `6`: Organización en lista de 6 columnas | `1` | Orientación y alineación de las etiquetas. |
-| `[CHART_SETTINGS.LABELS_LIST ]` | `(Opción)` <br> <br> • `'default'`: Disposición por defecto | `'default'` | Orientación y alineación de cada contenedor de etiqueta. |
-| `[CHART_SETTINGS.LEGEND_BOX ]` | `(Opción)` <br> <br> • `'circle'`: Cajas circulares <br> • `'rounded'`: Cajas cuadradas con bordes redondeados <br> • `'square'`: Cajas cuadradas | `'square'` | Apariencia de la caja de color de las etiquetas. |
-| `[CHART_SETTINGS.MIN_BUBBLE_SIZE ]` | `number` | `2` | Tamaño mínimo de elementos de burbuja en gráfica de burbuja. |
-| `[CHART_SETTINGS.MAX_BUBBLE_SIZE ]` | `number` | `16` | Tamaño máximo de elementos de burbuja en gráfica de burbuja. |
-| `[CHART_SETTINGS.TRANSPOSED ]` | `boolean` | `false` | Transponer gráfica. Si se activa este parámetro, los datos de los ejes $X$ y $Y$ se invertirán. Esto sólo es válido para gráficas de barras, de dispersión y de burbuja. |
+| `[CHART_SETTINGS.CHART_TYPE]` | `(opción)` <br><br> • `'bar'`: Gráfica de barras <br> • `'line'`: Gráfica de líneas <br> • `'pie'`: Gráfica de pastel <br> • `'doughnut'`: Gráfica de dona <br> • `'polar area'`: Gráfica de área polar <br> • `'radar'`: Gráfica de radar <br> • `'scatter'`: Gráfica de dispersión <br> • `'bubble'`: Gráfica de burbujas  | *Requerido | Tipo de gráfica a renderizar. |
+| `[CHART_SETTINGS.NAME]` | `string` | *Requerido | Nombre de la gráfica a renderizar .|
+| `[CHART_SETTINGS.DATASET_NAMES]` | `array [string]` | *Requerido | Nombre de la variable del JSON del endpoint de la cual se obtendrán los valores del o los conjuntos de datos a renderizar en los elementos de la gráfica. |
+| `[CHART_SETTINGS.LABELS]` | `string` | *Requerido | Nombre de la variable del JSON del endpoint de la cual se obtendrá la variable categórica que funcionará para segmentar el o los conjuntos de datos. |
+| `[CHART_SETTINGS.LABELS_NAME]` | `string` | *Requerido | Nombre descriptivo del grupo de etiquetas que se renderizará en la gráfica. |
+| `[CHART_SETTINGS.BACKGROUND_COLORS]` | `Color` - `array [color]` | `[CHART_SETTINGS.RED_PALETTE]` | Colores de fondo para los elementos de la gráfica. El formato de cada color debe ser hexadecimal, por ejemplo `#FFFFFF`. Los colores deben tener ser RGB en formato hexadecimal y contener el símbolo `#` antes de éstos. |
+| `[CHART_SETTINGS.BACKGROUND_OPACITY]` | `number` | `100` | Opacidad de los colores de fondo de los elementos de la gráfica. Debe ser un número del `0` al `100` en donde el `0` representa la transparencia total y el `100` un color totalmente sólido sin transparencia. |
+| `[CHART_SETTINGS.BORDER_COLORS]` | `Color` - `array[Color]` | `[CHART_SETTINGS.RED_PALETTE]` | Colores de borde para los elementos de la gráfica. El formato de cada color debe ser hexadecimal, por ejemplo `#FFFFFF`. Los colores deben tener ser RGB en formato hexadecimal y contener el símbolo `#` antes de éstos. |
+| `[CHART_SETTINGS.BORDER_OPACITY]` | `number` | `100` | Opacidad de los colores de borde de los elementos de la gráfica. Debe ser un número del `0` al `100` en donde el `0` representa la transparencia total y el `100` un color totalmente sólido sin transparencia. |
+| `[CHART_SETTINGS.ASPECT_RATIO]` | `number` - `(División)` | `1.5` | Relación de aspecto de la gráfica. Puede ser un número, como por ejemplo `1.5` o una división como `3/2` en donde el primer número o numerador representa la proporción horizontal y el segundo número o denominador representa la proporción vertical. Por ejemplo, `3/2` significa que, por cada 3 pixeles de ancho, la gráfica tendrá 2 pixeles de alto. |
+| `[CHART_SETTINGS.X_AXIS_FORMAT]` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico en el eje $X$ que se representará en las etiquetas numéricas y el tooltip. |
+| `[CHART_SETTINGS.Y_AXIS_FORMAT]` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico en el eje $Y$ que se representará en las etiquetas numéricas y el tooltip. |
+| `[CHART_SETTINGS.Z_AXIS_FORMAT]` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico en el eje $Z$ que se representará en las etiquetas numéricas y el tooltip. Disponible sólo para gráficas de burbuja |
+| `[CHART_SETTINGS.CATEGORY_STRATIFICATION_BY]` | `string` | `undefined` | Variable categórica de estratificación para segmentar un conjunto de datos en varios conjuntos de datos para renderizarse en la gráfica. |
+| `[CHART_SETTINGS.LABEL_COLUMNS]` | `(Opción)` <br> <br> • `1`: Organización en forma de lista <br> • `2`: Organización en lista de 2 columnas <br> • `3`: Organización en lista de 3 columnas <br> • `4`: Organización en lista de 4 columnas <br> • `6`: Organización en lista de 6 columnas | `1` | Orientación y alineación de las etiquetas. |
+| `[CHART_SETTINGS.LABELS_LIST]` | `(Opción)` <br> <br> • `'default'`: Disposición por defecto | `'default'` | Orientación y alineación de cada contenedor de etiqueta. |
+| `[CHART_SETTINGS.LEGEND_BOX]` | `(Opción)` <br> <br> • `'circle'`: Cajas circulares <br> • `'rounded'`: Cajas cuadradas con bordes redondeados <br> • `'square'`: Cajas cuadradas | `'square'` | Apariencia de la caja de color de las etiquetas. |
+| `[CHART_SETTINGS.MIN_BUBBLE_SIZE]` | `number` | `2` | Tamaño mínimo de elementos de burbuja en gráfica de burbuja. |
+| `[CHART_SETTINGS.MAX_BUBBLE_SIZE]` | `number` | `16` | Tamaño máximo de elementos de burbuja en gráfica de burbuja. |
+| `[CHART_SETTINGS.TRANSPOSED]` | `boolean` | `false` | Transponer gráfica. Si se activa este parámetro, los datos de los ejes $X$ y $Y$ se invertirán. Esto sólo es válido para gráficas de barras, de dispersión y de burbuja. |
 
 > La declaración de estos argumentos utiliza propiedades computadas y constantes. Para saber más, consultar las secciones [Destructuración y propiedades computadas](#destructuración-y-propiedades-computadas) y [Uso de constantes](#uso-de-constantes).
 
@@ -887,43 +889,45 @@ La función luce así:
 ```js
 export const buildData = ({
     // Objeto de datos retornado del API
-    data,
+    data, 
     // ID del contenedor de etiquetas
-    labelsContainerID,
+    labelsContainerID, 
     // Tipo de gráfica
-    [CHARTS_SETTINGS.CHART_TYPE]: chartType,
+    [CHARTS_SETTINGS.CHART_TYPE]: chartType, 
     // Variable de etiquetas de la gráfica de barras
-    [CHARTS_SETTINGS.LABELS_NAME]: labelsName,
+    [CHARTS_SETTINGS.LABELS_NAME]: labelsName, 
     // Variable de cada uno de los conjuntos de datos en el objeto
-    [CHARTS_SETTINGS.DATASETS_NAMES]: datasetNames,
+    [CHARTS_SETTINGS.DATASETS_NAMES]: datasetNames, 
     // Nombres visibles en la gráfica para cada conjunto de datos
-    [CHARTS_SETTINGS.LABELS]: labels,
+    [CHARTS_SETTINGS.LABELS]: labels, 
 
     // Argumentos opcionales
     // Colores de fondo de los conjuntos de datos
-    [CHARTS_SETTINGS.BACKGROUND_COLORS]: backgroundColors = chartSettings[ [CHARTS_SETTINGS.BACKGROUND_COLORS] ],
+    [CHARTS_SETTINGS.BACKGROUND_COLORS]: backgroundColors = chartSettings.backgroundColors, 
     // Opacidad de los colores de fondo
-    [CHARTS_SETTINGS.BACKGROUND_OPACITY]: backgroundOpacity = chartSettings[ [CHARTS_SETTINGS.BACKGROUND_OPACITY] ],
+    [CHARTS_SETTINGS.BACKGROUND_OPACITY]: backgroundOpacity = chartSettings[ [CHARTS_SETTINGS.BACKGROUND_OPACITY] ], 
     // Colores de borde de los conjuntos de datos
-    [CHARTS_SETTINGS.BORDER_COLORS]: borderColors = chartSettings[ [CHARTS_SETTINGS.BORDER_COLORS] ],
+    [CHARTS_SETTINGS.BORDER_COLORS]: borderColors = chartSettings[ [CHARTS_SETTINGS.BORDER_COLORS] ], 
     // Opacidad de los colores de borde
-    [CHARTS_SETTINGS.BORDER_OPACITY]: borderOpacity = chartSettings[ [CHARTS_SETTINGS.BORDER_OPACITY] ],
+    [CHARTS_SETTINGS.BORDER_OPACITY]: borderOpacity = chartSettings[ [CHARTS_SETTINGS.BORDER_OPACITY] ], 
     // Relación de aspecto de la gráfica
-    [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio = chartSettings[ [CHARTS_SETTINGS.ASPECT_RATIO] ],
+    [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio = chartSettings[ [CHARTS_SETTINGS.ASPECT_RATIO] ], 
     // Formateo en las etiquetas del eje X
-    [CHARTS_SETTINGS.X_AXIS_FORMAT]: xAxisFormat = chartSettings[ [CHARTS_SETTINGS.X_AXIS_FORMAT] ],
+    [CHARTS_SETTINGS.X_AXIS_FORMAT]: xAxisFormat = chartSettings[ [CHARTS_SETTINGS.X_AXIS_FORMAT] ], 
     // Formateo en las etiquetas del eje Y
-    [CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat = chartSettings[ [CHARTS_SETTINGS.Y_AXIS_FORMAT] ],
+    [CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat = chartSettings[ [CHARTS_SETTINGS.Y_AXIS_FORMAT] ], 
+    // Formateo en las etiquetas del eje Z
+    [CHARTS_SETTINGS.Z_AXIS_FORMAT]: zAxisFormat = chartSettings[ [CHARTS_SETTINGS.Z_AXIS_FORMAT] ], 
     // Variable de estratificación
-    [CHARTS_SETTINGS.CATEGORY_STRATIFICATION_BY]: strat = chartSettings[ [CHARTS_SETTINGS.CATEGORY_STRATIFICATION_BY] ],
+    [CHARTS_SETTINGS.CATEGORY_STRATIFICATION_BY]: strat = chartSettings[ [CHARTS_SETTINGS.CATEGORY_STRATIFICATION_BY] ], 
     // Estilo de contenedor de etiquetas
-    [CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay = chartSettings[ [CHARTS_SETTINGS.LABEL_COLUMNS] ],
+    [CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay = chartSettings[ [CHARTS_SETTINGS.LABEL_COLUMNS] ], 
     // Estilo de lista de etiquetas
-    [CHARTS_SETTINGS.LABELS_LIST]: labelsList = chartSettings[ [CHARTS_SETTINGS.LABELS_LIST] ],
+    [CHARTS_SETTINGS.LABELS_LIST]: labelsList = chartSettings[ [CHARTS_SETTINGS.LABELS_LIST] ], 
     // Estilo de cajas de color de etiquetas
-    [CHARTS_SETTINGS.LEGEND_BOX]: legendBox = chartSettings[ [CHARTS_SETTINGS.LEGEND_BOX] ],
+    [CHARTS_SETTINGS.LEGEND_BOX]: legendBox = chartSettings[ [CHARTS_SETTINGS.LEGEND_BOX] ], 
     // Indicador de transposición de ejes en la gráfica
-    [CHARTS_SETTINGS.TRANSPOSED]: transposed = chartSettings[ [CHARTS_SETTINGS.TRANSPOSED ]]
+    [CHARTS_SETTINGS.TRANSPOSED]: transposed = chartSettings[ [CHARTS_SETTINGS.TRANSPOSED] ] 
 }) => {
 
     // Inicialización del contenedor de datos con formato dinámico
@@ -933,14 +937,14 @@ export const buildData = ({
     series = mapColorsOnSeries({ series, chartType, backgroundColors, backgroundOpacity, borderColors, borderOpacity });
 
     // Inicialización del contenedor de opciones
-    let options = buildInitOptions[chartType]({ series, chartType, labelsContainerID, aspectRatio, labelsDisplay, labelsList, legendBox, transposed });
+    let options = buildInitOptions[chartType]({ series, labelsContainerID, aspectRatio, labelsDisplay, labelsList, legendBox, transposed });
 
     // Asignación de nombres de clase a elementos HTML internos de la gráfica
     options = assignCSSStyles({ options });
 
     // Formateo de etiquetas en la gráfica
     [ series, options ] = formatLabels[chartType]({ chartType, series, options, xAxisFormat, yAxisFormat, transposed });
-    options = formatTooltip({ chartType, options, xAxisFormat, yAxisFormat })
+    options = formatTooltip({ chartType, options, xAxisFormat, yAxisFormat, zAxisFormat })
 
     // Formateo de escalas en ejes
     options = scaleAxes({ chartType, series, options });
@@ -1847,7 +1851,7 @@ export const labelsFormats = {
 
     // Formato numérico
     [LABELS_FORMATS_SETTINGS.NUMERIC]: {
-        raw: (num) => (num),
+        raw: (num) => (num.toFixed(2)),
         toThousands: (num) => (`${num / 1000} K`),
         toMillions: (num) => (`${num / 1000000} M`),
         type: Number,
@@ -2103,8 +2107,8 @@ Esta función formatea la visualización de las etiquetas numéricas en los ejes
 
 Uso declarando el tipo de gráfico en un `string`:
 ```js
-formatLabels['bubble']({ series, options, xAxisFormat, yAxisFormat, transposed })
-formatLabels['scatter']({ series, options, xAxisFormat, yAxisFormat, transposed })
+formatLabels['bubble']({ series, options, xAxisFormat, yAxisFormat, zAxisFormat, transposed })
+formatLabels['scatter']({ series, options, xAxisFormat, yAxisFormat, zAxisFormat, transposed })
 ```
 
 Uso declarando el tipo de gráfico usando constante (recomendado):

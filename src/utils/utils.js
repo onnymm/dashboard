@@ -31,6 +31,8 @@ export const buildData = ({
     [CHARTS_SETTINGS.X_AXIS_FORMAT]: xAxisFormat = chartSettings[ [CHARTS_SETTINGS.X_AXIS_FORMAT] ], 
     // Formateo en las etiquetas del eje Y
     [CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat = chartSettings[ [CHARTS_SETTINGS.Y_AXIS_FORMAT] ], 
+    // Formateo en las etiquetas del eje Z
+    [CHARTS_SETTINGS.Z_AXIS_FORMAT]: zAxisFormat = chartSettings[ [CHARTS_SETTINGS.Z_AXIS_FORMAT] ], 
     // Variable de estratificación
     [CHARTS_SETTINGS.CATEGORY_STRATIFICATION_BY]: strat = chartSettings[ [CHARTS_SETTINGS.CATEGORY_STRATIFICATION_BY] ], 
     // Estilo de contenedor de etiquetas
@@ -57,7 +59,7 @@ export const buildData = ({
 
     // Formateo de etiquetas en la gráfica
     [ series, options ] = formatLabels[chartType]({ chartType, series, options, xAxisFormat, yAxisFormat, transposed });
-    options = formatTooltip({ chartType, options, xAxisFormat, yAxisFormat })
+    options = formatTooltip({ chartType, options, xAxisFormat, yAxisFormat, zAxisFormat })
 
     // Formateo de escalas en ejes
     options = scaleAxes({ chartType, series, options });
