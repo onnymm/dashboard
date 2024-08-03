@@ -15,14 +15,16 @@ const estoEsUnaVariable = 5
 
 ----
 
-## Índice
+# Índice
+
+## Arquitectura de la aplicación
 
 ### Introducción
 
-**Librerías de terceros**
+**[￭ Librerías de terceros](#librerías-de-terceros)**
 - [Librerías utilizadas en el proyecto](#librerías-utilizadas-en-el-proyecto)
 
-**Estructura del proyecto**
+**[￭ Estructura del proyecto](#estructura-del-proyecto)**
 - [Descripción general de la estructura del proyecto](#descripción-general-de-la-estructura-del-proyecto)
 - [Uso de constantes](#uso-de-constantes)
 - [Destructuración y propiedades computadas](#destructuración-y-propiedades-computadas)
@@ -32,56 +34,55 @@ const estoEsUnaVariable = 5
 - [Ajustes predefinidos](#ajustes-predefinidos)
 - [Funciones de utilidades](#funciones-de-utilidades)
 
-### Configuración de la aplicación
-
-**Configuración del Dashboard**
-- [Gráficas](#gráficas)
-
-### Componentes
-
-**Principales**
-- [Componente principal de gráfica](#componente-principal-de-gráfica)
-
-### Constantes para la aplicación
-
-**Constantes globales**
+**[￭ Constantes para la aplicación](#constantes-para-la-aplicación)**
 - [Colores](#colores)
-
-**Estilos para las gráficas**
 - [Tipos de gráficas](#tipos-de-gráficas)
 - [Nombres de ajustes de gráficas](#nombres-de-ajustes-de-gráficas)
 - [Nombres de ajustes de series de los conjuntos de datos](#nombres-de-ajustes-de-series-de-los-conjuntos-de-datos)
 
-### Manejadores de solicitudes a APIs
+**[￭ Configuraciones globales](#configuraciones-globales)**
+- [Ajustes predefinidos](#ajustes-predefinidos)
 
-**Manejadores de solicitudes a APIs (Métodos GET)**
+### Configuración de la aplicación
+
+**[￭ Configuración del Dashboard](#configuración-del-dashboard)**
+- [Gráficas](#gráficas)
+
+**[￭ Manejadores de solicitudes a APIs (Métodos GET)](#manejadores-de-solicitudes-a-apis-métodos-get)**
 - [Obtener datos para las gráficas](#obtener-datos-para-las-gráficas)
+
+## Arquitectura de los componentes de gráficas
+
+### Elementos principales de gráficas
+
+**[￭ Componentes de gráficas](#componentes-de-gráficas)**
+- [Componente principal de gráfica](#componente-principal-de-gráfica)
 
 ### Funcionamiento interno
 
-**Funciones principales**
+**[￭ Funciones principales para gráficas](#funciones-principales-para-gráficas)**
 - [Construcción principal de objeto de datos y opciones para componente de gráfica](#construcción-principal-de-objeto-de-datos-y-opciones-para-componente-de-gráfica)
 
-**Funciones para componentes de gráficas**
+**[￭ Funciones para componentes de gráficas](#funciones-para-componentes-de-gráficas)**
 - [Estratificación de conjunto de datos por variable categórica](#estratificación-de-conjunto-de-datos-por-variable-categórica)
 - [Obtención de un único conjunto de datos](#obtención-de-un-único-conjunto-de-datos)
 - [Obtención de etiquetas de un conjunto de datos](#obtención-de-etiquetas-de-un-conjunto-de-datos)
 
-**Construcción de estructuras de datos**
+**[￭ Construcción de estructuras de datos para gráficas](#construcción-de-estructuras-de-datos-para-gráficas)**
 - [Construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja)
 - [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión)
 - [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales)
 
-**Construcción de objeto de opciones**
+**[￭ Construcción de estructuras de configuración para gráficas](#construcción-de-estructuras-de-configuración-para-gráficas)**
 - [Construcción de objeto de opciones para gráfica de burbujas](#construcción-de-objeto-de-opciones-para-gráfica-de-burbujas)
 - [Construcción de objeto de opciones para gráficas cartesianas](#construcción-de-objeto-de-opciones-para-gráficas-cartesianas)
 - [Construcción de objeto de opciones para gráficas radiales](#construcción-de-objeto-de-opciones-para-gráficas-radiales)
 - [Construcción de objeto de opciones para gráficas de radar](#construcción-de-objeto-de-opciones-para-gráficas-de-radar)
 
-**Estilización de etiquetas de gráficas**
+**[￭ Estilización de etiquetas de gráficas](#estilización-de-etiquetas-de-gráficas)**
 - [Estilización de etiquetas HTML de gráficas](#estilización-de-etiquetas-html-de-gráficas)
 
-**Formateo de etiquetas en los ejes de gráficas**
+**[￭ Formateo de etiquetas en los ejes de gráficas](#formateo-de-etiquetas-en-los-ejes-de-gráficas)**
 - [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto)
 - [Asignación de formateo numérico](#asignación-de-formateo-numérico)
 - [Asignación de formateo de etiquetas](#asignación-de-formateo-de-etiquetas)
@@ -89,13 +90,12 @@ const estoEsUnaVariable = 5
 - [Formateo de etiquetas en ejes de gráficas cartesianas](#formateo-de-etiquetas-en-ejes-de-gráficas-cartesianas)
 - [Formateo de etiquetas en ejes de gráficas radiales](#formateo-de-etiquetas-en-ejes-de-gráficas-radiales)
 
-**Plug-ins de Charts.js**
-
+**[￭ Plug-ins de Charts.js](#plug-ins-de-chartsjs)**
 - [htmlLegend: Desacoplamiento de etiquetas de conjuntos de datos](#htmllegend-desacoplamiento-de-etiquetas-de-conjuntos-de-datos)
 - [darkMode: Integración de modo oscuro](#darkmode-integración-de-modo-oscuro)
 - [stylingCSS: Asignación de clases CSS a elementos HTML generados por gráficas](#stylingcss-asignación-de-clases-css-a-elementos-html-generados-por-gráficas)
 
-**Mapeo de colores en gráficas**
+**[￭ Mapeo de colores en gráficas](#mapeo-de-colores-en-gráficas)**
 - [Mapeo de opacidades en formato hexadecimal](#mapeo-de-opacidades-en-formato-hexadecimal)
 - [Mapeo de colores a conjuntos de datos](#mapeo-de-colores-a-conjuntos-de-datos)
 - [Mapeo de opacidades y tipos de colores en los conjuntos de datos](#mapeo-de-opacidades-y-tipos-de-colores-en-los-conjuntos-de-datos)
@@ -133,7 +133,7 @@ export const RED_HUE = 353
 export const SATURED_RED = "#FF001E"
 ```
 
-Las constantes son una implementación en la aplicación que ayudan a reducir *typos* en el código al usar valores de tipo *string* eficientando el flujo de trabajo en el desarrollo. Las constantes también son una forma de escalar el proyecto y homogeneizar valores en la aplicación ya que sólo requieren un cambio que se propaga por ésta y no muchos cambios en varios archivos.
+Las constantes son una implementación en la aplicación que ayudan a reducir *typos* en el código al usar valores de tipo `string` eficientando el flujo de trabajo en el desarrollo. Las constantes también son una forma de escalar el proyecto y homogeneizar valores en la aplicación ya que sólo requieren un cambio que se propaga por ésta y no muchos cambios en varios archivos.
 
 ## Destructuración y propiedades computadas
 
@@ -376,6 +376,123 @@ export const buildData = ({
 
 ----
 
+# Constantes para la aplicación
+
+## Colores
+- **Ubicación:** `src/constants/colors.js`
+
+En este archivo se encuentran los valores de colores y otros parámetros utilizados por la aplicación completa, desde la paleta de colores, colores preestablecidos en formato hexadecimal hasta valores de opacidad en formato hexadecimal. Los colores preestablecidos en formato hexadecimal se pueden concatenar con los valores de opacidad en los casos en los que los componentes lo requieran como en el caso de los componentes de graficación:
+```js
+export const SATURED_RED = "#FF001E"
+
+export const OPACITIES = {
+    0: "00",
+    5: "0B",
+    ...
+}
+
+export const RED_PALETTE = [
+    "#8C0413",
+    "#B70217",
+    ...
+]
+```
+
+Uso:
+```js
+setData(
+    buildBarData(
+        // ...argumentos
+        `${saturedRed}${opacity[75]}`,
+        // ...más argumentos
+    )
+)
+```
+
+>   En este caso, el color a utilizar sería un rojo saturado con opacidad de 75%, lo que resultaría en el valor `#FF001EBF` en formato hexadecimal. Nótese que estas constantes se utilizan en funciones internas y el ejemplo sólo es ilustrativo y pertenece a una versión antigua de la declaración de las gráficas.
+
+## Tipos de gráficas
+- **Archivo:** `src/constants/charts.js`
+- **Constante:** `CHART_TYPES`
+
+Esta constante contiene los nombres de los tipos de gráficas disponibles para ser mostradas en el dashboard de la aplicación:
+
+```js
+{
+    BAR: 'bar', // Gráfica de barras
+    LINE: 'line', // Gráfica de líneas
+    PIE: 'pie', // Gráfica de pastel
+    DOUGHNUT: 'doughnut', // Gráfica de dona
+    POLARAREA: 'polar area', // Gráfica de área polar
+    RADAR: 'radar' // Gráfica de radar
+}
+```
+
+Uso:
+```js
+const dasboardData = {
+    charts = [
+        {
+            chartType: CHART_TYPES.BAR // Se define una gráfica de tipo barras
+            ...
+        }
+        ...
+    ]
+}
+```
+
+## Nombres de ajustes de gráficas
+- **Ubicación:** `src/constants/settings.js`
+- **Constante:** `CHARTS_SETINGS`
+
+Este objeto contiene los nombres de ajustes de las gráficas a renderizar, utilizados principalmente para la construcción de la estructura de datos y opciones de cada una de las gráficas.
+
+```js
+export const CHARTS_SETTINGS = {
+    // Endpoint de URL de donde se solicitará la información
+    ENDPOINT: 'endpoint',
+    // Tipo de gráfica
+    CHART_TYPE: 'chartType',
+    // Nombre de la gráfica
+    NAME: 'name',
+    ...
+}
+```
+
+Uso:
+```js
+export const dashboardData = {
+    charts: [
+        {
+            [CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
+            [CHARTS_SETTINGS.CHART_TYPE]: 'bar',
+            [CHARTS_SETTINGS.NAME]: 'Cotizaciones por vendedora',
+            ... // Resto de parámetros
+        }
+    ]
+}
+```
+
+>   Estas constantes se utilizan mayormente para la configuración del Dashboard y declaración de los nombres de los parámetros de funciones de utilidad. Para más información sobre los parámetros disponibles, leer la sección [Gráficas](#gráficas).
+
+## Nombres de ajustes de series de los conjuntos de datos
+- **Ubicación:** `src/constants/settings.js`
+- **Constante:** `CHARTS_SERIES_SETTINGS`
+
+Este objeto contiene los nombres de ajustes de los conjuntos de datos individuales para uso en funciones internas.
+```js
+{
+    // Color de fondo
+    BACKGROUND_COLOR: "backgroundColor",
+    // Color de borde
+    BORDER_COLOR: "borderColor",
+    // Color de relleno
+    FILL: 'fill',
+}
+```
+
+----
+
 # Configuraciones globales
 
 ## Ajustes predefinidos
@@ -454,7 +571,40 @@ Los objetos declarados en la matriz se renderizarán, cada uno, en un componente
 
 ----
 
-# Componentes
+# Manejadores de solicitudes a APIs (Métodos GET)
+
+## Obtener datos para las gráficas
+- **Archivo:** `get.js`
+- **Función:** `getChartData`
+
+Esta función permite obtener los datos necesarios para renderizar un componente de gráfica. Los parámetros disponibles para utilizar con la función son los siguientes:
+
+**Parámetros de entrada:**
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `stateSetter` | `function` | *Requerido | Función de cambio de estado para ingresar la información a un estado de React.js. |
+| `endpoint` | `string` | *Requerido | Endpoint de la URL de donde se solicitará la información. Por ejemplo, si la URL completa es `https://www.estoesunsitio.com/esto_es_el_endpoint`, en este campo se debe ingresar el fragmento `esto_es_el_endpoint`. |
+| `domain` | `string` | (Dominio por defecto preconfigurado en el archivo `appConfig.js`). Leer la sección [Configuraciones globales](#configuraciones-globales) para más información | Dominio que sólo se usa en casos en los que se quiera especficar un dominio diferente al configurado por defecto en el archivo `src/data/appConfig.js`, por ejemplo, `https://www.estoesunsitio.com/` (Nota: el dominio debe contener el `/` al final). |
+
+Para utilizar la función de solicitud al API se requiere una función de cambio de estado y un endpoint a utilizar, por ejemplo:
+```js
+getChartData(setLoadData, "endpoint_example")
+```
+
+>   Esta función realizaría una solicitud a la URL `http://www.defaultdomain.com/endpoint_example`.
+
+También existe la posibilidad en exceptuar al API configurado en el archivo `appConfig.js` proporcionando un dominio específico:
+
+```js
+getChartData(setLoadData, "endpoint_example", "https://www.midominioespecifico.com/")
+```
+
+>   Esta función realizaría una solicitud a la URL `https://www.midominioespecifico.com/endpoint_example`.
+
+----
+
+# Componentes de gráficas
 
 ## Componente principal de gráfica
 - Ubicación: `src/components/charts`
@@ -697,157 +847,7 @@ Los argumentos de entrada disponibles son los siguientes:
 
 ----
 
-# Constantes para la aplicación
-
-## Colores
-- **Ubicación:** `src/constants/colors.js`
-
-En este archivo se encuentran los valores de colores y otros parámetros utilizados por la aplicación completa, desde la paleta de colores, colores preestablecidos en formato hexadecimal hasta valores de opacidad en formato hexadecimal. Los colores preestablecidos en formato hexadecimal se pueden concatenar con los valores de opacidad en los casos en los que los componentes lo requieran como en el caso de los componentes de graficación:
-```js
-export const SATURED_RED = "#FF001E"
-
-export const OPACITIES = {
-    0: "00",
-    5: "0B",
-    ...
-}
-
-export const RED_PALETTE = [
-    "#8C0413",
-    "#B70217",
-    ...
-]
-```
-
-Uso:
-```js
-setData(
-    buildBarData(
-        // ...argumentos
-        `${saturedRed}${opacity[75]}`,
-        // ...más argumentos
-    )
-)
-```
-
->   En este caso, el color a utilizar sería un rojo saturado con opacidad de 75%, lo que resultaría en el valor `#FF001EBF` en formato hexadecimal. Nótese que estas constantes se utilizan en funciones internas y el ejemplo sólo es ilustrativo y pertenece a una versión antigua de la declaración de las gráficas.
-
-## Tipos de gráficas
-- **Archivo:** `src/constants/charts.js`
-- **Constante:** `CHART_TYPES`
-
-Esta constante contiene los nombres de los tipos de gráficas disponibles para ser mostradas en el dashboard de la aplicación:
-
-```js
-{
-    BAR: 'bar', // Gráfica de barras
-    LINE: 'line', // Gráfica de líneas
-    PIE: 'pie', // Gráfica de pastel
-    DOUGHNUT: 'doughnut', // Gráfica de dona
-    POLARAREA: 'polar area', // Gráfica de área polar
-    RADAR: 'radar' // Gráfica de radar
-}
-```
-
-Uso:
-```js
-const dasboardData = {
-    charts = [
-        {
-            chartType: CHART_TYPES.BAR // Se define una gráfica de tipo barras
-            ...
-        }
-        ...
-    ]
-}
-```
-
-## Nombres de ajustes de gráficas
-- **Ubicación:** `src/constants/settings.js`
-- **Constante:** `CHARTS_SETINGS`
-
-Este objeto contiene los nombres de ajustes de las gráficas a renderizar, utilizados principalmente para la construcción de la estructura de datos y opciones de cada una de las gráficas.
-
-```js
-export const CHARTS_SETTINGS = {
-    // Endpoint de URL de donde se solicitará la información
-    ENDPOINT: 'endpoint',
-    // Tipo de gráfica
-    CHART_TYPE: 'chartType',
-    // Nombre de la gráfica
-    NAME: 'name',
-    ...
-}
-```
-
-Uso:
-```js
-export const dashboardData = {
-    charts: [
-        {
-            [CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
-            [CHARTS_SETTINGS.CHART_TYPE]: 'bar',
-            [CHARTS_SETTINGS.NAME]: 'Cotizaciones por vendedora',
-            ... // Resto de parámetros
-        }
-    ]
-}
-```
-
->   Estas constantes se utilizan mayormente para la configuración del Dashboard y declaración de los nombres de los parámetros de funciones de utilidad. Para más información sobre los parámetros disponibles, leer la sección [Gráficas](#gráficas).
-
-## Nombres de ajustes de series de los conjuntos de datos
-- **Ubicación:** `src/constants/settings.js`
-- **Constante:** `CHARTS_SERIES_SETTINGS`
-
-Este objeto contiene los nombres de ajustes de los conjuntos de datos individuales para uso en funciones internas.
-```js
-{
-    // Color de fondo
-    BACKGROUND_COLOR: "backgroundColor",
-    // Color de borde
-    BORDER_COLOR: "borderColor",
-    // Color de relleno
-    FILL: 'fill',
-}
-```
-
-----
-
-# Manejadores de solicitudes a APIs (Métodos GET)
-
-## Obtener datos para las gráficas
-- **Archivo:** `get.js`
-- **Función:** `getChartData`
-
-Esta función permite obtener los datos necesarios para renderizar un componente de gráfica. Los parámetros disponibles para utilizar con la función son los siguientes:
-
-**Parámetros de entrada:**
-
-| Atributo | Tipo | Valor por defecto | Descripción |
-|----------|------|-------------------|-------------|
-| `stateSetter` | `function` | *Requerido | Función de cambio de estado para ingresar la información a un estado de React.js. |
-| `endpoint` | `string` | *Requerido | Endpoint de la URL de donde se solicitará la información. Por ejemplo, si la URL completa es `https://www.estoesunsitio.com/esto_es_el_endpoint`, en este campo se debe ingresar el fragmento `esto_es_el_endpoint`. |
-| `domain` | `string` | (Dominio por defecto preconfigurado en el archivo `appConfig.js`). Leer la sección [Configuraciones globales](#configuraciones-globales) para más información | Dominio que sólo se usa en casos en los que se quiera especficar un dominio diferente al configurado por defecto en el archivo `src/data/appConfig.js`, por ejemplo, `https://www.estoesunsitio.com/` (Nota: el dominio debe contener el `/` al final). |
-
-Para utilizar la función de solicitud al API se requiere una función de cambio de estado y un endpoint a utilizar, por ejemplo:
-```js
-getChartData(setLoadData, "endpoint_example")
-```
-
->   Esta función realizaría una solicitud a la URL `http://www.defaultdomain.com/endpoint_example`.
-
-También existe la posibilidad en exceptuar al API configurado en el archivo `appConfig.js` proporcionando un dominio específico:
-
-```js
-getChartData(setLoadData, "endpoint_example", "https://www.midominioespecifico.com/")
-```
-
->   Esta función realizaría una solicitud a la URL `https://www.midominioespecifico.com/endpoint_example`.
-
-----
-
-# Funcionamiento interno
+# Funciones principales para gráficas
 
 ## Construcción principal de objeto de datos y opciones para componente de gráfica
 - Ubicación: `src/utils/utils.js`
@@ -1009,6 +1009,10 @@ export const buildData = ({
 >   
 >   >   Para saber más sobre el componente princpal de gráfica, consultar la sección [Componente principal de gráfica](#componente-principal-de-gráfica)
 
+----
+
+# Funciones para componentes de gráficas
+
 ## Estratificación de conjunto de datos por variable categórica
 - **Ubicación:** `dataFormatting.js`
 - **Función:** `stratificateData`
@@ -1145,6 +1149,10 @@ Retorno de la función:
 ```js
 ['name 1', 'name 2', 'name 3']
 ```
+
+----
+
+# Construcción de estructuras de datos para gráficas
 
 ## Construcción de estructura de datos para gráficas de burbuja
 
@@ -1395,6 +1403,10 @@ La estructura de salida, en base a los valores de ejemplo, sería la siguiente:
 ```
 
 Este objeto puede ser ingresado al argumento `series` del componente de gráfica de dispersión.
+
+----
+
+# Construcción de estructuras de configuración para gráficas
 
 ## Construcción de objeto de opciones para gráfica de burbujas
 
@@ -1801,6 +1813,10 @@ Retorno de la función:
 
 Este objeto de opciones ya puede ingresarse como propiedad predefinida de `options` al componente de gráfica de radar.
 
+----
+
+# Estilización de etiquetas de gráficas
+
 ## Estilización de etiquetas HTML de gráficas
 
 Esta función recibe el objeto de opciones `options` y le asigna el objeto de estilización `chartElementsStyling` de etiquetas para uso del plug-in `htmlLegend`.
@@ -1818,6 +1834,10 @@ export const assignCSSStyles = ({ options }) => {
 >   - El objeto de estilización de etiquetas se añade como valor del plug-in `stylingCSS` que a su vez se encuentra como atributo del objeto `plugins` del objeto de opciones.
 
 >   Para saber más sobre el plug-in `htmlLegend`, consultar la sección [htmlLegend: Desacoplamiento de etiquetas de conjuntos de datos](#htmllegend-desacoplamiento-de-etiquetas-de-conjuntos-de-datos)
+
+----
+
+# Formateo de etiquetas en los ejes de gráficas
 
 ## Funciones de formateo numérico y de texto
 
