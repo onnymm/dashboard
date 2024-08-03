@@ -310,82 +310,6 @@ const buildRadarChartOptions = ({
 }
 
 // Funciones de formateo de etiquetas de ejes
-const formatRadarChartLabels = ({
-    series,
-    options,
-    xAxisFormat,
-    yAxisFormat
-}) => {
-
-    // Definción del formateador de etiquetas numéricas
-    if ( yAxisFormat ) {
-        const yLabelsFormatter = assignLabelsFormatter({ series, axisFormat: yAxisFormat })
-        options.scales.r.ticks.callback = yLabelsFormatter 
-    }
-
-    // Formateo de etiquetas en el eje X
-    if ( xAxisFormat ) {
-        options.scales.r.pointLabels.callback = labelsFormats[xAxisFormat].raw
-    }
-
-    // Retorno de los conjuntos de datos y objeto de opciones
-    return [ series, options ]
-}
-const formatRadialChartsLabels = ({
-    series,
-    options,
-}) => {
-
-    // Retorno de los conjuntos de datos y objeto de opciones
-    return [ series, options ]
-}
-const formatSquareChartLabels = ({
-    series,
-    options,
-    xAxisFormat,
-    yAxisFormat,
-    transposed
-}) => {
-
-    let yLabelsFormatter
-    let xLabelsFormatter
-
-    // Validación de indicación de gráfica transpuesta
-    if ( transposed ) {
-        // Formateo de etiquetas en el eje X
-        if ( yAxisFormat ) {
-            xLabelsFormatter = assignLabelsFormatter({ series, axisFormat: yAxisFormat })
-            options.scales.x.ticks.callback = xLabelsFormatter
-        }
-
-        // Formateo de etiquetas en el eje Y
-        if ( xAxisFormat ) {
-            series.labels = series.labels.map(
-                (value) => {
-                    return labelsFormats[xAxisFormat].raw(value)
-                }
-            )
-        }
-    } else {
-        // Formateo de etiquetas en el eje Y
-        if ( yAxisFormat ) {
-            yLabelsFormatter = assignLabelsFormatter({ series, axisFormat: yAxisFormat })
-            options.scales.y.ticks.callback = yLabelsFormatter
-        }
-
-        // Formateo de etiquetas en el eje X
-        if ( xAxisFormat ) {
-            series.labels = series.labels.map(
-                (value) => {
-                    return labelsFormats[xAxisFormat].raw(value)
-                }
-            )
-        }
-    }
-
-    // Retorno de los conjuntos de datos y objeto de opciones
-    return [ series, options ]
-}
 const formatScatterChartLabels = ({
     series,
     options,
@@ -424,51 +348,85 @@ const formatScatterChartLabels = ({
     // Retorno de los conjuntos de datos y objeto de opciones
     return [ series, options ]
 }
-
-// Funciones de formateo en tooltip
-const formatSquareTooltip = ({
-    yAxisFormat
+const formatCartesianChartLabels = ({
+    series,
+    options,
+    xAxisFormat,
+    yAxisFormat,
+    transposed
 }) => {
 
-    // Generación de función con el tipo de valor a formatear
-    return (context) => {
-        // Se inicializa el contenedor de la etiqueta
-        let label = context.dataset.label || "";
-    
-        // Si la etiqueta no está vacía, se concatena un ': '
-        if (label) {
-            label += ": "
+    let yLabelsFormatter
+    let xLabelsFormatter
+
+    // Validación de indicación de gráfica transpuesta
+    if ( transposed ) {
+        // Formateo de etiquetas en el eje X
+        if ( yAxisFormat ) {
+            xLabelsFormatter = assignLabelsFormatter({ series, axisFormat: yAxisFormat })
+            options.scales.x.ticks.callback = xLabelsFormatter
         }
-    
-        // Formateo del valor de la etiqueta en función del tipo de valor del conjunto de datos
-        label += labelsFormats[yAxisFormat].raw(context.parsed.y)
-    
-        return label
+
+        // Formateo de etiquetas en el eje Y
+        if ( xAxisFormat ) {
+            series.labels = series.labels.map(
+                (value) => {
+                    return labelsFormats[xAxisFormat].raw(value)
+                }
+            )
+        }
+    } else {
+        // Formateo de etiquetas en el eje X
+        if ( xAxisFormat ) {
+            series.labels = series.labels.map(
+                (value) => {
+                    return labelsFormats[xAxisFormat].raw(value)
+                }
+            )
+        }
+
+        // Formateo de etiquetas en el eje Y
+        if ( yAxisFormat ) {
+            yLabelsFormatter = assignLabelsFormatter({ series, axisFormat: yAxisFormat })
+            options.scales.y.ticks.callback = yLabelsFormatter
+        }
     }
+
+    // Retorno de los conjuntos de datos y objeto de opciones
+    return [ series, options ]
 }
-const formatScatterTooltip = ({
+const formatRadialChartsLabels = ({
+    series,
+    options,
+}) => {
+
+    // Retorno de los conjuntos de datos y objeto de opciones
+    return [ series, options ]
+}
+const formatRadarChartLabels = ({
+    series,
+    options,
     xAxisFormat,
     yAxisFormat
 }) => {
 
-    // Generación de función con el tipo de valor a formatear
-    return (context) => {
-        // Se inicializa el contenedor de la etiqueta
-        let label = context.dataset.label || "";
-    
-        // Si la etiqueta no está vacía, se concatena un ': '
-        if (label) {
-            label += ": "
-        }
-    
-        // Formateo del valor de la etiqueta en función del tipo de valor del conjunto de datos
-        label += "[" + labelsFormats[xAxisFormat].raw(context.parsed.x) + ", "
-        label += labelsFormats[yAxisFormat].raw(context.parsed.y) + "]"
-    
-        return label
+    // Definción del formateador de etiquetas numéricas
+    if ( yAxisFormat ) {
+        const yLabelsFormatter = assignLabelsFormatter({ series, axisFormat: yAxisFormat })
+        options.scales.r.ticks.callback = yLabelsFormatter 
     }
+
+    // Formateo de etiquetas en el eje X
+    if ( xAxisFormat ) {
+        options.scales.r.pointLabels.callback = labelsFormats[xAxisFormat].raw
+    }
+
+    // Retorno de los conjuntos de datos y objeto de opciones
+    return [ series, options ]
 }
-const formatBubbleTooltip = ({
+
+// Funciones de formateo en tooltip
+const formatBubbleChartTooltip = ({
     xAxisFormat,
     yAxisFormat
 }) => {
@@ -491,7 +449,59 @@ const formatBubbleTooltip = ({
         return label
     }
 }
-const formatVarAngleTooltip = ({
+const formatScatterChartTooltip = ({
+    xAxisFormat,
+    yAxisFormat
+}) => {
+
+    // Generación de función con el tipo de valor a formatear
+    return (context) => {
+        // Se inicializa el contenedor de la etiqueta
+        let label = context.dataset.label || "";
+    
+        // Si la etiqueta no está vacía, se concatena un ': '
+        if (label) {
+            label += ": "
+        }
+    
+        // Formateo del valor de la etiqueta en función del tipo de valor del conjunto de datos
+        label += "[" + labelsFormats[xAxisFormat].raw(context.parsed.x) + ", "
+        label += labelsFormats[yAxisFormat].raw(context.parsed.y) + "]"
+    
+        return label
+    }
+}
+const formatCartesianChartTooltip = ({
+    yAxisFormat
+}) => {
+
+    // Generación de función con el tipo de valor a formatear
+    return (context) => {
+        // Inicialización del eje de valores numéricos
+        let dataAxis
+
+        // Definición del eje de valores numéricos
+        if ( context.chart.config._config.options.indexAxis === "x" ) {
+            dataAxis = "y"
+        } else if ( context.chart.config._config.options.indexAxis === "y" ) {
+            dataAxis = "x"
+        }
+
+        // Se inicializa el contenedor de la etiqueta
+        let label = context.dataset.label || "";
+    
+        // Si la etiqueta no está vacía, se concatena un ': '
+        if (label) {
+            label += ": "
+        }
+    
+        // Formateo del valor de la etiqueta en función del tipo de valor del conjunto de datos
+        label += labelsFormats[yAxisFormat].raw(context.parsed[dataAxis])
+    
+        return label
+    }
+}
+const formatCircularChartTooltip = ({
     yAxisFormat
 }) => {
 
@@ -511,7 +521,7 @@ const formatVarAngleTooltip = ({
         return label
     }
 }
-const formatConstAngleTooltip = ({
+const formatRadialChartTooltip = ({
     yAxisFormat
 }) => {
 
@@ -1002,8 +1012,8 @@ export const formatLabels = {
     [CHART_TYPES.BUBBLE]: formatScatterChartLabels,
     [CHART_TYPES.SCATTER]: formatScatterChartLabels,
 
-    [CHART_TYPES.BAR]: formatSquareChartLabels,
-    [CHART_TYPES.LINE]: formatSquareChartLabels,
+    [CHART_TYPES.BAR]: formatCartesianChartLabels,
+    [CHART_TYPES.LINE]: formatCartesianChartLabels,
 
     [CHART_TYPES.PIE]: formatRadialChartsLabels,
     [CHART_TYPES.DOUGHNUT]: formatRadialChartsLabels,
@@ -1013,16 +1023,16 @@ export const formatLabels = {
 }
 
 export const formatTooltips = {
-    [CHART_TYPES.BUBBLE]: formatBubbleTooltip,
+    [CHART_TYPES.BUBBLE]: formatBubbleChartTooltip,
 
-    [CHART_TYPES.SCATTER]: formatScatterTooltip,
+    [CHART_TYPES.SCATTER]: formatScatterChartTooltip,
 
-    [CHART_TYPES.BAR]: formatSquareTooltip,
-    [CHART_TYPES.LINE]: formatSquareTooltip,
+    [CHART_TYPES.BAR]: formatCartesianChartTooltip,
+    [CHART_TYPES.LINE]: formatCartesianChartTooltip,
 
-    [CHART_TYPES.PIE]: formatVarAngleTooltip,
-    [CHART_TYPES.DOUGHNUT]: formatVarAngleTooltip,
+    [CHART_TYPES.PIE]: formatCircularChartTooltip,
+    [CHART_TYPES.DOUGHNUT]: formatCircularChartTooltip,
 
-    [CHART_TYPES.POLARAREA]: formatConstAngleTooltip,
-    [CHART_TYPES.RADAR]: formatConstAngleTooltip,
+    [CHART_TYPES.POLARAREA]: formatRadialChartTooltip,
+    [CHART_TYPES.RADAR]: formatRadialChartTooltip,
 }
