@@ -2468,6 +2468,95 @@ const formatRadialChartsLabels = ({
 
 >   No hace nada.
 
+## Formateo de etiquetas en ejes de gráficas de radar
+
+Esta función formatea la visualización de las etiquetas numéricas y categóricas en el eje radial y los ángulos de gráficas de radar si éstas fueron provistas como argumento. Para los valores numéricos establece una función en el objeto de opciones mientras que para los valores categóricos los formatea directamente en el objeto de datos.
+
+Uso declarando el tipo de gráfico en un `string`:
+```js
+formatLabels['radar']({ series, options, xAxisFormat, yAxisFormat, transposed })
+```
+
+Uso declarando el tipo de gráfico usando constante (recomendado):
+```js
+formatLabels[CHART_TYPES.RADAR]({ series, options, xAxisFormat, yAxisFormat, transposed })
+```
+
+Los argumentos de entrada disponibles son:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `series` | `object` | *Requerido | Objeto de datos transformado por alguna de las siguietes funciones: <br> • [Construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja)  <br> • [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión) <br> • [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales) |
+| `options` | `object` | *Requerido | Objeto de opciones base construido por alguna de las siguientes funciones: <br> • [Construcción de objeto de opciones para gráfica de burbujas](#construcción-de-objeto-de-opciones-para-gráfica-de-burbujas) <br> • [Construcción de objeto de opciones para gráficas cartesianas](#construcción-de-objeto-de-opciones-para-gráficas-cartesianas) <br> • [Construcción de objeto de opciones para gráficas radiales](#construcción-de-objeto-de-opciones-para-gráficas-radiales) <br> • [Construcción de objeto de opciones para gráficas de radar](#construcción-de-objeto-de-opciones-para-gráficas-de-radar) |
+| `xAxisFormat` | `(Opción)` <br> <br> • `'numeric'`: Valor numérico con punto decimal <br> • `'monetary'`: Valor de tipo moneda nacional <br> • `'only name'`: Sólo nombre | `undefined` | Tipo de formateo para las etiquetas del eje $X$. |
+| `yAxisFormat` | `(Opción)` <br> <br> • `'numeric'`: Valor numérico con punto decimal <br> • `'monetary'`: Valor de tipo moneda nacional <br> • `'only name'`: Sólo nombre | `undefined` | Estandarización del eje radial para facilitar su uso. Tipo de formateo para las etiquetas del eje radial. |
+
+Por dentro la función luce así:
+```js
+const formatRadarChartLabels = ({
+    series,
+    options,
+    xAxisFormat,
+    yAxisFormat
+}) => {
+
+    // Definción del formateador de etiquetas numéricas
+    if ( yAxisFormat ) {
+        const yLabelsFormatter = assignLabelsFormatter({ series, axisFormat: yAxisFormat })
+        options.scales.r.ticks.callback = yLabelsFormatter 
+    }
+
+    // Formateo de etiquetas en el eje X
+    if ( xAxisFormat ) {
+        options.scales.r.pointLabels.callback = labelsFormats[xAxisFormat].raw
+    }
+
+    // Retorno de los conjuntos de datos y objeto de opciones
+    return [ series, options ]
+}
+```
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   ```js
+>   // Definción del formateador de etiquetas numéricas
+>   if ( yAxisFormat ) {
+>       ...
+>   }
+>   ```
+>   
+>   >   - Se valida si existe un tipo de formateo para el eje radial representado como eje $Y$. En caso de existir se ejecuta el siguiente bloque de código:
+>   >   ```js
+>   >   const yLabelsFormatter = assignLabelsFormatter({ series, axisFormat: yAxisFormat })
+>   >   options.scales.r.ticks.callback = xLabelsFormatter
+>   >   ```
+>   >   
+>   >   >   - Se realiza la llamada a la función de asignación de formateo de etiquetas proporcionándole los siguientes argumentos:
+>   >   >       - `series`: `series`.
+>   >   >       - `axisFormat`: `yAxisFormat`
+>   >   >   - El resultado del retorno de la función `assignLabelsFormatter` se asigna al atributo `callback` del atributo `ticks` del eje radial de la configuración de escalas del objeto de opciones.
+>   >   
+>   
+>   ```js
+>   // Formateo de etiquetas en el eje X
+>   if ( xAxisFormat ) {
+>       options.scales.r.pointLabels.callback = labelsFormats[xAxisFormat].raw
+>   }
+>   ```
+>   >   - Se valida si existe un tipo de formateo para el eje $X$. En caso de existir se ejecuta el siguiente bloque de código:
+>   >   
+>   >   >   Se hace un mapeo de cada uno de los valores de la matriz de etiquetas del objeto de datos:
+>   >   >   ```js
+>   >   >   options.scales.r.pointLabels.callback = labelsFormats[xAxisFormat].raw
+>   >   >   ```
+>   >   >   
+>   >   >   >   - Se asigna la función encontrada en el atributo `raw` del mapa de funciones de formateo en el índice del tipo de formateo al atributo `callback` del atributo `pointLabels` del eje radial de la configuración de escalas del objeto de opciones.
+>   
+>   Finalmente se realiza el retorno del objeto de datos y el objeto de opciones:
+>   ```js
+>   return [ series, options ]
+>   ```
+
 ----
 
 # Plug-ins de Charts.js
