@@ -25,6 +25,8 @@ export const CHARTS_SETTINGS = {
     X_AXIS_FORMAT: "xAxisFormat",
     // Tipo de valor en el eje Y
     Y_AXIS_FORMAT: 'yAxisFormat',
+    // Tipo de valor en el eje Z
+    Z_AXIS_FORMAT: 'zAxisFormat',
     // Variable categórica de estratificación de un conjunto de datos en varios conjuntos de datos
     CATEGORY_STRATIFICATION_BY: "strat",
     // Orientación y alineación de las etiquetas

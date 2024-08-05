@@ -11,64 +11,123 @@ Los parámetros listados que contengan un `*` son requeridos
 const estoEsUnaVariable = 5
 ```
 
->   Esto es un contenedor de texto que indica el funcionamiento de un fragmento código que se encuentre previo a este mismo contenedor
+>   Esto es un contenedor de texto que indica el funcionamiento de un fragmento código que se encuentre previo a este mismo contenedor.
 
 ----
 
-## Índice
+# Índice
+
+## Arquitectura de la aplicación
 
 ### Introducción
 
-**Librerías de terceros**
+**[￭ Librerías de terceros](#librerías-de-terceros)**
 - [Librerías utilizadas en el proyecto](#librerías-utilizadas-en-el-proyecto)
 
-**Estructura del proyecto**
+**[￭ Estructura del proyecto](#estructura-del-proyecto)**
 - [Descripción general de la estructura del proyecto](#descripción-general-de-la-estructura-del-proyecto)
 - [Uso de constantes](#uso-de-constantes)
 - [Destructuración y propiedades computadas](#destructuración-y-propiedades-computadas)
 - [Mapas de funciones](#mapas-de-funciones)
 - [Funciones recursivas](#funciones-recursivas)
 - [Datos de la aplicación](#datos-de-la-aplicación)
-- [Ajustes predefinidos](#ajustes-predefinidos)
 - [Funciones de utilidades](#funciones-de-utilidades)
 
-### Configuración de la aplicación
-
-**Configuración del Dashboard**
-- [Gráficas](#gráficas)
-
-### Constantes para la aplicación
-
-**Estilos para las gráficas**
+**[￭ Constantes para la aplicación](#constantes-para-la-aplicación)**
+- [Colores](#colores)
 - [Tipos de gráficas](#tipos-de-gráficas)
 - [Nombres de ajustes de gráficas](#nombres-de-ajustes-de-gráficas)
 - [Nombres de ajustes de series de los conjuntos de datos](#nombres-de-ajustes-de-series-de-los-conjuntos-de-datos)
-- [Colores](#colores)
 
-### Manejadores de solicitudes a APIs
+**[￭ Configuraciones globales](#configuraciones-globales)**
+- [Ajustes predefinidos](#ajustes-predefinidos)
 
-**Manejadores de solicitudes a APIs (Métodos GET)**
+### Configuración de la aplicación
+
+**[￭ Configuración del Dashboard](#configuración-del-dashboard)**
+- [Configuración de las gráficas](#configuración-de-las-gráficas)
+
+<br>
+
+## Conexiones con APIs
+
+**[￭ Manejadores de solicitudes a APIs (Métodos GET)](#manejadores-de-solicitudes-a-apis-métodos-get)**
 - [Obtener datos para las gráficas](#obtener-datos-para-las-gráficas)
 
-### Funciones de utilidad
+<br>
 
-**Funciones para componentes de gráficas**
+## Arquitectura de los componentes de gráficas
+
+**[￭ Componentes de gráficas](#componentes-de-gráficas)**
+- [Introducción a las graficas de Charts.js](#introducción-a-las-graficas-de-chartsjs)
+
+### Elementos principales de gráficas
+
+**[￭ Visualización de datos en cada gráfica](#visualización-de-datos-en-cada-gráfica)**
+- [Gráfica de barras](#gráfica-de-barras)
+- [Gráfica de líneas](#gráfica-de-líneas)
+- [Gráfica de pastel](#gráfica-de-pastel)
+- [Gráfica de dona](#gráfica-de-dona)
+- [Gráfica de área polar](#gráfica-de-área-polar)
+- [Gráfica de radar](#gráfica-de-radar)
+- [Gráfica de dispersión](#gráfica-de-dispersión)
+- [Gráfica de burbujas](#gráfica-de-burbujas)
+
+**[￭ Componentes de gráficas](#componentes-de-gráficas)**
+- [Componente principal de gráfica](#componente-principal-de-gráfica)
+
+### Funcionamiento interno
+
+**[￭ Funciones principales para gráficas](#funciones-principales-para-gráficas)**
+- [Construcción principal de objeto de datos y opciones para componente de gráfica](#construcción-principal-de-objeto-de-datos-y-opciones-para-componente-de-gráfica)
+
+**[￭ Funciones para componentes de gráficas](#funciones-para-componentes-de-gráficas)**
 - [Estratificación de conjunto de datos por variable categórica](#estratificación-de-conjunto-de-datos-por-variable-categórica)
 - [Obtención de un único conjunto de datos](#obtención-de-un-único-conjunto-de-datos)
 - [Obtención de etiquetas de un conjunto de datos](#obtención-de-etiquetas-de-un-conjunto-de-datos)
 
-**Construcción de estructuras de datos**
+**[￭ Construcción de estructuras de datos para gráficas](#construcción-de-estructuras-de-datos-para-gráficas)**
 - [Construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja)
 - [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión)
 - [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales)
 
-### Funcionamiento interno
+**[￭ Construcción de estructuras de configuración para gráficas](#construcción-de-estructuras-de-configuración-para-gráficas)**
+- [Construcción de objeto de opciones para gráfica de burbujas](#construcción-de-objeto-de-opciones-para-gráfica-de-burbujas)
+- [Construcción de objeto de opciones para gráficas cartesianas](#construcción-de-objeto-de-opciones-para-gráficas-cartesianas)
+- [Construcción de objeto de opciones para gráficas radiales](#construcción-de-objeto-de-opciones-para-gráficas-radiales)
+- [Construcción de objeto de opciones para gráficas de radar](#construcción-de-objeto-de-opciones-para-gráficas-de-radar)
 
-**Plug-ins de Charts.js**
+**[￭ Estilización de etiquetas de gráficas](#estilización-de-etiquetas-de-gráficas)**
+- [Estilización de etiquetas HTML de gráficas](#estilización-de-etiquetas-html-de-gráficas)
 
+**[￭ Formateo de etiquetas en los ejes de gráficas](#formateo-de-etiquetas-en-los-ejes-de-gráficas)**
+- [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto)
+- [Asignación de formateo numérico](#asignación-de-formateo-numérico)
+- [Asignación de formateo de etiquetas](#asignación-de-formateo-de-etiquetas)
+- [Formateo de etiquetas en ejes de gráfica de dispersión y burbujas](#formateo-de-etiquetas-en-ejes-de-gráfica-de-dispersión-y-burbujas)
+- [Formateo de etiquetas en ejes de gráficas cartesianas](#formateo-de-etiquetas-en-ejes-de-gráficas-cartesianas)
+- [Formateo de etiquetas en ejes de gráficas radiales](#formateo-de-etiquetas-en-ejes-de-gráficas-radiales)
+
+**[￭ Formateo de tooltip](#formateo-de-tooltip)**
+- [Formateo de tooltip en gráficas de burbuja](#formateo-de-tooltip-en-gráficas-de-burbuja)
+- [Formateo de tooltip en gráficas de dispersión](#formateo-de-tooltip-en-gráficas-de-dispersión)
+- [Formateo de tooltip en gráficas cartesianas](#formateo-de-tooltip-en-gráficas-cartesianas)
+
+**[￭ Plug-ins de Charts.js](#plug-ins-de-chartsjs)**
 - [htmlLegend: Desacoplamiento de etiquetas de conjuntos de datos](#htmllegend-desacoplamiento-de-etiquetas-de-conjuntos-de-datos)
 - [darkMode: Integración de modo oscuro](#darkmode-integración-de-modo-oscuro)
 - [stylingCSS: Asignación de clases CSS a elementos HTML generados por gráficas](#stylingcss-asignación-de-clases-css-a-elementos-html-generados-por-gráficas)
+
+**[￭ Mapeo de colores en gráficas](#mapeo-de-colores-en-gráficas)**
+- [Mapeo de opacidades en formato hexadecimal](#mapeo-de-opacidades-en-formato-hexadecimal)
+- [Mapeo de colores a conjuntos de datos](#mapeo-de-colores-a-conjuntos-de-datos)
+- [Mapeo de opacidades y tipos de colores en los conjuntos de datos](#mapeo-de-opacidades-y-tipos-de-colores-en-los-conjuntos-de-datos)
+- [Mapeo de colores en conjuntos de datos](#mapeo-de-colores-en-conjuntos-de-datos)
+
+## Referencias
+
+[￭ Preestablecidos](#preestablecidos)
+- [Valores por defecto](#valores-por-defecto)
 
 ----
 
@@ -78,10 +137,10 @@ const estoEsUnaVariable = 5
 
 Este proyecto utiliza varias librerías para su funcionamiento, listadas a continuación:
 
-- **React Router**: Es una biblioteca estándar para enrutamiento en aplicaciones React. Proporciona una manera declarativa para gestionar la navegación y el enrutamiento en aplicaciones de una sola página .Permite definir rutas de manera declarativa, lo que permite especificar qué componentes deben renderizarse para diferentes rutas además de soportar rutas anidadas. Para saber más, consultar su [documentación](https://reactrouter.com/en/main).
+- **React Router**: Es una biblioteca estándar para enrutamiento en aplicaciones React. Proporciona una manera declarativa para gestionar la navegación y el enrutamiento en aplicaciones de una sola página. Permite definir rutas de manera declarativa, lo que permite especificar qué componentes deben renderizarse para diferentes rutas además de soportar rutas anidadas. Para saber más, consultar su [documentación](https://reactrouter.com/en/main).
 
 - **Charts.js**
-Es una biblioteca de código abierto que permite crear gráficos y visualizaciones de datos de manera sencilla y atractiva. Es altamente personalizable y fácil de usar y  soporta varios tipos de gráficos interactivos, lo que permite al usuario interactuar con el gráfico para ver información adicional. Para saber más, consultar su [documentación](https://www.chartjs.org/docs/latest/)
+Es una biblioteca de código abierto que permite crear gráficas y visualizaciones de datos de manera sencilla y atractiva. Es altamente personalizable y fácil de usar y  soporta varios tipos de gráficas interactivos, lo que permite al usuario interactuar con el gráfico para ver información adicional. Para saber más, consultar su [documentación](https://www.chartjs.org/docs/latest/).
 
 ----
 
@@ -89,104 +148,71 @@ Es una biblioteca de código abierto que permite crear gráficos y visualizacion
 
 ## Descripción general de la estructura del proyecto
 
-En esta sección se describe la estructura general del proyecto, lo que ayudará al desarrollador a recordar el funcionamiento de la aplicación a nivel general o ayudará al nuevo desarrollador a familiarizarse con la estructura de ésta.
+En esta sección se describe la estructura general del proyecto, el contenido de los principales directorios del proyecto y una explicación del uso o utilidad de éste, lo que ayudará al desarrollador a recordar el funcionamiento de la aplicación a nivel general o ayudará al nuevo desarrollador a familiarizarse con la estructura de ésta.
 
 ## Uso de constantes
 
-Este proyecto utiliza un directorio en el que se almacenan valores constantes, generalmente valores de tipo `string` nombres de atributos de funciones y nombres de ajustes predefinidos. Estos archivos se encuentran en la ubicación `src/constants/` y están comentados para entender a qué pertenecen. A continuación se muestra un ejemplo con constantes de colores:
+Este proyecto utiliza un directorio en el que se almacenan valores constantes, generalmente valores de tipo `string` nombres de atributos de funciones y nombres de ajustes predefinidos. Estos archivos se encuentran en la ubicación `src/constants/` y están comentados para entender a qué pertenecen. A continuación se muestran algunos ejemplos:
 ```js
-// Valores numéricos
-export const RED_HUE = 353
+export const RED_HUE = 353 // Valor hue de un tono rojo en formato HSL
 
-// Colores en formato hexadecimal sin opacidad
-export const SATURED_RED = "#FF001E"
+export const SATURED_RED = "#FF001E" // Color en formato hexadecimal
+
+export const CHART_TYPES = { // Declaración de nombres de tipos de gráficas
+    BAR: 'bar',
+    LINE: 'line',
+    ...
+}
 ```
 
-Las constantes son una implementación en la aplicación que ayudan a reducir *typos* en el código al usar valores de tipo *string* eficientando el flujo de trabajo en el desarrollo. Las constantes también son una forma de escalar el proyecto y homogeneizar valores en la aplicación ya que sólo requieren un cambio que se propaga por ésta y no muchos cambios en varios archivos.
+Las constantes son una implementación en la aplicación que ayudan a reducir *typos* en el código al usar valores de tipo `string` eficientando el flujo de trabajo en el desarrollo. Las constantes también son una forma de escalar el proyecto y homogeneizar valores en la aplicación ya que sólo requieren un cambio que se propaga por ésta y no muchos cambios en varios archivos.
 
 ## Destructuración y propiedades computadas
 
-La declaración de funciones en este proyecto utiliza propiedades computadas a partir de [constantes](#uso-de-constantes) declaradas en la ubicación `src/constants/`. Las propiedades computadas permiten definir propiedades de objetos usando expresiones dinámicas que se evalúan en tiempo de ejecución además de que centralizan las claves en un solo objeto, lo que facilita la actualización de las constantes y hace explícito qué propiedades del objeto de entrada se están utilizando y asignando a variables específicas.
+La declaración de funciones en este proyecto utiliza propiedades computadas a partir de constantes declaradas en la ubicación `src/constants/`. Las propiedades computadas permiten definir propiedades de objetos usando expresiones dinámicas que se evalúan en tiempo de ejecución además de que centralizan las claves en un solo objeto, lo que facilita la actualización de las constantes y hace explícito qué propiedades del objeto de entrada se están utilizando y asignando a variables específicas.
+
+>   Para saber más sobre el uso de constantes, consultar la sección [Uso de constantes](#uso-de-constantes).
 
 ### Ejemplo de uso
 
-En el archivo `settings.js` que se encuentra en la ubicación antes mencionada, se cuenta con una constante llamada `CHARTS_SETTINGS` utilizada para definir los atributos configurables de componentes de gráficas. Para más información sobre estos ajustes, leer la sección de [gráficas](#gráficas). La constante está declarada de la siguiente forma:
+Si declaramos una constante con la siguiente estructura:
 ```js
-export const CHARTS_SETTINGS = {
-    // Tipo de gráfica
-    CHART_TYPE: "chartType",
-    // Nombre del grupo de etiquetas
-    LABELS_NAME: "labelsName",
-    // Nombres de las variables contenedoras de los conjuntos de datos
-    DATASETS_NAMES: "datasetNames",
-    ...
-}
+export const PARAM_NAMES = [
+    COMPLETE_NAME: "completeName",
+    DATE_OF_BIRTH: "dateOfBirth",
+    AGE_IN_YEARS: "ageInYears",
+]
 ```
 
-En la función `buildData` que se encuentra en `src/utils/utils.js` se utilizan estas constantes como declaración de los atributos de entrada de la función, destructurando los valores dentro de `[]` y definiendo cómo se llamará el atributo dentro de la función de la siguiente forma:
+podemos declarar una función que reciba un objeto de atributos que tengan estos nombres y luego rebautizarlos en la función a nuestras necesidades o para mejorar la legibilidad o el contexto. Para esto se utiliza la constante anterior, el atributo del cual vamos a utilizar su valor y a esto lo encerramos en corchetes como se muestra a continuación:
 ```js
-export const buildData = ({
-    ...
-    [CHARTS_SETTINGS.CHART_TYPE]: chartType, // Tipo de gráfica
-    [CHARTS_SETTINGS.LABELS_NAME]: labelsName, // Variable de etiquetas de la gráfica de barras
-    [CHARTS_SETTINGS.DATASETS_NAMES]: datasetNames, // Conjuntos de datos en el objeto
-    ...
+const someFunction = ({
+    [PARAM_NAMES.COMPLETE_NAME]: name,
+    [PARAM_NAMES.DATE_OF_BIRTH]: birthDate,
+    [PARAM_NAMES.AGE_IN_YEARS]: age
 }) => {
-    ...
+    ....
 }
 ```
 
-Esto sería lo mismo a declarar la función de esta forma:
+El valor de `PARAM_NAMES.COMPLETE_NAME`, por ejemplo, es `"completeName"`. Esto quiere decir que la función recibe un atributo llamado `completeName` y lo rebautiza a `name` para usarlo dentro de sí misma. Lo anterior sería equivalente a esto:
 ```js
-export const buildData = ({
-    ...
-    chartType: chartType,
-    labelsName: labelsName,
-    datasetNames: datasetNames,
-    ...
+const someFunction = ({
+    completeName: name,
+    dateOfBirth: birthDate,
+    ageInYears: age
 }) => {
-    ...
+    ....
 }
 ```
 
-Nótese que los nombres antes de los `:` son computados a partir de los nombres de las constantes. Imaginemos que cambiamos los nombres de las constantes a lo siguiente:
-
+De esta misma forma se declara la ejecución de la función:
 ```js
-export const CHARTS_SETTINGS = {
-    CHART_TYPE: "type",
-    LABELS_NAME: "labels",
-    DATASETS_NAMES: "datasets",
-    ...
-}
-```
-
-Los nombres computados en la función automáticamente cambiarían a lo siguiente:
-```js
-export const buildData = ({
-    ...
-    type: chartType,
-    labels: labelsName,
-    datasets: datasetNames,
-    ...
-}) => {
-    ...
-}
-```
-
-Es decir que la función recibe, por ejemplo, el atributo `type` y lo rebautiza como `chartType` para usarlo así dentro de sí misma. De esta manera podemos declarar las gráficas a utilizar de la siguiente forma y la aplicación seguirá funcionando correctamente aunque las constantes se rebauticen una y otra vez:
-```js
-export const dashboardData = {
-    charts: [
-        {
-            ...
-            [CHARTS_SETTINGS.CHART_TYPE]: 'bar',
-            [CHARTS_SETTINGS.LABELS_NAME]: 'user_name',
-            [CHARTS_SETTINGS.DATASETS_NAMES]: ['amount_untaxed'],
-            ...
-        },
-        ...
-    ]
-}
+const someResult = someFunction({
+    [PARAM_NAMES.COMPLETE_NAME]: "Lince Burbujas",
+    [PARAM_NAMES.DATE_OF_BIRTH]: "29/03/2021",
+    [PARAM_NAMES.AGE_IN_YEARS]: 3
+})
 ```
 
 De esta forma se pueden rebautizar los nombres de los atributos de entrada de una función y los argumentos que ésta recibe sin romper el código o generar errores por cambios en nombres no realizados correctamente.
@@ -266,7 +292,7 @@ La recursividad es una herramienta poderosa en la programación, especialmente c
 
 ## Datos de la aplicación
 
-Este proyecto también estructura los datos de la aplicación en una ubicación específica para facilitar cambios y actualizaciones sin tener que realizar cambios en muchos archivos lo que también reduce los errores humanos evitando que algunos valores que tenían que cambiarse pasen desapercibidos.
+Este proyecto también estructura los datos de la aplicación en la ubicación `src/data/` para facilitar cambios y actualizaciones sin tener que realizar cambios en muchos archivos lo que también reduce los errores humanos evitando que algunos valores que tenían que cambiarse pasen desapercibidos.
 
 ```js
 // Dominios locales para obtener la información
@@ -298,7 +324,9 @@ export const links = [
 ]
 ```
 
-Generalmente estos valores se declaran en colecciones de objetos y se mapean usando el método nativo de los *arrays* `map` en los componentes a renderizar. También se utilizan las declaraciones con propiedades computadas. Para saber más, consultar la sección de [destructuración y propiedades computadas](#destructuración-y-propiedades-computadas).
+Generalmente estos valores se declaran en colecciones de objetos y se mapean usando el método nativo de los *arrays* `map` en los componentes a renderizar.
+
+>   La declaración de estos objetos utiliza propiedades computadas. Para saber más, consultar la sección [Destructuración y propiedades computadas](#destructuración-y-propiedades-computadas).
 
 ## Ajustes predefinidos
 
@@ -316,7 +344,9 @@ export const chartSettings = {
 }
 ```
 
-También se utilizan las declaraciones con propiedades computadas. Para saber más, consultar la sección de [destructuración y propiedades computadas](#destructuración-y-propiedades-computadas).
+>   Para conocer todos los ajustes predefinidos, consultar la sección [Valores por defecto](#valores-por-defecto).
+
+>   La declaración de estos ajustes predefinidos utiliza propiedades computadas. Para saber más, consultar la sección [Destructuración y propiedades computadas](#destructuración-y-propiedades-computadas).
 
 ## Funciones de utilidades
 
@@ -335,56 +365,44 @@ export const buildData = ({
 }
 ```
 
-También se utilizan las declaraciones con propiedades computadas. Para saber más, consultar la sección de [destructuración y propiedades computadas](#destructuración-y-propiedades-computadas)
-
-----
-
-# Configuración del Dashboard
-
-La información mostrada en el Dashboard es configurada en el archivo `appConfig.js` específicamente en la colección de datos `dashboardData`. Este archivo está destinado a ser un punto de partida para poder realizar la configuración de la aplicación completa cambiando valores y configurando componentes usando simplemente colecciones de datos que automáticamente se mapean en la aplicación.
-
-## Gráficas
-**índice**: `[charts]`
-En este índice se encuentra la configuración de las gráficas a mostrar en el Dashboard. Esta colección de datos debe ser una matriz y se debe declarar un objeto dentro de ésta por cada gráfica. Para acceder a la lista de atributos disponibles se importa la constante `CHARTS_SETTINGS` proveniente de la ubicación relativa `../constants/settings`. Para declarar el atributo se utiliza la destructuración de la siguiente forma:
-
-```js
-const dashboardData = {
-    charts: [
-        // Declaración de la gráfica
-        {
-            [CHART_SETTINGS.CHARTTYPE]: 'bar' // Declaración de una gráfica de barras
-            ... // Resto de las propiedades de la gráfica
-        }
-    ]
-}
-```
-
-| Atributo | Tipo | Valor por defecto | Descripción |
-|--------------|----------|--------------------|------------------------------|
-| `ENDPOINT` | `string` | *Requerido | Endpoint de la URL de donde se solicitará la información. Por ejemplo, si la URL completa es `https://www.estoesunsitio.com/esto_es_el_endpoint`, en este campo se debe ingresar el fragmento `esto_es_el_endpoint`. |
-| `CHART_TYPE` | `(opción)` <br><br> `'bar'`: Gráfica de barras <br> `'line'`: Gráfica de líneas <br> `'pie'`: Gráfica de pastel <br> `'doughnut'`: Gráfica de dona <br> `'polar area'`: Gráfica de área polar <br> `'radar'`: Gráfica de radar <br> `'scatter'`: Gráfica de dispersión <br> `'bubble'`: Gráfica de burbujas  | *Requerido | Tipo de gráfica a renderizar. |
-| `NAME` | `string` | *Requerido | Nombre de la gráfica a renderizar .|
-| `DATASET_NAMES` | `array [string]` | *Requerido | Nombre de la variable del JSON del endpoint de la cual se obtendrán los valores del o los conjuntos de datos a renderizar en los elementos de la gráfica. |
-| `LABELS` | `string` | *Requerido | Nombre de la variable del JSON del endpoint de la cual se obtendrá la variable categórica que funcionará para segmentar el o los conjuntos de datos. |
-| `LABELS_NAME` | `string` | *Requerido | Nombre descriptivo del grupo de etiquetas que se renderizará en la gráfica. |
-| `BACKGROUND_COLORS` | `Color` - `array [color]` | `RED_PALETTE` | Colores de fondo para los elementos de la gráfica. El formato de cada color debe ser hexadecimal, por ejemplo `#FFFFFF`. Los colores deben tener ser RGB en formato hexadecimal y contener el símbolo `#` antes de éstos. |
-| `BACKGROUND_OPACITY` | `number` | `100` | Opacidad de los colores de fondo de los elementos de la gráfica. Debe ser un número del `0` al `100` en donde el `0` representa la transparencia total y el `100` un color totalmente sólido sin transparencia. |
-| `BORDER_COLORS` | `Color` - `array[Color]` | `RED_PALETTE` | Colores de borde para los elementos de la gráfica. El formato de cada color debe ser hexadecimal, por ejemplo `#FFFFFF`. Los colores deben tener ser RGB en formato hexadecimal y contener el símbolo `#` antes de éstos. |
-| `BORDER_OPACITY` | `number` | `100` | Opacidad de los colores de borde de los elementos de la gráfica. Debe ser un número del `0` al `100` en donde el `0` representa la transparencia total y el `100` un color totalmente sólido sin transparencia. |
-| `ASPECT_RATIO` | `number` - `(División)` | `1.5` | Relación de aspecto de la gráfica. Puede ser un número, como por ejemplo `1.5` o una división como `3/2` en donde el primer número o numerador representa la proporción horizontal y el segundo número o denominador representa la proporción vertical. Por ejemplo, `3/2` significa que, por cada 3 pixeles de ancho, la gráfica tendrá 2 pixeles de alto. |
-| `Y_VALUE_TYPE` | `(Opción)` <br> <br> `'numeric'`: Numérico <br> `'monetary'`: Moneda nacional <br> `'only name'` | `undefined` | Tipo de valor numérico que se representará en las etiquetas numéricas y el tooltip. |
-| `X_VALUE_TYPE` | `(Opción)` <br> <br> `'numeric'`: Numérico <br> `'monetary'`: Moneda nacional <br> `'only name'` | `undefined` | Tipo de valor numérico que se representará en las etiquetas numéricas y el tooltip. |
-| `CATEGORY_STRATIFICATION_BY` | `string` | `undefined` | Variable categórica de estratificación para segmentar un conjunto de datos en varios conjuntos de datos para renderizarse en la gráfica. |
-| `LABEL_COLUMNS` | `(Opción)` <br> <br> `1`: Organización en forma de lista <br> `2`: Organización en lista de 2 columnas <br> `3`: Organización en lista de 3 columnas <br> `4`: Organización en lista de 4 columnas <br> `6`: Organización en lista de 6 columnas | `1` | Orientación y alineación de las etiquetas. |
-| `LABELS_LIST` | `(Opción)` <br> <br> `'default'`: Disposición por defecto | `'default'` | Orientación y alineación de cada contenedor de etiqueta. |
-| `LEGEND_BOX` | `(Opción)` <br> <br> `'circle'`: Cajas circulares <br> `'rounded'`: Cajas cuadradas con bordes redondeados <br> `'square'`: Cajas cuadradas | `'square'` | Apariencia de la caja de color de las etiquetas. |
-| `MIN_BUBBLE_SIZE` | `number` | `2` | Tamaño mínimo de elementos de burbuja en gráfica de burbuja. |
-| `MAX_BUBBLE_SIZE` | `number` | `16` | Tamaño máximo de elementos de burbuja en gráfica de burbuja. |
-| `TRANSPOSED` | `boolean` | `false` | Transponer gráfica. Si se activa este parámetro, los datos de los ejes $X$ y $Y$ se invertirán. Esto sólo es válido para gráficas de barras, de dispersión y de burbuja. |
+>   La declaración de la mayor parte del nombre de los argumentos de entrada utiliza propiedades computadas. Para saber más, consultar la sección [Destructuración y propiedades computadas](#destructuración-y-propiedades-computadas).
 
 ----
 
 # Constantes para la aplicación
+
+## Colores
+- **Ubicación:** `src/constants/colors.js`
+
+En este archivo se encuentran los valores de colores y otros parámetros utilizados por la aplicación completa, desde la paleta de colores, colores preestablecidos en formato hexadecimal hasta valores de opacidad en formato hexadecimal. Los colores preestablecidos en formato hexadecimal se pueden concatenar con los valores de opacidad en los casos en los que los componentes lo requieran como en el caso de los componentes de graficación:
+```js
+export const SATURED_RED = "#FF001E"
+
+export const OPACITIES = {
+    0: "00",
+    5: "0B",
+    ...
+}
+
+export const RED_PALETTE = [
+    "#8C0413",
+    "#B70217",
+    ...
+]
+```
+
+Uso:
+```js
+setData(
+    buildBarData(
+        // ...argumentos
+        `${saturedRed}${opacity[75]}`,
+        // ...más argumentos
+    )
+)
+```
+
+>   En este caso, el color a utilizar sería un rojo saturado con opacidad de 75%, lo que resultaría en el valor `#FF001EBF` en formato hexadecimal. Nótese que estas constantes se utilizan en funciones internas y el ejemplo sólo es ilustrativo y pertenece a una versión antigua de la declaración de las gráficas.
 
 ## Tipos de gráficas
 - **Archivo:** `src/constants/charts.js`
@@ -448,7 +466,7 @@ export const dashboardData = {
 }
 ```
 
->   Para más información sobre esta declaración, leer la sección [Gráficas](#gráficas)
+>   Estas constantes se utilizan mayormente para la configuración del Dashboard y declaración de los nombres de los parámetros de funciones de utilidad. Para más información sobre los parámetros disponibles, leer la sección [Configuración de las gráficas](#configuración-de-las-gráficas).
 
 ## Nombres de ajustes de series de los conjuntos de datos
 - **Ubicación:** `src/constants/settings.js`
@@ -466,45 +484,15 @@ Este objeto contiene los nombres de ajustes de los conjuntos de datos individual
 }
 ```
 
-## Colores
-- **Ubicación:** `src/constants/colors.js`
-
-En este archivo se encuentran los valores utilizados por los componentes de gráficas, desde la paleta de colores, colores preestablecidos en formato hexadecimal hasta valores de opacidad en formato hexadecimal. Los colores preestablecidos en formato hexadecimal se pueden concatenar con los valores de opacidad en los casos en los que los componentes de graficación lo requieran, por ejemplo:
-```js
-export const SATURED_RED = "#FF001E"
-
-export const OPACITIES = {
-    0: "00",
-    5: "0B",
-    ...
-}
-
-export const RED_PALETTE = [
-    "#8C0413",
-    "#B70217",
-    ...
-]
-```
-
-Uso:
-```js
-setData(
-    buildBarData(
-        // ...argumentos
-        `${saturedRed}${opacity[75]}`,
-        // ...más argumentos
-    )
-)
-```
-
->   En este caso, el color a utilizar sería un rojo saturado con opacidad de 75%, lo que resultaría en el valor `#FF001EBF` en formato hexadecimal. Nótese que estas constantes se utilizan en funciones internas y el ejemplo sólo es ilustrativo y pertenece a una versión antigua de la declaración de las gráficas.
-
 ----
 
 # Manejadores de solicitudes a APIs (Métodos GET)
+- **Ubicación**: `src/api/`
+- **Archivo**: `get.js`
+
+En este archivo se listan todas las funciones que realizan solicitudes a APIs de backend usando métodos HTTP de tipo **GET**.
 
 ## Obtener datos para las gráficas
-- **Archivo:** `get.js`
 - **Función:** `getChartData`
 
 Esta función permite obtener los datos necesarios para renderizar un componente de gráfica. Los parámetros disponibles para utilizar con la función son los siguientes:
@@ -515,7 +503,7 @@ Esta función permite obtener los datos necesarios para renderizar un componente
 |----------|------|-------------------|-------------|
 | `stateSetter` | `function` | *Requerido | Función de cambio de estado para ingresar la información a un estado de React.js. |
 | `endpoint` | `string` | *Requerido | Endpoint de la URL de donde se solicitará la información. Por ejemplo, si la URL completa es `https://www.estoesunsitio.com/esto_es_el_endpoint`, en este campo se debe ingresar el fragmento `esto_es_el_endpoint`. |
-| `domain` | `string` | (Dominio por defecto preconfigurado en el archivo `appConfig.js`). Leer la sección [sección](#) para más información | Dominio que sólo se usa en casos en los que se quiera especficar un dominio diferente al configurado por defecto en el archivo `src/data/appConfig.js`, por ejemplo, `https://www.estoesunsitio.com/` (Nota: el dominio debe contener el `/` al final). |
+| `domain` | `string` | (Dominio por defecto preconfigurado en el archivo `appConfig.js`). Leer la sección [Configuraciones globales](#configuraciones-globales) para más información | Dominio que sólo se usa en casos en los que se quiera especficar un dominio diferente al configurado por defecto en el archivo `src/data/appConfig.js`, por ejemplo, `https://www.estoesunsitio.com/` (Nota: el dominio debe contener el `/` al final). |
 
 Para utilizar la función de solicitud al API se requiere una función de cambio de estado y un endpoint a utilizar, por ejemplo:
 ```js
@@ -534,7 +522,685 @@ getChartData(setLoadData, "endpoint_example", "https://www.midominioespecifico.c
 
 ----
 
-# Funciones de utilidad
+# Configuración del Dashboard
+
+La información mostrada en el Dashboard es configurada en el archivo `appConfig.js` específicamente en la colección de datos `dashboardData`. Este archivo está destinado a ser un punto de partida para poder realizar la configuración de la aplicación completa cambiando valores y configurando componentes usando simplemente colecciones de datos que automáticamente se mapean en la aplicación.
+
+## Configuración de las gráficas
+
+- **Ubicación**: `src/data/`
+- **Archivo**: `appConfig.js`
+- **Variable**: `dasboardData`
+- **índice**: `[charts]`
+
+En este índice se encuentra la configuración de las gráficas a mostrar en el Dashboard. Esta colección de datos debe ser una matriz y se debe declarar un objeto dentro de ésta por cada gráfica. Para acceder a la lista de atributos disponibles se importa la constante `CHARTS_SETTINGS` proveniente de la ubicación relativa `../constants/settings`. Para declarar el atributo se utiliza la destructuración de la siguiente forma:
+
+```js
+const dashboardData = {
+    charts: [
+        // Declaración de la gráfica
+        {
+            [CHART_SETTINGS.CHARTTYPE]: 'bar' // Declaración de una gráfica de barras
+            ... // Resto de las propiedades de la gráfica
+        }
+    ]
+}
+```
+
+Los argumentos de entrada disponibles para cada objeto de la matriz, estructurados en la forma `[CHART_SETTINGS.<argumento>]` (como se describe en el bloque de código anterior) son los siguientes:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `ENDPOINT` | `string` | *Requerido | Endpoint de la URL de donde se solicitará la información. Por ejemplo, si la URL completa es `https://www.estoesunsitio.com/esto_es_el_endpoint`, en este campo se debe ingresar el fragmento `esto_es_el_endpoint`. |
+| `CHART_TYPE` | `(opción)` <br><br> • `'bar'`: Gráfica de barras <br> • `'line'`: Gráfica de líneas <br> • `'pie'`: Gráfica de pastel <br> • `'doughnut'`: Gráfica de dona <br> • `'polar area'`: Gráfica de área polar <br> • `'radar'`: Gráfica de radar <br> • `'scatter'`: Gráfica de dispersión <br> • `'bubble'`: Gráfica de burbujas  | *Requerido | Tipo de gráfica a renderizar. |
+| `NAME` | `string` | *Requerido | Nombre de la gráfica a renderizar .|
+| `DATASETS_NAMES` | `array [string]` | *Requerido | Nombre de la variable del JSON del endpoint de la cual se obtendrán los valores del o los conjuntos de datos a renderizar en los elementos de la gráfica. |
+| `LABELS` | `string` | *Requerido | Nombre de la variable del JSON del endpoint de la cual se obtendrá la variable categórica que funcionará para segmentar el o los conjuntos de datos. |
+| `LABELS_NAME` | `string` | *Requerido | Nombre descriptivo del grupo de etiquetas que se renderizará en la gráfica. |
+| `BACKGROUND_COLORS` | `Color` - `array [color]` | `RED_PALETTE` | Colores de fondo para los elementos de la gráfica. El formato de cada color debe ser hexadecimal, por ejemplo `#FFFFFF`. Los colores deben tener ser RGB en formato hexadecimal y contener el símbolo `#` antes de éstos. |
+| `BACKGROUND_OPACITY` | `number` | `100` | Opacidad de los colores de fondo de los elementos de la gráfica. Debe ser un número del `0` al `100` en donde el `0` representa la transparencia total y el `100` un color totalmente sólido sin transparencia. |
+| `BORDER_COLORS` | `Color` - `array[Color]` | `RED_PALETTE` | Colores de borde para los elementos de la gráfica. El formato de cada color debe ser hexadecimal, por ejemplo `#FFFFFF`. Los colores deben tener ser RGB en formato hexadecimal y contener el símbolo `#` antes de éstos. |
+| `BORDER_OPACITY` | `number` | `100` | Opacidad de los colores de borde de los elementos de la gráfica. Debe ser un número del `0` al `100` en donde el `0` representa la transparencia total y el `100` un color totalmente sólido sin transparencia. |
+| `ASPECT_RATIO` | `number` - `(División)` | `1.5` | Relación de aspecto de la gráfica. Puede ser un número, como por ejemplo `1.5` o una división como `3/2` en donde el primer número o numerador representa la proporción horizontal y el segundo número o denominador representa la proporción vertical. Por ejemplo, `3/2` significa que, por cada 3 pixeles de ancho, la gráfica tendrá 2 pixeles de alto. |
+| `X_AXIS_FORMAT` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico en el eje $X$ que se representará en las etiquetas numéricas y el tooltip. |
+| `Y_AXIS_FORMAT` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico en el eje $Y$ que se representará en las etiquetas numéricas y el tooltip. |
+| `Z_AXIS_FORMAT` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico en el eje $Z$ que se representará en las etiquetas numéricas y el tooltip. Disponible sólo para gráficas de burbuja |
+| `CATEGORY_STRATIFICATION_BY` | `string` | `undefined` | Variable categórica de estratificación para segmentar un conjunto de datos en varios conjuntos de datos para renderizarse en la gráfica. |
+| `LABEL_COLUMNS` | `(Opción)` <br> <br> • `1`: Organización en forma de lista <br> • `2`: Organización en lista de 2 columnas <br> • `3`: Organización en lista de 3 columnas <br> • `4`: Organización en lista de 4 columnas <br> • `6`: Organización en lista de 6 columnas | `1` | Orientación y alineación de las etiquetas. |
+| `LABELS_LIST` | `(Opción)` <br> <br> • `'default'`: Disposición por defecto | `'default'` | Orientación y alineación de cada contenedor de etiqueta. |
+| `LEGEND_BOX` | `(Opción)` <br> <br> • `'circle'`: Cajas circulares <br> • `'rounded'`: Cajas cuadradas con bordes redondeados <br> • `'square'`: Cajas cuadradas | `'square'` | Apariencia de la caja de color de las etiquetas. |
+| `MIN_BUBBLE_SIZE` | `number` | `2` | Tamaño mínimo de elementos de burbuja en gráfica de burbuja. |
+| `MAX_BUBBLE_SIZE` | `number` | `16` | Tamaño máximo de elementos de burbuja en gráfica de burbuja. |
+| `TRANSPOSED` | `boolean` | `false` | Transponer gráfica. Si se activa este parámetro, los datos de los ejes $X$ y $Y$ se invertirán. Esto sólo es válido para gráficas de barras, de dispersión y de burbuja. |
+
+Los objetos declarados en la matriz se renderizarán, cada uno, en un componente de gráfica.
+
+>   La declaración de estos atributos utiliza propiedades computadas. Para saber más, consultar la sección [Destructuración y propiedades computadas](#destructuración-y-propiedades-computadas).
+
+----
+
+# Componentes de gráficas
+
+## Introducción a las graficas de Charts.js
+
+Antes de comprender cómo funciona el uso de los componentes de gráficas de la librería de Charts.js es necesario entender cómo funcionan estos componentes y por qué se optó por desarrollar una estructura de declaración y configuración junto con un componente global por encima de esta librería y no usando esta librería directamente.
+
+Charts.js es una librería de gráficas con un alto nivel de personalización. Esto significa que existe una gran variedad de ajustes de apariencia, comportamiento y estructura para los componentes de gráficas provistos por esta librería. Sin embargo es importante comprender que la naturaleza de las gráficas varía entre una y otra, principalmente por el tipo de conjuntos de datos que pueden renderizar éstas.
+
+Los conjuntos de datos pueden ser muy distintos entre uno y otro y lo que queremos visualizar no siempre es lo mismo pero el tipo de gráfica a utilizar se limita a la estructura del conjunto de datos entrante. La construcción de un componente global y su funcionamiento interno nos da una mayor libertad para realizar esto. Charts.js por sí solo varía la configuración de los mismos parámetros para una gráfica u otra y eso significa que tendríamos que cambiar muchos ajustes si queremos cambiar el tipo de gráfica a renderizar con el mismo conjunto de datos y, para esto, se requeriría leer la documentación de la gráfica a utilizar, además de que, a veces, la explicación del comportamiento no es muy intuitiva, la documentación está disponible sólo para objetos a renderizar en un entorno libre de React.js y la documentación de componentes de Chart.js para React.js actualmente no se encuentra disponible.
+
+Los componentes de gráficas de Charts.js reciben dos objetos principales: El objeto de datos y el objeto de configuración, llamados `series` y `options` respectivamente. La estructura del objeto de datos requerida para renderizar difiere entre un tipo de gráfica y otro. Aquí se incluyen parámetros como los colores y los nombres de las etiquetas categóricas a mostrar en la gráfica, sin embargo, algunos otros ajustes de colores e incluso valores numéricos como el tamaño de las burbujas que depende directamente de un valor numérico del conjunto de datos deben incluirse en el objeto de configuración y no en el de los datos y esto depende del tipo de gráfica, ocasionando que a veces el uso de la librería de Charts.js por sí sola sea un poco antiintuivo o confuso.
+
+## Estructura de componentes de gráficas de Charts.js
+
+## Construcción de la librería Charts.js
+
+Una de las características destacables de la librería Charts.js es que utiliza una técnica llamada *Tree-shaking* que consiste en sólo utilizar los componentes o partes de un código que realmente se requieren en un proyecto, descartando de éste todo lo no utilizado de la librería, optimizando los tiempos de carga en la página y la eficiencia de ésta.
+
+Para inicializar la librería se requiere importar la clase `Chart`:
+```js
+import {Chart as ChartJS} from 'charts.js';
+```
+
+También se importan todos los plug-ins a utilizar, esto es, los elementos de la gráfica:
+```js
+import {
+    Chart as ChartJS, // Clase principal
+    ArcElement, // Plug-ins a usar
+    CategoryScale,
+    Legend,
+    LinearScale,
+    Title,
+    Tooltip,
+} from 'chart.js';
+```
+
+Finamente se requiere registrar todos estos elementos o plug-ins a la clase:
+```js
+ChartsJS.register(ArcElement, CategoryScale, Legend, LinearScale, Title, Tooltip)
+```
+
+De esta manera, ya es posible utilizar estos elementos en un componente de gráfica:
+```js
+{
+...
+    return (
+        <Pie
+            series={...}
+            options={...}
+        />
+    )
+}
+```
+
+### Estructuras de los conjuntos de datos a graficar
+
+La estructura de datos adecuada para la renderización de una gráfica de pastel, dona, área polar o radar se estructura de la siguiente forma, contenida en un objeto de datos:
+```js
+const data: [10, 20, 30, 40, 50]; // Valores numéricos
+const labels: ["category1", "category2", "category3", "category4", "category5"]; // Categorías de la gráfica
+```
+
+La estructura de datos para la renderización de gráficas de barras o línas se estructura de la siguiente forma, contenida en un objeto de datos:
+```js
+const series = [
+    {
+        data: [10, 20, 30, 40, 50], // Valores numéricos
+        label: "category1", // Categorías de la gráfica
+    },
+    {
+        data: [15, 25, 35, 45, 55], // Valores numéricos
+        label: "category2", // Categorías de la gráfica
+    },
+    ...
+]
+```
+
+La estructura de datos para la renderización de gráficas de dispersión se estructura de la siguiente forma, contenida en un objeto de datos:
+```js
+const data: [ // Valores numéricos
+    {x: 5, y: 10},
+    {x: 10, y: 20},
+    {x: 15, y: 30},
+    ...
+];
+const labels: ["category1", "category2", "category3", "category4", "category5"]; // Categorías de la gráfica
+```
+
+La estructura de datos para la renderización de gráficas de burbuja se estructura de la siguiente forma, contenida en un objeto de datos:
+```js
+const data: [ // Valores numéricos
+    {x: 5, y: 10, _custom: 1},
+    {x: 10, y: 20, _custom: 2},
+    {x: 15, y: 30, _custom: 3},
+    ...
+];
+const labels: ["category1", "category2", "category3", "category4", "category5"]; // Categorías de la gráfica
+```
+
+# Visualización de datos en cada gráfica
+
+A continuación se listan los elementos que se pueden visualizar en cada tipo de gráfica y su uso recomendado:
+
+## Gráfica de barras
+- **Tipo de datos**: Uno o varios conjuntos de datos unidimensionales
+- **Uso**: Visualización de uno o más conjuntos de datos de un valor por categoría.
+- **Estructura**:
+    - Un valor por categoría en uno o más conjuntos de datos.
+    - Todos los conjuntos de datos deben listar las mismas categorías.
+- **Elementos para visualizar**:
+    - Un eje de valores numéricos.
+    - Un eje para categorías.
+    - Visualización de cada conjunto de datos en diferentes colores.
+- **Uso recomendado**:
+    -Visualización de valores entre diferentes categorías.
+    - Se recomienda este tipo de gráficas para comparación entre una categoría y otra, no para una visualización de continuidad. Para una visualización de continuidad se recomienda la [Gráfica de líneas](#gráfica-de-líneas).
+
+## Gráfica de líneas
+- **Tipo de datos**: Uno o varios conjuntos de datos unidimensionales
+- **Uso**: Visualización de uno o más conjuntos de datos de un valor por categoría.
+- **Estructura**:
+    - Un valor por categoría en uno o más conjuntos de datos.
+    - Todos los conjuntos de datos deben listar las mismas categorías.
+- **Elementos para visualizar**:
+    - Un eje de valores numéricos.
+    - Un eje para categorías.
+    - Visualización de cada conjunto de datos en diferentes colores.
+- **Uso recomendado**:
+    - Visualización de valores entre categorías continuas como meses, días de la semana o algún tipo de progreso en el tiempo, no para comparaciones entre categorías. Para ese caso se recomienda la [Gráfica de barras](#gráfica-de-barras).
+
+## Gráfica de pastel
+- **Tipo de datos**: Un solo conjunto de datos unidimensional
+- **Uso**: Visualización de un conjunto de datos categórico.
+- **Estructura**:
+    - Un valor por categoría en un conjunto de datos.
+- **Elementos para visualizar**:
+    - Un eje de valores numéricos.
+    - Un eje para categorías.
+- **Uso recomendado**: 
+    - Visualización de valores entre diferentes categorías.
+    - Se recomienda este tipo de gráficas para comparación entre una categoría y otra en un todo y no para una visualización de continuidad. En ese caso se recomienda la [gráfica de líneas](#gráfica-de-líneas).
+    - No se recomienda su uso con más de 5 categorías. Para ese caso se recomienda la [Gráfica de barras](#gráfica-de-barras).
+
+## Gráfica de dona
+- **Tipo de datos**: Un solo conjunto de datos unidimensional
+- **Uso**: Visualización de un conjunto de datos categórico.
+- **Estructura**:
+    - Un valor por categoría en un conjunto de datos.
+- **Elementos para visualizar**:
+    - Un eje de valores numéricos.
+    - Un eje para categorías.
+- **Uso recomendado**: 
+    - Visualización de valores entre diferentes categorías.
+    - Se recomienda este tipo de gráficas para comparación entre una categoría y otra en un todo y no para una visualización de continuidad. En ese caso se recomienda la [gráfica de líneas](#gráfica-de-líneas).
+    - No se recomienda su uso con más de 5 categorías. Para ese caso se recomienda la [Gráfica de barras](#gráfica-de-barras).
+
+## Gráfica de área polar
+- **Tipo de datos**: Un solo conjunto de datos unidimensional
+- **Uso**: Visualización de un conjunto de datos categórico.
+- **Estructura**:
+    - Un valor por categoría en un conjunto de datos.
+- **Elementos para visualizar**:
+    - Un eje de valores numéricos.
+    - Un eje para categorías.
+- **Uso recomendado**: 
+    - Visualización de valores entre diferentes categorías.
+    - Se recomienda este tipo de gráfica cuando se requieran acentuar los valores de las categorías o usar magnitudes ya que los elementos crecerán exponencialmente mientras mayor sea su valor.
+    - Se recomienda este tipo de gráficas para comparación entre una categoría y otra o para una visualización de eventos cíclicos como días de la semana.
+    - No se recomienda su uso para mostrar proporciones de un todo. Para ese caso se recomienda la [Gráfica de pastel](#gráfica-de-pastel) o la [Gráfica de dona](#gráfica-de-dona).
+    - No se recomienda su uso con más de 5 ó 7 categorías. Para ese caso se recomienda la [Gráfica de barras](#gráfica-de-barras).
+
+## Gráfica de radar
+- **Tipo de datos**: Uno o varios conjuntos de datos unidimensionales
+- **Uso**: Visualización de uno o más conjuntos de datos de un valor por categoría.
+- **Estructura**:
+    - Un valor por categoría en uno o más conjuntos de datos.
+    - Todos los conjuntos de datos deben listas las mismas categorías.
+- **Elementos para visualizar**:
+    - Un eje de valores numéricos.
+    - Un eje para categorías.
+    - Visualización de cada conjunto de datos en diferentes colores.
+- **Uso recomendado**: 
+    - Visualización de valores entre diferentes categorías y su contribución en un todo, en uno o más conjuntos de datos.
+    - Se recomienda este tipo de gráfica cuando se requiera visualizar el rendimiento o comportamiento de varios elementos y su contribución a un todo, pertenecientes a un mismo contexto o categoría madre.
+    - También se recomienda este tipo de gráficas para visualización de eventos cíclicos como días de la semana.
+    - No se recomienda su uso con más de 5 ó 7 categorías. Para ese caso se recomienda la [Gráfica de barras](#gráfica-de-barras) si se requiere visualizar una comparación o la [Gráfica de líneas](#gráfica-de-líneas) si se requiere visualizar una continuidad.
+
+## Gráfica de dispersión
+- **Tipo de datos**: Uno o varios conjuntos de datos bidimensionales
+- **Uso**: Visualización de uno o varios conjuntos de datos con categorías de dos valores numéricos.
+- **Estructura**:
+    - Dos valores por categoría o individuo en uno o más conjuntos de datos.
+- **Elementos para visualizar**:
+    - Dos ejes de valores numéricos.
+    - Un eje para categorías.
+    - Visualización de cada conjunto de datos en diferentes colores.
+- **Uso recomendado**:
+    - Visualización de correlación entre dos valores numéricos de un mismo individuo, en muchos individuos de una categoría mayor.
+    - Visualización del comportamiento de una población.
+
+## Gráfica de burbujas
+- **Tipo de datos**: Uno o varios conjuntos de datos tridimensionales.
+- **Uso**: Visualización de uno o varios conjuntos de datos con categorías de tres valores numéricos.
+- **Estructura**:
+    - Tres valores por categoría o individuo en uno o más conjuntos de datos.
+- **Elementos para visualizar**:
+    - Tres ejes de valores numéricos.
+    - Un eje para categorías.
+    - Visualización de cada conjunto de datos en diferentes colores.
+- **Uso recomendado**:
+    - Visualización de correlación entre dos valores numéricos de un mismo individuo mas otro valor numérico, en muchos individuos de una categoría mayor.
+    - Visualización del comportamiento de una población.
+
+## Componente principal de gráfica
+- Ubicación: `src/components/charts`
+- Nombre: `ChartTemplate.jsx`
+
+Este es el componente central de la librería Charts.js en donde se concentra gran parte de las funciones, estructura y configuraciones en esta documentación.
+
+El componente de gráfica concentra los componentes de Chart.js de gráficas y renderiza el que se le indique por medio de los argumentos. Esto facilita el cambio entre un tipo de gráfica u otro sin tener que importar diferentes componentes, lo que lo hace más limpio y mutable al momento de configurar el dashboard.
+
+Este es el flujo que sigue el componente de gráfica para facilitar su renderización:
+```js
+import { useEffect, useState } from "react";
+import { Bar, Bubble, Doughnut, Line, Pie, PolarArea, Radar, Scatter } from 'react-chartjs-2';
+import { getChartData } from "../../api/get";
+import { CHART_TYPES } from "../../constants/charts";
+import { buildData } from "../../utils/utils";
+
+const ChartTemplate = ({ chartData, labelsContainerID }) => {
+    // Estado para carga inicial de los datos
+    const [loadData, setLoadData] = useState();
+    // Estado para transformación de datos
+    const [data, setData] = useState();
+
+    // Carga inicial de los datos
+    useEffect(
+        () => {
+            getChartData(setLoadData, chartData.endpoint)
+        }, [chartData.endpoint]
+    )
+
+    // Transformación de los datos
+    useEffect(
+        () => {
+            if (loadData) {
+                setData(
+                    buildData(
+                        {
+                            data: loadData,
+                            ...chartData,
+                            labelsContainerID
+                        }
+                    )
+                )
+            }
+        }, [loadData, chartData, labelsContainerID]
+    );
+
+    // Renderización de la gráfica
+    const RenderedChart = ({ dataContainer }) => {
+        const chartIndex = {
+            // Gráfica de barras
+            [CHART_TYPES.BAR]: <Bar data={dataContainer.series} options={dataContainer.options} />,
+            // Gráfica de líneas
+            [CHART_TYPES.LINE]: <Line data={dataContainer.series} options={dataContainer.options} />,
+            // Gráfica de pastel
+            [CHART_TYPES.PIE]: <Pie data={dataContainer.series} options={dataContainer.options} />,
+            // Gráfica de área polar
+            [CHART_TYPES.POLARAREA]: <PolarArea data={dataContainer.series} options={dataContainer.options} />,
+            // Gráfica de dona
+            [CHART_TYPES.DOUGHNUT]: <Doughnut data={dataContainer.series} options={dataContainer.options} />,
+            // Gráfica de radar
+            [CHART_TYPES.RADAR]: <Radar data={dataContainer.series} options={dataContainer.options} />,
+            // Gráfica de dispersión
+            [CHART_TYPES.SCATTER]: <Scatter data={dataContainer.series} options={dataContainer.options} />,
+            // Gráfica de burbuja:
+            [CHART_TYPES.BUBBLE]: <Bubble data={dataContainer.series} options={dataContainer.options} />,
+        };
+
+        return chartIndex[chartData.chartType]
+    }
+
+    // Renderización de la gráfica indicada
+    if ( data ) {
+        return (
+            <div>
+                <div id={`${labelsContainerID}`}></div>
+                <RenderedChart
+                    dataContainer={data}
+                />
+            </div>
+        );
+    // Indicación de carga inicial en caso de no haber cargado datos aún
+    } else {
+        return (
+            <div>
+                Cargando...
+            </div>
+        );
+    }
+}
+
+export default ChartTemplate
+```
+
+Los argumentos de entrada disponibles son los siguientes:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `chartData` | `object` | *Requerido | Objeto de datos de renderización y endpoint de donde se tomará la información al conectarse con el API. Para más información sobre cómo declarar este objeto, leer la sección de configuración de [Configuración de las gráficas](#configuración-de-las-gráficas). |
+| `labelsContainerID` | `string` | *Requerido | ID del contenedor HTML `<div>` en donde se renderizarán las etiquetas del conjunto de datos. Para saber más sobre las etiquetas desacopladas de la gráfica, consultar la sección [htmlLegend: Desacoplamiento de etiquetas de conjuntos de datos](#htmllegend-desacoplamiento-de-etiquetas-de-conjuntos-de-datos). |
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   Primeramente se importan todos los componentes, hooks, constantes y funciones requeridos para el funcionamiento de este componente:
+>   ```jsx
+>   import { useEffect, useState } from "react";
+>   import { Bar, Bubble, Doughnut, Line, Pie, PolarArea, Radar, Scatter } from 'react-chartjs-2';
+>   import { getChartData } from "../../api/get";
+>   import { CHART_TYPES } from "../../constants/charts";
+>   import { buildData } from "../../utils/utils";
+>   ```
+>   
+>   Declaración del componente:
+>   ```jsx
+>   const ChartTemplate = ({ chartData, labelsContainerID }) => {
+>       ...
+>   }
+>   ```
+>   
+>   Declaración de los estados para el componente:
+>   ```jsx
+>   // Estado para carga inicial de los datos
+>   const [loadData, setLoadData] = useState();
+>   // Estado para transformación de datos
+>   const [data, setData] = useState();
+>   ```
+>   
+>   >   - El estado `loadData` se utiliza para la solicitud de datos al API.
+>   >   - El estado `data` se obtiene de la transformación de `loadData` por medio de funciones de transformación y formateo de datos para ingresarse como argumento al componente a renderizar.
+>   
+>   Se ejecuta la llamada al API para obtención de los datos de la gráfica usando un hook `useEffect`:
+>   ```jsx
+>   // Carga inicial de los datos
+>   useEffect(
+>       () => {
+>           getChartData(setLoadData, chartData.endpoint)
+>       }, [chartData.endpoint]
+>   )
+>   ```
+>   
+>   >   - Se utiliza la función `getChartData` y se le provee la función de cambio del estado `loadData` así como el atributo `endpoint` que es a donde se realizará la solicitud GET de la información para la gráfica.
+>   
+>   Para más información sobre el funcionamiento de la función `getChartData` consultar la sección [Obtener datos para las gráficas](#obtener-datos-para-las-gráficas).
+>   
+>   Tras la obtención de los datos de la gráfica se ejecuta el siguiente hook `useEffect`:
+>   ```jsx
+>   // Transformación de los datos
+>   useEffect(
+>       () => {
+>           if (loadData) {
+>               ...
+>           }
+>       }, [loadData, chartData, labelsContainerID]
+>   );
+>   ```
+>   
+>   >   Se realiza el cambio del estado `data` con el valor del resultado de la ejecución de la función `buildData`:
+>   >   ```jsx
+>   >   setData(
+>   >       buildData(
+>   >           {
+>   >               data: loadData,
+>   >               ...chartData,
+>   >               labelsContainerID
+>   >           }
+>   >       )
+>   >   )
+>   >   ```
+>   >   
+>   >   -  Se proveen los siguientes atributos a la función `buildData`:
+>   >       - `data`: `loadData`, la información obtenida de la solicitud al API.
+>   >       - La deconstrucción del objeto `chartData`
+>   >       - La declaración del ID a asignar al contenedor HTML `<div>` en donde se renderizarán las etiquetas del conjunto de datos.
+>   
+>   Se declara el componente a renderizar:
+>   ```jsx
+>   // Renderización de la gráfica
+>   const RenderedChart = ({ dataContainer }) => {
+>       const chartIndex = {
+>           // Gráfica de barras
+>           [CHART_TYPES.BAR]: <Bar data={dataContainer.series} options={dataContainer.options} />,
+>           // Gráfica de líneas
+>           [CHART_TYPES.LINE]: <Line data={dataContainer.series} options={dataContainer.options} />,
+>           // Gráfica de pastel
+>           [CHART_TYPES.PIE]: <Pie data={dataContainer.series} options={dataContainer.options} />,
+>           // Gráfica de área polar
+>           [CHART_TYPES.POLARAREA]: <PolarArea data={dataContainer.series} options={dataContainer.options} />,
+>           // Gráfica de dona
+>           [CHART_TYPES.DOUGHNUT]: <Doughnut data={dataContainer.series} options={dataContainer.options} />,
+>           // Gráfica de radar
+>           [CHART_TYPES.RADAR]: <Radar data={dataContainer.series} options={dataContainer.options} />,
+>           // Gráfica de dispersión
+>           [CHART_TYPES.SCATTER]: <Scatter data={dataContainer.series} options={dataContainer.options} />,
+>           // Gráfica de burbuja:
+>           [CHART_TYPES.BUBBLE]: <Bubble data={dataContainer.series} options={dataContainer.options} />,
+>       };
+>   
+>       return chartIndex[chartData.chartType]
+>   }
+>   ```
+>   
+>   >   - El componente recibe las propiedades `data` y `options` entontradas en los atributos `series` y `options` del objeto `dataContainer` respectivamente, los cuales usará para renderizar la gráfica correspondiente con sus datos y configuraciones correspondientes.
+>   >   - Dentro de este componente se declara un mapa de componentes con el tipo de gráfico como índice y el componente a renderizar como valor.
+>   >   - El retorno de este componente es el valor del mapa de componentes con índice en el tipo de gráfica.
+>   
+>   El mapa de componentes sigue la misma estructura que los mapas de funciones. Para saber más sobre los mapas de funciones y su funcionamiento, consultar la sección [Mapas de funciones](#mapas-de-funciones).
+>   
+>   La declaración de los índices utiliza propiedades computadas. Para saber más sobre el uso de propiedades computadas, consultar la sección [Destructuración y propiedades computadas](#destructuración-y-propiedades-computadas).
+>   
+>   Se realiza el retorno condicional:
+>   ```jsx
+>   // Renderización de la gráfica indicada
+>   if ( data ) {
+>       return (
+>           ...
+>       );
+>   // Indicación de carga inicial en caso de no haber cargado datos aún
+>   } else {
+>       return (
+>           ...
+>       );
+>   }
+>   ```
+>   
+>   >   - El elemento JSX a retornar dependerá de si el estado `data` ya contiene datos o aún no.
+>   
+>   Si el estado `data` ya contiene información se retorna el siguiente elemento JSX:
+>   ```jsx
+>   <div>
+>       <div id={`${labelsContainerID}`}></div>
+>       <RenderedChart
+>           dataContainer={data}
+>       />
+>   </div>
+>   ```
+>   
+>   >   - Se retorna un contenedor `<div>`.
+>   >   - Dentro de éste se crea un `<div>` al que se le asigna el nombre de ID provisto al componente, que es el que usará para renderizar las etiquetas de la gráfica. Para saber más sobre las etiquetas desacopladas de la gráfica, consultar la sección [htmlLegend: Desacoplamiento de etiquetas de conjuntos de datos](#htmllegend-desacoplamiento-de-etiquetas-de-conjuntos-de-datos).
+>   >   - También se retona dentro el componente resultado de la llamada al mapa de componentes `RenderedChart` y se le provee el estado de `data` al argumento `dataContainer`.
+
+----
+
+# Funciones principales para gráficas
+
+## Construcción principal de objeto de datos y opciones para componente de gráfica
+- Ubicación: `src/utils/utils.js`
+- Nombre: `buildData`
+
+La función `buildData` recibe los parámetros de declaración de gráfica, opciones de configuración y otros argumentos para construir un objeto de datos y opciones formateados para ingresar al [componente principal de gráfica](#componente-principal-de-gráfica).
+
+Los argumentos de entrada disponibles son:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `data` | `object` | *Requerido | Objeto de datos recibido por medio de la solicitud GET al API. Para saber más, consulta la sección [Obtener datos para las gráficas](#obtener-datos-para-las-gráficas) |
+| `labelsContainerID` | `string` | *Requerido | ID del contenedor HTML `<div>` en donde se renderizarán las etiquetas del conjunto de datos. Para saber más sobre las etiquetas desacopladas de la gráfica, consultar la sección [htmlLegend: Desacoplamiento de etiquetas de conjuntos de datos](#htmllegend-desacoplamiento-de-etiquetas-de-conjuntos-de-datos). |
+| `[CHART_SETTINGS.CHART_TYPE]` | `(opción)` <br><br> • `'bar'`: Gráfica de barras <br> • `'line'`: Gráfica de líneas <br> • `'pie'`: Gráfica de pastel <br> • `'doughnut'`: Gráfica de dona <br> • `'polar area'`: Gráfica de área polar <br> • `'radar'`: Gráfica de radar <br> • `'scatter'`: Gráfica de dispersión <br> • `'bubble'`: Gráfica de burbujas  | *Requerido | Tipo de gráfica a renderizar. |
+| `[CHART_SETTINGS.NAME]` | `string` | *Requerido | Nombre de la gráfica a renderizar .|
+| `[CHART_SETTINGS.DATASETS_NAMES]` | `array [string]` | *Requerido | Nombre de la variable del JSON del endpoint de la cual se obtendrán los valores del o los conjuntos de datos a renderizar en los elementos de la gráfica. |
+| `[CHART_SETTINGS.LABELS]` | `string` | *Requerido | Nombre de la variable del JSON del endpoint de la cual se obtendrá la variable categórica que funcionará para segmentar el o los conjuntos de datos. |
+| `[CHART_SETTINGS.LABELS_NAME]` | `string` | *Requerido | Nombre descriptivo del grupo de etiquetas que se renderizará en la gráfica. |
+| `[CHART_SETTINGS.BACKGROUND_COLORS]` | `Color` - `array [color]` | `[CHART_SETTINGS.RED_PALETTE]` | Colores de fondo para los elementos de la gráfica. El formato de cada color debe ser hexadecimal, por ejemplo `#FFFFFF`. Los colores deben tener ser RGB en formato hexadecimal y contener el símbolo `#` antes de éstos. |
+| `[CHART_SETTINGS.BACKGROUND_OPACITY]` | `number` | `100` | Opacidad de los colores de fondo de los elementos de la gráfica. Debe ser un número del `0` al `100` en donde el `0` representa la transparencia total y el `100` un color totalmente sólido sin transparencia. |
+| `[CHART_SETTINGS.BORDER_COLORS]` | `Color` - `array[Color]` | `[CHART_SETTINGS.RED_PALETTE]` | Colores de borde para los elementos de la gráfica. El formato de cada color debe ser hexadecimal, por ejemplo `#FFFFFF`. Los colores deben tener ser RGB en formato hexadecimal y contener el símbolo `#` antes de éstos. |
+| `[CHART_SETTINGS.BORDER_OPACITY]` | `number` | `100` | Opacidad de los colores de borde de los elementos de la gráfica. Debe ser un número del `0` al `100` en donde el `0` representa la transparencia total y el `100` un color totalmente sólido sin transparencia. |
+| `[CHART_SETTINGS.ASPECT_RATIO]` | `number` - `(División)` | `1.5` | Relación de aspecto de la gráfica. Puede ser un número, como por ejemplo `1.5` o una división como `3/2` en donde el primer número o numerador representa la proporción horizontal y el segundo número o denominador representa la proporción vertical. Por ejemplo, `3/2` significa que, por cada 3 pixeles de ancho, la gráfica tendrá 2 pixeles de alto. |
+| `[CHART_SETTINGS.X_AXIS_FORMAT]` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico en el eje $X$ que se representará en las etiquetas numéricas y el tooltip. |
+| `[CHART_SETTINGS.Y_AXIS_FORMAT]` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico en el eje $Y$ que se representará en las etiquetas numéricas y el tooltip. |
+| `[CHART_SETTINGS.Z_AXIS_FORMAT]` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico en el eje $Z$ que se representará en las etiquetas numéricas y el tooltip. Disponible sólo para gráficas de burbuja |
+| `[CHART_SETTINGS.CATEGORY_STRATIFICATION_BY]` | `string` | `undefined` | Variable categórica de estratificación para segmentar un conjunto de datos en varios conjuntos de datos para renderizarse en la gráfica. |
+| `[CHART_SETTINGS.LABEL_COLUMNS]` | `(Opción)` <br> <br> • `1`: Organización en forma de lista <br> • `2`: Organización en lista de 2 columnas <br> • `3`: Organización en lista de 3 columnas <br> • `4`: Organización en lista de 4 columnas <br> • `6`: Organización en lista de 6 columnas | `1` | Orientación y alineación de las etiquetas. |
+| `[CHART_SETTINGS.LABELS_LIST]` | `(Opción)` <br> <br> • `'default'`: Disposición por defecto | `'default'` | Orientación y alineación de cada contenedor de etiqueta. |
+| `[CHART_SETTINGS.LEGEND_BOX]` | `(Opción)` <br> <br> • `'circle'`: Cajas circulares <br> • `'rounded'`: Cajas cuadradas con bordes redondeados <br> • `'square'`: Cajas cuadradas | `'square'` | Apariencia de la caja de color de las etiquetas. |
+| `[CHART_SETTINGS.MIN_BUBBLE_SIZE]` | `number` | `2` | Tamaño mínimo de elementos de burbuja en gráfica de burbuja. |
+| `[CHART_SETTINGS.MAX_BUBBLE_SIZE]` | `number` | `16` | Tamaño máximo de elementos de burbuja en gráfica de burbuja. |
+| `[CHART_SETTINGS.TRANSPOSED]` | `boolean` | `false` | Transponer gráfica. Si se activa este parámetro, los datos de los ejes $X$ y $Y$ se invertirán. Esto sólo es válido para gráficas de barras, de dispersión y de burbuja. |
+
+> La declaración de estos argumentos utiliza propiedades computadas y constantes. Para saber más, consultar las secciones [Destructuración y propiedades computadas](#destructuración-y-propiedades-computadas) y [Uso de constantes](#uso-de-constantes).
+
+La función luce así:
+```js
+export const buildData = ({
+    // Objeto de datos retornado del API
+    data, 
+    // ID del contenedor de etiquetas
+    labelsContainerID, 
+    // Tipo de gráfica
+    [CHARTS_SETTINGS.CHART_TYPE]: chartType, 
+    // Variable de etiquetas de la gráfica de barras
+    [CHARTS_SETTINGS.LABELS_NAME]: labelsName, 
+    // Variable de cada uno de los conjuntos de datos en el objeto
+    [CHARTS_SETTINGS.DATASETS_NAMES]: datasetNames, 
+    // Nombres visibles en la gráfica para cada conjunto de datos
+    [CHARTS_SETTINGS.LABELS]: labels, 
+
+    // Argumentos opcionales
+    // Colores de fondo de los conjuntos de datos
+    [CHARTS_SETTINGS.BACKGROUND_COLORS]: backgroundColors = chartSettings.backgroundColors, 
+    // Opacidad de los colores de fondo
+    [CHARTS_SETTINGS.BACKGROUND_OPACITY]: backgroundOpacity = chartSettings[ [CHARTS_SETTINGS.BACKGROUND_OPACITY] ], 
+    // Colores de borde de los conjuntos de datos
+    [CHARTS_SETTINGS.BORDER_COLORS]: borderColors = chartSettings[ [CHARTS_SETTINGS.BORDER_COLORS] ], 
+    // Opacidad de los colores de borde
+    [CHARTS_SETTINGS.BORDER_OPACITY]: borderOpacity = chartSettings[ [CHARTS_SETTINGS.BORDER_OPACITY] ], 
+    // Relación de aspecto de la gráfica
+    [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio = chartSettings[ [CHARTS_SETTINGS.ASPECT_RATIO] ], 
+    // Formateo en las etiquetas del eje X
+    [CHARTS_SETTINGS.X_AXIS_FORMAT]: xAxisFormat = chartSettings[ [CHARTS_SETTINGS.X_AXIS_FORMAT] ], 
+    // Formateo en las etiquetas del eje Y
+    [CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat = chartSettings[ [CHARTS_SETTINGS.Y_AXIS_FORMAT] ], 
+    // Formateo en las etiquetas del eje Z
+    [CHARTS_SETTINGS.Z_AXIS_FORMAT]: zAxisFormat = chartSettings[ [CHARTS_SETTINGS.Z_AXIS_FORMAT] ], 
+    // Variable de estratificación
+    [CHARTS_SETTINGS.CATEGORY_STRATIFICATION_BY]: strat = chartSettings[ [CHARTS_SETTINGS.CATEGORY_STRATIFICATION_BY] ], 
+    // Estilo de contenedor de etiquetas
+    [CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay = chartSettings[ [CHARTS_SETTINGS.LABEL_COLUMNS] ], 
+    // Estilo de lista de etiquetas
+    [CHARTS_SETTINGS.LABELS_LIST]: labelsList = chartSettings[ [CHARTS_SETTINGS.LABELS_LIST] ], 
+    // Estilo de cajas de color de etiquetas
+    [CHARTS_SETTINGS.LEGEND_BOX]: legendBox = chartSettings[ [CHARTS_SETTINGS.LEGEND_BOX] ], 
+    // Indicador de transposición de ejes en la gráfica
+    [CHARTS_SETTINGS.TRANSPOSED]: transposed = chartSettings[ [CHARTS_SETTINGS.TRANSPOSED] ] 
+}) => {
+
+    // Inicialización del contenedor de datos con formato dinámico
+    let series = buildInitSeries[chartType]({ data, strat, datasetNames, labelsName, labels, transposed });
+
+    // Mapeo de colores y opacidades preestablecidos a los conjuntos de datos
+    series = mapColorsOnSeries({ series, chartType, backgroundColors, backgroundOpacity, borderColors, borderOpacity });
+
+    // Inicialización del contenedor de opciones
+    let options = buildInitOptions[chartType]({ series, labelsContainerID, aspectRatio, labelsDisplay, labelsList, legendBox, transposed });
+
+    // Asignación de nombres de clase a elementos HTML internos de la gráfica
+    options = assignCSSStyles({ options });
+
+    // Formateo de etiquetas en la gráfica
+    [ series, options ] = formatLabels[chartType]({ chartType, series, options, xAxisFormat, yAxisFormat, transposed });
+    options = formatTooltip({ chartType, options, xAxisFormat, yAxisFormat, zAxisFormat })
+
+    // Formateo de escalas en ejes
+    options = scaleAxes({ chartType, series, options });
+
+    // Retorno del objeto a ingresar al componente de graficación
+    return { series, options };
+}
+```
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   ```js
+>   // Inicialización del contenedor de datos con formato dinámico
+>   let series = buildInitSeries[chartType]({ data, strat, datasetNames, labelsName, labels, transposed });
+>   ```
+>   
+>   >   - Se inicializa el objeto de datos usando las funciones de construcción de datos. Dependiendo del tipo de gráfica, las posibles ejecuciones son:
+>   >       - [Construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja)
+>   >       - [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión)
+>   >       - [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales)
+>   
+>   Se realiza el mapeo de los colores de fondo y borde además de algunas configuraciones adicionales por medio de la función de mapeo de colores en series:
+>   ```js
+>   // Mapeo de colores y opacidades preestablecidos a los conjuntos de datos
+>   series = mapColorsOnSeries({ series, chartType, backgroundColors, backgroundOpacity, borderColors, borderOpacity });
+>   ```
+>   
+>   >   Para saber más sobre el funcionamiento de la función `mapColorsOnSeries`, consultar la sección [Mapeo de colores en conjuntos de datos](#mapeo-de-colores-en-conjuntos-de-datos).
+>   
+>   Se crea el objeto base de opciones en base al tipo de gráfica:
+>   ```js
+>   // Inicialización del contenedor de opciones
+>   let options = buildInitOptions[chartType]({ series, chartType, labelsContainerID, aspectRatio, labelsDisplay, labelsList, legendBox, transposed });
+>   ```
+>   
+>   - Se inicializa el objeto de opciones usando las funciones de construcción de opciones. Dependiendo del tipo de gráfica, las posibles ejecuciones son:
+>       - [Construcción de objeto de opciones para gráfica de burbujas](#construcción-de-objeto-de-opciones-para-gráfica-de-burbujas)
+>       - [Construcción de objeto de opciones para gráficas cartesianas](#construcción-de-objeto-de-opciones-para-gráficas-cartesianas)
+>       - [Construcción de objeto de opciones para gráficas radiales](#construcción-de-objeto-de-opciones-para-gráficas-radiales)
+>       - [Construcción de objeto de opciones para gráficas de radar](#construcción-de-objeto-de-opciones-para-gráficas-de-radar)
+>   
+>   Se realiza la asignación de clases CSS para uso del plug-in `htmlLegend`:
+>   ```js
+>   // Asignación de nombres de clase a elementos HTML internos de la gráfica
+>   options = assignCSSStyles({ options })
+>   ```
+>   
+>   Se realiza el formateo de las etiquetas y el tooltip:
+>   ```js
+>   // Formateo de etiquetas en la gráfica
+>   [ series, options ] = formatLabels[chartType]({ chartType, series, options, xAxisFormat, yAxisFormat, transposed });
+>   options = formatTooltip({ chartType, options, xAxisFormat, yAxisFormat })
+>   ```
+>   
+>   Se realiza la configuración en los ejes para evitar cortes en los ejes de forma indeseada:
+>   ```js
+>   // Formateo de escalas en ejes
+>   options = scaleAxes({ chartType, series, options });
+>   ```
+>   
+>   Se retornan los objetos `series` y `options` para su uso en el componente principal de gráfica.
+>   ```js
+>   // Retorno del objeto a ingresar al componente de graficación
+>   return { series, options };
+>   ```
+>   
+>   >   Para saber más sobre el componente princpal de gráfica, consultar la sección [Componente principal de gráfica](#componente-principal-de-gráfica)
+
+----
+
+# Funciones para componentes de gráficas
 
 ## Estratificación de conjunto de datos por variable categórica
 - **Ubicación:** `dataFormatting.js`
@@ -542,7 +1208,16 @@ getChartData(setLoadData, "endpoint_example", "https://www.midominioespecifico.c
 
 Esta función recibe un conjunto de datos de entrada, un nombre de variable categórica, nombres de variables del conjunto de datos y un nombre de variable para grupo de etiquetas.
 
-### Ejemplo de uso:
+Los argumentos de entrada disponibles son:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `data` | `object` | *Requerido | Objeto de datos recibido por medio de la solicitud GET al API. Para saber más, consulta la sección [Obtener datos para las gráficas](#obtener-datos-para-las-gráficas). |
+| `categoryName` | `string` | *Requerido | Variable categórica de estratificación para segmentar un conjunto de datos en varios conjuntos de datos para renderizarse en la gráfica. |
+| `datasetNames` | `array [string]` | *Requerido | Nombre de la variable del JSON del endpoint de la cual se obtendrán los valores del o los conjuntos de datos a renderizar en los elementos de la gráfica. |
+| `labelsName` | `string` | *Requerido | Nombre descriptivo del grupo de etiquetas que se renderizará en la gráfica. |
+
+Ejemplo de uso:
 ```js
 // Conjunto de datos
 let data = [
@@ -572,12 +1247,12 @@ let data = [
 Su retorno es una lista de conjuntos de datos formateados para mapeo en un componente de gráfica.
 
 ```js
-[datasets, labels] = stratificateData(
-    data, // Conjunto de datos
-    "warehouse", // Nombre de variable categórica
-    ["amount"], // Nombres de variables del conjunto de datos en matriz
-    "month", // Nombre de variable para grupo de etiquetas
-)
+[datasets, labels] = stratificateData({
+    data: data, // Conjunto de datos
+    categoryName: "warehouse", // Nombre de variable categórica
+    datasetNames: ["amount"], // Nombres de variables del conjunto de datos en matriz
+    labelsName: "month", // Nombre de variable para grupo de etiquetas
+})
 
 // Salida 1 [datasets]
 [
@@ -672,6 +1347,10 @@ Retorno de la función:
 ```js
 ['name 1', 'name 2', 'name 3']
 ```
+
+----
+
+# Construcción de estructuras de datos para gráficas
 
 ## Construcción de estructura de datos para gráficas de burbuja
 
@@ -925,6 +1604,1426 @@ Este objeto puede ser ingresado al argumento `series` del componente de gráfica
 
 ----
 
+# Construcción de estructuras de configuración para gráficas
+
+## Construcción de objeto de opciones para gráfica de burbujas
+
+Esta función construye el objeto de opciones para el componente de gráfica de burbujas.
+
+Uso declarando la gráfica de burbujas en un `string`:
+```js
+// Declaración de los parámetros en un objeto para mejorar visualización
+const params = {
+    series,
+    labelsContainerID,
+    aspectRatio,
+    labelsDisplay,
+    labelsList,
+    legendBox,
+    transposed
+}
+
+const series = buildInitOptions['bubble']( params )
+```
+
+Uso declarando la gráfica de burbujas usando constante (recomendado):
+```js
+// Declaración de los parámetros en un objeto para mejorar visualización de este ejemplo
+const params = {
+    series,
+    labelsContainerID,
+    aspectRatio,
+    labelsDisplay,
+    labelsList,
+    legendBox,
+    transposed
+}
+
+const series = buildInitOptions[CHART_TYPES.BUBBLE]( params )
+```
+
+>   Para saber más sobre el uso de constantes, leer las secciones [Uso de constantes](#uso-de-constantes) y [Tipos de gráficas](#tipos-de-gráficas)
+
+La construcción del objeto de opciones para gráficas de burbuja recibe los siguientes parámetros:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `series` | `object` | *Requerido | Objeto de datos transformado por la función de [construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja) |
+| `labelsContainerID` | `id` | *Requerido | ID del contenedor HTML `<div>` en donde se renderizarán las etiquetas del conjunto de datos. |
+| `aspectRatio` | `number - (División)` | *Declarado en los ajustes predeterminados* | Relación de aspecto de la gráfica |
+| `labelsDisplay` | `(Opción)` <br> <br> • `1`: Una columna <br> • `2`: 2 columnas <br> • `3`: 3 columnas <br> • `4`: 4 columnas <br> • `6`: 6 columnas | `1` | Número de columnas a ocupar por la lista de etiquetas. |
+| `labelsList` | `(Opción)` <br> <br> • `'default'`: Orientación por default (Fila) | `'default'` | Orientación de los elementos dentro de la etiqueta |
+| `legendBox` | `(Opción)` <br> <br> • `'circle'`: Cajas en forma de círculo <br> • `'rounded'`: Cajas cuadradas con bordes redondeados <br> • `'square'`: Cajas cuadradas | `'square'` | Forma de las cajas de color de las etiquetas. |
+| `transposed` | `boolean` | `false` | Indicador de transposición de los ejes $X$ y $Y$ de la gráfica. |
+
+**`series`: Objeto de datos transformado**
+
+Este objeto de datos se obtiene de la función de [construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja) y tiene la siguiente estructura:
+```js
+const series = {
+    datasets: [
+        {
+            data: [
+                    {x: 50.15, y: 37.68, _custom: 44.65},
+                    {x: 10.14, y: 64.88, _custom: 80.16},
+                    {x: 97.05, y: 46.56, _custom: 32.12},
+            ],
+            label: "Productos"
+        }
+    ],
+    labels: [
+        "producto1",
+        "producto2",
+        "producto3",
+    ]
+}
+```
+
+**`labelsContainerID`: ID del elemento HTML contenedor de etiquetas**
+
+Este valor se obtiene de la ID asignada a un elemento HTML:
+```jsx
+const ChartComponent = ({...}) => {
+    ...
+    return (
+        <div>
+            {/* Elemento donde se renderizarán las gráficas */}
+            <div id="labels-container"></div>
+            {/* Componente de gráfica de ejemplo */}
+            <Bar {...}>
+        </div>
+    )
+}
+```
+
+En este caso, el ID sería `labels-container`:
+```js
+const labelsContainerID = "labels-container"
+```
+
+Retorno de la función:
+```js
+// Objeto de opciones preestablecidas para el componente de gráfica
+{
+    aspectRatio: ...,
+    font: {
+        color: ...
+    },
+    indexAxis: "x",
+    plugins: {...},
+    tooltip: {},
+    radius: [...],
+    scales: {
+        x: {
+            ticks: {...}
+        },
+        y: {
+            ticks: {...}
+        },
+    }
+}
+```
+
+Este objeto de opciones ya puede ingresarse como propiedad predefinida de `options` al componente de gráfica de burbujas.
+
+## Construcción de objeto de opciones para gráficas cartesianas
+
+Esta función construye el objeto de opciones para el componente de gráfica cartesiana.
+
+Uso declarando la gráfica cartesiana en un `string`:
+```js
+// Declaración de los parámetros en un objeto para mejorar visualización
+const params = {
+    labelsContainerID,
+    aspectRatio,
+    labelsDisplay,
+    labelsList,
+    legendBox,
+    transposed
+}
+
+const series = buildInitOptions['scatter']( params )
+const series = buildInitOptions['bar']( params )
+const series = buildInitOptions['line']( params )
+```
+
+Uso declarando la gráfica cartesiana usando constante (recomendado):
+```js
+// Declaración de los parámetros en un objeto para mejorar visualización de este ejemplo
+const params = {
+    labelsContainerID,
+    aspectRatio,
+    labelsDisplay,
+    labelsList,
+    legendBox,
+    transposed
+}
+
+let series = buildInitOptions[CHART_TYPES.SCATTER]( params )
+let series = buildInitOptions[CHART_TYPES.BAR]( params )
+let series = buildInitOptions[CHART_TYPES.LINE]( params )
+```
+
+>   Para saber más sobre el uso de constantes, leer las secciones [Uso de constantes](#uso-de-constantes) y [Tipos de gráficas](#tipos-de-gráficas)
+
+La construcción del objeto de opciones para gráficas cartesianas recibe los siguientes parámetros:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `labelsContainerID` | `id` | *Requerido | ID del contenedor HTML `<div>` en donde se renderizarán las etiquetas del conjunto de datos. |
+| `aspectRatio` | `number - (División)` | *Declarado en los ajustes predeterminados* | Relación de aspecto de la gráfica |
+| `labelsDisplay` | `(Opción)` <br> <br> • `1`: Una columna <br> • `2`: 2 columnas <br> • `3`: 3 columnas <br> • `4`: 4 columnas <br> • `6`: 6 columnas | `1` | Número de columnas a ocupar por la lista de etiquetas. |
+| `labelsList` | `(Opción)` <br> <br> • `'default'`: Orientación por default (Fila) | `'default'` | Orientación de los elementos dentro de la etiqueta |
+| `legendBox` | `(Opción)` <br> <br> • `'circle'`: Cajas en forma de círculo <br> • `'rounded'`: Cajas cuadradas con bordes redondeados <br> • `'square'`: Cajas cuadradas | `'square'` | Forma de las cajas de color de las etiquetas. |
+| `transposed` | `boolean` | `false` | Indicador de transposición de los ejes $X$ y $Y$ de la gráfica. |
+
+**`labelsContainerID`: ID del elemento HTML contenedor de etiquetas**
+
+Este valor se obtiene de la ID asignada a un elemento HTML:
+```jsx
+const ChartComponent = ({...}) => {
+    ...
+    return (
+        <div>
+            {/* Elemento donde se renderizarán las gráficas */}
+            <div id="labels-container"></div>
+            {/* Componente de gráfica de ejemplo */}
+            <Bar {...}>
+        </div>
+    )
+}
+```
+
+En este caso, el ID sería `labels-container`:
+```js
+const labelsContainerID = "labels-container"
+```
+
+Retorno de la función:
+```js
+{
+    aspectRatio: ...,
+    font: {
+        color: ...
+    },
+    indexAxis: "x",
+    plugins: {...},
+    scales: {
+        x: {
+            ticks: {...}
+        },
+        y: {
+            ticks: {...}
+        },
+    }
+}
+```
+
+Este objeto de opciones ya puede ingresarse como propiedad predefinida de `options` al componente de gráfica cartesiana.
+
+## Construcción de objeto de opciones para gráficas radiales
+
+Esta función construye el objeto de opciones para el componente de gráfica radial.
+
+Uso declarando la gráfica radial en un `string`:
+```js
+// Declaración de los parámetros en un objeto para mejorar visualización
+const params = {
+    labelsContainerID,
+    aspectRatio,
+    labelsDisplay,
+    labelsList,
+    legendBox,
+}
+
+const series = buildInitOptions['pie']( params )
+const series = buildInitOptions['doughnut']( params )
+const series = buildInitOptions['polarArea']( params )
+```
+
+Uso declarando la gráfica radial usando constante (recomendado):
+```js
+// Declaración de los parámetros en un objeto para mejorar visualización de este ejemplo
+const params = {
+    labelsContainerID,
+    aspectRatio,
+    labelsDisplay,
+    labelsList,
+    legendBox,
+}
+
+let series = buildInitOptions[CHART_TYPES.PIE]( params )
+let series = buildInitOptions[CHART_TYPES.DOUGHNUT]( params )
+let series = buildInitOptions[CHART_TYPES.POLAR_AREA]( params )
+```
+
+>   Para saber más sobre el uso de constantes, leer las secciones [Uso de constantes](#uso-de-constantes) y [Tipos de gráficas](#tipos-de-gráficas)
+
+La construcción del objeto de opciones para gráficas radiales recibe los siguientes parámetros:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `labelsContainerID` | `id` | *Requerido | ID del contenedor HTML `<div>` en donde se renderizarán las etiquetas del conjunto de datos. |
+| `labelsDisplay` | `(Opción)` <br> <br> • `1`: Una columna <br> • `2`: 2 columnas <br> • `3`: 3 columnas <br> • `4`: 4 columnas <br> • `6`: 6 columnas | `1` | Número de columnas a ocupar por la lista de etiquetas. |
+| `labelsList` | `(Opción)` <br> <br> • `'default'`: Orientación por default (Fila) | `'default'` | Orientación de los elementos dentro de la etiqueta |
+| `legendBox` | `(Opción)` <br> <br> • `'circle'`: Cajas en forma de círculo <br> • `'rounded'`: Cajas cuadradas con bordes redondeados <br> • `'square'`: Cajas cuadradas | `'square'` | Forma de las cajas de color de las etiquetas. |
+| `transposed` | `boolean` | `false` | Indicador de transposición de los ejes $X$ y $Y$ de la gráfica. |
+
+**`labelsContainerID`: ID del elemento HTML contenedor de etiquetas**
+
+Este valor se obtiene de la ID asignada a un elemento HTML:
+```jsx
+const ChartComponent = ({...}) => {
+    ...
+    return (
+        <div>
+            {/* Elemento donde se renderizarán las gráficas */}
+            <div id="labels-container"></div>
+            {/* Componente de gráfica de ejemplo */}
+            <Bar {...}>
+        </div>
+    )
+}
+```
+
+En este caso, el ID sería `labels-container`:
+```js
+const labelsContainerID = "labels-container"
+```
+
+Retorno de la función:
+```js
+{
+    aspectRatio: ...,
+    font: {
+        color: ...
+    },
+    plugins: {...},
+    scales: {
+        r: {
+            angleLines: {
+                display: false
+            },
+            display: false,
+            pointLabels: {},
+            ticks: {...}
+        }
+    }
+}
+```
+
+Este objeto de opciones ya puede ingresarse como propiedad predefinida de `options` al componente de gráfica radial.
+
+## Construcción de objeto de opciones para gráficas de radar
+
+Esta función construye el objeto de opciones para el componente de gráfica de radar.
+
+Uso declarando la gráfica de radar en un `string`:
+```js
+// Declaración de los parámetros en un objeto para mejorar visualización
+const params = {
+    labelsContainerID,
+    aspectRatio,
+    labelsDisplay,
+    labelsList,
+    legendBox,
+}
+
+const series = buildInitOptions['radar']( params )
+```
+
+Uso declarando la gráfica de radar usando constante (recomendado):
+```js
+// Declaración de los parámetros en un objeto para mejorar visualización de este ejemplo
+const params = {
+    labelsContainerID,
+    aspectRatio,
+    labelsDisplay,
+    labelsList,
+    legendBox,
+}
+
+const series = buildInitOptions[CHART_TYPES.RADAR]( params )
+```
+
+>   Para saber más sobre el uso de constantes, leer las secciones [Uso de constantes](#uso-de-constantes) y [Tipos de gráficas](#tipos-de-gráficas)
+
+La construcción del objeto de opciones para gráficas de burbuja recibe los siguientes parámetros:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `labelsContainerID` | `id` | *Requerido | ID del contenedor HTML `<div>` en donde se renderizarán las etiquetas del conjunto de datos. |
+| `aspectRatio` | `number - (División)` | *Declarado en los ajustes predeterminados* | Relación de aspecto de la gráfica |
+| `labelsDisplay` | `(Opción)` <br> <br> • `1`: Una columna <br> • `2`: 2 columnas <br> • `3`: 3 columnas <br> • `4`: 4 columnas <br> • `6`: 6 columnas | `1` | Número de columnas a ocupar por la lista de etiquetas. |
+| `labelsList` | `(Opción)` <br> <br> • `'default'`: Orientación por default (Fila) | `'default'` | Orientación de los elementos dentro de la etiqueta |
+| `legendBox` | `(Opción)` <br> <br> • `'circle'`: Cajas en forma de círculo <br> • `'rounded'`: Cajas cuadradas con bordes redondeados <br> • `'square'`: Cajas cuadradas | `'square'` | Forma de las cajas de color de las etiquetas. |
+
+**`labelsContainerID`: ID del elemento HTML contenedor de etiquetas**
+
+Este valor se obtiene de la ID asignada a un elemento HTML:
+```jsx
+const ChartComponent = ({...}) => {
+    ...
+    return (
+        <div>
+            {/* Elemento donde se renderizarán las gráficas */}
+            <div id="labels-container"></div>
+            {/* Componente de gráfica de ejemplo */}
+            <Bar {...}>
+        </div>
+    )
+}
+```
+
+En este caso, el ID sería `labels-container`:
+```js
+const labelsContainerID = "labels-container"
+```
+
+Retorno de la función:
+```js
+// Objeto de opciones preestablecidas para el componente de gráfica
+
+{
+    aspectRatio: ...,
+    font: {
+        color: ...
+    },
+    plugins: {...},
+    scales: {
+        r: {
+            angleLines: {
+                display: true
+            },
+            display: true,
+            grid: {
+                color: ...
+            },
+            pointLabels: {},
+            ticks: {
+                backdropColor: ...,
+                callback: ...
+            }
+        }
+    }
+}
+```
+
+Este objeto de opciones ya puede ingresarse como propiedad predefinida de `options` al componente de gráfica de radar.
+
+----
+
+# Estilización de etiquetas de gráficas
+
+## Estilización de etiquetas HTML de gráficas
+
+Esta función recibe el objeto de opciones `options` y le asigna el objeto de estilización `chartElementsStyling` de etiquetas para uso del plug-in `htmlLegend`.
+
+```js
+export const assignCSSStyles = ({ options }) => {
+    // Asignación de los estilos previamente configurados
+    options.plugins.stylingCSS = chartElementsStyling
+
+    // Retorno del nuevo objeto de opciones
+    return options
+}
+```
+
+>   - El objeto de estilización de etiquetas se añade como valor del plug-in `stylingCSS` que a su vez se encuentra como atributo del objeto `plugins` del objeto de opciones.
+
+>   Para saber más sobre el plug-in `htmlLegend`, consultar la sección [htmlLegend: Desacoplamiento de etiquetas de conjuntos de datos](#htmllegend-desacoplamiento-de-etiquetas-de-conjuntos-de-datos)
+
+----
+
+# Formateo de etiquetas en los ejes de gráficas
+
+## Funciones de formateo numérico y de texto
+
+Este mapa de funciones contiene funciones de formateo clasificadas en su tipo de formateo y tipo de abreviación para números grandes respectivamente:
+```js
+export const labelsFormats = {
+
+    // Formato numérico
+    [LABELS_FORMATS_SETTINGS.NUMERIC]: {
+        raw: (num) => (num.toFixed(2)),
+        toThousands: (num) => (`${num / 1000} K`),
+        toMillions: (num) => (`${num / 1000000} M`),
+        type: Number,
+    },
+
+    // Formato en moneda nacional
+    [LABELS_FORMATS_SETTINGS.MONETARY]: {
+        raw: (num) => (num.toLocaleString('es-MX', {style: 'currency', currency: 'MXN'})),
+        toThousands: (num) => (`$${num / 1000} K`),
+        toMillions: (num) => (`$${num / 1000000} M`),
+        type: Number,
+    },
+
+    // Mostrar sólo el primer nombre en un String antes del espacio
+    [LABELS_FORMATS_SETTINGS.ONLY_NAME]: {
+        raw: (text) => (text.slice(0, text.indexOf(" "))),
+        type: String,
+    },
+}
+```
+
+Para tomar alguna de las funciones, se accede de la siguiente forma, sin incluir los paréntesis que indican la ejecución de la función:
+```js
+const callback = labelsFormats[<formatType>].raw
+const callback = labelsFormats[<formatType>].toThousands
+const callback = labelsFormats[<formatType>].toMillions
+```
+
+>   En el caso de las funciones para formateo de texto, sólo existen las de tipo `raw` pues no abrevian en miles o millones por obvias razones.
+> Cada índice contiene un atributo `type` para un fácil uso en la validación del tipo de formateo que se realizará, en base al tipo de valor que formatea.
+
+## Asignación de formateo numérico
+
+Esta función recibe el objeto de datos para el componente de gráfica, un tipo de formateo numérico y el eje en donde se aplicará. Retorna una función para formateo de las etiquetas numéricas y también realiza una evaluación del valor máximo en los conjuntos de datos para determinar si requieren una abreviación, por ejemplo, números más grandes como `1234567` se mostrarán como `1.2 M`:
+```js
+const assignNumericLabelsFormatter = ({
+    series,
+    axisFormat,
+    axis = undefined
+}) => {
+
+    // Creación de contenedor de número mayor
+    let maxNumber = 0;
+
+    // Iteración de conjuntos de datos
+    series.datasets.forEach(
+        (dataset) => {
+            // Iteración por cada valor de cada conjunto de datos
+            dataset.data.forEach(
+                (value) => {
+                    // Búsqueda del número mayor en todos los conjuntos de datos de la gráfica
+                    if (axis) {
+                        if (value[axis] > maxNumber ) {
+                            maxNumber = value[axis]
+                        }
+                    } else {
+                        if (value > maxNumber ) {
+                            maxNumber = value
+                        }
+                    }
+                }
+            )
+        }
+    )
+
+    // Asignación de abreviación por millones
+    if ( maxNumber >= 1000000 ) {
+        return labelsFormats[axisFormat].toMillions
+
+    // Asignación de abreviación por miles
+    } else if ( maxNumber >= 3000 ) {
+        return labelsFormats[axisFormat].toThousands
+    
+    // Formateo por defecto
+    } else {
+        return labelsFormats[axisFormat].raw
+    }
+}
+```
+
+Los argumentos de entrada disponibles son:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `series` | `object` | *Requerido | Objeto de datos transformado por alguna de las siguietes funciones: <br> • [Construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja)  <br> • [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión) <br> • [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales) |
+| `axisFormat` | `(Opción)` <br> <br> • `'numeric'`: Valor numérico con punto decimal <br> • `'monetary'`: Valor de tipo moneda nacional | *Requerido | Tipo de formateo numérico a aplicar. |
+| `axis` | `string` | `undefined` | Eje a aplicar el formateo. Se omite este argumento en objetos de datos que no almacenen los valores numéricos en un eje sino en una matriz. |
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   Se crea una variable para almacenar el número mayor encontrado:
+>   ```js
+>   // Creación de contenedor de número mayor
+>   let maxNumber = 0;
+>   ```
+>   
+>   Se itera el objeto de datos por cada uno de sus conjuntos de datos para buscar el número mayor:
+>   ```js
+>   // Iteración de conjuntos de datos
+>   series.datasets.forEach(
+>       (dataset) => {
+>           ...
+>       }
+>   )
+>   ```
+>   
+>   >   Se hace una iteración por cada uno de los valores de cada uno de los conjuntos de datos:
+>   >   ```js
+>   >   // Iteración por cada valor de cada conjunto de datos
+>   >   dataset.data.forEach(
+>   >       (value) => {
+>   >           ...
+>   >       }
+>   >   )
+>   >   ```
+>   >   
+>   >   >   Se realiza una evaluación de si existe un valor en la variable `axis` y se ejecuta alguno de los dos bloques de código a continuación si es que la función se cumple o no:
+>   >   >   ```js
+>   >   >   // Búsqueda del número mayor en todos los conjuntos de datos de la gráfica
+>   >   >   if (axis) {
+>   >   >       if (value[axis] > maxNumber ) {
+>   >   >           maxNumber = value[axis]
+>   >   >       }
+>   >   >   } else {
+>   >   >       if (value > maxNumber ) {
+>   >   >           maxNumber = value
+>   >   >       }
+>   >   >   }
+>   >   >   ```
+>   >   >   
+>   >   >   >   Si la condición se cumple significa que cada uno de los valores no son números individuales sino objetos. Por lo tanto se ejecuta el siguiente bloque de código:
+>   >   >   >   
+>   >   >   >   ```js
+>   >   >   >   if (value[axis] > maxNumber ) {
+>   >   >   >       maxNumber = value[axis]
+>   >   >   >   }
+>   >   >   >   ```
+>   >   >   >   >   - Se evalúa si el valor numérico en el índice de `axis` es mayor al número máximo registrado.
+>   >   >   >   >   - Se ser así, este valor numérico sobreescribe el valor del número máximo en la variable `maxNumber`.
+>   >   >   >   
+>   >   >   >   Si la condición no se cumple significa que cada uno de los valores son numéricos y sólo se procede a evaluar cada uno:
+>   >   >   >   ```js
+>   >   >   >   else {
+>   >   >   >       if (value > maxNumber ) {
+>   >   >   >           maxNumber = value
+>   >   >   >       }
+>   >   >   >   }
+>   >   >   >   ```
+>   >   >   >   >   - Se evalúa si el valor es mayor al número máximo registrado.
+>   >   >   >   >   - Se ser así, este valor sobreescribe el valor del número máximo en la variable `maxNumber`.
+>   >   >   
+>   >   >   Finaliza el ciclo `forEach` de iteración por valores.
+>   >   
+>   >   Finaliza el ciclo `forEach` de iteración por conjuntos de datos.
+>   
+>   Finalmente se valida el número máximo para determinar la función a retornar, en base al tipo de formateo numérico provisto:
+>   ```js
+>   // Asignación de abreviación por millones
+>   if ( maxNumber >= 1000000 ) {
+>       return labelsFormats[axisFormat].toMillions
+>   
+>   // Asignación de abreviación por miles
+>   } else if ( maxNumber >= 3000 ) {
+>       return labelsFormats[axisFormat].toThousands
+>   
+>   // Formateo por defecto
+>   } else {
+>       return labelsFormats[axisFormat].raw
+>   }
+>   ```
+>   
+>   >   - Si el valor máximo es igual o mayor a 1 millón se retorna la función encontrada en el atributo `toMillios` del mapa de funciones de formateo.
+>   >   - De no cumplirse la primera condición se valida si el valor máximo es igual o mayor a 1 millón y se retorna la función encontrada en el atributo `toThousands` del mapa de funciones de formateo.
+>   >   - De no cumplirse la segunda condición se retorna la función encontrada en el atributo `raw` del mapa de funciones de formateo, que es la función que sólo formatea el número sin abreviarlo.
+>   
+>   >   Para saber más sobre el mapa de funciones de formateo, consultar la sección [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto).
+
+## Asignación de formateo de etiquetas
+
+Esta función recibe el objeto de datos para el componente de gráfica y un tipo de formateo numérico o de texto. Retorna una función para formateo de las etiquetas:
+```js
+const assignLabelsFormatter = ({
+    series,
+    axisFormat
+}) => {
+
+    // Inicialización de la función a retornar
+    let labelsFormatter
+    
+    if ( labelsFormats[axisFormat].type === Number ) {
+        labelsFormatter = assignNumericLabelsFormatter({ series, axisFormat })
+    } else {
+        labelsFormatter = labelsFormats[axisFormat].raw
+    }
+
+    // Retorno de la función
+    return labelsFormatter
+}
+```
+
+Los argumentos de entrada disponibles son:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `series` | `object` | *Requerido | Objeto de datos transformado por alguna de las siguietes funciones: <br> • [Construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja)  <br> • [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión) <br> • [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales) |
+| `axisFormat` | `(Opción)` <br> <br> • `'numeric'`: Valor numérico con punto decimal <br> • `'monetary'`: Valor de tipo moneda nacional | *Requerido | Tipo de formateo numérico a aplicar. |
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   Se inicializa la variable para almacenar la función a retornar
+>   ```js
+>   let labelsFormatter
+>   ```
+>   
+>   >   - Se valida si el tipo de formateo en el índice de funciones de formateo es numérico:
+>   ```js
+>   if ( labelsFormats[axisFormat].type === Number ) {
+>       ...
+>   } else {
+>       ...
+>   }
+>   ```
+>   
+>   >   De cumplirse esta condición se ejecuta el siguiente bloque de código:
+>   >   ```js
+>   >   labelsFormatter = assignNumericLabelsFormatter({ series, axisFormat })
+>   >   ```
+>   >   
+>   >   >   - Se realiza la llamada a la función de asignación de valores numéricos proporcionándole los siguientes argumentos:
+>   >   >       - `series`: `series`.
+>   >   >       - `axisFormat`: `xAxisFormat`.
+>   >   
+>   >   >   Para saber más sobre el uso de las funciones de formateo, consultar la sección [Asignación de formateo numérico](#asignación-de-formateo-numérico)
+>   >   
+>   >   De no cumplirse esta condición se asume que el formateo es de tipo texto y se ejecuta el siguiente bloque de código:
+>   >   ```js
+>   >   labelsFormatter = labelsFormats[axisFormat].raw
+>   >   ```
+>   >   
+>   >   >   - Se asigna la función encontrada en el atributo `raw` del mapa de funciones de formateo de etiquetas de ejes en el índice del tipo de formateo.
+>   >   
+>   >   >   Para saber más sobre el mapa de funciones de formateo, consultar la sección [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto).
+>   >   
+>   
+>   Finalmente se retorna esta función:
+>   ```js
+>   return labelsFormatter
+>   ```
+
+## Formateo de etiquetas en ejes de gráfica de dispersión y burbujas
+
+Esta función formatea la visualización de las etiquetas numéricas en los ejes $X$ y $Y$ de gráficas de dispersión y burbujas si éstas fueron provistas como argumento.
+
+Uso declarando el tipo de gráfico en un `string`:
+```js
+formatLabels['bubble']({ series, options, xAxisFormat, yAxisFormat, zAxisFormat, transposed })
+formatLabels['scatter']({ series, options, xAxisFormat, yAxisFormat, zAxisFormat, transposed })
+```
+
+Uso declarando el tipo de gráfico usando constante (recomendado):
+```js
+formatLabels[CHART_TYPES.BUBBLE]({ series, options, xAxisFormat, yAxisFormat, transposed })
+formatLabels[CHART_TYPES.SCATTER]({ series, options, xAxisFormat, yAxisFormat, transposed })
+```
+
+Los argumentos de entrada disponibles son:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `series` | `object` | *Requerido | Objeto de datos transformado por alguna de las siguietes funciones: <br> • [Construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja)  <br> • [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión) <br> • [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales) |
+| `options` | `object` | *Requerido | Objeto de opciones base construido por alguna de las siguientes funciones: <br> • [Construcción de objeto de opciones para gráfica de burbujas](#construcción-de-objeto-de-opciones-para-gráfica-de-burbujas) <br> • [Construcción de objeto de opciones para gráficas cartesianas](#construcción-de-objeto-de-opciones-para-gráficas-cartesianas) <br> • [Construcción de objeto de opciones para gráficas radiales](#construcción-de-objeto-de-opciones-para-gráficas-radiales) <br> • [Construcción de objeto de opciones para gráficas de radar](#construcción-de-objeto-de-opciones-para-gráficas-de-radar) |
+| `xAxisFormat` | `(Opción)` <br> <br> • `'numeric'`: Valor numérico con punto decimal <br> • `'monetary'`: Valor de tipo moneda nacional <br> • `'only name'`: Sólo nombre | `undefined` | Tipo de formateo para las etiquetas del eje $X$. |
+| `yAxisFormat` | `(Opción)` <br> <br> • `'numeric'`: Valor numérico con punto decimal <br> • `'monetary'`: Valor de tipo moneda nacional <br> • `'only name'`: Sólo nombre | `undefined` | Tipo de formateo para las etiquetas del eje $Y$. |
+| `transposed` | `boolean` | `false` | Indicador de transposición de los ejes $X$ y $Y$ de la gráfica. |
+
+Por dentro la función luce así:
+```js
+const formatScatterChartLabels = ({
+    series,
+    options,
+    xAxisFormat,
+    yAxisFormat,
+    transposed
+}) => {
+
+    // Inicialización de las funciones formateadoras
+    let xLabelsFormatter
+    let yLabelsFormatter
+
+    // Validación de indicación de gráfica transpuesta
+    if ( transposed ) {
+        // Formateo de etiquetas en ambos ejes
+        if ( xAxisFormat ) {
+            yLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: xAxisFormat, axis: 'x' })
+            options.scales.y.ticks.callback = yLabelsFormatter
+        }
+        if ( yAxisFormat ) {
+            xLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: yAxisFormat, axis: 'y' })
+            options.scales.x.ticks.callback = xLabelsFormatter
+        }
+    } else {
+        // Formateo de etiquetas en ambos ejes
+        if ( xAxisFormat ) {
+            xLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: xAxisFormat, axis: 'x' })
+            options.scales.x.ticks.callback = xLabelsFormatter
+        }
+        if ( yAxisFormat ) {
+            yLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: yAxisFormat, axis: 'y' })
+            options.scales.y.ticks.callback = yLabelsFormatter
+        }
+    }
+
+    // Retorno de los conjuntos de datos y objeto de opciones
+    return [ series, options ]
+}
+```
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   Se inicializan las variables contenedoras de las funciones de formateo:
+>   >   ```js
+>   >       // Inicialización de las funciones formateadoras
+>   >       let xLabelsFormatter
+>   >       let yLabelsFormatter
+>   >   ```
+>   
+>   Se valida si `transposed` es `true`:
+>   ```js
+>       // Validación de indicación de gráfica transpuesta
+>       if ( transposed ) {
+>           ...
+>       } else {
+>           ...
+>       }
+>   ```
+>   
+>   >   En caso de cumplirse la condición se ejecuta lo siguiente:
+>   >   
+>   >   >   **IMPORTANTE**: Leer cuidadosamente ya que la ejecución puede ser un poco antiintuitiva ya que se toman las declaraciones del formateo en un eje y los resultados se almacenan en la configuración del otro eje.
+>   >   
+>   >   ```js
+>   >   // Formateo de etiquetas en ambos ejes
+>   >   if ( xAxisFormat ) {
+>   >       ...
+>   >   }
+>   >   if ( yAxisFormat ) {
+>   >       ...
+>   >   }
+>   >   ```
+>   >   
+>   >   >   - Se valida si existe un tipo de formateo para el eje $X$. En caso de existir se ejecuta el siguiente bloque de código:
+>   >   >   ```js
+>   >   >   yLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: xAxisFormat, axis: 'x' })
+>   >   >   options.scales.y.ticks.callback = yLabelsFormatter
+>   >   >   ```
+>   >   >   
+>   >   >   >   - Se realiza la llamada a la función de asignación de valores numéricos proporcionándole los siguientes argumentos:
+>   >   >   >       - `series`: `series`.
+>   >   >   >       - `axisFormat`: `xAxisFormat`
+>   >   >   >       - `axis`: `'x'`
+>   >   >   >   - El resultado del retorno de la función `assignNumericLabelsFormatter` se asigna al atributo `callback` del atributo `ticks` del eje $Y$ de la configuración de escalas del objeto de opciones.
+>   >   >   
+>   >   >   >   Para saber más sobre el mapa de funciones de formateo numérico, consular la sección [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto).
+>   >   >   
+>   >   >   - Se valida si existe un tipo de formateo para el eje $Y$. En caso de existir se ejecuta el siguiente bloque de código:
+>   >   >   ```js
+>   >   >   xLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: yAxisFormat, axis: 'y' })
+>   >   >   options.scales.x.ticks.callback = xLabelsFormatter
+>   >   >   ```
+>   >   >   
+>   >   >   >   - Se realiza la llamada a la función de asignación de valores numéricos proporcionándole los siguientes argumentos:
+>   >   >   >       - `series`: `series`.
+>   >   >   >       - `axisFormat`: `yAxisFormat`
+>   >   >   >       - `axis`: `'y'`
+>   >   >   >   - El resultado del retorno de la función `assignNumericLabelsFormatter` se asigna al atributo `callback` del atributo `ticks` del eje $X$ de la configuración de escalas del objeto de opciones.
+>   >   >   
+>   >   >   >   Para saber más sobre el mapa de funciones de formateo numérico, consular la sección [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto).
+>   >   
+>   >   En caso de no cumplirse la condición se ejecuta lo siguiente:
+>   >   
+>   >   ```js
+>   >   // Formateo de etiquetas en ambos ejes
+>   >   if ( xAxisFormat ) {
+>   >       ...
+>   >   }
+>   >   if ( yAxisFormat ) {
+>   >       ...
+>   >   }
+>   >   ```
+>   >   
+>   >   >   - Se valida si existe un tipo de formateo para el eje $X$. En caso de existir se ejecuta el siguiente bloque de código:
+>   >   >   ```js
+>   >   >   xLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: xAxisFormat, axis: 'x' })
+>   >   >   options.scales.x.ticks.callback = xLabelsFormatter
+>   >   >   ```
+>   >   >   
+>   >   >   >   - Se realiza la llamada a la función de asignación de valores numéricos proporcionándole los siguientes argumentos:
+>   >   >   >       - `series`: `series`.
+>   >   >   >       - `axisFormat`: `xAxisFormat`
+>   >   >   >       - `axis`: `'x'`
+>   >   >   >   - El resultado del retorno de la función `assignNumericLabelsFormatter` se asigna al atributo `callback` del atributo `ticks` del eje $X$ de la configuración de escalas del objeto de opciones.
+>   >   >   
+>   >   >   >   Para saber más sobre el mapa de funciones de formateo numérico, consular la sección [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto).
+>   >   >   
+>   >   >   - Se valida si existe un tipo de formateo para el eje $Y$. En caso de existir se ejecuta el siguiente bloque de código:
+>   >   >   ```js
+>   >   >   yLabelsFormatter = assignNumericLabelsFormatter({ series, axisFormat: yAxisFormat, axis: 'y' })
+>   >   >   options.scales.y.ticks.callback = yLabelsFormatter
+>   >   >   ```
+>   >   >   
+>   >   >   >   - Se realiza la llamada a la función de asignación de valores numéricos proporcionándole los siguientes argumentos:
+>   >   >   >       - `series`: `series`.
+>   >   >   >       - `axisFormat`: `yAxisFormat`
+>   >   >   >       - `axis`: `'y'`
+>   >   >   >   - El resultado del retorno de la función `assignNumericLabelsFormatter` se asigna al atributo `callback` del atributo `ticks` del eje $Y$ de la configuración de escalas del objeto de opciones.
+>   >   >   
+>   >   >   >   Para saber más sobre el mapa de funciones de formateo numérico, consular la sección [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto).
+
+## Formateo de etiquetas en ejes de gráficas cartesianas
+
+Esta función formatea la visualización de las etiquetas numéricas y categóricas en los ejes $X$ y $Y$ de gráficas de barras y líneas si éstas fueron provistas como argumento. Para los valores numéricos establece una función en el objeto de opciones mientras que para los valores categóricos los formatea directamente en el objeto de datos.
+
+Uso declarando el tipo de gráfico en un `string`:
+```js
+formatLabels['bar']({ series, options, xAxisFormat, yAxisFormat, transposed })
+formatLabels['line']({ series, options, xAxisFormat, yAxisFormat, transposed })
+```
+
+Uso declarando el tipo de gráfico usando constante (recomendado):
+```js
+formatLabels[CHART_TYPES.BAR]({ series, options, xAxisFormat, yAxisFormat, transposed })
+formatLabels[CHART_TYPES.LINE]({ series, options, xAxisFormat, yAxisFormat, transposed })
+```
+
+Los argumentos de entrada disponibles son:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `series` | `object` | *Requerido | Objeto de datos transformado por alguna de las siguietes funciones: <br> • [Construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja)  <br> • [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión) <br> • [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales) |
+| `options` | `object` | *Requerido | Objeto de opciones base construido por alguna de las siguientes funciones: <br> • [Construcción de objeto de opciones para gráfica de burbujas](#construcción-de-objeto-de-opciones-para-gráfica-de-burbujas) <br> • [Construcción de objeto de opciones para gráficas cartesianas](#construcción-de-objeto-de-opciones-para-gráficas-cartesianas) <br> • [Construcción de objeto de opciones para gráficas radiales](#construcción-de-objeto-de-opciones-para-gráficas-radiales) <br> • [Construcción de objeto de opciones para gráficas de radar](#construcción-de-objeto-de-opciones-para-gráficas-de-radar) |
+| `xAxisFormat` | `(Opción)` <br> <br> • `'numeric'`: Valor numérico con punto decimal <br> • `'monetary'`: Valor de tipo moneda nacional <br> • `'only name'`: Sólo nombre | `undefined` | Tipo de formateo para las etiquetas del eje $X$. |
+| `yAxisFormat` | `(Opción)` <br> <br> • `'numeric'`: Valor numérico con punto decimal <br> • `'monetary'`: Valor de tipo moneda nacional <br> • `'only name'`: Sólo nombre | `undefined` | Tipo de formateo para las etiquetas del eje $Y$. |
+| `transposed` | `boolean` | `false` | Indicador de transposición de los ejes $X$ y $Y$ de la gráfica. |
+
+Por dentro la función luce así:
+```js
+const formatCartesianChartLabels = ({
+    series,
+    options,
+    xAxisFormat,
+    yAxisFormat,
+    transposed
+}) => {
+
+    let yLabelsFormatter
+    let xLabelsFormatter
+
+    // Validación de indicación de gráfica transpuesta
+    if ( transposed ) {
+        // Formateo de etiquetas en el eje X
+        if ( yAxisFormat ) {
+            xLabelsFormatter = assignLabelsFormatter({ series, axisFormat: yAxisFormat })
+            options.scales.x.ticks.callback = xLabelsFormatter
+        }
+
+        // Formateo de etiquetas en el eje Y
+        if ( xAxisFormat ) {
+            series.labels = series.labels.map(
+                (value) => {
+                    return labelsFormats[xAxisFormat].raw(value)
+                }
+            )
+        }
+    } else {
+        // Formateo de etiquetas en el eje X
+        if ( xAxisFormat ) {
+            series.labels = series.labels.map(
+                (value) => {
+                    return labelsFormats[xAxisFormat].raw(value)
+                }
+            )
+        }
+
+        // Formateo de etiquetas en el eje Y
+        if ( yAxisFormat ) {
+            yLabelsFormatter = assignLabelsFormatter({ series, axisFormat: yAxisFormat })
+            options.scales.y.ticks.callback = yLabelsFormatter
+        }
+    }
+
+    // Retorno de los conjuntos de datos y objeto de opciones
+    return [ series, options ]
+}
+```
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   Se inicializan las variables contenedoras de las funciones de formateo:
+>   >   ```js
+>   >       // Inicialización de las funciones formateadoras
+>   >       let xLabelsFormatter
+>   >       let yLabelsFormatter
+>   >   ```
+>   
+>   Se valida si `transposed` es `true`:
+>   ```js
+>       // Validación de indicación de gráfica transpuesta
+>       if ( transposed ) {
+>           ...
+>       } else {
+>           ...
+>       }
+>   ```
+>   
+>   >   En caso de cumplirse la condición se ejecuta lo siguiente:
+>   >   
+>   >   >   **IMPORTANTE**: Leer cuidadosamente ya que la ejecución puede ser un poco antiintuitiva ya que se toman las declaraciones del formateo en un eje y los resultados se almacenan en la configuración del otro eje.
+>   >   
+>   >   ```js
+>   >   // Formateo de etiquetas en el eje X
+>   >   if ( xAxisFormat ) {
+>   >       ...
+>   >   }
+>   >   // Formateo de etiquetas en el eje y
+>   >   if ( yAxisFormat ) {
+>   >       ...
+>   >   }
+>   >   ```
+>   >   
+>   >   >   - Se valida si existe un tipo de formateo para el eje $X$. En caso de existir se ejecuta el siguiente bloque de código:
+>   >   >   >   ```js
+>   >   >   >   xLabelsFormatter = assignLabelsFormatter({ series, axisFormat: yAxisFormat })
+>   >   >   >   options.scales.x.ticks.callback = xLabelsFormatter
+>   >   >   >   ```
+>   >   >   >   - Se realiza la llamada a la función de asignación de formateo de etiquetas proporcionándole los siguientes argumentos:
+>   >   >   >       - `series`: `series`.
+>   >   >   >       - `axisFormat`: `yAxisFormat`
+>   >   >   >   - El resultado del retorno de la función `assignLabelsFormatter` se asigna al atributo `callback` del atributo `ticks` del eje $X$ de la configuración de escalas del objeto de opciones.
+>   >   >   
+>   >   >   - Se valida si existe un tipo de formateo para el eje $Y$. En caso de existir se ejecuta el siguiente bloque de código:
+>   >   >   
+>   >   >   >   Se hace un mapeo de cada uno de los valores de la matriz de etiquetas del objeto de datos:
+>   >   >   >   ```js
+>   >   >   >   series.labels = series.labels.map(
+>   >   >   >       (value) => {
+>   >   >   >           ...
+>   >   >   >       }
+>   >   >   >   )
+>   >   >   >   ```
+>   >   >   >   
+>   >   >   >   >   Por cada una de las etiquetas se retorna el resultado de la siguiente ejecución:
+>   >   >   >   >   ```js
+>   >   >   >   >   return labelsFormats[xAxisFormat].raw(value)
+>   >   >   >   >   ```
+>   >   >   >   >   
+>   >   >   >   >   >   - Se formatea cada uno de los valores usando la función encontrada en el atributo `raw` del mapa de funciones de formateo en el índice del tipo de formateo.
+>   >   
+>   >   En caso de no cumplirse la condición se ejecuta lo siguiente:
+>   >   
+>   >   ```js
+>   >   // Formateo de etiquetas en el eje X
+>   >   if ( xAxisFormat ) {
+>   >       ...
+>   >   }
+>   >   // Formateo de etiquetas en el eje y
+>   >   if ( yAxisFormat ) {
+>   >       ...
+>   >   }
+>   >   ```
+>   >   
+>   >   >   - Se valida si existe un tipo de formateo para el eje $X$. En caso de existir se ejecuta el siguiente bloque de código:
+>   >   >   
+>   >   >   >   Se hace un mapeo de cada uno de los valores de la matriz de etiquetas del objeto de datos:
+>   >   >   >   ```js
+>   >   >   >   series.labels = series.labels.map(
+>   >   >   >       (value) => {
+>   >   >   >           ...
+>   >   >   >       }
+>   >   >   >   )
+>   >   >   >   ```
+>   >   >   >   
+>   >   >   >   >   Por cada una de las etiquetas se retorna el resultado de la siguiente ejecución:
+>   >   >   >   >   ```js
+>   >   >   >   >   return labelsFormats[xAxisFormat].raw(value)
+>   >   >   >   >   ```
+>   >   >   >   >   
+>   >   >   >   >   >   - Se formatea cada uno de los valores usando la función encontrada en el atributo `raw` del mapa de funciones de formateo en el índice del tipo de formateo.
+>   >   >   - Se valida si existe un tipo de formateo para el eje $Y$. En caso de existir se ejecuta el siguiente bloque de código:
+>   >   >   >   ```js
+>   >   >   >   xLabelsFormatter = assignLabelsFormatter({ series, axisFormat: yAxisFormat })
+>   >   >   >   options.scales.x.ticks.callback = xLabelsFormatter
+>   >   >   >   ```
+>   >   >   >   - Se realiza la llamada a la función de asignación de formateo de etiquetas proporcionándole los siguientes argumentos:
+>   >   >   >       - `series`: `series`.
+>   >   >   >       - `axisFormat`: `yAxisFormat`
+>   >   >   >   - El resultado del retorno de la función `assignLabelsFormatter` se asigna al atributo `callback` del atributo `ticks` del eje $X$ de la configuración de escalas del objeto de opciones.
+>   
+>   Finalmente se realiza el retorno del objeto de datos y el objeto de opciones:
+>   ```js
+>   return [ series, options ]
+>   ```
+
+## Formateo de etiquetas en ejes de gráficas radiales
+
+No hace nada.
+
+Uso declarando el tipo de gráfico en un `string`:
+```js
+formatLabels['pie']({ series, options })
+formatLabels['doughnut']({ series, options })
+formatLabels['polarArea']({ series, options })
+```
+
+Uso declarando el tipo de gráfico usando constante (recomendado):
+```js
+formatLabels[CHART_TYPES.PIE]({ series, options })
+formatLabels[CHART_TYPES.DOUGHNUT]({ series, options })
+formatLabels[CHART_TYPES.POLAR_AREA]({ series, options })
+```
+
+Los argumentos de entrada disponibles son:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `series` | `object` | *Requerido | Objeto de datos transformado por alguna de las siguietes funciones: <br> • [Construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja)  <br> • [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión) <br> • [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales) |
+| `options` | `object` | *Requerido | Objeto de opciones base construido por alguna de las siguientes funciones: <br> • [Construcción de objeto de opciones para gráfica de burbujas](#construcción-de-objeto-de-opciones-para-gráfica-de-burbujas) <br> • [Construcción de objeto de opciones para gráficas cartesianas](#construcción-de-objeto-de-opciones-para-gráficas-cartesianas) <br> • [Construcción de objeto de opciones para gráficas radiales](#construcción-de-objeto-de-opciones-para-gráficas-radiales) <br> • [Construcción de objeto de opciones para gráficas de radar](#construcción-de-objeto-de-opciones-para-gráficas-de-radar) |
+
+```js
+const formatRadialChartsLabels = ({
+    series,
+    options,
+}) => {
+
+    // Retorno de los conjuntos de datos y objeto de opciones
+    return [ series, options ]
+}
+```
+
+>   No hace nada.
+
+## Formateo de etiquetas en ejes de gráficas de radar
+
+Esta función formatea la visualización de las etiquetas numéricas y categóricas en el eje radial y los ángulos de gráficas de radar si éstas fueron provistas como argumento. Para los valores numéricos establece una función en el objeto de opciones mientras que para los valores categóricos los formatea directamente en el objeto de datos.
+
+Uso declarando el tipo de gráfico en un `string`:
+```js
+formatLabels['radar']({ series, options, xAxisFormat, yAxisFormat, transposed })
+```
+
+Uso declarando el tipo de gráfico usando constante (recomendado):
+```js
+formatLabels[CHART_TYPES.RADAR]({ series, options, xAxisFormat, yAxisFormat, transposed })
+```
+
+Los argumentos de entrada disponibles son:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `series` | `object` | *Requerido | Objeto de datos transformado por alguna de las siguietes funciones: <br> • [Construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja)  <br> • [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión) <br> • [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales) |
+| `options` | `object` | *Requerido | Objeto de opciones base construido por alguna de las siguientes funciones: <br> • [Construcción de objeto de opciones para gráfica de burbujas](#construcción-de-objeto-de-opciones-para-gráfica-de-burbujas) <br> • [Construcción de objeto de opciones para gráficas cartesianas](#construcción-de-objeto-de-opciones-para-gráficas-cartesianas) <br> • [Construcción de objeto de opciones para gráficas radiales](#construcción-de-objeto-de-opciones-para-gráficas-radiales) <br> • [Construcción de objeto de opciones para gráficas de radar](#construcción-de-objeto-de-opciones-para-gráficas-de-radar) |
+| `xAxisFormat` | `(Opción)` <br> <br> • `'numeric'`: Valor numérico con punto decimal <br> • `'monetary'`: Valor de tipo moneda nacional <br> • `'only name'`: Sólo nombre | `undefined` | Tipo de formateo para las etiquetas del eje $X$. |
+| `yAxisFormat` | `(Opción)` <br> <br> • `'numeric'`: Valor numérico con punto decimal <br> • `'monetary'`: Valor de tipo moneda nacional <br> • `'only name'`: Sólo nombre | `undefined` | Estandarización del eje radial para facilitar su uso. Tipo de formateo para las etiquetas del eje radial. |
+
+Por dentro la función luce así:
+```js
+const formatRadarChartLabels = ({
+    series,
+    options,
+    xAxisFormat,
+    yAxisFormat
+}) => {
+
+    // Definción del formateador de etiquetas numéricas
+    if ( yAxisFormat ) {
+        const yLabelsFormatter = assignLabelsFormatter({ series, axisFormat: yAxisFormat })
+        options.scales.r.ticks.callback = yLabelsFormatter 
+    }
+
+    // Formateo de etiquetas en el eje X
+    if ( xAxisFormat ) {
+        options.scales.r.pointLabels.callback = labelsFormats[xAxisFormat].raw
+    }
+
+    // Retorno de los conjuntos de datos y objeto de opciones
+    return [ series, options ]
+}
+```
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   ```js
+>   // Definción del formateador de etiquetas numéricas
+>   if ( yAxisFormat ) {
+>       ...
+>   }
+>   ```
+>   
+>   >   - Se valida si existe un tipo de formateo para el eje radial representado como eje $Y$. En caso de existir se ejecuta el siguiente bloque de código:
+>   >   ```js
+>   >   const yLabelsFormatter = assignLabelsFormatter({ series, axisFormat: yAxisFormat })
+>   >   options.scales.r.ticks.callback = xLabelsFormatter
+>   >   ```
+>   >   
+>   >   >   - Se realiza la llamada a la función de asignación de formateo de etiquetas proporcionándole los siguientes argumentos:
+>   >   >       - `series`: `series`.
+>   >   >       - `axisFormat`: `yAxisFormat`
+>   >   >   - El resultado del retorno de la función `assignLabelsFormatter` se asigna al atributo `callback` del atributo `ticks` del eje radial de la configuración de escalas del objeto de opciones.
+>   >   
+>   
+>   ```js
+>   // Formateo de etiquetas en el eje X
+>   if ( xAxisFormat ) {
+>       options.scales.r.pointLabels.callback = labelsFormats[xAxisFormat].raw
+>   }
+>   ```
+>   >   - Se valida si existe un tipo de formateo para el eje $X$. En caso de existir se ejecuta el siguiente bloque de código:
+>   >   
+>   >   >   Se hace un mapeo de cada uno de los valores de la matriz de etiquetas del objeto de datos:
+>   >   >   ```js
+>   >   >   options.scales.r.pointLabels.callback = labelsFormats[xAxisFormat].raw
+>   >   >   ```
+>   >   >   
+>   >   >   >   - Se asigna la función encontrada en el atributo `raw` del mapa de funciones de formateo en el índice del tipo de formateo al atributo `callback` del atributo `pointLabels` del eje radial de la configuración de escalas del objeto de opciones.
+>   
+>   Finalmente se realiza el retorno del objeto de datos y el objeto de opciones:
+>   ```js
+>   return [ series, options ]
+>   ```
+
+----
+
+# Formateo de tooltip
+
+Este mapa de funciones retornan una función ejecutable según el tipo de gráfica que toma como entrada un contexto y se encarga de formatear el componente *tooltip* para mostrar la información de las gráficas en el formato correcto desde los ejes correctos.
+
+## Formateo de tooltip en gráficas de burbuja
+Esta función retorna una función ejecutable que toma como entrada un contexto y se encarga de formatear el tooltip para mostrar la información de las gráficas de burbuja en el formato adecuado:
+```js
+const formatBubbleChartTooltip = ({
+    xAxisFormat,
+    yAxisFormat,
+    zAxisFormat,
+}) => {
+
+    // Generación de función con el tipo de valor a formatear
+    return (context) => {
+        // Se inicializa el contenedor de la etiqueta
+        let label = context.dataset.label || "";
+    
+        // Si la etiqueta no está vacía, se concatena un ': '
+        if (label) {
+            label += ": "
+        }
+    
+        // Formateo del valor de la etiqueta en función del tipo de valor del conjunto de datos
+        label += "["
+        label += labelsFormats[xAxisFormat].raw(context.parsed.x)
+        label += ", "
+        label += labelsFormats[yAxisFormat].raw(context.parsed.y)
+        label += ", "
+        label += labelsFormats[zAxisFormat].raw(context.parsed._custom)
+        label += "]"
+    
+        return label
+    }
+}
+```
+
+Los argumentos de entrada disponibles son los siguientes:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `xAxisFormat` | `(Opción)` <br> <br> • `'numeric'`: Valor numérico con punto decimal <br> • `'monetary'`: Valor de tipo moneda nacional <br> • `'only name'`: Sólo nombre | `undefined` | Tipo de formateo para las etiquetas del eje $X$. |
+| `yAxisFormat` | `(Opción)` <br> <br> • `'numeric'`: Valor numérico con punto decimal <br> • `'monetary'`: Valor de tipo moneda nacional <br> • `'only name'`: Sólo nombre | `undefined` | Tipo de formateo para las etiquetas del eje $Y$. |
+| `zAxisFormat` | `(Opción)` <br> <br> • `'numeric'`: Valor numérico con punto decimal <br> • `'monetary'`: Valor de tipo moneda nacional <br> • `'only name'`: Sólo nombre | `undefined` | Tipo de formateo para las etiquetas del eje $Z$. |
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   Se retorna la función:
+>   ```js
+>   return (context) => {
+>       ...
+>   }
+>   ```
+>   
+>   >   Dentro de la función primeramente se inicializa el contenedor de la etiqueta desde el atributo correspondiente del contexto. En caso de no haber nombre de etiqueta se inicializa el contenedor de la etiqueta con un valor vacío:
+>   >   ```js
+>   >   // Se inicializa el contenedor de la etiqueta
+>   >   let label = context.dataset.label || "";
+>   >   ```
+>   >   
+>   >   Si el valor de la etiqueta no es una cadena vacía se le concatena un `': '`
+>   >   ```js
+>   >   if (label) {
+>   >       label += ": "
+>   >   }
+>   >   ```
+>   >   
+>   >   Se crea la concatenación de valores a mostrar, en un formato `[<num>, <num>, <num>]`
+>   >   ```js
+>   >   label += "["
+>   >   label += labelsFormats[xAxisFormat].raw(context.parsed.x)
+>   >   label += ", "
+>   >   label += labelsFormats[yAxisFormat].raw(context.parsed.y)
+>   >   label += ", "
+>   >   label += labelsFormats[zAxisFormat].raw(context.parsed._custom)
+>   >   label += "]"
+>   >   ```
+>   >   
+>   >   >   - Se inicia concatenando un corchete de apertura y luego cada uno de los valores separados por una coma para finalmente concatenar con un corchete de cierre.
+>   >   >   - Por cada valor en los ejes se ejecuta la llamada a las funciones de formateo encontradas en el atributo `raw` de las funciones en el índice del tipo de formateo de cada eje ya que se requiere mostrar el número completo sin abreviación por miles o millones.
+>   >   
+>   >   >   Para saber más sobre el mapa de funciones de formateo, consultar la sección [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto).
+
+## Formateo de tooltip en gráficas de dispersión
+Esta función retorna una función ejecutable que toma como entrada un contexto y se encarga de formatear el tooltip para mostrar la información de las gráficas de dispersión en el formato adecuado:
+```js
+const formatBubbleChartTooltip = ({
+    xAxisFormat,
+    yAxisFormat,
+}) => {
+
+    // Generación de función con el tipo de valor a formatear
+    return (context) => {
+        // Se inicializa el contenedor de la etiqueta
+        let label = context.dataset.label || "";
+    
+        // Si la etiqueta no está vacía, se concatena un ': '
+        if (label) {
+            label += ": "
+        }
+    
+        // Formateo del valor de la etiqueta en función del tipo de valor del conjunto de datos
+        label += "["
+        label += labelsFormats[xAxisFormat].raw(context.parsed.x)
+        label += ", "
+        label += labelsFormats[yAxisFormat].raw(context.parsed.y)
+        label += "]"
+    
+        return label
+    }
+}
+```
+
+Los argumentos de entrada disponibles son los siguientes:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `xAxisFormat` | `(Opción)` <br> <br> • `'numeric'`: Valor numérico con punto decimal <br> • `'monetary'`: Valor de tipo moneda nacional <br> • `'only name'`: Sólo nombre | `undefined` | Tipo de formateo para las etiquetas del eje $X$. |
+| `yAxisFormat` | `(Opción)` <br> <br> • `'numeric'`: Valor numérico con punto decimal <br> • `'monetary'`: Valor de tipo moneda nacional <br> • `'only name'`: Sólo nombre | `undefined` | Tipo de formateo para las etiquetas del eje $Y$. |
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   Se retorna la función:
+>   ```js
+>   return (context) => {
+>       ...
+>   }
+>   ```
+>   
+>   >   Dentro de la función primeramente se inicializa el contenedor de la etiqueta desde el atributo correspondiente del contexto. En caso de no haber nombre de etiqueta se inicializa el contenedor de la etiqueta con un valor vacío:
+>   >   ```js
+>   >   // Se inicializa el contenedor de la etiqueta
+>   >   let label = context.dataset.label || "";
+>   >   ```
+>   >   
+>   >   Si el valor de la etiqueta no es una cadena vacía se le concatena un `': '`
+>   >   ```js
+>   >   if (label) {
+>   >       label += ": "
+>   >   }
+>   >   ```
+>   >   
+>   >   Se crea la concatenación de valores a mostrar, en un formato `[<num>, <num>]`
+>   >   ```js
+>   >   label += "["
+>   >   label += labelsFormats[xAxisFormat].raw(context.parsed.x)
+>   >   label += ", "
+>   >   label += labelsFormats[yAxisFormat].raw(context.parsed.y)
+>   >   label += "]"
+>   >   ```
+>   >   
+>   >   >   - Se inicia concatenando un corchete de apertura y luego los valores de los ejes $X$ y $Y$ separados por una coma para finalmente concatenar con un corchete de cierre.
+>   >   >   - Por cada valor en los ejes se ejecuta la llamada a las funciones de formateo encontradas en el atributo `raw` de las funciones en el índice del tipo de formateo de cada eje ya que se requiere mostrar el número completo sin abreviación por miles o millones.
+>   >   
+>   >   >   Para saber más sobre el mapa de funciones de formateo, consultar la sección [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto).
+
+## Formateo de tooltip en gráficas cartesianas
+Esta función retorna una función ejecutable que toma como entrada un contexto y se encarga de formatear el tooltip para mostrar la información de las gráficas cartesianas en el formato adecuado:
+```js
+const formatCartesianChartTooltip = ({
+    yAxisFormat
+}) => {
+
+    // Generación de función con el tipo de valor a formatear
+    return (context) => {
+        // Inicialización del eje de valores numéricos
+        let dataAxis
+
+        // Definición del eje de valores numéricos
+        if ( context.chart.config._config.options.indexAxis === "x" ) {
+            dataAxis = "y"
+        } else if ( context.chart.config._config.options.indexAxis === "y" ) {
+            dataAxis = "x"
+        }
+
+        // Se inicializa el contenedor de la etiqueta
+        let label = context.dataset.label || "";
+    
+        // Si la etiqueta no está vacía, se concatena un ': '
+        if (label) {
+            label += ": "
+        }
+    
+        // Formateo del valor de la etiqueta en función del tipo de valor del conjunto de datos
+        label += labelsFormats[yAxisFormat].raw(context.parsed[dataAxis])
+    
+        return label
+    }
+}
+```
+
+Los argumentos de entrada disponibles son los siguientes:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `yAxisFormat` | `(Opción)` <br> <br> • `'numeric'`: Valor numérico con punto decimal <br> • `'monetary'`: Valor de tipo moneda nacional <br> • `'only name'`: Sólo nombre | `undefined` | Tipo de formateo para las etiquetas del eje $Y$. |
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   Se retorna la función:
+>   ```js
+>   return (context) => {
+>       ...
+>   }
+>   ```
+>   
+>   >   Se inicializa la variable de índice de eje:
+>   >   ```js
+>   >   let dataAxis
+>   >   ```
+>   >   
+>   >   Se realiza la búsqueda de los valores numéricos en base al eje definido en el atributo `indexAxis` el cual depende de si se indicó la transpoción de la gráfica:
+>   >   ```js
+>   >   if ( context.chart.config._config.options.indexAxis === "x" ) {
+>   >       dataAxis = "y"
+>   >   } else if ( context.chart.config._config.options.indexAxis === "y" ) {
+>   >       dataAxis = "x"
+>   >   }
+>   >   ```
+>   >   
+>   >   <!-- TODO: Añadir documentación de transposición de gráficas -->
+>   >   >   - Si el índice está definido en `'x'` signifac que los valores numéricos están en el eje $Y$ y viceversa.
+>   >   
+>   >   Dentro de la función primeramente se inicializa el contenedor de la etiqueta desde el atributo correspondiente del contexto. En caso de no haber nombre de etiqueta se inicializa el contenedor de la etiqueta con un valor vacío:
+>   >   ```js
+>   >   // Se inicializa el contenedor de la etiqueta
+>   >   let label = context.dataset.label || "";
+>   >   ```
+>   >   
+>   >   Si el valor de la etiqueta no es una cadena vacía se le concatena un `': '`
+>   >   ```js
+>   >   if (label) {
+>   >       label += ": "
+>   >   }
+>   >   ```
+>   >   
+>   >   Se crea la concatenación de valores a mostrar:
+>   >   ```js
+>   >   label += labelsFormats[yAxisFormat].raw(context.parsed[dataAxis])
+>   >   ```
+>   >   
+>   >   >   - Se ejecuta la llamada a las función de formateo encontrada en el atributo `raw` de las funciones en el índice del tipo de formateo ya que se requiere mostrar el número completo sin abreviación por miles o millones, proporcionándole el valor numérico de la gráfica en el índice indicado por la variable `dataAxis`.
+>   >   
+>   >   >   Para saber más sobre el mapa de funciones de formateo, consultar la sección [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto).
+
+----
+
 # Plug-ins de Charts.js
 
 La librería de Charts.js ofrece una integración para plug-ins personalizados, independientemente de los plug-ins que utiliza para mostrar elementos en sus componentes de gráficas. Esto incrementa potencialmente el nivel de personalización y funcionalidad además de que permite cambiar el comportamiento de las gráficas a nivel visual o funcional. Para saber más sobre cómo funcionan los plug-ins personalizados, consultar la [documentación de Charts.js sobre plug-ins](https://www.chartjs.org/docs/latest/developers/plugins.html).
@@ -1000,9 +3099,9 @@ Los parámetros disponibles se listan a continuación:
 
 | Atributo | Tipo | Valor por defecto | Descripción |
 |----------|------|-------------------|-------------|
-| `labelsDisplay` | `(Opción)` <br> <br> `1`: Una columna <br> `2`: 2 columnas <br> `3`: 3 columnas <br> `4`: 4 columnas <br> `6`: 6 columnas | `1` | Número de columnas a ocupar por la lista de etiquetas. |
-| `labelsList` | `(Opción)` <br> <br> `'default'`: Orientación por default (Fila) | `'default'` | Orientación de los elementos dentro de la etiqueta |
-| `legendBox` | `(Opción)` <br> <br> `'circle'`: Cajas en forma de círculo <br> `'rounded'`: Cajas cuadradas con bordes redondeados <br> `'square'`: Cajas cuadradas | `'square'` | Forma de las cajas de color de las etiquetas. |
+| `labelsDisplay` | `(Opción)` <br> <br> • `1`: Una columna <br> • `2`: 2 columnas <br> • `3`: 3 columnas <br> • `4`: 4 columnas <br> • `6`: 6 columnas | `1` | Número de columnas a ocupar por la lista de etiquetas. |
+| `labelsList` | `(Opción)` <br> <br> • `'default'`: Orientación por default (Fila) | `'default'` | Orientación de los elementos dentro de la etiqueta |
+| `legendBox` | `(Opción)` <br> <br> • `'circle'`: Cajas en forma de círculo <br> • `'rounded'`: Cajas cuadradas con bordes redondeados <br> • `'square'`: Cajas cuadradas | `'square'` | Forma de las cajas de color de las etiquetas. |
 
 ### Funcionamiento
 
@@ -1424,7 +3523,7 @@ const darkMode = {
 
 **Estructura del plug-in**
 
-Este plug-in utiliza constantes de colores, un mapa de funciones distribuidas por tipo de gráfico y la función principal integra un observador que se conecta al documento de la página y revisa un cambio en éste. De esta manera puede detectar cuando el modo oscuro se habilita o se deshabilita cuando la clase `dark` se agrega a su lista de clases o se remueve de ésta:
+Este plug-in utiliza constantes de colores, un mapa de funciones distribuidas por tipo de gráfica y la función principal integra un observador que se conecta al documento de la página y revisa un cambio en éste. De esta manera puede detectar cuando el modo oscuro se habilita o se deshabilita cuando la clase `dark` se agrega a su lista de clases o se remueve de ésta:
 ```js
 const darkMode = {
     id: 'darkMode',
@@ -1725,7 +3824,7 @@ const setRadarChartColors = ({
 
 **Mapa de funciones de cambio de color en las gráficas**
 
-Para la ejecución de la función dinámica se un mapa de funciones distribuidas por el tipo de gráficos y utiliza las tres funciones descritas anteriormente. Para este mapa de funciones se utilizan las declaraciones con propiedades computadas. Para saber más, consultar la sección de [Destructuración y propiedades computadas](#destructuración-y-propiedades-computadas):
+Para la ejecución de la función dinámica se un mapa de funciones distribuidas por el tipo de gráfica y utiliza las tres funciones descritas anteriormente. Para este mapa de funciones se utilizan las declaraciones con propiedades computadas. Para saber más, consultar la sección de [Destructuración y propiedades computadas](#destructuración-y-propiedades-computadas):
 ```js
 // Funciones de asignación de colores en modo oscuro y modo claro
 const setChartsColors = {
@@ -1945,7 +4044,7 @@ Los atributos disponibles para configuración raíz son los siguientes:
 
 | Atributo | Tipo | Descripción |
 |----------|------|-------------|
-| `type` | `(Opción)`: <br> <br> `externalElement`: Elementos externos | Tipo de plug-in |
+| `type` | `(Opción)`: <br> <br> • `externalElement`: Elementos externos | Tipo de plug-in |
 | `idKey` | `string` | Nombre llave del atributo (no su valor) del ID del contenedor `<div>` en donde se renderizarán los objetos. |
 | `elements` | `array` | Matriz de objetos de estilización que se asignarán a los elementos hijos de este elemento. |
 
@@ -2270,3 +4369,452 @@ if ( styler.plugins ) {
 >   >   De no cumplirse la condición no se realiza ninguna ejecución de código.
 >   
 >   Se termina la ejecución de la función, no se requiere un retorno.
+
+----
+
+# Mapeo de colores en gráficas
+
+Las funciones de mapeo de colores facilitan la asignación y reasignación de colores a partir de múltiples opciones como asignación de colores individuales, paletas de colores o series de paletas de colores, además de que las funciones reciben los parámetros de colores explícitamente en un mismo sitio y estos valores se propagan por la gráfica de la forma más adecuada posible, lo que resulta mucho más rápido y legible que si se hiciera directamente en el objeto de opciones y series manualmente.
+
+## Mapeo de opacidades en formato hexadecimal
+- Ubicación: `src/utils/dataFormatting.js`
+- Función: `mapOpacities`
+
+Esta función recibe una matriz de colores en formato hexadecimal y les mapea un valor de opacidad en la escala del 0 al 100 en un formato hexadecimal también.
+
+Ejemplo de uso:
+```js
+const colors = [
+    "#8C0413",
+    "#B70217",
+    "#DC001A",
+    "#EC112B",
+    "#FE3249",
+    "#FE5165",
+    "#FC7080",
+]
+
+const opacity = 50
+
+const colorsWithOpacity = mapOpacities({ colors, colorOpacity })
+```
+
+Los argumentos de entrada disponibles son:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `colors` | `Color` - `array[Color]` | *Requerido | Color o paleta de colores a asignarles la opacidad. |
+| `colorOpacity` | `number` | *Requerido | Valor de opacidad a mapear en el color en donde `0` representa transparencia total y `100` representa opacidad total. |
+
+### Funcionamiento
+
+La función `mapOpacities` utiliza el mapeo de opacidades desde la constante `OPACITIES` ubicada en `src/constants/colors.js` la cual cuenta con valores predefinidos de opacidad a los cuales se accede por valor entero en un rango del 1% al 100%:
+```js
+export const OPACITIES = {
+    0: "00",
+    5: "0B",
+    10: "18",
+    ...
+}
+```
+
+Entonces, si el mapeo es del 50%, se accedería al valor ubicado en la llave `50`:
+```js
+OPACITIES[50]
+
+// Valor hexadecimal
+"7F"
+```
+
+La función `mapOpacities` luce de esta forma:
+```js
+// Concatenación de la opacidad si el color es un texto
+if (typeof colors === 'string') {
+    return (colors + OPACITIES[colorOpacity])
+
+// Concatenación de la opacidad a cada uno de los valores de la matriz
+} else {
+    return (
+        colors.map(
+            (color) => (color + OPACITIES[colorOpacity])
+        )
+    )
+}
+```
+
+>   - Si la entrada de la variable `color` es un único valor, se concatena el color junto con la opacidad correspondiente en formato hexadecimal.
+>   - En caso contrario el color sería una matriz de colores hexadecimales y se mapea cada uno de los colores concatenado con la opacidad correspondiente en formato hexadecimal.
+
+Retorno de la función:
+```js
+[
+    "#8C04137F",
+    "#B702177F",
+    "#DC001A7F",
+    "#EC112B7F",
+    "#FE32497F",
+    "#FE51657F",
+    "#FC70807F",
+]
+```
+
+>   Se retorna un color en formato RGBA hexadecimal o una matriz de colores RGBA hexadecimales.
+
+## Mapeo de colores a conjuntos de datos
+
+La función `mapColors` mapea los colores de fondo y borde a uno o varios conjuntos de datos según su estructura y la cantidad de colores provista en sus argumentos.
+
+Declaración del tipo de color usando un `string`:
+```js
+series = mapColors({ series, colors: ..., colorType: `backgroundColor` })
+```
+
+Declaraciónel tipo de color usando una constante (recomendado):
+```js
+series = mapColors({ series, colors: ..., colorType: CHARTS_SERIES_SETTINGS.BACKGROUND_COLOR })
+```
+
+Los argumentos de entrada disponibles son:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `series` | `object` | *Requerido | Objeto de datos transformado por alguna de las siguietes funciones: <br> • [Construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja)  <br> • [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión) <br> • [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales) |
+| `colors` | `Color` - `array[Color]` | *Requerido | Color o paleta de colores a mapear en el o los conjuntos de datos. |
+| `colorType` | `(Opción)` <br> <br> • `backgroundColor`: Color de fondo <br> • `borderColor`: Color de borde | *Requerido | Color o paleta de colores a mapear en el o los conjuntos de datos. |
+
+La función por dentro luce así:
+```js
+const mapColors = ({
+    series,
+    colors,
+    colorType
+}) => {
+
+    if (series.datasets.length === 1) {
+        series.datasets[0][colorType] = colors
+
+    // Mapeo de paleta de colores a varios conjuntos de datos
+    } else if (colors.length > 1) {
+        for (let i = 0; i < series.datasets.length; i++) {
+            series.datasets[i][colorType] = colors[i]
+        }
+
+    // Mapeo de color a varios conjuntos de datos
+    } else {
+        for (let i = 0; i < series.datasets.length; i++) {
+            series.datasets[i][colorType] = colors
+        }
+    }
+
+    // Retorno de los datos con colores mapeados
+    return series;
+}
+```
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   Mapeo de colores a un solo conjunto de datos:
+>   ```js
+>   if (series.datasets.length === 1) {
+>       series.datasets[0][colorType] = colors
+>   }
+>   ```
+>   
+>   >   - Si el objeto `series` sólo contiene un elemento en su atributo `datasets`, es decir, si el objeto de datos solo contiene un solo conjunto de datos se mapea el valor de colores en ese único elemento en su atributo correspondiente, ya sea color de fondo o de borde.
+>   
+>   Mapeo de paleta de colores a varios conjuntos de datos:
+>   ```js
+>       if (...) {
+>           ...
+>       } else if (colors.length > 1) {
+>           for (let i = 0; i < series.datasets.length; i++) {
+>               series.datasets[i][colorType] = colors[i]
+>           }
+>       }
+>   ```
+>   
+>   >   - De no cumplirse la condición de un sólo conjunto de datos, se asume que el objeto de datos contiene más de un conjunto de datos y sólo se realiza una validación de la matriz de colores en la que su longitud sea mayor a 1.
+>   >   - De ser así realiza una iteración para mapear cada color a cada conjunto de datos en su atributo correspondiente, ya sea color de fondo o de borde.
+>   
+>   Mapeo de un solo color a varios conjuntos de datos:
+>   ```js
+>       {
+>           ...
+>       } else {
+>           for (let i = 0; i < series.datasets.length; i++) {
+>               series.datasets[i][colorType] = colors
+>           }
+>       }
+>   ```
+>   
+>   - De no cumplirse la condición se asume que el objeto de datos contiene más de un conjunto de datos y la matriz de colores sólo contiene un color.
+>   - Se realiza una iteración para mapear el color a cada conjunto de datos en su atributo correspondiente, ya sea color de fondo o de borde.
+>   
+>   Retorno del objeto de datos
+>   ```js
+>   return series;
+>   ```
+
+## Mapeo de opacidades y tipos de colores en los conjuntos de datos
+
+La función `colorMapping` mapea las opacidades de color en los valores de colores provistos, mapea los colores de fondo, de borde y, en caso de que la gráfica sea de tipo línea o radar, se mapea color de relleno usando los colores de fondo:
+```js
+const colorMapping = ({
+    series,
+    backgroundColors,
+    backgroundOpacity,
+    borderColors,
+    borderOpacity,
+    chartType,
+}) => {
+
+    // Variables booleanas
+    const isFillableChart = chartType === CHART_TYPES.LINE || chartType === CHART_TYPES.RADAR
+
+    // Mapeo de opacidad a los colores de fondo
+    if ( backgroundOpacity !== undefined ) {
+        backgroundColors = mapOpacities({ colors: backgroundColors, colorOpacity: backgroundOpacity })
+    }
+    // Mapeo de opacidad a los colores de borde
+    if ( borderOpacity !== undefined ) {
+        borderColors = mapOpacities({ colors: borderColors, colorOpacity: borderOpacity })
+    }
+
+    // Mapeo de colores de fondo a los conjuntos de datos
+    if ( backgroundColors ) {
+        series = mapColors({ series, colors: backgroundColors, colorType: CHARTS_SERIES_SETTINGS.BACKGROUND_COLOR })
+    }
+    // Mapeo de colores de borde a los conjuntos de datos
+    if ( borderColors ) {
+        series = mapColors({ series, colors: borderColors, colorType: CHARTS_SERIES_SETTINGS.BORDER_COLOR })
+    }
+
+    // Activación de color de fondo para gráficas de línea y radar
+    if ( isFillableChart && backgroundColors ) {
+        // Activación por dataset
+        series.datasets.forEach(
+            (dataset) => {
+                dataset.fill = chartSettings.fillableCharts[CHARTS_SERIES_SETTINGS.FILL]
+            }
+        )
+    }
+
+    return series
+}
+```
+
+Los argumentos de entrada disponibles son:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `series` | `object` | *Requerido | Objeto de datos transformado por alguna de las siguietes funciones: <br> • [Construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja)  <br> • [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión) <br> • [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales) |
+| `backgroundColors` | `Color` - `array[Color]` | *Declarado en los ajustes predeterminados* | Color o paleta de colores de fondo para la gráfica. |
+| `backgroundOpacity` | `number` | *Declarado en los ajustes predeterminados* | Valor de opacidad a mapear en los colores de fondo en donde `0` representa transparencia total y `100` representa opacidad total. |
+| `borderColors` | `Color` - `array[Color]` | *Declarado en los ajustes predeterminados* | Color o paleta de colores de borde para la gráfica. |
+| `borderOpacity` | `number` | *Declarado en los ajustes predeterminados* | Valor de opacidad a mapear en los colores de borde en donde `0` representa transparencia total y `100` representa opacidad total. |
+| `chartType` | `string` | *Requerido | Valor de opacidad a mapear en los colores de borde en donde `0` representa transparencia total y `100` representa opacidad total. |
+
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   Se realizan validaciones para crear variables booleanas y usarlas en estructuras de control condicionales más legibles:
+>   ```js
+>   const isFillableChart = chartType === CHART_TYPES.LINE || chartType === CHART_TYPES.RADAR
+>   ```
+>   
+>   >   - Se valida que la gráfica sea rellenable, esto es, que la gráfica sea de tipo línea o de tipo radar.
+>   
+>   Mapeo de opacidad a los colores de fondo:
+>   ```js
+>       if ( backgroundOpacity !== undefined ) {
+>           backgroundColors = mapOpacities({ colors: backgroundColors, colorOpacity: backgroundOpacity })
+>       }
+>   ```
+>   
+>   >   - Si existe un valor de opacidad de fondo proporcionado a la función se realiza el mapeo de opacidad a los colores de fondo con la función de [mapeo de opacidades](#mapeo-de-opacidades-en-formato-hexadecimal).
+>   
+>   Mapeo de opacidad a los colores de borde:
+>   ```js
+>       if ( borderColors ) {
+>           series = mapColors({ series, colors: borderColors, colorType: CHARTS_SERIES_SETTINGS.BORDER_COLOR })
+>       }
+>   ```
+>   
+>   >   - Si existe un valor de opacidad de borde proporcionado a la función se realiza el mapeo de opacidad a los colores de borde con la función de [mapeo de opacidades](#mapeo-de-opacidades-en-formato-hexadecimal).
+>   
+>   Mapeo de colores de fondo a los conjuntos de datos:
+>   ```js
+>       if ( backgroundColors ) {
+>           series = mapColors({ series, colors: backgroundColors, colorType: CHARTS_SERIES_SETTINGS.BACKGROUND_COLOR })
+>       }
+>   ```
+>   
+>   >   - Si existe un valor de colores de fondo proporcionado a la función se realiza el mapeo de colores en el o los conjuntos de datos del objeto de datos usando la función de [mapeo de colores a conjuntos de datos](#mapeo-de-colores-a-conjuntos-de-datos), especificando en el argumento `colorType` que se hará el mapeo de los colores de fondo.
+>   
+>   Mapeo de colores de borde a los conjuntos de datos:
+>   ```js
+>       if ( borderColors ) {
+>           series = mapColors({ series, colors: borderColors, colorType: CHARTS_SERIES_SETTINGS.BORDER_COLOR })
+>       }
+>   ```
+>   
+>   >   - Si existe un valor de colores de borde proporcionado a la función se realiza el mapeo de colores en el o los conjuntos de datos del objeto de datos usando la función de [mapeo de colores a conjuntos de datos](#mapeo-de-colores-a-conjuntos-de-datos), especificando en el argumento `colorType` que se hará el mapeo de los colores de borde.
+>   
+>   Activación de color de fondo para gráficas de línea y radar:
+>   ```js
+>   if ( isFillableChart && backgroundColors ) {
+>       ...
+>   }
+>   ```
+>   
+>   >   - Para excepciones en las que el tipo de gráfica sea rellenable y se hayan proporcionado colores de fondo se ejecuta el siguiente bloque de código:
+>   >   Se ejecuta una activación de color de relleno por cada conjunto de datos del objeto de datos: 
+>   >   ```js
+>   >   // Activación por dataset
+>   >   series.datasets.forEach(
+>   >       (dataset) => {
+>   >           dataset.fill = chartSettings.fillableCharts[CHARTS_SERIES_SETTINGS.FILL]
+>   >       }
+>   >   )
+>   >   ```
+>   >   
+>   >   >   - Se realiza una iteración por cada conjunto de datos
+>   >   >   - Se le indica a cada conjunto de datos en su atributo `fill` que debe contener el valor preestablecido en los *ajustes predeterminados*. Por defecto la gráfica tomará los valores de color de fondo como colores de relleno de estos elementos de línea y radar dependiendo del tipo de ésta.
+>   >   
+>   >   Finaliza iteración del ciclo `forEach`.
+>   
+>   Retorno del objeto de datos:
+>   ```js
+>   return series
+>   ```
+
+## Mapeo de colores en conjuntos de datos
+
+La función `mapColorsOnSeries` toma los colores declarados o por default en la entrada de la función `buildData` y los distribuye o reasigna dependiendo del tipo de gráfica y los valores definidos e indefinidos para mapearlos con usando las funciones de mapeo de colores y opacidades:
+```js
+export const mapColorsOnSeries = ({
+    series,
+    chartType,
+    backgroundColors,
+    backgroundOpacity,
+    borderColors,
+    borderOpacity
+}) => {
+
+    // Validación de tipos de gráfica
+    const isPolarArea = chartType === CHART_TYPES.POLARAREA
+    const isPie = chartType === CHART_TYPES.PIE
+    const isDoughtnut = chartType === CHART_TYPES.DOUGHNUT
+
+    // Asignación de opacidad de colores de fondo para gráficas de área polar
+    if ( isPolarArea && !backgroundOpacity ) {
+        backgroundOpacity = chartSettings[CHART_TYPES.POLARAREA][CHARTS_SETTINGS.BACKGROUND_OPACITY];
+    }
+
+    // Asignación de colores de borde para gráficas circulares
+    if ( (isPie || isDoughtnut) && !borderColors ) {
+        borderColors = chartSettings.circularCharts[CHARTS_SETTINGS.BORDER_COLORS];
+    }
+
+    // Asignación de opacidades y colores de borde para gráficas de área polar
+    if ( isPolarArea && !borderColors ) {
+        borderColors = backgroundColors; // Asignación de mismos colores de fondo para colores de borde
+        borderOpacity = chartSettings[CHART_TYPES.POLARAREA][CHARTS_SETTINGS.BORDER_OPACITY];
+    }
+
+    series = colorMapping({ series, backgroundColors, backgroundOpacity, borderColors, borderOpacity, chartType });
+
+    return series;
+}
+```
+
+Los argumentos de entrada disponibles son:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `series` | `object` | *Requerido | Objeto de datos transformado por alguna de las siguietes funciones: <br> • [Construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja)  <br> • [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión) <br> • [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales) |
+| `chartType` | `string` | *Requerido | Valor de opacidad a mapear en los colores de borde en donde `0` representa transparencia total y `100` representa opacidad total. |
+| `backgroundColors` | `Color` - `array[Color]` | *Declarado en los ajustes predeterminados* | Color o paleta de colores de fondo para la gráfica. |
+| `backgroundOpacity` | `number` | *Declarado en los ajustes predeterminados* | Valor de opacidad a mapear en los colores de fondo en donde `0` representa transparencia total y `100` representa opacidad total. |
+| `borderColors` | `Color` - `array[Color]` | *Declarado en los ajustes predeterminados* | Color o paleta de colores de borde para la gráfica. |
+| `borderOpacity` | `number` | *Declarado en los ajustes predeterminados* | Valor de opacidad a mapear en los colores de borde en donde `0` representa transparencia total y `100` representa opacidad total. |
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   Se realizan validaciones para crear variables booleanas y usarlas en estructuras de control condicionales más legibles:
+>   ```js
+>   // Validación de tipos de gráfica
+>   const isPolarArea = chartType === CHART_TYPES.POLARAREA
+>   const isPie = chartType === CHART_TYPES.PIE
+>   const isDoughtnut = chartType === CHART_TYPES.DOUGHNUT
+>   ```
+>   
+>   >   - Se crea un valor booleano de la validación de si la gráfica es de área polar.
+>   >   - Se crea un valor booleano de la validación de si la gráfica es de pastel.
+>   >   - Se crea un valor booleano de la validación de si la gráfica es de dona.
+>   
+>   Asignación de opacidad de colores de fondo para gráficas de área polar:
+>   ```js
+>   if ( isPolarArea && !backgroundOpacity ) {
+>       backgroundOpacity = chartSettings[CHART_TYPES.POLARAREA][CHARTS_SETTINGS.BACKGROUND_OPACITY];
+>   }
+>   ```
+>   
+>   >   - Si la gráfica es de área polar y no hay valores de opacidad definidos se asigna el valor de opacidad preestablecido en los *ajustes predeterminados*.
+>   
+>   Asignación de colores de borde para gráficas circulares:
+>   ```js
+>   if ( (isPie || isDoughtnut) && !borderColors ) {
+>       borderColors = chartSettings.circularCharts[CHARTS_SETTINGS.BORDER_COLORS];
+>   }
+>   ```
+>   >   - Si la gráfica es de pastel o dona y no hay colores de borde definidos se asignan los colores de borde preestablecidos en los *ajustes predeterminados*.
+>   
+>   Asignación de opacidades y colores de borde para gráficas de área polar:
+>   ```js
+>   if ( isPolarArea && !borderColors ) {
+>       borderColors = backgroundColors; // Asignación de mismos colores de fondo para colores de borde
+>       borderOpacity = chartSettings[CHART_TYPES.POLARAREA][CHARTS_SETTINGS.BORDER_OPACITY];
+>   }
+>   ```
+>   
+>   >   - SI la gráfica es de área polar y no hay colores de borde definidos se asignan los colores de borde y valores de opacidad preestablecidos en los *ajustes predeterminados*.
+>   
+>   Una vez que se definieron los colores preestablecidos se realiza la llamada a la función `colorMapping` que a su vez mapea opacidades y los colores convertidos a los conjuntos de datos al objeto de datos `series`:
+>   ```js
+>   series = colorMapping({ series, backgroundColors, backgroundOpacity, borderColors, borderOpacity, chartType });
+>   ```
+>   
+>   >   - Se realiza una llamada a la función de [mapeo de opacidades y tipos de colores en los conjuntos de datos](#mapeo-de-opacidades-y-tipos-de-colores-en-los-conjuntos-de-datos).
+>   
+>   Finalmente se retorna el objeto de datos:
+>   ```js
+>   return series;
+>   ```
+
+----
+
+# Configuraciones globales
+
+## Valores por defecto
+
+En esta sección se encuentra un índice de todos los ajustes predefinidos:
+
+| Tipo | Nombre | Entidad | Descripción | Ubicación | Valor predefinido |
+|------|--------|---------|-------------|-----------|-------------------|
+| Ajustes de gráficas | Colores de borde en gráficas circulares | `chartSettings...` | Colores de borde en gráficas circulares (pastel y dona) | `dashboardSettings.js` | `"#FFFFFF"` |
+| Ajustes de gráficas | Colores de fondo | `chartSettings.BACKGROUND_COLORS` | Colores de fondo de categorías/conjuntos de datos | `dashboardSettings.js` | `["#8C0413", "#B70217", "#DC001A", "#EC112B", "#FE3249", "#FE5165", "#FC7080"]` |
+| Ajustes de gráficas | Columnas de etiquetas | `chartSettings.LABEL_COLUMNS` | Número de columnas en `display: grid` en las que se distribuirán las etiquetas categóricas/de conjuntos de datos de las gráficas por default | `dashboardSettings.js` | `1` |
+| Ajustes de gráficas | Forma del indicador de etiqueta | `chartSettings.LEGEND_BOX` | Forma del indicador de color de etiqueta de la gráfica | `dashboardSettings.js` | `'rounded'` |
+| Ajustes de gráficas | Opacidad de borde en gráfica de área polar | `chartSettings...` | Opacidad de los colores de borde en las gráficas de de área polar | `dashboardSettings.js` | `100` |
+| Ajustes de gráficas | Opacidad de fondo en gráfica de área polar | `chartSettings...` | Opacidad de los colores de fondo en las gráficas de de área polar | `dashboardSettings.js` | `75` |
+| Ajustes de gráficas | Orientación de elementos dentro de las etiquetas | `chartSettings.LABELS_LIST` | Orientación de los elementos HTML dentro de las etiquetas | `dashboardSettings.js` | `'default'` |
+| Ajustes de gráficas | Relación de aspecto | `chartSettings.ASPECT_RATIO` | Relación de aspecto de la gráfica | `dashboardSettings.js` | `1.5` |
+| Ajustes de gráficas | Tamaño máximo de elementos de burbuja | `chartSettings.MAX_BUBBLE_SIZE` | Tamaño máximo en pixeles de los elementos de burbuja en gráficas de burbuja | `dashboardSettings.js` | `16` |
+| Ajustes de gráficas | Tamaño mínimo de elementos de burbuja | `chartSettings.MIN_BUBBLE_SIZE` | Tamaño mínimo en pixeles de los elementos de burbuja en gráficas de burbuja | `dashboardSettings.js` | `2` |
+| Ajustes de gráficas | Tipo de relleno en gráficas rellenables | `chartSettings...` | Tipo de relleno en gráficas rellenables (líneas y barras) | `dashboardSettings.js` | `"origin"` |
+| Apariencia | Cajas de colores de etiquetas de conjuntos de datos de gráficas | `chartElementsStyling...` | Estilización de elementos `<span>` (cajas de color de conjunto de datos) de componente de gráfica | `chartElementsStyling.js` | `"block"` |
+| Apariencia | Etiquetas de conjuntos de datos de gráficas | `chartElementsStyling...` | Estilización de elementos `<li>` de lista de contenedor de etiquetas de componente de gráfica | `chartElementsStyling.js` | `"flex gap-1"` |
+| Apariencia | Lista de etiquetas de conjuntos de datos de gráficas | `chartElementsStyling...` | Estilización de elemento `<ul>` de contenedor de etiquetas de componente de gráfica | `chartElementsStyling.js` | `"flex"` |
+| Apariencia | Título de conjunto de datos en etiquetas de conjuntos de datos de gráficas | `chartElementsStyling...` | Estilización de elemento `<p>` (nombre de la categoría o conjunto de datos) de contenedor de etiquetas de componente de gráfica | `chartElementsStyling.js` | `"font-extralight transition duration-300"` |
+| Conexión a APIs | Dominio Backend default | `DOMAINS.DEFAULT_DOMAIN` | Dominio Backend default para conexión con API | `backendDomains.js` | `localhost` |
