@@ -21,7 +21,7 @@ const SidebarHeader = () => {
 			className={`${isOpen ? 'opacity-100 delay-200 duration-300' : 'opacity-0'} flex h-20 justify-between p-4 text-white transition-opacity`}
 		>
 			{/* Logotipo/link a la página principal */}
-			<LogoLink handleClick={handleLogoClick} imgSource='./logo.png'>
+			<LogoLink handleClick={handleLogoClick} imgSource='./logo.webp'>
 				<h1>iaCele</h1>
 			</LogoLink>
 			{/* Botón flecha para cierre de sidebar */}
