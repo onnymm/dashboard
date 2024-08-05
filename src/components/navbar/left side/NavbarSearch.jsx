@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
-import { AppContext } from '../../contexts/AppContexts'
-import { useClickOutside } from '../../custom hooks/useClickOutside'
-import SearchIcon from '../ui kit/SearchIcon'
+import { AppContext } from '../../../contexts/AppContexts'
+import { useClickOutside } from '../../../custom hooks/useClickOutside'
+import SearchIcon from '../../ui kit/SearchIcon'
 
 const NavbarSearch = () => {
 	const [search, setSearch] = useState('')

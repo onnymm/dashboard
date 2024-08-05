@@ -1,9 +1,9 @@
 import { useContext, useState } from 'react'
-import { AppContext } from '../../contexts/AppContexts'
-import { SidebarContext } from '../../contexts/SidebarContext'
-import { useClickOutside } from '../../custom hooks/useClickOutside'
-import Sidebar from '../sidebar/Sidebar'
-import Bars3Button from '../ui kit/Bars3Button'
+import { AppContext } from '../../../contexts/AppContexts'
+import { SidebarContext } from '../../../contexts/SidebarContext'
+import { useClickOutside } from '../../../custom hooks/useClickOutside'
+import Sidebar from '../../sidebar/Sidebar'
+import Bars3Button from '../../ui kit/Bars3Button'
 
 /*
 El componente se contiene dentro de la navbar

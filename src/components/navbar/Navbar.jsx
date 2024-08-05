@@ -1,8 +1,8 @@
 import LogoLink from '../ui kit/LogoLink'
-import NavbarDarkMode from './NavbarDarkMode'
-import NavbarSearch from './NavbarSearch'
-import SidebarContainer from './SidebarContainer'
-import ButtonController from './action buttons/ButtonController'
+import NavbarSearch from './left side/NavbarSearch'
+import SidebarContainer from './left side/SidebarContainer'
+import ButtonController from './right side/ButtonController'
+import NavbarDarkMode from './right side/NavbarDarkMode'
 
 const Navbar = () => {
 	return (
@@ -13,7 +13,7 @@ const Navbar = () => {
 				<nav className='transition-color sticky top-0 flex h-20 w-full flex-grow select-none items-center justify-between bg-navbar-background px-4 shadow duration-300 dark:bg-navbar-background-d'>
 					<div className='relative flex'>
 						{/* Logotipo/link a la página principal */}
-						<LogoLink imgSource='./logo.png' extraStyles='dark:text-white'>
+						<LogoLink imgSource='./logo.webp' extraStyles='dark:text-white'>
 							<h1 className='hidden transition duration-300 sm:block'>
 								iaCele
 							</h1>
