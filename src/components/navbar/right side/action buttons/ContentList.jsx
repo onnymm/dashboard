@@ -9,7 +9,7 @@ const ContentList = ({ name, data }) => {
 	const Contains = FORMAT_LIST[name]
 
 	return (
-		<div className='flex max-h-80 flex-col overflow-hidden rounded-md'>
+		<div className='flex max-h-80 flex-col overflow-hidden rounded-md shadow-back'>
 			<div className='transition-color sticky top-0 z-10 bg-white p-3 text-sm duration-300 dark:bg-navbar-icons-background-d'>
 				{/* Header del bloque de contenido */}
 				<span className='transition-color opacity-80 duration-300 dark:text-white'>
