@@ -1,4 +1,43 @@
+- [Custom hooks](#custom-hooks)
+- [Componentes de UI](#custom-hooks)
+
+# Custom hooks
+
+- **Ruta:** `src/custom hooks`
+
+## useClickOutside
+
+- **Archivo:** `useClickOutside.js`
+
+Se encarga de generar una referencia, observar el componente que la contenga con `useEffect` y **ejecuta una función cuando se haga click fuera del componente**.
+
+**Uso:**
+
+```jsx
+const Component = () {
+    let domNode = useClickOutside(() => console.log('Click afuera'))
+
+    return(
+        <div ref={domNode}>Si clickeas fuera de mí algo sucede<div>
+    )
+}
+```
+
+## useScreenWidth
+
+- **Archivo:** `useScreenWidth.js`
+
+Se encarga de monitorear el ancho de la pantalla. Recibe un límite de pixelaje, si el pixelaje de la pantalla excede el límite, entonces devuelve verdadero, de lo contrario devuelve falso.
+
+**Uso:**
+
+```jsx
+const screenIsWide = useScreenWidth(500) // Valores mayor a 500 devuelven verdadero; menores, falso
+```
+
 # Componentes de UI
+
+- **Ruta:** `src/components/ui kit`
 
 ## Ávatar
 
@@ -53,3 +92,7 @@ Etiqueta de sección pegajosa, se adhiere al tope del contenedor cuando lo alcan
 - **Archivo:** `LogoLink.jsx`
 
 Navlink que bajo click manda al home, consiste de una imágen y un h1. Recibe path de la imágen, ruta,
+
+```
+
+```
