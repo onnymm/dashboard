@@ -17,7 +17,7 @@ export const dashboardData = {
 			[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE,
 			[CHARTS_SETTINGS.BACKGROUND_OPACITY]: 75,
 			[CHARTS_SETTINGS.X_AXIS_FORMAT]: 'only name',
-			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
+			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary'
 		},
 		{
 			[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
@@ -66,7 +66,7 @@ export const dashboardData = {
 			[CHARTS_SETTINGS.LABEL_COLUMNS]: 2,
 			[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE,
 			[CHARTS_SETTINGS.X_AXIS_FORMAT]: 'only name',
-			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
+			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary'
 		},
 		{
 			[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
@@ -197,13 +197,13 @@ export const NOTIFICATIONS = [
 export const MESSAGES = [
 	{
 		id: 1,
-		avatar: './Jabba.jpg',
+		avatar: './Jabba.webp',
 		header: 'xXJabbaDaHuttXx',
 		content: 'hei dud you down for som minecraft? i just bought a realm'
 	},
 	{
 		id: 2,
-		avatar: './Jabba.jpg',
+		avatar: './Jabba.webp',
 		header: 'xXJabbaDaHuttXx',
 		content: 'hei dud you down for som minecraft? i just bought a realm'
 	},
@@ -214,13 +214,13 @@ export const MESSAGES = [
 	},
 	{
 		id: 4,
-		avatar: './Jabba.jpg',
+		avatar: './Jabba.webp',
 		header: 'xXJabbaDaHuttXx',
 		content: 'hei dud you down for som minecraft? i just bought a realm'
 	},
 	{
 		id: 5,
-		avatar: './Jabba.jpg',
+		avatar: './Jabba.webp',
 		header: 'xXJabbaDaHuttXx',
 		content: 'hei dud you down for som minecraft? i just bought a realm'
 	}
