@@ -1,12 +1,15 @@
+import { lazy, Suspense } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import App from './App'
-import Analytics from './routes/analytics/Analytics'
-import Ecommerce from './routes/ecommerce/Ecommerce'
+import { FallbackFeed } from './components/feed/FallbackFeed'
 import ErrorPage from './routes/error elements/ErrorPage'
-import Homepage from './routes/homepage/Homepage'
-import Profile from './routes/profile/Profile'
-import ToDo from './routes/to do/ToDo'
-import UiTests from './routes/ui tests/UiTests'
+
+const Homepage = lazy(() => import('./routes/homepage/Homepage'))
+const Analytics = lazy(() => import('./routes/analytics/Analytics'))
+const Ecommerce = lazy(() => import('./routes/ecommerce/Ecommerce'))
+const Profile = lazy(() => import('./routes/profile/Profile'))
+const ToDo = lazy(() => import('./routes/to do/ToDo'))
+const UiTests = lazy(() => import('./routes/ui tests/UiTests'))
 
 const Router = createBrowserRouter([
 	{
@@ -16,30 +19,57 @@ const Router = createBrowserRouter([
 		children: [
 			{
 				children: [
-					{ index: true, element: <Homepage /> },
+					{
+						index: true,
+						element: (
+							<Suspense fallback={<FallbackFeed />}>
+								<Homepage />
+							</Suspense>
+						)
+					},
 					{
 						path: 'profile',
-						element: <Profile />
+						element: (
+							<Suspense fallback={<FallbackFeed />}>
+								<Profile />
+							</Suspense>
+						)
 					},
 					{
 						path: 'ecommerce',
-						element: <Ecommerce />
+						element: (
+							<Suspense fallback={<FallbackFeed />}>
+								<Ecommerce />
+							</Suspense>
+						)
 					},
 					{
 						path: 'analytics',
-						element: <Analytics />
+						element: (
+							<Suspense fallback={<FallbackFeed />}>
+								<Analytics />
+							</Suspense>
+						)
 					},
 					{
 						path: 'to-do',
-						element: <ToDo />
+						element: (
+							<Suspense fallback={<FallbackFeed />}>
+								<ToDo />
+							</Suspense>
+						)
 					},
 					{
 						path: 'ui-tests',
-						element: <UiTests />
+						element: (
+							<Suspense fallback={<FallbackFeed />}>
+								<UiTests />
+							</Suspense>
+						)
 					},
 					{
 						path: '*',
-						element: <ErrorPage /> // Ensure this wildcard path is included to catch all undefined routes
+						element: <ErrorPage /> // Path wildcard para atrapar rutas no definidas
 					}
 				]
 			}
