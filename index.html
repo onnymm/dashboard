@@ -5,8 +5,33 @@
 		<link rel="icon" type="image/svg+xml" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>iaCele</title>
+		<script>
+			;(function () {
+				// Recupera la preferencia de tema del usuario desde el almacenamiento local
+				const storedTheme = localStorage.getItem('theme') // ('light' | 'dark')
+
+				// Verifica si el sistema del usuario prefiere el esquema de color oscuro
+				const systemPrefersDark = window.matchMedia(
+					'(prefers-color-scheme: dark)'
+				).matches
+
+				// Determina el tema a aplicar.
+				const theme = storedTheme // Si hay tema configurado en la app
+					? storedTheme // Prioriza el tema que se configuró para la app
+					: systemPrefersDark // Se toma como segunda opción el tema del browser
+						? 'dark' // True
+						: 'light' // False
+
+				// Aplica la clase 'dark' al elemento <html> si el tema es oscuro, de lo contrario, la quita
+				if (theme === 'dark') {
+					document.documentElement.classList.add('dark')
+				} else {
+					document.documentElement.classList.remove('dark')
+				}
+			})()
+		</script>
 	</head>
-	<body className="dark">
+	<body>
 		<div id="root"></div>
 		<script type="module" src="/src/main.jsx"></script>
 	</body>
