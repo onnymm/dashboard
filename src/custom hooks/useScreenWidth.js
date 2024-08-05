@@ -1,28 +1,27 @@
 import { useEffect, useState } from 'react'
 
-const useScreenWidth = (initialWidth = 768) => {
-	const [screenIsWide, setScreenIsWide] = useState(
-		window.innerWidth > initialWidth
+export const useScreenWidth = threshold => {
+	const [isOverThreshold, setIsOverThreshold] = useState(
+		// Si el ancho de la pantalla es mayor al límite, es verdadero
+		window.innerWidth > threshold
 	)
 
 	useEffect(() => {
 		const handleResize = () => {
 			const currentWidth = window.innerWidth
-			if (currentWidth > initialWidth && !screenIsWide) {
-				setScreenIsWide(true)
-			} else if (currentWidth <= initialWidth && screenIsWide) {
-				setScreenIsWide(false)
-			}
+			// Si el ancho de la pantalla es mayor al límite, es verdadero
+			currentWidth > threshold
+				? setIsOverThreshold(true)
+				: setIsOverThreshold(false)
 		}
 
-		window.addEventListener('resize', handleResize)
+		window.addEventListener('resize', handleResize) // Genera listener para resize
 
 		return () => {
+			// Borra el hook en caso de que el componente se desmonte
 			window.removeEventListener('resize', handleResize)
 		}
-	}, [screenIsWide, initialWidth])
+	}, [isOverThreshold, threshold])
 
-	return screenIsWide
+	return isOverThreshold
 }
-
-export default useScreenWidth
