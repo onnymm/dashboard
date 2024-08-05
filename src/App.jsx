@@ -1,29 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Feed from './components/feed/Feed'
 import Navbar from './components/navbar/Navbar'
 import { AppContext } from './contexts/AppContexts'
+import useScreenWidth from './custom hooks/useScreenWidth'
 
 const App = () => {
 	const [sidebarIsLocked, setSidebarIsLocked] = useState(false)
-	const [screenIsWide, setScreenIsWide] = useState(window.innerWidth > 768)
-
-	// Hook para cambio de estado dependiendo del ancho de la pantalla, si es <= 768, la pantalla es pequeña
-	useEffect(() => {
-		const handleResize = () => {
-			const currentWidth = window.innerWidth
-			if (currentWidth > 768 && !screenIsWide) {
-				setScreenIsWide(true)
-			} else if (currentWidth <= 768 && screenIsWide) {
-				setScreenIsWide(false)
-			}
-		}
-
-		window.addEventListener('resize', handleResize)
-
-		return () => {
-			window.removeEventListener('resize', handleResize)
-		}
-	}, [screenIsWide])
+	const screenIsWide = useScreenWidth(768) // Hook para cambio de estado dependiendo del ancho de la pantalla
 
 	return (
 		<div className='relative z-0 flex h-svh flex-col overflow-x-hidden overflow-y-hidden'>
