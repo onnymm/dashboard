@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Feed from './components/feed/Feed'
 import Navbar from './components/navbar/Navbar'
 import { AppContext } from './contexts/AppContexts'
-import useScreenWidth from './custom hooks/useScreenWidth'
+import { useScreenWidth } from './custom hooks/useScreenWidth'
 
 const App = () => {
 	const [sidebarIsLocked, setSidebarIsLocked] = useState(false)
