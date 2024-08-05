@@ -31,7 +31,6 @@ const estoEsUnaVariable = 5
 - [Mapas de funciones](#mapas-de-funciones)
 - [Funciones recursivas](#funciones-recursivas)
 - [Datos de la aplicación](#datos-de-la-aplicación)
-- [Ajustes predefinidos](#ajustes-predefinidos)
 - [Funciones de utilidades](#funciones-de-utilidades)
 
 **[￭ Constantes para la aplicación](#constantes-para-la-aplicación)**
@@ -46,14 +45,33 @@ const estoEsUnaVariable = 5
 ### Configuración de la aplicación
 
 **[￭ Configuración del Dashboard](#configuración-del-dashboard)**
-- [Gráficas](#gráficas)
+- [Configuración de las gráficas](#configuración-de-las-gráficas)
+
+<br>
+
+## Conexiones con APIs
 
 **[￭ Manejadores de solicitudes a APIs (Métodos GET)](#manejadores-de-solicitudes-a-apis-métodos-get)**
 - [Obtener datos para las gráficas](#obtener-datos-para-las-gráficas)
 
+<br>
+
 ## Arquitectura de los componentes de gráficas
 
+**[￭ Componentes de gráficas](#componentes-de-gráficas)**
+- [Introducción a las graficas de Charts.js](#introducción-a-las-graficas-de-chartsjs)
+
 ### Elementos principales de gráficas
+
+**[￭ Visualización de datos en cada gráfica](#visualización-de-datos-en-cada-gráfica)**
+- [Gráfica de barras](#gráfica-de-barras)
+- [Gráfica de líneas](#gráfica-de-líneas)
+- [Gráfica de pastel](#gráfica-de-pastel)
+- [Gráfica de dona](#gráfica-de-dona)
+- [Gráfica de área polar](#gráfica-de-área-polar)
+- [Gráfica de radar](#gráfica-de-radar)
+- [Gráfica de dispersión](#gráfica-de-dispersión)
+- [Gráfica de burbujas](#gráfica-de-burbujas)
 
 **[￭ Componentes de gráficas](#componentes-de-gráficas)**
 - [Componente principal de gráfica](#componente-principal-de-gráfica)
@@ -106,6 +124,11 @@ const estoEsUnaVariable = 5
 - [Mapeo de opacidades y tipos de colores en los conjuntos de datos](#mapeo-de-opacidades-y-tipos-de-colores-en-los-conjuntos-de-datos)
 - [Mapeo de colores en conjuntos de datos](#mapeo-de-colores-en-conjuntos-de-datos)
 
+## Referencias
+
+[￭ Preestablecidos](#preestablecidos)
+- [Valores por defecto](#valores-por-defecto)
+
 ----
 
 # Librerías de terceros
@@ -114,7 +137,7 @@ const estoEsUnaVariable = 5
 
 Este proyecto utiliza varias librerías para su funcionamiento, listadas a continuación:
 
-- **React Router**: Es una biblioteca estándar para enrutamiento en aplicaciones React. Proporciona una manera declarativa para gestionar la navegación y el enrutamiento en aplicaciones de una sola página .Permite definir rutas de manera declarativa, lo que permite especificar qué componentes deben renderizarse para diferentes rutas además de soportar rutas anidadas. Para saber más, consultar su [documentación](https://reactrouter.com/en/main).
+- **React Router**: Es una biblioteca estándar para enrutamiento en aplicaciones React. Proporciona una manera declarativa para gestionar la navegación y el enrutamiento en aplicaciones de una sola página. Permite definir rutas de manera declarativa, lo que permite especificar qué componentes deben renderizarse para diferentes rutas además de soportar rutas anidadas. Para saber más, consultar su [documentación](https://reactrouter.com/en/main).
 
 - **Charts.js**
 Es una biblioteca de código abierto que permite crear gráficas y visualizaciones de datos de manera sencilla y atractiva. Es altamente personalizable y fácil de usar y  soporta varios tipos de gráficas interactivos, lo que permite al usuario interactuar con el gráfico para ver información adicional. Para saber más, consultar su [documentación](https://www.chartjs.org/docs/latest/).
@@ -125,17 +148,21 @@ Es una biblioteca de código abierto que permite crear gráficas y visualizacion
 
 ## Descripción general de la estructura del proyecto
 
-En esta sección se describe la estructura general del proyecto, lo que ayudará al desarrollador a recordar el funcionamiento de la aplicación a nivel general o ayudará al nuevo desarrollador a familiarizarse con la estructura de ésta.
+En esta sección se describe la estructura general del proyecto, el contenido de los principales directorios del proyecto y una explicación del uso o utilidad de éste, lo que ayudará al desarrollador a recordar el funcionamiento de la aplicación a nivel general o ayudará al nuevo desarrollador a familiarizarse con la estructura de ésta.
 
 ## Uso de constantes
 
-Este proyecto utiliza un directorio en el que se almacenan valores constantes, generalmente valores de tipo `string` nombres de atributos de funciones y nombres de ajustes predefinidos. Estos archivos se encuentran en la ubicación `src/constants/` y están comentados para entender a qué pertenecen. A continuación se muestra un ejemplo con constantes de colores:
+Este proyecto utiliza un directorio en el que se almacenan valores constantes, generalmente valores de tipo `string` nombres de atributos de funciones y nombres de ajustes predefinidos. Estos archivos se encuentran en la ubicación `src/constants/` y están comentados para entender a qué pertenecen. A continuación se muestran algunos ejemplos:
 ```js
-// Valores numéricos
-export const RED_HUE = 353
+export const RED_HUE = 353 // Valor hue de un tono rojo en formato HSL
 
-// Colores en formato hexadecimal sin opacidad
-export const SATURED_RED = "#FF001E"
+export const SATURED_RED = "#FF001E" // Color en formato hexadecimal
+
+export const CHART_TYPES = { // Declaración de nombres de tipos de gráficas
+    BAR: 'bar',
+    LINE: 'line',
+    ...
+}
 ```
 
 Las constantes son una implementación en la aplicación que ayudan a reducir *typos* en el código al usar valores de tipo `string` eficientando el flujo de trabajo en el desarrollo. Las constantes también son una forma de escalar el proyecto y homogeneizar valores en la aplicación ya que sólo requieren un cambio que se propaga por ésta y no muchos cambios en varios archivos.
@@ -144,89 +171,48 @@ Las constantes son una implementación en la aplicación que ayudan a reducir *t
 
 La declaración de funciones en este proyecto utiliza propiedades computadas a partir de constantes declaradas en la ubicación `src/constants/`. Las propiedades computadas permiten definir propiedades de objetos usando expresiones dinámicas que se evalúan en tiempo de ejecución además de que centralizan las claves en un solo objeto, lo que facilita la actualización de las constantes y hace explícito qué propiedades del objeto de entrada se están utilizando y asignando a variables específicas.
 
->   Para saber más sobre el uso de constantes, consultar la sección [Uso de constates](#uso-de-constantes).
+>   Para saber más sobre el uso de constantes, consultar la sección [Uso de constantes](#uso-de-constantes).
 
 ### Ejemplo de uso
 
-En el archivo `settings.js` que se encuentra en la ubicación antes mencionada, se cuenta con una constante llamada `CHARTS_SETTINGS` utilizada para definir los atributos configurables de componentes de gráficas. La constante está declarada de la siguiente forma:
+Si declaramos una constante con la siguiente estructura:
 ```js
-export const CHARTS_SETTINGS = {
-    // Tipo de gráfica
-    CHART_TYPE: "chartType",
-    // Nombre del grupo de etiquetas
-    LABELS_NAME: "labelsName",
-    // Nombres de las variables contenedoras de los conjuntos de datos
-    DATASETS_NAMES: "datasetNames",
-    ...
-}
+export const PARAM_NAMES = [
+    COMPLETE_NAME: "completeName",
+    DATE_OF_BIRTH: "dateOfBirth",
+    AGE_IN_YEARS: "ageInYears",
+]
 ```
 
->   Para más información sobre estos ajustes, leer la sección [Gráficas](#gráficas).
-
-En la función `buildData` que se encuentra en `src/utils/utils.js` se utilizan estas constantes como declaración de los atributos de entrada de la función, destructurando los valores dentro de `[]` y definiendo cómo se llamará el atributo dentro de la función de la siguiente forma:
+podemos declarar una función que reciba un objeto de atributos que tengan estos nombres y luego rebautizarlos en la función a nuestras necesidades o para mejorar la legibilidad o el contexto. Para esto se utiliza la constante anterior, el atributo del cual vamos a utilizar su valor y a esto lo encerramos en corchetes como se muestra a continuación:
 ```js
-export const buildData = ({
-    ...
-    [CHARTS_SETTINGS.CHART_TYPE]: chartType, // Tipo de gráfica
-    [CHARTS_SETTINGS.LABELS_NAME]: labelsName, // Variable de etiquetas de la gráfica de barras
-    [CHARTS_SETTINGS.DATASETS_NAMES]: datasetNames, // Conjuntos de datos en el objeto
-    ...
+const someFunction = ({
+    [PARAM_NAMES.COMPLETE_NAME]: name,
+    [PARAM_NAMES.DATE_OF_BIRTH]: birthDate,
+    [PARAM_NAMES.AGE_IN_YEARS]: age
 }) => {
-    ...
+    ....
 }
 ```
 
-Esto sería lo mismo a declarar la función de esta forma:
+El valor de `PARAM_NAMES.COMPLETE_NAME`, por ejemplo, es `"completeName"`. Esto quiere decir que la función recibe un atributo llamado `completeName` y lo rebautiza a `name` para usarlo dentro de sí misma. Lo anterior sería equivalente a esto:
 ```js
-export const buildData = ({
-    ...
-    chartType: chartType,
-    labelsName: labelsName,
-    datasetNames: datasetNames,
-    ...
+const someFunction = ({
+    completeName: name,
+    dateOfBirth: birthDate,
+    ageInYears: age
 }) => {
-    ...
+    ....
 }
 ```
 
-Nótese que los nombres antes de los `:` son computados a partir de los nombres de las constantes. Imaginemos que cambiamos los nombres de las constantes a lo siguiente:
-
+De esta misma forma se declara la ejecución de la función:
 ```js
-export const CHARTS_SETTINGS = {
-    CHART_TYPE: "type",
-    LABELS_NAME: "labels",
-    DATASETS_NAMES: "datasets",
-    ...
-}
-```
-
-Los nombres computados en la función automáticamente cambiarían a lo siguiente:
-```js
-export const buildData = ({
-    ...
-    type: chartType,
-    labels: labelsName,
-    datasets: datasetNames,
-    ...
-}) => {
-    ...
-}
-```
-
-Es decir que la función recibe, por ejemplo, el atributo `type` y lo rebautiza como `chartType` para usarlo así dentro de sí misma. De esta manera podemos declarar las gráficas a utilizar de la siguiente forma y la aplicación seguirá funcionando correctamente aunque las constantes se rebauticen una y otra vez:
-```js
-export const dashboardData = {
-    charts: [
-        {
-            ...
-            [CHARTS_SETTINGS.CHART_TYPE]: 'bar',
-            [CHARTS_SETTINGS.LABELS_NAME]: 'user_name',
-            [CHARTS_SETTINGS.DATASETS_NAMES]: ['amount_untaxed'],
-            ...
-        },
-        ...
-    ]
-}
+const someResult = someFunction({
+    [PARAM_NAMES.COMPLETE_NAME]: "Lince Burbujas",
+    [PARAM_NAMES.DATE_OF_BIRTH]: "29/03/2021",
+    [PARAM_NAMES.AGE_IN_YEARS]: 3
+})
 ```
 
 De esta forma se pueden rebautizar los nombres de los atributos de entrada de una función y los argumentos que ésta recibe sin romper el código o generar errores por cambios en nombres no realizados correctamente.
@@ -306,7 +292,7 @@ La recursividad es una herramienta poderosa en la programación, especialmente c
 
 ## Datos de la aplicación
 
-Este proyecto también estructura los datos de la aplicación en una ubicación específica para facilitar cambios y actualizaciones sin tener que realizar cambios en muchos archivos lo que también reduce los errores humanos evitando que algunos valores que tenían que cambiarse pasen desapercibidos.
+Este proyecto también estructura los datos de la aplicación en la ubicación `src/data/` para facilitar cambios y actualizaciones sin tener que realizar cambios en muchos archivos lo que también reduce los errores humanos evitando que algunos valores que tenían que cambiarse pasen desapercibidos.
 
 ```js
 // Dominios locales para obtener la información
@@ -357,6 +343,8 @@ export const chartSettings = {
     ...
 }
 ```
+
+>   Para conocer todos los ajustes predefinidos, consultar la sección [Valores por defecto](#valores-por-defecto).
 
 >   La declaración de estos ajustes predefinidos utiliza propiedades computadas. Para saber más, consultar la sección [Destructuración y propiedades computadas](#destructuración-y-propiedades-computadas).
 
@@ -478,7 +466,7 @@ export const dashboardData = {
 }
 ```
 
->   Estas constantes se utilizan mayormente para la configuración del Dashboard y declaración de los nombres de los parámetros de funciones de utilidad. Para más información sobre los parámetros disponibles, leer la sección [Gráficas](#gráficas).
+>   Estas constantes se utilizan mayormente para la configuración del Dashboard y declaración de los nombres de los parámetros de funciones de utilidad. Para más información sobre los parámetros disponibles, leer la sección [Configuración de las gráficas](#configuración-de-las-gráficas).
 
 ## Nombres de ajustes de series de los conjuntos de datos
 - **Ubicación:** `src/constants/settings.js`
@@ -498,89 +486,13 @@ Este objeto contiene los nombres de ajustes de los conjuntos de datos individual
 
 ----
 
-# Configuraciones globales
-
-## Ajustes predefinidos
-
-En esta sección se encuentra un índice de todos los ajustes predefinidos:
-
-| Tipo | Nombre | Entidad | Descripción | Ubicación | Valor predefinido |
-|------|--------|---------|-------------|-----------|-------------------|
-| Ajustes de gráficas | Colores de borde en gráficas circulares | `chartSettings...` | Colores de borde en gráficas circulares (pastel y dona) | `dashboardSettings.js` | `"#FFFFFF"` |
-| Ajustes de gráficas | Colores de fondo | `chartSettings.BACKGROUND_COLORS` | Colores de fondo de categorías/conjuntos de datos | `dashboardSettings.js` | `["#8C0413", "#B70217", "#DC001A", "#EC112B", "#FE3249", "#FE5165", "#FC7080"]` |
-| Ajustes de gráficas | Columnas de etiquetas | `chartSettings.LABEL_COLUMNS` | Número de columnas en `display: grid` en las que se distribuirán las etiquetas categóricas/de conjuntos de datos de las gráficas por default | `dashboardSettings.js` | `1` |
-| Ajustes de gráficas | Forma del indicador de etiqueta | `chartSettings.LEGEND_BOX` | Forma del indicador de color de etiqueta de la gráfica | `dashboardSettings.js` | `'rounded'` |
-| Ajustes de gráficas | Opacidad de borde en gráfica de área polar | `chartSettings...` | Opacidad de los colores de borde en las gráficas de de área polar | `dashboardSettings.js` | `100` |
-| Ajustes de gráficas | Opacidad de fondo en gráfica de área polar | `chartSettings...` | Opacidad de los colores de fondo en las gráficas de de área polar | `dashboardSettings.js` | `75` |
-| Ajustes de gráficas | Orientación de elementos dentro de las etiquetas | `chartSettings.LABELS_LIST` | Orientación de los elementos HTML dentro de las etiquetas | `dashboardSettings.js` | `'default'` |
-| Ajustes de gráficas | Relación de aspecto | `chartSettings.ASPECT_RATIO` | Relación de aspecto de la gráfica | `dashboardSettings.js` | `1.5` |
-| Ajustes de gráficas | Tamaño máximo de elementos de burbuja | `chartSettings.MAX_BUBBLE_SIZE` | Tamaño máximo en pixeles de los elementos de burbuja en gráficas de burbuja | `dashboardSettings.js` | `16` |
-| Ajustes de gráficas | Tamaño mínimo de elementos de burbuja | `chartSettings.MIN_BUBBLE_SIZE` | Tamaño mínimo en pixeles de los elementos de burbuja en gráficas de burbuja | `dashboardSettings.js` | `2` |
-| Ajustes de gráficas | Tipo de relleno en gráficas rellenables | `chartSettings...` | Tipo de relleno en gráficas rellenables (líneas y barras) | `dashboardSettings.js` | `"origin"` |
-| Apariencia | Cajas de colores de etiquetas de conjuntos de datos de gráficas | `chartElementsStyling...` | Estilización de elementos `<span>` (cajas de color de conjunto de datos) de componente de gráfica | `chartElementsStyling.js` | `"block"` |
-| Apariencia | Etiquetas de conjuntos de datos de gráficas | `chartElementsStyling...` | Estilización de elementos `<li>` de lista de contenedor de etiquetas de componente de gráfica | `chartElementsStyling.js` | `"flex gap-1"` |
-| Apariencia | Lista de etiquetas de conjuntos de datos de gráficas | `chartElementsStyling...` | Estilización de elemento `<ul>` de contenedor de etiquetas de componente de gráfica | `chartElementsStyling.js` | `"flex"` |
-| Apariencia | Título de conjunto de datos en etiquetas de conjuntos de datos de gráficas | `chartElementsStyling...` | Estilización de elemento `<p>` (nombre de la categoría o conjunto de datos) de contenedor de etiquetas de componente de gráfica | `chartElementsStyling.js` | `"font-extralight transition duration-300"` |
-| Conexión a APIs | Dominio Backend default | `DOMAINS.DEFAULT_DOMAIN` | Dominio Backend default para conexión con API | `backendDomains.js` | `localhost` |
-
-
-----
-
-# Configuración del Dashboard
-
-La información mostrada en el Dashboard es configurada en el archivo `appConfig.js` específicamente en la colección de datos `dashboardData`. Este archivo está destinado a ser un punto de partida para poder realizar la configuración de la aplicación completa cambiando valores y configurando componentes usando simplemente colecciones de datos que automáticamente se mapean en la aplicación.
-
-## Gráficas
-**índice**: `[charts]`
-
-En este índice se encuentra la configuración de las gráficas a mostrar en el Dashboard. Esta colección de datos debe ser una matriz y se debe declarar un objeto dentro de ésta por cada gráfica. Para acceder a la lista de atributos disponibles se importa la constante `CHARTS_SETTINGS` proveniente de la ubicación relativa `../constants/settings`. Para declarar el atributo se utiliza la destructuración de la siguiente forma:
-
-```js
-const dashboardData = {
-    charts: [
-        // Declaración de la gráfica
-        {
-            [CHART_SETTINGS.CHARTTYPE]: 'bar' // Declaración de una gráfica de barras
-            ... // Resto de las propiedades de la gráfica
-        }
-    ]
-}
-```
-
-Los argumentos de entrada disponibles para cada objeto de la matriz, estructurados en la forma `[CHART_SETTINGS.<argumento>]` (como se describe en el bloque de código anterior) son los siguientes:
-
-| Atributo | Tipo | Valor por defecto | Descripción |
-|----------|------|-------------------|-------------|
-| `ENDPOINT` | `string` | *Requerido | Endpoint de la URL de donde se solicitará la información. Por ejemplo, si la URL completa es `https://www.estoesunsitio.com/esto_es_el_endpoint`, en este campo se debe ingresar el fragmento `esto_es_el_endpoint`. |
-| `CHART_TYPE` | `(opción)` <br><br> • `'bar'`: Gráfica de barras <br> • `'line'`: Gráfica de líneas <br> • `'pie'`: Gráfica de pastel <br> • `'doughnut'`: Gráfica de dona <br> • `'polar area'`: Gráfica de área polar <br> • `'radar'`: Gráfica de radar <br> • `'scatter'`: Gráfica de dispersión <br> • `'bubble'`: Gráfica de burbujas  | *Requerido | Tipo de gráfica a renderizar. |
-| `NAME` | `string` | *Requerido | Nombre de la gráfica a renderizar .|
-| `DATASET_NAMES` | `array [string]` | *Requerido | Nombre de la variable del JSON del endpoint de la cual se obtendrán los valores del o los conjuntos de datos a renderizar en los elementos de la gráfica. |
-| `LABELS` | `string` | *Requerido | Nombre de la variable del JSON del endpoint de la cual se obtendrá la variable categórica que funcionará para segmentar el o los conjuntos de datos. |
-| `LABELS_NAME` | `string` | *Requerido | Nombre descriptivo del grupo de etiquetas que se renderizará en la gráfica. |
-| `BACKGROUND_COLORS` | `Color` - `array [color]` | `RED_PALETTE` | Colores de fondo para los elementos de la gráfica. El formato de cada color debe ser hexadecimal, por ejemplo `#FFFFFF`. Los colores deben tener ser RGB en formato hexadecimal y contener el símbolo `#` antes de éstos. |
-| `BACKGROUND_OPACITY` | `number` | `100` | Opacidad de los colores de fondo de los elementos de la gráfica. Debe ser un número del `0` al `100` en donde el `0` representa la transparencia total y el `100` un color totalmente sólido sin transparencia. |
-| `BORDER_COLORS` | `Color` - `array[Color]` | `RED_PALETTE` | Colores de borde para los elementos de la gráfica. El formato de cada color debe ser hexadecimal, por ejemplo `#FFFFFF`. Los colores deben tener ser RGB en formato hexadecimal y contener el símbolo `#` antes de éstos. |
-| `BORDER_OPACITY` | `number` | `100` | Opacidad de los colores de borde de los elementos de la gráfica. Debe ser un número del `0` al `100` en donde el `0` representa la transparencia total y el `100` un color totalmente sólido sin transparencia. |
-| `ASPECT_RATIO` | `number` - `(División)` | `1.5` | Relación de aspecto de la gráfica. Puede ser un número, como por ejemplo `1.5` o una división como `3/2` en donde el primer número o numerador representa la proporción horizontal y el segundo número o denominador representa la proporción vertical. Por ejemplo, `3/2` significa que, por cada 3 pixeles de ancho, la gráfica tendrá 2 pixeles de alto. |
-| `X_AXIS_FORMAT` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico en el eje $X$ que se representará en las etiquetas numéricas y el tooltip. |
-| `Y_AXIS_FORMAT` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico en el eje $Y$ que se representará en las etiquetas numéricas y el tooltip. |
-| `Z_AXIS_FORMAT` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico en el eje $Z$ que se representará en las etiquetas numéricas y el tooltip. Disponible sólo para gráficas de burbuja |
-| `CATEGORY_STRATIFICATION_BY` | `string` | `undefined` | Variable categórica de estratificación para segmentar un conjunto de datos en varios conjuntos de datos para renderizarse en la gráfica. |
-| `LABEL_COLUMNS` | `(Opción)` <br> <br> • `1`: Organización en forma de lista <br> • `2`: Organización en lista de 2 columnas <br> • `3`: Organización en lista de 3 columnas <br> • `4`: Organización en lista de 4 columnas <br> • `6`: Organización en lista de 6 columnas | `1` | Orientación y alineación de las etiquetas. |
-| `LABELS_LIST` | `(Opción)` <br> <br> • `'default'`: Disposición por defecto | `'default'` | Orientación y alineación de cada contenedor de etiqueta. |
-| `LEGEND_BOX` | `(Opción)` <br> <br> • `'circle'`: Cajas circulares <br> • `'rounded'`: Cajas cuadradas con bordes redondeados <br> • `'square'`: Cajas cuadradas | `'square'` | Apariencia de la caja de color de las etiquetas. |
-| `MIN_BUBBLE_SIZE` | `number` | `2` | Tamaño mínimo de elementos de burbuja en gráfica de burbuja. |
-| `MAX_BUBBLE_SIZE` | `number` | `16` | Tamaño máximo de elementos de burbuja en gráfica de burbuja. |
-| `TRANSPOSED` | `boolean` | `false` | Transponer gráfica. Si se activa este parámetro, los datos de los ejes $X$ y $Y$ se invertirán. Esto sólo es válido para gráficas de barras, de dispersión y de burbuja. |
-
-Los objetos declarados en la matriz se renderizarán, cada uno, en un componente de gráfica.
-
-----
-
 # Manejadores de solicitudes a APIs (Métodos GET)
+- **Ubicación**: `src/api/`
+- **Archivo**: `get.js`
+
+En este archivo se listan todas las funciones que realizan solicitudes a APIs de backend usando métodos HTTP de tipo **GET**.
 
 ## Obtener datos para las gráficas
-- **Archivo:** `get.js`
 - **Función:** `getChartData`
 
 Esta función permite obtener los datos necesarios para renderizar un componente de gráfica. Los parámetros disponibles para utilizar con la función son los siguientes:
@@ -610,7 +522,275 @@ getChartData(setLoadData, "endpoint_example", "https://www.midominioespecifico.c
 
 ----
 
+# Configuración del Dashboard
+
+La información mostrada en el Dashboard es configurada en el archivo `appConfig.js` específicamente en la colección de datos `dashboardData`. Este archivo está destinado a ser un punto de partida para poder realizar la configuración de la aplicación completa cambiando valores y configurando componentes usando simplemente colecciones de datos que automáticamente se mapean en la aplicación.
+
+## Configuración de las gráficas
+
+- **Ubicación**: `src/data/`
+- **Archivo**: `appConfig.js`
+- **Variable**: `dasboardData`
+- **índice**: `[charts]`
+
+En este índice se encuentra la configuración de las gráficas a mostrar en el Dashboard. Esta colección de datos debe ser una matriz y se debe declarar un objeto dentro de ésta por cada gráfica. Para acceder a la lista de atributos disponibles se importa la constante `CHARTS_SETTINGS` proveniente de la ubicación relativa `../constants/settings`. Para declarar el atributo se utiliza la destructuración de la siguiente forma:
+
+```js
+const dashboardData = {
+    charts: [
+        // Declaración de la gráfica
+        {
+            [CHART_SETTINGS.CHARTTYPE]: 'bar' // Declaración de una gráfica de barras
+            ... // Resto de las propiedades de la gráfica
+        }
+    ]
+}
+```
+
+Los argumentos de entrada disponibles para cada objeto de la matriz, estructurados en la forma `[CHART_SETTINGS.<argumento>]` (como se describe en el bloque de código anterior) son los siguientes:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `ENDPOINT` | `string` | *Requerido | Endpoint de la URL de donde se solicitará la información. Por ejemplo, si la URL completa es `https://www.estoesunsitio.com/esto_es_el_endpoint`, en este campo se debe ingresar el fragmento `esto_es_el_endpoint`. |
+| `CHART_TYPE` | `(opción)` <br><br> • `'bar'`: Gráfica de barras <br> • `'line'`: Gráfica de líneas <br> • `'pie'`: Gráfica de pastel <br> • `'doughnut'`: Gráfica de dona <br> • `'polar area'`: Gráfica de área polar <br> • `'radar'`: Gráfica de radar <br> • `'scatter'`: Gráfica de dispersión <br> • `'bubble'`: Gráfica de burbujas  | *Requerido | Tipo de gráfica a renderizar. |
+| `NAME` | `string` | *Requerido | Nombre de la gráfica a renderizar .|
+| `DATASETS_NAMES` | `array [string]` | *Requerido | Nombre de la variable del JSON del endpoint de la cual se obtendrán los valores del o los conjuntos de datos a renderizar en los elementos de la gráfica. |
+| `LABELS` | `string` | *Requerido | Nombre de la variable del JSON del endpoint de la cual se obtendrá la variable categórica que funcionará para segmentar el o los conjuntos de datos. |
+| `LABELS_NAME` | `string` | *Requerido | Nombre descriptivo del grupo de etiquetas que se renderizará en la gráfica. |
+| `BACKGROUND_COLORS` | `Color` - `array [color]` | `RED_PALETTE` | Colores de fondo para los elementos de la gráfica. El formato de cada color debe ser hexadecimal, por ejemplo `#FFFFFF`. Los colores deben tener ser RGB en formato hexadecimal y contener el símbolo `#` antes de éstos. |
+| `BACKGROUND_OPACITY` | `number` | `100` | Opacidad de los colores de fondo de los elementos de la gráfica. Debe ser un número del `0` al `100` en donde el `0` representa la transparencia total y el `100` un color totalmente sólido sin transparencia. |
+| `BORDER_COLORS` | `Color` - `array[Color]` | `RED_PALETTE` | Colores de borde para los elementos de la gráfica. El formato de cada color debe ser hexadecimal, por ejemplo `#FFFFFF`. Los colores deben tener ser RGB en formato hexadecimal y contener el símbolo `#` antes de éstos. |
+| `BORDER_OPACITY` | `number` | `100` | Opacidad de los colores de borde de los elementos de la gráfica. Debe ser un número del `0` al `100` en donde el `0` representa la transparencia total y el `100` un color totalmente sólido sin transparencia. |
+| `ASPECT_RATIO` | `number` - `(División)` | `1.5` | Relación de aspecto de la gráfica. Puede ser un número, como por ejemplo `1.5` o una división como `3/2` en donde el primer número o numerador representa la proporción horizontal y el segundo número o denominador representa la proporción vertical. Por ejemplo, `3/2` significa que, por cada 3 pixeles de ancho, la gráfica tendrá 2 pixeles de alto. |
+| `X_AXIS_FORMAT` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico en el eje $X$ que se representará en las etiquetas numéricas y el tooltip. |
+| `Y_AXIS_FORMAT` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico en el eje $Y$ que se representará en las etiquetas numéricas y el tooltip. |
+| `Z_AXIS_FORMAT` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico en el eje $Z$ que se representará en las etiquetas numéricas y el tooltip. Disponible sólo para gráficas de burbuja |
+| `CATEGORY_STRATIFICATION_BY` | `string` | `undefined` | Variable categórica de estratificación para segmentar un conjunto de datos en varios conjuntos de datos para renderizarse en la gráfica. |
+| `LABEL_COLUMNS` | `(Opción)` <br> <br> • `1`: Organización en forma de lista <br> • `2`: Organización en lista de 2 columnas <br> • `3`: Organización en lista de 3 columnas <br> • `4`: Organización en lista de 4 columnas <br> • `6`: Organización en lista de 6 columnas | `1` | Orientación y alineación de las etiquetas. |
+| `LABELS_LIST` | `(Opción)` <br> <br> • `'default'`: Disposición por defecto | `'default'` | Orientación y alineación de cada contenedor de etiqueta. |
+| `LEGEND_BOX` | `(Opción)` <br> <br> • `'circle'`: Cajas circulares <br> • `'rounded'`: Cajas cuadradas con bordes redondeados <br> • `'square'`: Cajas cuadradas | `'square'` | Apariencia de la caja de color de las etiquetas. |
+| `MIN_BUBBLE_SIZE` | `number` | `2` | Tamaño mínimo de elementos de burbuja en gráfica de burbuja. |
+| `MAX_BUBBLE_SIZE` | `number` | `16` | Tamaño máximo de elementos de burbuja en gráfica de burbuja. |
+| `TRANSPOSED` | `boolean` | `false` | Transponer gráfica. Si se activa este parámetro, los datos de los ejes $X$ y $Y$ se invertirán. Esto sólo es válido para gráficas de barras, de dispersión y de burbuja. |
+
+Los objetos declarados en la matriz se renderizarán, cada uno, en un componente de gráfica.
+
+>   La declaración de estos atributos utiliza propiedades computadas. Para saber más, consultar la sección [Destructuración y propiedades computadas](#destructuración-y-propiedades-computadas).
+
+----
+
 # Componentes de gráficas
+
+## Introducción a las graficas de Charts.js
+
+Antes de comprender cómo funciona el uso de los componentes de gráficas de la librería de Charts.js es necesario entender cómo funcionan estos componentes y por qué se optó por desarrollar una estructura de declaración y configuración junto con un componente global por encima de esta librería y no usando esta librería directamente.
+
+Charts.js es una librería de gráficas con un alto nivel de personalización. Esto significa que existe una gran variedad de ajustes de apariencia, comportamiento y estructura para los componentes de gráficas provistos por esta librería. Sin embargo es importante comprender que la naturaleza de las gráficas varía entre una y otra, principalmente por el tipo de conjuntos de datos que pueden renderizar éstas.
+
+Los conjuntos de datos pueden ser muy distintos entre uno y otro y lo que queremos visualizar no siempre es lo mismo pero el tipo de gráfica a utilizar se limita a la estructura del conjunto de datos entrante. La construcción de un componente global y su funcionamiento interno nos da una mayor libertad para realizar esto. Charts.js por sí solo varía la configuración de los mismos parámetros para una gráfica u otra y eso significa que tendríamos que cambiar muchos ajustes si queremos cambiar el tipo de gráfica a renderizar con el mismo conjunto de datos y, para esto, se requeriría leer la documentación de la gráfica a utilizar, además de que, a veces, la explicación del comportamiento no es muy intuitiva, la documentación está disponible sólo para objetos a renderizar en un entorno libre de React.js y la documentación de componentes de Chart.js para React.js actualmente no se encuentra disponible.
+
+Los componentes de gráficas de Charts.js reciben dos objetos principales: El objeto de datos y el objeto de configuración, llamados `series` y `options` respectivamente. La estructura del objeto de datos requerida para renderizar difiere entre un tipo de gráfica y otro. Aquí se incluyen parámetros como los colores y los nombres de las etiquetas categóricas a mostrar en la gráfica, sin embargo, algunos otros ajustes de colores e incluso valores numéricos como el tamaño de las burbujas que depende directamente de un valor numérico del conjunto de datos deben incluirse en el objeto de configuración y no en el de los datos y esto depende del tipo de gráfica, ocasionando que a veces el uso de la librería de Charts.js por sí sola sea un poco antiintuivo o confuso.
+
+## Estructura de componentes de gráficas de Charts.js
+
+## Construcción de la librería Charts.js
+
+Una de las características destacables de la librería Charts.js es que utiliza una técnica llamada *Tree-shaking* que consiste en sólo utilizar los componentes o partes de un código que realmente se requieren en un proyecto, descartando de éste todo lo no utilizado de la librería, optimizando los tiempos de carga en la página y la eficiencia de ésta.
+
+Para inicializar la librería se requiere importar la clase `Chart`:
+```js
+import {Chart as ChartJS} from 'charts.js';
+```
+
+También se importan todos los plug-ins a utilizar, esto es, los elementos de la gráfica:
+```js
+import {
+    Chart as ChartJS, // Clase principal
+    ArcElement, // Plug-ins a usar
+    CategoryScale,
+    Legend,
+    LinearScale,
+    Title,
+    Tooltip,
+} from 'chart.js';
+```
+
+Finamente se requiere registrar todos estos elementos o plug-ins a la clase:
+```js
+ChartsJS.register(ArcElement, CategoryScale, Legend, LinearScale, Title, Tooltip)
+```
+
+De esta manera, ya es posible utilizar estos elementos en un componente de gráfica:
+```js
+{
+...
+    return (
+        <Pie
+            series={...}
+            options={...}
+        />
+    )
+}
+```
+
+### Estructuras de los conjuntos de datos a graficar
+
+La estructura de datos adecuada para la renderización de una gráfica de pastel, dona, área polar o radar se estructura de la siguiente forma, contenida en un objeto de datos:
+```js
+const data: [10, 20, 30, 40, 50]; // Valores numéricos
+const labels: ["category1", "category2", "category3", "category4", "category5"]; // Categorías de la gráfica
+```
+
+La estructura de datos para la renderización de gráficas de barras o línas se estructura de la siguiente forma, contenida en un objeto de datos:
+```js
+const series = [
+    {
+        data: [10, 20, 30, 40, 50], // Valores numéricos
+        label: "category1", // Categorías de la gráfica
+    },
+    {
+        data: [15, 25, 35, 45, 55], // Valores numéricos
+        label: "category2", // Categorías de la gráfica
+    },
+    ...
+]
+```
+
+La estructura de datos para la renderización de gráficas de dispersión se estructura de la siguiente forma, contenida en un objeto de datos:
+```js
+const data: [ // Valores numéricos
+    {x: 5, y: 10},
+    {x: 10, y: 20},
+    {x: 15, y: 30},
+    ...
+];
+const labels: ["category1", "category2", "category3", "category4", "category5"]; // Categorías de la gráfica
+```
+
+La estructura de datos para la renderización de gráficas de burbuja se estructura de la siguiente forma, contenida en un objeto de datos:
+```js
+const data: [ // Valores numéricos
+    {x: 5, y: 10, _custom: 1},
+    {x: 10, y: 20, _custom: 2},
+    {x: 15, y: 30, _custom: 3},
+    ...
+];
+const labels: ["category1", "category2", "category3", "category4", "category5"]; // Categorías de la gráfica
+```
+
+# Visualización de datos en cada gráfica
+
+A continuación se listan los elementos que se pueden visualizar en cada tipo de gráfica y su uso recomendado:
+
+## Gráfica de barras
+- **Tipo de datos**: Uno o varios conjuntos de datos unidimensionales
+- **Uso**: Visualización de uno o más conjuntos de datos de un valor por categoría.
+- **Estructura**:
+    - Un valor por categoría en uno o más conjuntos de datos.
+    - Todos los conjuntos de datos deben listar las mismas categorías.
+- **Elementos para visualizar**:
+    - Un eje de valores numéricos.
+    - Un eje para categorías.
+    - Visualización de cada conjunto de datos en diferentes colores.
+- **Uso recomendado**:
+    -Visualización de valores entre diferentes categorías.
+    - Se recomienda este tipo de gráficas para comparación entre una categoría y otra, no para una visualización de continuidad. Para una visualización de continuidad se recomienda la [Gráfica de líneas](#gráfica-de-líneas).
+
+## Gráfica de líneas
+- **Tipo de datos**: Uno o varios conjuntos de datos unidimensionales
+- **Uso**: Visualización de uno o más conjuntos de datos de un valor por categoría.
+- **Estructura**:
+    - Un valor por categoría en uno o más conjuntos de datos.
+    - Todos los conjuntos de datos deben listar las mismas categorías.
+- **Elementos para visualizar**:
+    - Un eje de valores numéricos.
+    - Un eje para categorías.
+    - Visualización de cada conjunto de datos en diferentes colores.
+- **Uso recomendado**:
+    - Visualización de valores entre categorías continuas como meses, días de la semana o algún tipo de progreso en el tiempo, no para comparaciones entre categorías. Para ese caso se recomienda la [Gráfica de barras](#gráfica-de-barras).
+
+## Gráfica de pastel
+- **Tipo de datos**: Un solo conjunto de datos unidimensional
+- **Uso**: Visualización de un conjunto de datos categórico.
+- **Estructura**:
+    - Un valor por categoría en un conjunto de datos.
+- **Elementos para visualizar**:
+    - Un eje de valores numéricos.
+    - Un eje para categorías.
+- **Uso recomendado**: 
+    - Visualización de valores entre diferentes categorías.
+    - Se recomienda este tipo de gráficas para comparación entre una categoría y otra en un todo y no para una visualización de continuidad. En ese caso se recomienda la [gráfica de líneas](#gráfica-de-líneas).
+    - No se recomienda su uso con más de 5 categorías. Para ese caso se recomienda la [Gráfica de barras](#gráfica-de-barras).
+
+## Gráfica de dona
+- **Tipo de datos**: Un solo conjunto de datos unidimensional
+- **Uso**: Visualización de un conjunto de datos categórico.
+- **Estructura**:
+    - Un valor por categoría en un conjunto de datos.
+- **Elementos para visualizar**:
+    - Un eje de valores numéricos.
+    - Un eje para categorías.
+- **Uso recomendado**: 
+    - Visualización de valores entre diferentes categorías.
+    - Se recomienda este tipo de gráficas para comparación entre una categoría y otra en un todo y no para una visualización de continuidad. En ese caso se recomienda la [gráfica de líneas](#gráfica-de-líneas).
+    - No se recomienda su uso con más de 5 categorías. Para ese caso se recomienda la [Gráfica de barras](#gráfica-de-barras).
+
+## Gráfica de área polar
+- **Tipo de datos**: Un solo conjunto de datos unidimensional
+- **Uso**: Visualización de un conjunto de datos categórico.
+- **Estructura**:
+    - Un valor por categoría en un conjunto de datos.
+- **Elementos para visualizar**:
+    - Un eje de valores numéricos.
+    - Un eje para categorías.
+- **Uso recomendado**: 
+    - Visualización de valores entre diferentes categorías.
+    - Se recomienda este tipo de gráfica cuando se requieran acentuar los valores de las categorías o usar magnitudes ya que los elementos crecerán exponencialmente mientras mayor sea su valor.
+    - Se recomienda este tipo de gráficas para comparación entre una categoría y otra o para una visualización de eventos cíclicos como días de la semana.
+    - No se recomienda su uso para mostrar proporciones de un todo. Para ese caso se recomienda la [Gráfica de pastel](#gráfica-de-pastel) o la [Gráfica de dona](#gráfica-de-dona).
+    - No se recomienda su uso con más de 5 ó 7 categorías. Para ese caso se recomienda la [Gráfica de barras](#gráfica-de-barras).
+
+## Gráfica de radar
+- **Tipo de datos**: Uno o varios conjuntos de datos unidimensionales
+- **Uso**: Visualización de uno o más conjuntos de datos de un valor por categoría.
+- **Estructura**:
+    - Un valor por categoría en uno o más conjuntos de datos.
+    - Todos los conjuntos de datos deben listas las mismas categorías.
+- **Elementos para visualizar**:
+    - Un eje de valores numéricos.
+    - Un eje para categorías.
+    - Visualización de cada conjunto de datos en diferentes colores.
+- **Uso recomendado**: 
+    - Visualización de valores entre diferentes categorías y su contribución en un todo, en uno o más conjuntos de datos.
+    - Se recomienda este tipo de gráfica cuando se requiera visualizar el rendimiento o comportamiento de varios elementos y su contribución a un todo, pertenecientes a un mismo contexto o categoría madre.
+    - También se recomienda este tipo de gráficas para visualización de eventos cíclicos como días de la semana.
+    - No se recomienda su uso con más de 5 ó 7 categorías. Para ese caso se recomienda la [Gráfica de barras](#gráfica-de-barras) si se requiere visualizar una comparación o la [Gráfica de líneas](#gráfica-de-líneas) si se requiere visualizar una continuidad.
+
+## Gráfica de dispersión
+- **Tipo de datos**: Uno o varios conjuntos de datos bidimensionales
+- **Uso**: Visualización de uno o varios conjuntos de datos con categorías de dos valores numéricos.
+- **Estructura**:
+    - Dos valores por categoría o individuo en uno o más conjuntos de datos.
+- **Elementos para visualizar**:
+    - Dos ejes de valores numéricos.
+    - Un eje para categorías.
+    - Visualización de cada conjunto de datos en diferentes colores.
+- **Uso recomendado**:
+    - Visualización de correlación entre dos valores numéricos de un mismo individuo, en muchos individuos de una categoría mayor.
+    - Visualización del comportamiento de una población.
+
+## Gráfica de burbujas
+- **Tipo de datos**: Uno o varios conjuntos de datos tridimensionales.
+- **Uso**: Visualización de uno o varios conjuntos de datos con categorías de tres valores numéricos.
+- **Estructura**:
+    - Tres valores por categoría o individuo en uno o más conjuntos de datos.
+- **Elementos para visualizar**:
+    - Tres ejes de valores numéricos.
+    - Un eje para categorías.
+    - Visualización de cada conjunto de datos en diferentes colores.
+- **Uso recomendado**:
+    - Visualización de correlación entre dos valores numéricos de un mismo individuo mas otro valor numérico, en muchos individuos de una categoría mayor.
+    - Visualización del comportamiento de una población.
 
 ## Componente principal de gráfica
 - Ubicación: `src/components/charts`
@@ -709,8 +889,8 @@ Los argumentos de entrada disponibles son los siguientes:
 
 | Atributo | Tipo | Valor por defecto | Descripción |
 |----------|------|-------------------|-------------|
-| `chartData` | `object` | *Requerido | Objeto de datos de renderización y endpoint de donde se tomará la información al conectarse con el API. Para más información sobre cómo declarar este objeto, leer la sección de configuración de [gráficas](#gráficas). |
-| `labelsContainerID` | `string` | *Requerido | ID del contenedor HTML `<div>` en donde se renderizarán las etiquetas del conjunto de datos. |
+| `chartData` | `object` | *Requerido | Objeto de datos de renderización y endpoint de donde se tomará la información al conectarse con el API. Para más información sobre cómo declarar este objeto, leer la sección de configuración de [Configuración de las gráficas](#configuración-de-las-gráficas). |
+| `labelsContainerID` | `string` | *Requerido | ID del contenedor HTML `<div>` en donde se renderizarán las etiquetas del conjunto de datos. Para saber más sobre las etiquetas desacopladas de la gráfica, consultar la sección [htmlLegend: Desacoplamiento de etiquetas de conjuntos de datos](#htmllegend-desacoplamiento-de-etiquetas-de-conjuntos-de-datos). |
 
 >   A continuación se describe el funcionamiento paso a paso:
 >   
@@ -754,7 +934,7 @@ Los argumentos de entrada disponibles son los siguientes:
 >   >   - Se utiliza la función `getChartData` y se le provee la función de cambio del estado `loadData` así como el atributo `endpoint` que es a donde se realizará la solicitud GET de la información para la gráfica.
 >   
 >   Para más información sobre el funcionamiento de la función `getChartData` consultar la sección [Obtener datos para las gráficas](#obtener-datos-para-las-gráficas).
-
+>   
 >   Tras la obtención de los datos de la gráfica se ejecuta el siguiente hook `useEffect`:
 >   ```jsx
 >   // Transformación de los datos
@@ -783,7 +963,7 @@ Los argumentos de entrada disponibles son los siguientes:
 >   >   -  Se proveen los siguientes atributos a la función `buildData`:
 >   >       - `data`: `loadData`, la información obtenida de la solicitud al API.
 >   >       - La deconstrucción del objeto `chartData`
->   >       - El ID del contenedor HTML `<div>` en donde se renderizarán las etiquetas del conjunto de datos.
+>   >       - La declaración del ID a asignar al contenedor HTML `<div>` en donde se renderizarán las etiquetas del conjunto de datos.
 >   
 >   Se declara el componente a renderizar:
 >   ```jsx
@@ -835,7 +1015,7 @@ Los argumentos de entrada disponibles son los siguientes:
 >   }
 >   ```
 >   
->   >   - El elemento JSX a retornoar dependerá de si el estado `data` ya contiene datos o aún no.
+>   >   - El elemento JSX a retornar dependerá de si el estado `data` ya contiene datos o aún no.
 >   
 >   Si el estado `data` ya contiene información se retorna el siguiente elemento JSX:
 >   ```jsx
@@ -848,7 +1028,7 @@ Los argumentos de entrada disponibles son los siguientes:
 >   ```
 >   
 >   >   - Se retorna un contenedor `<div>`.
->   >   - Dentro de éste se crea un `<div>` al que se le asigna el nombre de ID provisto al componente, que es el que usará para renderizar las etiquetas de la gráfica.
+>   >   - Dentro de éste se crea un `<div>` al que se le asigna el nombre de ID provisto al componente, que es el que usará para renderizar las etiquetas de la gráfica. Para saber más sobre las etiquetas desacopladas de la gráfica, consultar la sección [htmlLegend: Desacoplamiento de etiquetas de conjuntos de datos](#htmllegend-desacoplamiento-de-etiquetas-de-conjuntos-de-datos).
 >   >   - También se retona dentro el componente resultado de la llamada al mapa de componentes `RenderedChart` y se le provee el estado de `data` al argumento `dataContainer`.
 
 ----
@@ -866,10 +1046,10 @@ Los argumentos de entrada disponibles son:
 | Atributo | Tipo | Valor por defecto | Descripción |
 |----------|------|-------------------|-------------|
 | `data` | `object` | *Requerido | Objeto de datos recibido por medio de la solicitud GET al API. Para saber más, consulta la sección [Obtener datos para las gráficas](#obtener-datos-para-las-gráficas) |
-| `labelsContainerID` | `string` | *Requerido | ID del contenedor HTML `<div>` en donde se renderizarán las etiquetas del conjunto de datos. |
+| `labelsContainerID` | `string` | *Requerido | ID del contenedor HTML `<div>` en donde se renderizarán las etiquetas del conjunto de datos. Para saber más sobre las etiquetas desacopladas de la gráfica, consultar la sección [htmlLegend: Desacoplamiento de etiquetas de conjuntos de datos](#htmllegend-desacoplamiento-de-etiquetas-de-conjuntos-de-datos). |
 | `[CHART_SETTINGS.CHART_TYPE]` | `(opción)` <br><br> • `'bar'`: Gráfica de barras <br> • `'line'`: Gráfica de líneas <br> • `'pie'`: Gráfica de pastel <br> • `'doughnut'`: Gráfica de dona <br> • `'polar area'`: Gráfica de área polar <br> • `'radar'`: Gráfica de radar <br> • `'scatter'`: Gráfica de dispersión <br> • `'bubble'`: Gráfica de burbujas  | *Requerido | Tipo de gráfica a renderizar. |
 | `[CHART_SETTINGS.NAME]` | `string` | *Requerido | Nombre de la gráfica a renderizar .|
-| `[CHART_SETTINGS.DATASET_NAMES]` | `array [string]` | *Requerido | Nombre de la variable del JSON del endpoint de la cual se obtendrán los valores del o los conjuntos de datos a renderizar en los elementos de la gráfica. |
+| `[CHART_SETTINGS.DATASETS_NAMES]` | `array [string]` | *Requerido | Nombre de la variable del JSON del endpoint de la cual se obtendrán los valores del o los conjuntos de datos a renderizar en los elementos de la gráfica. |
 | `[CHART_SETTINGS.LABELS]` | `string` | *Requerido | Nombre de la variable del JSON del endpoint de la cual se obtendrá la variable categórica que funcionará para segmentar el o los conjuntos de datos. |
 | `[CHART_SETTINGS.LABELS_NAME]` | `string` | *Requerido | Nombre descriptivo del grupo de etiquetas que se renderizará en la gráfica. |
 | `[CHART_SETTINGS.BACKGROUND_COLORS]` | `Color` - `array [color]` | `[CHART_SETTINGS.RED_PALETTE]` | Colores de fondo para los elementos de la gráfica. El formato de cada color debe ser hexadecimal, por ejemplo `#FFFFFF`. Los colores deben tener ser RGB en formato hexadecimal y contener el símbolo `#` antes de éstos. |
@@ -1028,7 +1208,16 @@ export const buildData = ({
 
 Esta función recibe un conjunto de datos de entrada, un nombre de variable categórica, nombres de variables del conjunto de datos y un nombre de variable para grupo de etiquetas.
 
-### Ejemplo de uso:
+Los argumentos de entrada disponibles son:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `data` | `object` | *Requerido | Objeto de datos recibido por medio de la solicitud GET al API. Para saber más, consulta la sección [Obtener datos para las gráficas](#obtener-datos-para-las-gráficas). |
+| `categoryName` | `string` | *Requerido | Variable categórica de estratificación para segmentar un conjunto de datos en varios conjuntos de datos para renderizarse en la gráfica. |
+| `datasetNames` | `array [string]` | *Requerido | Nombre de la variable del JSON del endpoint de la cual se obtendrán los valores del o los conjuntos de datos a renderizar en los elementos de la gráfica. |
+| `labelsName` | `string` | *Requerido | Nombre descriptivo del grupo de etiquetas que se renderizará en la gráfica. |
+
+Ejemplo de uso:
 ```js
 // Conjunto de datos
 let data = [
@@ -1058,12 +1247,12 @@ let data = [
 Su retorno es una lista de conjuntos de datos formateados para mapeo en un componente de gráfica.
 
 ```js
-[datasets, labels] = stratificateData(
-    data, // Conjunto de datos
-    "warehouse", // Nombre de variable categórica
-    ["amount"], // Nombres de variables del conjunto de datos en matriz
-    "month", // Nombre de variable para grupo de etiquetas
-)
+[datasets, labels] = stratificateData({
+    data: data, // Conjunto de datos
+    categoryName: "warehouse", // Nombre de variable categórica
+    datasetNames: ["amount"], // Nombres de variables del conjunto de datos en matriz
+    labelsName: "month", // Nombre de variable para grupo de etiquetas
+})
 
 // Salida 1 [datasets]
 [
@@ -4602,3 +4791,30 @@ Los argumentos de entrada disponibles son:
 >   ```js
 >   return series;
 >   ```
+
+----
+
+# Configuraciones globales
+
+## Valores por defecto
+
+En esta sección se encuentra un índice de todos los ajustes predefinidos:
+
+| Tipo | Nombre | Entidad | Descripción | Ubicación | Valor predefinido |
+|------|--------|---------|-------------|-----------|-------------------|
+| Ajustes de gráficas | Colores de borde en gráficas circulares | `chartSettings...` | Colores de borde en gráficas circulares (pastel y dona) | `dashboardSettings.js` | `"#FFFFFF"` |
+| Ajustes de gráficas | Colores de fondo | `chartSettings.BACKGROUND_COLORS` | Colores de fondo de categorías/conjuntos de datos | `dashboardSettings.js` | `["#8C0413", "#B70217", "#DC001A", "#EC112B", "#FE3249", "#FE5165", "#FC7080"]` |
+| Ajustes de gráficas | Columnas de etiquetas | `chartSettings.LABEL_COLUMNS` | Número de columnas en `display: grid` en las que se distribuirán las etiquetas categóricas/de conjuntos de datos de las gráficas por default | `dashboardSettings.js` | `1` |
+| Ajustes de gráficas | Forma del indicador de etiqueta | `chartSettings.LEGEND_BOX` | Forma del indicador de color de etiqueta de la gráfica | `dashboardSettings.js` | `'rounded'` |
+| Ajustes de gráficas | Opacidad de borde en gráfica de área polar | `chartSettings...` | Opacidad de los colores de borde en las gráficas de de área polar | `dashboardSettings.js` | `100` |
+| Ajustes de gráficas | Opacidad de fondo en gráfica de área polar | `chartSettings...` | Opacidad de los colores de fondo en las gráficas de de área polar | `dashboardSettings.js` | `75` |
+| Ajustes de gráficas | Orientación de elementos dentro de las etiquetas | `chartSettings.LABELS_LIST` | Orientación de los elementos HTML dentro de las etiquetas | `dashboardSettings.js` | `'default'` |
+| Ajustes de gráficas | Relación de aspecto | `chartSettings.ASPECT_RATIO` | Relación de aspecto de la gráfica | `dashboardSettings.js` | `1.5` |
+| Ajustes de gráficas | Tamaño máximo de elementos de burbuja | `chartSettings.MAX_BUBBLE_SIZE` | Tamaño máximo en pixeles de los elementos de burbuja en gráficas de burbuja | `dashboardSettings.js` | `16` |
+| Ajustes de gráficas | Tamaño mínimo de elementos de burbuja | `chartSettings.MIN_BUBBLE_SIZE` | Tamaño mínimo en pixeles de los elementos de burbuja en gráficas de burbuja | `dashboardSettings.js` | `2` |
+| Ajustes de gráficas | Tipo de relleno en gráficas rellenables | `chartSettings...` | Tipo de relleno en gráficas rellenables (líneas y barras) | `dashboardSettings.js` | `"origin"` |
+| Apariencia | Cajas de colores de etiquetas de conjuntos de datos de gráficas | `chartElementsStyling...` | Estilización de elementos `<span>` (cajas de color de conjunto de datos) de componente de gráfica | `chartElementsStyling.js` | `"block"` |
+| Apariencia | Etiquetas de conjuntos de datos de gráficas | `chartElementsStyling...` | Estilización de elementos `<li>` de lista de contenedor de etiquetas de componente de gráfica | `chartElementsStyling.js` | `"flex gap-1"` |
+| Apariencia | Lista de etiquetas de conjuntos de datos de gráficas | `chartElementsStyling...` | Estilización de elemento `<ul>` de contenedor de etiquetas de componente de gráfica | `chartElementsStyling.js` | `"flex"` |
+| Apariencia | Título de conjunto de datos en etiquetas de conjuntos de datos de gráficas | `chartElementsStyling...` | Estilización de elemento `<p>` (nombre de la categoría o conjunto de datos) de contenedor de etiquetas de componente de gráfica | `chartElementsStyling.js` | `"font-extralight transition duration-300"` |
+| Conexión a APIs | Dominio Backend default | `DOMAINS.DEFAULT_DOMAIN` | Dominio Backend default para conexión con API | `backendDomains.js` | `localhost` |
