@@ -1,10 +1,12 @@
 import { useContext } from 'react'
-import { Outlet, useNavigation } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { AppContext } from '../../contexts/AppContexts'
+import { useScreenWidth } from '../../custom hooks/useScreenWidth'
+import { thresholdForWideScreen } from '../../data/appConfig'
 
 const Feed = () => {
-	const { sidebarIsLocked, screenIsWide } = useContext(AppContext)
-	const navigationState = useNavigation().state // (idle | loading | submitting)
+	const { sidebarIsLocked } = useContext(AppContext)
+	const screenIsWide = useScreenWidth(thresholdForWideScreen)
 
 	return (
 		<div
@@ -22,9 +24,7 @@ const Feed = () => {
 			Contenido de la página, el tamaño se ajusta al contenido, si se requiere que las páginas contenidas en
 			Outlet ocupen toda la pantalla *siempre*, añadirles flex-grow a su contenedor.
 			*/}
-			<main
-				className={`${navigationState === 'loading' ? 'opacity-50' : ''} mx-auto flex h-min min-h-full max-w-feed-width flex-grow p-6 transition`}
-			>
+			<main className='mx-auto flex h-min min-h-full max-w-feed-width flex-grow p-6 transition'>
 				<Outlet />
 			</main>
 		</div>

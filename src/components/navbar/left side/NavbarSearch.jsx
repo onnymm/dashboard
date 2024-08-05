@@ -1,19 +1,21 @@
 import { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../../../contexts/AppContexts'
 import { useClickOutside } from '../../../custom hooks/useClickOutside'
+import { useScreenWidth } from '../../../custom hooks/useScreenWidth'
+import { thresholdForWideScreen } from '../../../data/appConfig'
 import SearchIcon from '../../ui kit/SearchIcon'
 
 const NavbarSearch = () => {
 	const [search, setSearch] = useState('')
 	const [bottomIsDisplayed, setBottomIsDisplayed] = useState(false)
 	const [hasBeenClicked, setHasBeenClicked] = useState(false)
+	const { sidebarIsLocked } = useContext(AppContext)
+	const screenIsWide = useScreenWidth(thresholdForWideScreen) // Hook para cambio de estado dependiendo del ancho de la pantalla
 	/*
 	El estado hasBeenClicked está para prevenir la animación de fade out hasta que se use por
 	primera vez el botón, si no se usa este estado, la animación de fade out se ejecutará cada
 	carga de página
 	*/
-
-	const { sidebarIsLocked, screenIsWide } = useContext(AppContext)
 
 	useEffect(() => {
 		if (screenIsWide && bottomIsDisplayed) {

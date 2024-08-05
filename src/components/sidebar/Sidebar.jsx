@@ -1,12 +1,15 @@
 import { useContext, useEffect } from 'react'
 import { AppContext } from '../../contexts/AppContexts'
 import { SidebarContext } from '../../contexts/SidebarContext'
+import { useScreenWidth } from '../../custom hooks/useScreenWidth'
+import { thresholdForWideScreen } from '../../data/appConfig'
 import SidebarContent from './SidebarContent'
 import SidebarHeader from './SidebarHeader'
 
 const Sidebar = () => {
 	const { isOpen, setIsOpen } = useContext(SidebarContext)
-	const { sidebarIsLocked: isLocked, screenIsWide } = useContext(AppContext)
+	const { sidebarIsLocked: isLocked } = useContext(AppContext)
+	const screenIsWide = useScreenWidth(thresholdForWideScreen)
 
 	useEffect(() => {
 		if (isLocked && screenIsWide && !isOpen) {

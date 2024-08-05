@@ -261,3 +261,5 @@ export const TASKS_LINKS = [
 		route: 'to-do'
 	}
 ]
+
+export const thresholdForWideScreen = 768
