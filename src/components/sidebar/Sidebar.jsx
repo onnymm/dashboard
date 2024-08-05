@@ -27,7 +27,6 @@ const Sidebar = () => {
 				<SidebarHeader />
 				<SidebarContent />
 			</aside>
-
 			{/* Filtro oscuro */}
 			<div
 				className={`${isOpen && (!isLocked || !screenIsWide) ? 'opacity-20' : 'opacity-0'} pointer-events-none fixed z-99 h-screen w-screen bg-black transition duration-300`}
