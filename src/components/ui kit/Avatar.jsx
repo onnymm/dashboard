@@ -25,6 +25,7 @@ const Avatar = ({ imgSource, animateOnClick, extraStyles }) => {
 					src={imgSource}
 					className='size-full object-cover'
 					draggable='false'
+					loading='lazy'
 				/>
 			</div>
 			<ChevronDownIcon className='hidden size-6 opacity-50 sm:block' />

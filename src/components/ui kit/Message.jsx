@@ -3,7 +3,7 @@ const Message = ({ avatar, header, content }) => {
 		<div className='transition-color flex h-min items-center gap-3 overflow-hidden p-4 text-left text-xs duration-300 dark:text-white'>
 			<div className='w-12 flex-none'>
 				<img
-					src={avatar ? avatar : './default_profile.jpg'}
+					src={avatar ? avatar : './default_profile.webp'}
 					className='rounded-full'
 				/>
 			</div>
