@@ -1,7 +1,9 @@
+import { FallbackFeed } from '../../components/feed/FallbackFeed'
+
 const UiTests = () => {
 	return (
 		<div className='flex flex-grow items-center justify-center text-center'>
-			<div className='h-10 w-50'></div>
+			<FallbackFeed />
 		</div>
 	)
 }
