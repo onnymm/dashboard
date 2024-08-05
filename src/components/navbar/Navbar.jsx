@@ -7,7 +7,7 @@ import NavbarDarkMode from './right side/NavbarDarkMode'
 const Navbar = () => {
 	return (
 		<>
-			<div className='relative'>
+			<div className='relative z-99999'>
 				{/* Sidebar y su toggle */}
 				<SidebarContainer />
 				<nav className='transition-color sticky top-0 flex h-20 w-full flex-grow select-none items-center justify-between bg-navbar-background px-4 shadow duration-300 dark:bg-navbar-background-d'>

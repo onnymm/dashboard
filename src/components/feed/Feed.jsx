@@ -10,10 +10,10 @@ const Feed = () => {
 
 	return (
 		<div
-			className='flex min-h-full w-full overflow-y-auto bg-slate-100 transition duration-300 dark:bg-feed-background-d'
+			className='flex w-full overflow-y-auto bg-slate-100 transition duration-300 dark:bg-feed-background-d'
 			style={{
-				minHeight: 'calc(100% - 5rem)'
-				// El cálculo de minHeight es para considerar la altura de la navbar
+				height: 'calc(100% - 5rem)'
+				// El cálculo de height es para considerar la altura de la navbar
 			}}
 		>
 			{/* Margen dinámico de contenido para cuando se bloquee la sidebar */}
@@ -24,7 +24,7 @@ const Feed = () => {
 			Contenido de la página, el tamaño se ajusta al contenido, si se requiere que las páginas contenidas en
 			Outlet ocupen toda la pantalla *siempre*, añadirles flex-grow a su contenedor.
 			*/}
-			<main className='mx-auto flex h-min min-h-full max-w-feed-width flex-grow p-6 transition'>
+			<main className='mx-auto flex min-h-full max-w-feed-width flex-grow p-6'>
 				<Outlet />
 			</main>
 		</div>

@@ -19,7 +19,7 @@ const Sidebar = () => {
 	// Si la sidebar no está bloqueada, y el tamaño de ventana es grande, y la sidebar no está abierta, se manda a abrir
 
 	return (
-		<div className='fixed z-9999 select-none'>
+		<div className='fixed z-99999 select-none'>
 			{/* Sidebar */}
 			<aside
 				className={`${isOpen ? 'translate-x-0' : '-translate-x-72'} fixed z-999 flex h-screen w-72 flex-col overflow-x-hidden bg-sidebar-background px-2 pb-2 transition duration-500`}
