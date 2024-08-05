@@ -35,7 +35,7 @@ const Sidebar = () => {
 			{/* 
 			- Si la sidebar está abierta y está desbloqueada o la ventana es pequeña: opacidad-20
 			- Si está cerrada, bloqueada, o en pantalla completa: opacidad-0
-			}*/}
+			*/}
 		</div>
 	)
 }
