@@ -824,14 +824,16 @@ const avoidYAxisCut = ({
     // Iteración por cada conjunto de datos de la gráfica
     series.datasets.forEach(
         // Iteración por cada valor de cada conjunto de datos
-        (dataset) => dataset.data.forEach(
-            (value) => {
-                // Búsqueda del número menor
-                if ( value < minNumber ) {
-                    minNumber = value
+        (dataset) => {
+            dataset.data.forEach(
+                (value) => {
+                    // Búsqueda del número menor
+                    if ( value < minNumber ) {
+                        minNumber = value
+                    }
                 }
-            }
-        )
+            )
+        }
     )
 
     // Asignación de la etiqueta mínima en el eje Y en 0 si el número menor no es negativo
