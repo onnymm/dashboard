@@ -123,6 +123,10 @@ const estoEsUnaVariable = 5
 - [Formateo de tooltip en gráficas radiales](#formateo-de-tooltip-en-gráficas-radiales)
 - [Formateo de tooltip en gráficas](#formateo-de-tooltip-en-gráficas)
 
+**[￭ Otras funciones de utilidad](#otras-funciones-de-utilidad)**
+- [Prevención de corte en ejes numéricos](#prevención-de-corte-en-ejes-numéricos)
+- [Escalación de ejes](#escalación-de-ejes)
+
 **[￭ Plug-ins de Charts.js](#plug-ins-de-chartsjs)**
 - [htmlLegend: Desacoplamiento de etiquetas de conjuntos de datos](#htmllegend-desacoplamiento-de-etiquetas-de-conjuntos-de-datos)
 - [darkMode: Integración de modo oscuro](#darkmode-integración-de-modo-oscuro)
@@ -1435,7 +1439,7 @@ export const buildData = ({
 >   >       - Par gráficas de radar: [Formateo de etiquetas en ejes de gráficas de radar](#formateo-de-etiquetas-en-ejes-de-gráficas-de-radar).
 >   >   - Se ejecuta la función de [Formateo de tooltip en gráficas](#formateo-de-tooltip-en-gráficas).
 >   
->   Se realiza la configuración en los ejes para evitar cortes en los ejes de forma indeseada:
+>   Se realiza la configuración en los ejes.
 >   ```js
 >   // Formateo de escalas en ejes
 >   options = scaleAxes({
@@ -1444,6 +1448,8 @@ export const buildData = ({
 >       options
 >   });
 >   ```
+
+>   - Se ejecuta la función de [Escalación de ejes](#escalación-de-ejes).
 >   
 >   Se retornan los objetos `series` y `options` para su uso en el componente principal de gráfica.
 >   ```js
@@ -3665,9 +3671,9 @@ Los parámetros disponibles se listan a continuación:
 
 | Atributo | Tipo | Valor por defecto | Descripción |
 |----------|------|-------------------|-------------|
-| `chartType` | `(opción)` <br><br> • `'bar'`: Gráfica de barras <br> • `'line'`: Gráfica de líneas <br> • `'pie'`: Gráfica de pastel <br> • `'doughnut'`: Gráfica de dona <br> • `'polar area'`: Gráfica de área polar <br> • `'radar'`: Gráfica de radar <br> • `'scatter'`: Gráfica de dispersión <br> • `'bubble'`: Gráfica de burbujas  | *Requerido | Tipo de gráfica a renderizar. |
 | `series` | `object` | *Requerido | Objeto de datos transformado por alguna de las siguietes funciones: <br> • [Construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja)  <br> • [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión) <br> • [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales) |
 | `options` | `object` | *Requerido | Objeto de opciones base construido por alguna de las siguientes funciones: <br> • [Construcción de objeto de opciones para gráfica de burbujas](#construcción-de-objeto-de-opciones-para-gráfica-de-burbujas) <br> • [Construcción de objeto de opciones para gráficas cartesianas](#construcción-de-objeto-de-opciones-para-gráficas-cartesianas) <br> • [Construcción de objeto de opciones para gráficas radiales](#construcción-de-objeto-de-opciones-para-gráficas-radiales) <br> • [Construcción de objeto de opciones para gráficas de radar](#construcción-de-objeto-de-opciones-para-gráficas-de-radar) |
+| `chartType` | `(opción)` <br><br> • `'bar'`: Gráfica de barras <br> • `'line'`: Gráfica de líneas <br> • `'pie'`: Gráfica de pastel <br> • `'doughnut'`: Gráfica de dona <br> • `'polar area'`: Gráfica de área polar <br> • `'radar'`: Gráfica de radar <br> • `'scatter'`: Gráfica de dispersión <br> • `'bubble'`: Gráfica de burbujas  | *Requerido | Tipo de gráfica a renderizar. |
 
 >   A continuación se describe el funcionamiento paso a paso:
 >   
@@ -3732,6 +3738,54 @@ Los parámetros disponibles se listan a continuación:
 >   Se retorna el objeto de opciones:
 >   ```js
 >   return options
+>   ```
+
+## Escalación de ejes
+
+Esta función se encarga de normalizar los ejes numéricos de las gráficas de línea y radar ya que, por su naturaleza, tienden a cortar los ejes numéricos en caso de que el valor menor se encuentre por encima de `0`, lo que puede ocasionar sesgos o confusiones:
+```js
+export const scaleAxes = ({
+    series,
+    options,
+    [CHARTS_SETTINGS.CHART_TYPE]: chartType,
+}) => {
+
+    if ( chartType === CHART_TYPES.LINE || chartType === CHART_TYPES.RADAR ) {
+        // Prevención de corte en el eje Y
+        options = avoidYAxisCut({ chartType, series, options })
+    }
+
+    return options
+}
+```
+
+Los parámetros disponibles se listan a continuación:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `series` | `object` | *Requerido | Objeto de datos transformado por alguna de las siguietes funciones: <br> • [Construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja)  <br> • [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión) <br> • [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales) |
+| `options` | `object` | *Requerido | Objeto de opciones base construido por alguna de las siguientes funciones: <br> • [Construcción de objeto de opciones para gráfica de burbujas](#construcción-de-objeto-de-opciones-para-gráfica-de-burbujas) <br> • [Construcción de objeto de opciones para gráficas cartesianas](#construcción-de-objeto-de-opciones-para-gráficas-cartesianas) <br> • [Construcción de objeto de opciones para gráficas radiales](#construcción-de-objeto-de-opciones-para-gráficas-radiales) <br> • [Construcción de objeto de opciones para gráficas de radar](#construcción-de-objeto-de-opciones-para-gráficas-de-radar) |
+| `chartType` | `(opción)` <br><br> • `'bar'`: Gráfica de barras <br> • `'line'`: Gráfica de líneas <br> • `'pie'`: Gráfica de pastel <br> • `'doughnut'`: Gráfica de dona <br> • `'polar area'`: Gráfica de área polar <br> • `'radar'`: Gráfica de radar <br> • `'scatter'`: Gráfica de dispersión <br> • `'bubble'`: Gráfica de burbujas  | *Requerido | Tipo de gráfica a renderizar. |
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   Se valida si el tipo de gráfica es de línea o radar
+>   ```js
+>   if ( chartType === CHART_TYPES.LINE || chartType === CHART_TYPES.RADAR ) {
+>       ...
+>   }
+>   ```
+>   
+>   En caso de cumplirse se ejecuta el siguiente fragmento de código:
+>   ```js
+>   options = avoidYAxisCut({ chartType, series, options })
+>   ```
+>   
+>   >   - Se ejecuta la funcón de [Prevención de corte en ejes numéricos](#prevención-de-corte-en-ejes-numéricos).
+>   
+>   Finalmente se retorna el objeto de opciones:
+>   ```js
+>   return options;
 >   ```
 
 ----
