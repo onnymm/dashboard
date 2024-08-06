@@ -8,12 +8,12 @@ const ErrorPage = () => {
 	console.error(error)
 
 	return (
-		<div className='flex h-full flex-grow flex-col items-center justify-center gap-2 py-10 opacity-90 transition duration-300 dark:text-white dark:opacity-80'>
-			<h1 className='my-2 text-5xl font-bold'>Oops!</h1>
-			<p className='w-7/12 text-center font-medium sm:w-auto'>
+		<div className='flex h-full flex-grow flex-col items-center justify-center gap-2 py-10 transition duration-300 dark:bg-feed-background-d dark:text-white'>
+			<h1 className='my-2 text-5xl font-bold dark:opacity-90'>Oops!</h1>
+			<p className='w-7/12 text-center font-medium dark:opacity-70 sm:w-auto'>
 				Sorry, an unexpected error has occurred.
 			</p>
-			<p className='w-1/4 overflow-x-auto text-center opacity-70 dark:text-white'>
+			<p className='w-1/4 overflow-x-auto text-center opacity-70 dark:text-white dark:opacity-60'>
 				<i>{error instanceof Error ? error.message : 'Not found'}</i>
 			</p>
 			{!lowercasedPath == '' && (
