@@ -3106,7 +3106,19 @@ const formatRadarChartLabels = ({
 Este mapa de funciones retornan una función ejecutable según el tipo de gráfica que toma como entrada un contexto y se encarga de formatear el componente *tooltip* para mostrar la información de las gráficas en el formato correcto desde los ejes correctos.
 
 ## Formateo de tooltip en gráficas de burbuja
-Esta función retorna una función ejecutable que toma como entrada un contexto y se encarga de formatear el tooltip para mostrar la información de las gráficas de burbuja en el formato adecuado:
+Esta función retorna una función ejecutable que toma como entrada un contexto y se encarga de formatear el tooltip para mostrar la información de las gráficas de burbuja en el formato adecuado.
+
+Uso declarando el tipo de gráfica con un `string`:
+```js
+const callback = formatTooltips['bubble']({xAxisFormat, yAxisFormat, zAxisFormat})
+```
+
+Uso declarando el tipo de gráfica con una constante:
+```js
+const callback = formatTooltips[CHART_TYPES.BUBBLE]({xAxisFormat, yAxisFormat, zAxisFormat})
+```
+
+Por dentro la función luce así:
 ```js
 const formatBubbleChartTooltip = ({
     [CHARTS_SETTINGS.X_AXIS_FORMAT]: xAxisFormat,
@@ -3185,7 +3197,19 @@ Los argumentos de entrada disponibles son los siguientes:
 >   >   >   Para saber más sobre el mapa de funciones de formateo, consultar la sección [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto).
 
 ## Formateo de tooltip en gráficas de dispersión
-Esta función retorna una función ejecutable que toma como entrada un contexto y se encarga de formatear el tooltip para mostrar la información de las gráficas de dispersión en el formato adecuado:
+Esta función retorna una función ejecutable que toma como entrada un contexto y se encarga de formatear el tooltip para mostrar la información de las gráficas de dispersión en el formato adecuado.
+
+Uso declarando el tipo de gráfica con un `string`:
+```js
+const callback = formatTooltips['scatter']({xAxisFormat, yAxisFormat, zAxisFormat})
+```
+
+Uso declarando el tipo de gráfica con una constante:
+```js
+const callback = formatTooltips[CHART_TYPES.SCATTER]({xAxisFormat, yAxisFormat, zAxisFormat})
+```
+
+Por dentro la función luce así:
 ```js
 const formatBubbleChartTooltip = ({
     [CHARTS_SETTINGS.X_AXIS_FORMAT]: xAxisFormat,
@@ -3258,7 +3282,21 @@ Los argumentos de entrada disponibles son los siguientes:
 >   >   >   Para saber más sobre el mapa de funciones de formateo, consultar la sección [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto).
 
 ## Formateo de tooltip en gráficas cartesianas
-Esta función retorna una función ejecutable que toma como entrada un contexto y se encarga de formatear el tooltip para mostrar la información de las gráficas cartesianas en el formato adecuado:
+Esta función retorna una función ejecutable que toma como entrada un contexto y se encarga de formatear el tooltip para mostrar la información de las gráficas cartesianas en el formato adecuado.
+
+Uso declarando el tipo de gráfica con un `string`:
+```js
+const callback = formatTooltips['bar']({xAxisFormat, yAxisFormat, zAxisFormat})
+const callback = formatTooltips['line']({xAxisFormat, yAxisFormat, zAxisFormat})
+```
+
+Uso declarando el tipo de gráfica con una constante:
+```js
+const callback = formatTooltips[CHART_TYPES.BAR]({xAxisFormat, yAxisFormat, zAxisFormat})
+const callback = formatTooltips[CHART_TYPES.LINE]({xAxisFormat, yAxisFormat, zAxisFormat})
+```
+
+Por dentro la función luce así:
 ```js
 const formatCartesianChartTooltip = ({
     [CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat,
@@ -3347,7 +3385,21 @@ Los argumentos de entrada disponibles son los siguientes:
 >   >   >   Para saber más sobre el mapa de funciones de formateo, consultar la sección [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto).
 
 ## Formateo de tooltip en gráficas circulares
-Esta función retorna una función ejecutable que toma como entrada un contexto y se encarga de formatear el tooltip para mostrar la información de las gráficas circulares en el formato adecuado:
+Esta función retorna una función ejecutable que toma como entrada un contexto y se encarga de formatear el tooltip para mostrar la información de las gráficas circulares en el formato adecuado.
+
+Uso declarando el tipo de gráfica con un `string`:
+```js
+const callback = formatTooltips['pie']({xAxisFormat, yAxisFormat, zAxisFormat})
+const callback = formatTooltips['doughnut']({xAxisFormat, yAxisFormat, zAxisFormat})
+```
+
+Uso declarando el tipo de gráfica con una constante:
+```js
+const callback = formatTooltips[CHART_TYPES.PIE]({xAxisFormat, yAxisFormat, zAxisFormat})
+const callback = formatTooltips[CHART_TYPES.DOUGHNUT]({xAxisFormat, yAxisFormat, zAxisFormat})
+```
+
+Por dentro la función luce así:
 ```js
 const formatCircularChartTooltip = ({
     [CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat,
@@ -3409,7 +3461,21 @@ Los argumentos de entrada disponibles son los siguientes:
 >   >   >   Para saber más sobre el mapa de funciones de formateo, consultar la sección [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto).
 
 ## Formateo de tooltip en gráficas radiales
-Esta función retorna una función ejecutable que toma como entrada un contexto y se encarga de formatear el tooltip para mostrar la información de las gráficas radiales en el formato adecuado:
+Esta función retorna una función ejecutable que toma como entrada un contexto y se encarga de formatear el tooltip para mostrar la información de las gráficas radiales en el formato adecuado.
+
+Uso declarando el tipo de gráfica con un `string`:
+```js
+const callback = formatTooltips['polarArea']({xAxisFormat, yAxisFormat, zAxisFormat})
+const callback = formatTooltips['radar']({xAxisFormat, yAxisFormat, zAxisFormat})
+```
+
+Uso declarando el tipo de gráfica con una constante:
+```js
+const callback = formatTooltips[CHART_TYPES.POLAR_AREA]({xAxisFormat, yAxisFormat, zAxisFormat})
+const callback = formatTooltips[CHART_TYPES.RADAR]({xAxisFormat, yAxisFormat, zAxisFormat})
+```
+
+Por dentro la función luce así:
 ```js
 const formatRadialChartTooltip = ({
     [CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat,
