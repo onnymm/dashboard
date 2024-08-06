@@ -936,8 +936,10 @@ export const scaleAxes = ({
     [CHARTS_SETTINGS.CHART_TYPE]: chartType,
 }) => {
 
-    // Prevención de corte en el eje Y
-    options = avoidYAxisCut({ chartType, series, options })
+    if ( chartType === CHART_TYPES.LINE || chartType === CHART_TYPES.RADAR ) {
+        // Prevención de corte en el eje Y
+        options = avoidYAxisCut({ chartType, series, options })
+    }
 
     return options
 }
