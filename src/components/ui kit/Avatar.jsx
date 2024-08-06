@@ -3,6 +3,7 @@ import { useState } from 'react'
 
 const Avatar = ({ imgSource, animateOnClick, extraStyles }) => {
 	const [isAnimating, setIsAnimating] = useState(false)
+	const [isLoaded, setIsLoaded] = useState(false)
 
 	const handleAnimateOnClick = () => {
 		setIsAnimating(true)
@@ -10,6 +11,10 @@ const Avatar = ({ imgSource, animateOnClick, extraStyles }) => {
 
 	const handleAnimationEnd = () => {
 		setIsAnimating(false)
+	}
+
+	const handleLoad = () => {
+		setIsLoaded(true)
 	}
 
 	return (
@@ -21,12 +26,17 @@ const Avatar = ({ imgSource, animateOnClick, extraStyles }) => {
 				className={`size-12 overflow-hidden rounded-full ${extraStyles} ${isAnimating && 'animate-avatar-click'}`}
 				onAnimationEnd={handleAnimationEnd}
 			>
-				<img
-					src={imgSource}
-					className='size-full object-cover'
-					draggable='false'
-					loading='lazy'
-				/>
+				<div className='relative size-full'>
+					{!isLoaded && (
+						<div className='absolute size-full animate-pulse bg-slate-300 dark:bg-slate-500' />
+					)}
+					<img
+						src={imgSource}
+						className='size-full object-cover'
+						draggable='false'
+						onLoad={handleLoad}
+					/>
+				</div>
 			</div>
 			<ChevronDownIcon className='hidden size-6 opacity-50 sm:block' />
 		</div>

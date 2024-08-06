@@ -10,7 +10,7 @@ const Feed = () => {
 
 	return (
 		<div
-			className='flex w-full overflow-y-auto bg-slate-100 transition duration-300 dark:bg-feed-background-d'
+			className='flex w-full overflow-y-auto overflow-x-hidden bg-slate-100 transition duration-300 dark:bg-feed-background-d'
 			style={{
 				height: 'calc(100% - 5rem)'
 				// El cálculo de height es para considerar la altura de la navbar

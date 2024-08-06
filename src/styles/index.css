@@ -3,6 +3,11 @@
 @tailwind components;
 @tailwind utilities;
 
+#root {
+	height: 100svh;
+	overflow-x: none;
+}
+
 .no-scrollbar::-webkit-scrollbar {
 	display: none;
 }
