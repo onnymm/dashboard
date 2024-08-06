@@ -58,6 +58,12 @@ const estoEsUnaVariable = 5
 
 ## Arquitectura de los componentes de gráficas
 
+**[￭ Envío de datos para gráficas desde el servidor Backend con Pandas](#envío-de-datos-para-gráficas-desde-el-servidor-backend-con-pandas)**
+- [Conjuntos de datos individuales de 1 dimensión](#conjuntos-de-datos-individuales-de-1-dimensión)
+- [Varios conjuntos de datos de 1 dimensión](#varios-conjuntos-de-datos-de-1-dimensión)
+- [Conjuntos de datos individuales de 2 dimensiones](#conjuntos-de-datos-individuales-de-2-dimensiones)
+- [Conjuntos de datos individuales de 3 dimensiones](#conjuntos-de-datos-individuales-de-3-dimensiones)
+
 **[￭ Componentes de gráficas](#componentes-de-gráficas)**
 - [Introducción a las graficas de Charts.js](#introducción-a-las-graficas-de-chartsjs)
 
@@ -677,6 +683,162 @@ const data: [ // Valores numéricos
 ];
 const labels: ["category1", "category2", "category3", "category4", "category5"]; // Categorías de la gráfica
 ```
+
+----
+
+# Envío de datos para gráficas desde el servidor Backend con Pandas
+
+En esta sección se describe la estandarización de envío de datos para renderizar en gráficas de Charts.js en el servidor Frontend.
+
+## Conjuntos de datos individuales de 1 dimensión
+
+Para el envío de una estructura de datos de un conjunto de datos unidimensional, se debe contar con un Pandas DataFrame con la siguiente estructura:
+```
+  categorías  valores
+0       azul       10
+1      verde       20
+2   amarillo       30
+3       rojo       40
+```
+
+Una vez que se tiene esta estructura lo único que se requiere realizar es transponer el DataFrame y convertirlo a diccionario:
+```py
+df.T.to_dict()
+```
+
+Esto generará la siguiente estructura:
+```py
+{
+    0: {'categorías': 'azul', 'valores': 10},
+    1: {'categorías': 'verde', 'valores': 20},
+    2: {'categorías': 'amarillo', 'valores': 30},
+    3: {'categorías': 'rojo', 'valores': 40}
+}
+```
+
+Esta es la estructura que puede enviarse por Backend hacia el Frontend.
+
+## Varios conjuntos de datos de 1 dimensión
+
+Para el envío de una estructura de datos con varios conjuntos de datos unidimensionales, se debe contar con un Pandas DataFrame con la siguiente estructura:
+```
+      dataset categorías  valores
+0  dataset_01       azul       10
+1  dataset_01      verde       20
+2  dataset_02       azul       30
+3  dataset_02      verde       40
+4  dataset_03       azul       50
+5  dataset_03      verde       60
+6  dataset_04       azul       70
+7  dataset_04      verde       80
+```
+
+Una vez que se tiene esta estructura lo único que se requiere realizar es transponer el DataFrame y convertirlo a diccionario:
+```py
+df.T.to_dict()
+```
+
+Esto generará la siguiente estructura:
+```py
+{
+    0: {'dataset': 'dataset_01', 'categorías': 'azul', 'valores': 10},
+    1: {'dataset': 'dataset_01', 'categorías': 'verde', 'valores': 20},
+    2: {'dataset': 'dataset_02', 'categorías': 'azul', 'valores': 30},
+    3: {'dataset': 'dataset_02', 'categorías': 'verde', 'valores': 40},
+    4: {'dataset': 'dataset_03', 'categorías': 'azul', 'valores': 50},
+    5: {'dataset': 'dataset_03', 'categorías': 'verde', 'valores': 60},
+    6: {'dataset': 'dataset_04', 'categorías': 'azul', 'valores': 70},
+    7: {'dataset': 'dataset_04', 'categorías': 'verde', 'valores': 80}
+}
+```
+
+Esta es la estructura que puede enviarse por Backend hacia el Frontend.
+
+## Conjuntos de datos individuales de 2 dimensiones
+
+Para el envío de una estructura de datos de un conjunto de datos bidimensional, se debe contar con un Pandas DataFrame con la siguiente estructura:
+```
+  individuos  valor_x  valor_y
+0       azul       10       20
+1      verde       20       15
+2   amarillo       30       10
+3       rojo       40        5
+```
+
+Una vez que se tiene esta estructura se requiere establecer la columna categórica o de individuos como columna índice. En el caso del ejemplo, sería la columna `'individuos'`:
+```py
+df.set_index('individuos')
+```
+
+Obtendremos la siguiente estructura:
+```
+            valor_x  valor_y
+individuos                  
+azul             10       20
+verde            20       15
+amarillo         30       10
+rojo             40        5
+```
+
+Ahora podemos proceder a realizar la transposición del DataFrame y convertirlo a diccionario, proporcionando además al argumento `orient` el valor `'list'` para obtener una lista de valores por cada individuo y no una llave por cada valor:
+```py
+df.set_index('individuos').T.to_dict(orient='list')
+```
+
+Esto generará la siguiente estructura:
+```py
+{
+    'azul': [10, 20],
+    'verde': [20, 15],
+    'amarillo': [30, 10],
+    'rojo': [40, 5]
+}
+```
+
+Esta es la estructura que puede enviarse por Backend hacia el Frontend.
+
+## Conjuntos de datos individuales de 3 dimensiones
+
+Para el envío de una estructura de datos de un conjunto de datos tridimensional, se debe contar con un Pandas DataFrame con la siguiente estructura:
+```
+  individuos  valor_x  valor_y  valor_z
+0       azul       10       20      0.2
+1      verde       20       15      0.4
+2   amarillo       30       10      0.6
+3       rojo       40        5      0.8
+```
+
+Una vez que se tiene esta estructura se requiere establecer la columna categórica o de individuos como columna índice. En el caso del ejemplo, sería la columna `'individuos'`:
+```py
+df.set_index('individuos')
+```
+
+Obtendremos la siguiente estructura:
+```
+            valor_x  valor_y  valor_z
+individuos                           
+azul             10       20      0.2
+verde            20       15      0.4
+amarillo         30       10      0.6
+rojo             40        5      0.8
+```
+
+Ahora podemos proceder a realizar la transposición del DataFrame y convertirlo a diccionario, proporcionando además al argumento `orient` el valor `'list'` para obtener una lista de valores por cada individuo y no una llave por cada valor:
+```py
+df.set_index('individuos').T.to_dict(orient='list')
+```
+
+Esto generará la siguiente estructura:
+```py
+{
+    'azul': [10.0, 20.0, 0.2],
+    'verde': [20.0, 15.0, 0.4],
+    'amarillo': [30.0, 10.0, 0.6],
+    'rojo': [40.0, 5.0, 0.8]
+}
+```
+
+Esta es la estructura que puede enviarse por Backend hacia el Frontend.
 
 ----
 
