@@ -113,6 +113,7 @@ const estoEsUnaVariable = 5
 - [Formateo de etiquetas en ejes de gráfica de dispersión y burbujas](#formateo-de-etiquetas-en-ejes-de-gráfica-de-dispersión-y-burbujas)
 - [Formateo de etiquetas en ejes de gráficas cartesianas](#formateo-de-etiquetas-en-ejes-de-gráficas-cartesianas)
 - [Formateo de etiquetas en ejes de gráficas radiales](#formateo-de-etiquetas-en-ejes-de-gráficas-radiales)
+- [Formateo de etiquetas en ejes de gráficas de radar](#formateo-de-etiquetas-en-ejes-de-gráficas-de-radar)
 
 **[￭ Formateo de tooltip](#formateo-de-tooltip)**
 - [Formateo de tooltip en gráficas de burbuja](#formateo-de-tooltip-en-gráficas-de-burbuja)
@@ -120,6 +121,7 @@ const estoEsUnaVariable = 5
 - [Formateo de tooltip en gráficas cartesianas](#formateo-de-tooltip-en-gráficas-cartesianas)
 - [Formateo de tooltip en gráficas circulares](#formateo-de-tooltip-en-gráficas-circulares)
 - [Formateo de tooltip en gráficas radiales](#formateo-de-tooltip-en-gráficas-radiales)
+- [Formateo de tooltip en gráficas](#formateo-de-tooltip-en-gráficas)
 
 **[￭ Plug-ins de Charts.js](#plug-ins-de-chartsjs)**
 - [htmlLegend: Desacoplamiento de etiquetas de conjuntos de datos](#htmllegend-desacoplamiento-de-etiquetas-de-conjuntos-de-datos)
@@ -1403,6 +1405,8 @@ export const buildData = ({
 >   options = assignCSSStyles({ options })
 >   ```
 >   
+>   >   - Se ejecuta la función de [Estilización de etiquetas HTML de gráficas](#estilización-de-etiquetas-html-de-gráficas).
+>   
 >   Se realiza el formateo de las etiquetas y el tooltip:
 >   ```js
 >   // Formateo de etiquetas en la gráfica
@@ -1423,6 +1427,13 @@ export const buildData = ({
 >       [CHARTS_SETTINGS.Z_AXIS_FORMAT]: zAxisFormat,
 >    })
 >   ```
+>   
+>   >   - Se ejecuta la función contenida en el índice del tipo de gráfica del mapa de funciones de formateo de etiquetas. Dependiendo del tipo de gráfica se ejecuta una de las siguientes funciones:
+>   >       - Par gráficas de burbuja y dispersión: [Formateo de etiquetas en ejes de gráfica de dispersión y burbujas](#formateo-de-etiquetas-en-ejes-de-gráfica-de-dispersión-y-burbujas).
+>   >       - Par gráficas de barras y líneas: [Formateo de etiquetas en ejes de gráficas cartesianas](#formateo-de-etiquetas-en-ejes-de-gráficas-cartesianas).
+>   >       - Par gráficas de pastel, dona y área polar: [Formateo de etiquetas en ejes de gráficas radiales](#formateo-de-etiquetas-en-ejes-de-gráficas-radiales).
+>   >       - Par gráficas de radar: [Formateo de etiquetas en ejes de gráficas de radar](#formateo-de-etiquetas-en-ejes-de-gráficas-de-radar).
+>   >   - Se ejecuta la función de [Formateo de tooltip en gráficas](#formateo-de-tooltip-en-gráficas).
 >   
 >   Se realiza la configuración en los ejes para evitar cortes en los ejes de forma indeseada:
 >   ```js
@@ -3536,6 +3547,70 @@ Los argumentos de entrada disponibles son los siguientes:
 >   >   
 >   >   >   Para saber más sobre el mapa de funciones de formateo, consultar la sección [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto).
 
+## Formateo de tooltip en gráficas
+- **Ubicación:** `src/utils/utils.js`
+- **Nombre:** `formatTooltip`
+
+Esta función se encarga de establecer las opciones más adecuadas para un objeto de opciones según el tipo de gráfica que lo va a utilizar:
+```js
+export const formatTooltip = ({
+    options,
+    [CHARTS_SETTINGS.CHART_TYPE]: chartType,
+    [CHARTS_SETTINGS.X_AXIS_FORMAT]: xAxisFormat,
+    [CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat,
+    [CHARTS_SETTINGS.Z_AXIS_FORMAT]: zAxisFormat,
+}) => {
+
+    // Inicialización de las variables
+    options.plugins.tooltip.callbacks = {}
+    options.plugins.tooltip.callbacks.label = formatTooltips[chartType]({
+        [CHARTS_SETTINGS.X_AXIS_FORMAT]: xAxisFormat,
+        [CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat,
+        [CHARTS_SETTINGS.Z_AXIS_FORMAT]: zAxisFormat,
+    })
+
+    // Retorno del objeto contenedor de opciones
+    return options
+}
+```
+
+Los parámetros disponibles se listan a continuación:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `chartType` | `(opción)` <br><br> • `'bar'`: Gráfica de barras <br> • `'line'`: Gráfica de líneas <br> • `'pie'`: Gráfica de pastel <br> • `'doughnut'`: Gráfica de dona <br> • `'polar area'`: Gráfica de área polar <br> • `'radar'`: Gráfica de radar <br> • `'scatter'`: Gráfica de dispersión <br> • `'bubble'`: Gráfica de burbujas  | *Requerido | Tipo de gráfica a renderizar. |
+| `xAxisFormat` | `(Opción)` <br> <br> • `'numeric'`: Valor numérico con punto decimal <br> • `'monetary'`: Valor de tipo moneda nacional <br> • `'only name'`: Sólo nombre | `undefined` | Tipo de formateo para las etiquetas del eje $X$. |
+| `yAxisFormat` | `(Opción)` <br> <br> • `'numeric'`: Valor numérico con punto decimal <br> • `'monetary'`: Valor de tipo moneda nacional <br> • `'only name'`: Sólo nombre | `undefined` | Tipo de formateo para las etiquetas del eje $Y$. |
+| `zAxisFormat` | `(Opción)` <br> <br> • `'numeric'`: Valor numérico con punto decimal <br> • `'monetary'`: Valor de tipo moneda nacional <br> • `'only name'`: Sólo nombre | `undefined` | Tipo de formateo para las etiquetas del eje $Z$. |
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   Se inicializa el objeto `callbacks` dentro del objeto de configuración:
+>   ```js
+>   options.plugins.tooltip.callbacks = {}
+>   ```
+>   
+>   Se ejecuta la función contenida en el índice del tipo de gráfica contenida en el mapa de funciones `formatTooltips`:
+>   ```js
+>   options.plugins.tooltip.callbacks.label = formatTooltips[chartType]({
+>       [CHARTS_SETTINGS.X_AXIS_FORMAT]: xAxisFormat,
+>       [CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat,
+>       [CHARTS_SETTINGS.Z_AXIS_FORMAT]: zAxisFormat,
+>   })
+>   ```
+>   
+>   >   - Dependiendo del tipo de gráfica se ejecuta alguna de las siguientes funciones:
+>   >       - Para las gráficas de burbuja: [Formateo de tooltip en gráficas de burbuja](#formateo-de-tooltip-en-gráficas-de-burbuja).
+>   >       - Para las gráficas de dispersión: [Formateo de tooltip en gráficas de dispersión](#formateo-de-tooltip-en-gráficas-de-dispersión).
+>   >       - Para las gráficas de barras y líneas: [Formateo de tooltip en gráficas cartesianas](#formateo-de-tooltip-en-gráficas-de-cartesianas).
+>   >       - Para las gráficas de pastel y dona: [Formateo de tooltip en gráficas circulares](#formateo-de-tooltip-en-gráficas-de-circulares).
+>   >       - Para las gráficas de área polar y radar: [Formateo de tooltip en gráficas radiales](#formateo-de-tooltip-en-gráficas-de-radiales).
+>   
+>   Finalmente se retorna el objeto de opciones de configuración:
+>   ```js
+>   return options;
+>   ```
+
 ----
 
 # Plug-ins de Charts.js
@@ -5126,7 +5201,7 @@ Los argumentos de entrada disponibles son:
 | `backgroundOpacity` | `number` | *Declarado en los ajustes predeterminados* | Valor de opacidad a mapear en los colores de fondo en donde `0` representa transparencia total y `100` representa opacidad total. |
 | `borderColors` | `Color` - `array[Color]` | *Declarado en los ajustes predeterminados* | Color o paleta de colores de borde para la gráfica. |
 | `borderOpacity` | `number` | *Declarado en los ajustes predeterminados* | Valor de opacidad a mapear en los colores de borde en donde `0` representa transparencia total y `100` representa opacidad total. |
-| `chartType` | `string` | *Requerido | Valor de opacidad a mapear en los colores de borde en donde `0` representa transparencia total y `100` representa opacidad total. |
+| `chartType` | `(opción)` <br><br> • `'bar'`: Gráfica de barras <br> • `'line'`: Gráfica de líneas <br> • `'pie'`: Gráfica de pastel <br> • `'doughnut'`: Gráfica de dona <br> • `'polar area'`: Gráfica de área polar <br> • `'radar'`: Gráfica de radar <br> • `'scatter'`: Gráfica de dispersión <br> • `'bubble'`: Gráfica de burbujas  | *Requerido | Tipo de gráfica a renderizar. |
 
 
 >   A continuación se describe el funcionamiento paso a paso:
@@ -5247,7 +5322,7 @@ Los argumentos de entrada disponibles son:
 | Atributo | Tipo | Valor por defecto | Descripción |
 |----------|------|-------------------|-------------|
 | `series` | `object` | *Requerido | Objeto de datos transformado por alguna de las siguietes funciones: <br> • [Construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja)  <br> • [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión) <br> • [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales) |
-| `chartType` | `string` | *Requerido | Valor de opacidad a mapear en los colores de borde en donde `0` representa transparencia total y `100` representa opacidad total. |
+| `chartType` | `(opción)` <br><br> • `'bar'`: Gráfica de barras <br> • `'line'`: Gráfica de líneas <br> • `'pie'`: Gráfica de pastel <br> • `'doughnut'`: Gráfica de dona <br> • `'polar area'`: Gráfica de área polar <br> • `'radar'`: Gráfica de radar <br> • `'scatter'`: Gráfica de dispersión <br> • `'bubble'`: Gráfica de burbujas  | *Requerido | Tipo de gráfica a renderizar. |
 | `backgroundColors` | `Color` - `array[Color]` | *Declarado en los ajustes predeterminados* | Color o paleta de colores de fondo para la gráfica. |
 | `backgroundOpacity` | `number` | *Declarado en los ajustes predeterminados* | Valor de opacidad a mapear en los colores de fondo en donde `0` representa transparencia total y `100` representa opacidad total. |
 | `borderColors` | `Color` - `array[Color]` | *Declarado en los ajustes predeterminados* | Color o paleta de colores de borde para la gráfica. |
