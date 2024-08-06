@@ -118,6 +118,7 @@ const estoEsUnaVariable = 5
 - [Formateo de tooltip en gráficas de burbuja](#formateo-de-tooltip-en-gráficas-de-burbuja)
 - [Formateo de tooltip en gráficas de dispersión](#formateo-de-tooltip-en-gráficas-de-dispersión)
 - [Formateo de tooltip en gráficas cartesianas](#formateo-de-tooltip-en-gráficas-cartesianas)
+- [Formateo de tooltip en gráficas circulares](#formateo-de-tooltip-en-gráficas-circulares)
 
 **[￭ Plug-ins de Charts.js](#plug-ins-de-chartsjs)**
 - [htmlLegend: Desacoplamiento de etiquetas de conjuntos de datos](#htmllegend-desacoplamiento-de-etiquetas-de-conjuntos-de-datos)
@@ -3322,6 +3323,68 @@ Los argumentos de entrada disponibles son los siguientes:
 >   >   <!-- TODO: Añadir documentación de transposición de gráficas -->
 >   >   >   - Si el índice está definido en `'x'` signifac que los valores numéricos están en el eje $Y$ y viceversa.
 >   >   
+>   >   Dentro de la función primeramente se inicializa el contenedor de la etiqueta desde el atributo correspondiente del contexto. En caso de no haber nombre de etiqueta se inicializa el contenedor de la etiqueta con un valor vacío:
+>   >   ```js
+>   >   // Se inicializa el contenedor de la etiqueta
+>   >   let label = context.dataset.label || "";
+>   >   ```
+>   >   
+>   >   Si el valor de la etiqueta no es una cadena vacía se le concatena un `': '`
+>   >   ```js
+>   >   if (label) {
+>   >       label += ": "
+>   >   }
+>   >   ```
+>   >   
+>   >   Se crea la concatenación de valores a mostrar:
+>   >   ```js
+>   >   label += labelsFormats[yAxisFormat].raw(context.parsed[dataAxis])
+>   >   ```
+>   >   
+>   >   >   - Se ejecuta la llamada a las función de formateo encontrada en el atributo `raw` de las funciones en el índice del tipo de formateo ya que se requiere mostrar el número completo sin abreviación por miles o millones, proporcionándole el valor numérico de la gráfica en el índice indicado por la variable `dataAxis`.
+>   >   
+>   >   >   Para saber más sobre el mapa de funciones de formateo, consultar la sección [Funciones de formateo numérico y de texto](#funciones-de-formateo-numérico-y-de-texto).
+
+## Formateo de tooltip en gráficas circulares
+Esta función retorna una función ejecutable que toma como entrada un contexto y se encarga de formatear el tooltip para mostrar la información de las gráficas circulares en el formato adecuado:
+```js
+const formatCircularChartTooltip = ({
+    [CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat,
+}) => {
+
+    // Generación de función con el tipo de valor a formatear
+    return (context) => {
+        // Se inicializa el contenedor de la etiqueta
+        let label = context.dataset.label || "";
+    
+        // Si la etiqueta no está vacía, se concatena un ': '
+        if (label) {
+            label += ": "
+        }
+    
+        // Formateo del valor de la etiqueta en función del tipo de valor del conjunto de datos
+        label += labelsFormats[yAxisFormat].raw(context.parsed)
+    
+        return label
+    }
+}
+```
+
+Los argumentos de entrada disponibles son los siguientes:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `yAxisFormat` | `(Opción)` <br> <br> • `'numeric'`: Valor numérico con punto decimal <br> • `'monetary'`: Valor de tipo moneda nacional <br> • `'only name'`: Sólo nombre | `undefined` | Tipo de formateo para las etiquetas del eje $Y$. |
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   Se retorna la función:
+>   ```js
+>   return (context) => {
+>       ...
+>   }
+>   ```
+>   
 >   >   Dentro de la función primeramente se inicializa el contenedor de la etiqueta desde el atributo correspondiente del contexto. En caso de no haber nombre de etiqueta se inicializa el contenedor de la etiqueta con un valor vacío:
 >   >   ```js
 >   >   // Se inicializa el contenedor de la etiqueta
