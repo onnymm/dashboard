@@ -3613,6 +3613,129 @@ Los parámetros disponibles se listan a continuación:
 
 ----
 
+# Otras funciones de utilidad
+
+## Prevención de corte en ejes numéricos
+- **Ubicación:** `src/utils/dataFormatting.js`
+- **Nombre:** `avoidYAxisCut`
+
+Esta función se encarga de prevenir cortes en los ejes numéricos de gráficas de línea y radar que tienen este comportamiento si el valor numérico menor está por encima del cero, lo que causa sesgos y confusiones en la mayoría de casos:
+```js
+const avoidYAxisCut = ({
+    chartType,
+    series,
+    options
+}) => {
+
+    const isRadial = RADIAL_CHARTS.indexOf(chartType) !== -1
+
+    // Inicialización del número menor
+    let minNumber = 0
+
+    // Iteración por cada conjunto de datos de la gráfica
+    series.datasets.forEach(
+        // Iteración por cada valor de cada conjunto de datos
+        (dataset) => {
+            dataset.data.forEach(
+                (value) => {
+                    // Búsqueda del número menor
+                    if ( value < minNumber ) {
+                        minNumber = value
+                    }
+                }
+            )
+        }
+    )
+
+    // Asignación de la etiqueta mínima en el eje Y en 0 si el número menor no es negativo
+    if ( !(minNumber < 0) ) {
+        if ( isRadial ) {
+            options.scales.r.min = 0
+        } else {
+            options.scales.y.min = 0
+        }
+    }
+
+    // Retorno del objeto de opciones
+    return options
+}
+```
+
+Los parámetros disponibles se listan a continuación:
+
+| Atributo | Tipo | Valor por defecto | Descripción |
+|----------|------|-------------------|-------------|
+| `chartType` | `(opción)` <br><br> • `'bar'`: Gráfica de barras <br> • `'line'`: Gráfica de líneas <br> • `'pie'`: Gráfica de pastel <br> • `'doughnut'`: Gráfica de dona <br> • `'polar area'`: Gráfica de área polar <br> • `'radar'`: Gráfica de radar <br> • `'scatter'`: Gráfica de dispersión <br> • `'bubble'`: Gráfica de burbujas  | *Requerido | Tipo de gráfica a renderizar. |
+| `series` | `object` | *Requerido | Objeto de datos transformado por alguna de las siguietes funciones: <br> • [Construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja)  <br> • [Construcción de estructura de datos para gráficas de dispersión](#construcción-de-estructura-de-datos-para-gráficas-de-dispersión) <br> • [Construcción de estructura de datos para gráficas cartesianas y radiales](#construcción-de-estructura-de-datos-para-gráficas-cartesianas-y-radiales) |
+| `options` | `object` | *Requerido | Objeto de opciones base construido por alguna de las siguientes funciones: <br> • [Construcción de objeto de opciones para gráfica de burbujas](#construcción-de-objeto-de-opciones-para-gráfica-de-burbujas) <br> • [Construcción de objeto de opciones para gráficas cartesianas](#construcción-de-objeto-de-opciones-para-gráficas-cartesianas) <br> • [Construcción de objeto de opciones para gráficas radiales](#construcción-de-objeto-de-opciones-para-gráficas-radiales) <br> • [Construcción de objeto de opciones para gráficas de radar](#construcción-de-objeto-de-opciones-para-gráficas-de-radar) |
+
+>   A continuación se describe el funcionamiento paso a paso:
+>   
+>   Se inicializa un valor booleano de comparación si el tipo de la gráfica pertenece a los tipos de gráficas radiales
+>   ```js
+>   const isRadial = RADIAL_CHARTS.indexOf(chartType) !== -1
+>   ```
+>   
+>   Inicialización de un número en `0`:
+>   ```js
+>   let minNumber = 0
+>   ```
+>   
+>   >   Se inicializa una variable con valor en `0` para búsqueda del menor valor numérico en todo el objeto de datos.
+>   
+>   Se inicia una iteración por cada conjunto de datos:
+>   ```js
+>       series.datasets.forEach(
+>           // Iteración por cada valor de cada conjunto de datos
+>           (dataset) => {
+>               ...
+>           }
+>       )
+>   ```
+>   
+>   >   Se hace una iteración por cada uno de los valores del conjunto de datos:
+>   >   ```js
+>   >   dataset.data.forEach(
+>   >       (value) => {
+>   >           ...
+>   >       }
+>   >   )
+>   >   ```
+>   >   
+>   >   >   Se realiza una comparación de si el número actual es menor a `0`. De cumplirse esta condición se sobreescribe el valor de la variable `minNumber` por el valor de la iteración:
+>   >   >   ```js
+>   >   >   if ( value < minNumber ) {
+>   >   >       minNumber = value
+>   >   >   }
+>   >   >   ```
+>   >   
+>   
+>   Se hace una validación de si el valor de `minNumber` es menor a `0`:
+>   ```js
+>   if ( !(minNumber < 0) ) {
+>       ...
+>   }
+>   ```
+>   
+>   De cumplirse esta condición significa que la gráfica realizará un corte en el eje numérico y es necesario prevenirlo para evitar sesgos o confusiones al momento de visualizar los datos en la gráfica. Se procede a validar si el tipo de gráfica pertenece a los tipos radiales o no. Dependiendo de esto se ejecuta uno u otro de los fragmentos de código a continuación:
+>   ```js
+>   if ( isRadial ) {
+>       options.scales.r.min = 0
+>   } else {
+>       options.scales.y.min = 0
+>   }
+>   ```
+>   
+>   >   - Si el tipo de gráfica es radial se procede a establecer el valor mínimo a mostrar en el eje radial de su objeto de opciones.
+>   >   - Si el tipo de gráfica no es radial se procede a establecer el valor mínimo a mostrar en el eje $Y$ de su objeto de opciones.
+>   
+>   Se retorna el objeto de opciones:
+>   ```js
+>   return options
+>   ```
+
+----
+
 # Plug-ins de Charts.js
 
 La librería de Charts.js ofrece una integración para plug-ins personalizados, independientemente de los plug-ins que utiliza para mostrar elementos en sus componentes de gráficas. Esto incrementa potencialmente el nivel de personalización y funcionalidad además de que permite cambiar el comportamiento de las gráficas a nivel visual o funcional. Para saber más sobre cómo funcionan los plug-ins personalizados, consultar la [documentación de Charts.js sobre plug-ins](https://www.chartjs.org/docs/latest/developers/plugins.html).
