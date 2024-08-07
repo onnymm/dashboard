@@ -4,9 +4,9 @@ import { useState } from 'react'
 const SearchIcon = ({ handleClick }) => {
 	const [isAnimating, setIsAnimating] = useState(false)
 
-	const handleTaskAndAnimation = e => {
+	const handleTaskAndAnimation = () => {
 		setIsAnimating(true)
-		handleClick(e)
+		handleClick()
 	}
 
 	const handleAnimationEnd = () => {
@@ -16,7 +16,7 @@ const SearchIcon = ({ handleClick }) => {
 	return (
 		<button
 			className={`${isAnimating && 'sm:animate-bars3-click-sm'} px-2 opacity-60 transition duration-300 hover:text-navbar-icons-hover hover:opacity-100 dark:text-white dark:hover:text-navbar-icons-hover-d`}
-			onClick={e => handleTaskAndAnimation(e)}
+			onClick={handleTaskAndAnimation}
 			onAnimationEnd={handleAnimationEnd}
 		>
 			<MagnifyingGlassIcon className='size-5' />

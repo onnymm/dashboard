@@ -165,6 +165,7 @@ export const dashboardData = {
 	]
 }
 
+// Notificaciones recibidas
 export const NOTIFICATIONS = [
 	{
 		id: 1,
@@ -195,6 +196,7 @@ export const NOTIFICATIONS = [
 	}
 ]
 
+// Mensajes recibidos
 export const MESSAGES = [
 	{
 		id: 1,
@@ -227,7 +229,8 @@ export const MESSAGES = [
 	}
 ]
 
-export const links = [
+// Enlaces del dropdown de perfil de la navbar
+export const PROFILE_LINKS = [
 	{
 		id: 1,
 		icon: 'user',
@@ -242,6 +245,8 @@ export const links = [
 	}
 ]
 
+/* SIDEBAR */
+// Enlaces del dropdown "dashboard"
 export const DASHBOARD_LINKS = [
 	{
 		id: 1,
@@ -255,6 +260,7 @@ export const DASHBOARD_LINKS = [
 	}
 ]
 
+// Enlaces del dropdown "tasks"
 export const TASKS_LINKS = [
 	{
 		id: 1,
@@ -263,4 +269,5 @@ export const TASKS_LINKS = [
 	}
 ]
 
+// Delimitador de pantalla ancha (para ajustes visuales y de estado)
 export const thresholdForWideScreen = 768
