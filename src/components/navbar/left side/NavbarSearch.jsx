@@ -55,7 +55,7 @@ const NavbarSearch = () => {
 					value={search}
 					onChange={e => setSearch(e.target.value)}
 					placeholder='Type to search...'
-					className={`${bottomIsDisplayed ? 'absolute top-12 rounded-md bg-white p-4 shadow-back dark:bg-navbar-icons-background-d' : 'hidden bg-transparent px-2 dark:opacity-80 md:block'} text-sm text-white focus:outline-none dark:placeholder-white dark:placeholder-opacity-80`}
+					className={`${bottomIsDisplayed ? 'absolute top-12 rounded-md bg-white p-4 shadow-back dark:bg-navbar-icons-background-d' : 'hidden bg-transparent px-2 dark:opacity-80 md:block'} text-sm focus:outline-none dark:text-white dark:placeholder-white dark:placeholder-opacity-80`}
 				/>
 			</Form>
 		</>
