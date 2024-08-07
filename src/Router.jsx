@@ -3,7 +3,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import App from './App'
 import { FallbackFeed } from './components/feed/FallbackFeed'
 import { appLoader } from './data/appLoader'
-import ErrorPage from './routes/error elements/ErrorPage'
+import ErrorPage from './routes/error components/ErrorPage'
 
 const Homepage = lazy(() => import('./routes/homepage/Homepage'))
 const Analytics = lazy(() => import('./routes/analytics/Analytics'))
@@ -12,7 +12,7 @@ const Profile = lazy(() => import('./routes/profile/Profile'))
 const ToDo = lazy(() => import('./routes/to do/ToDo'))
 const UiTests = lazy(() => import('./routes/ui tests/UiTests'))
 
-const Router = createBrowserRouter([
+const router = createBrowserRouter([
 	{
 		path: '/',
 		element: <App />,
@@ -79,4 +79,4 @@ const Router = createBrowserRouter([
 	}
 ])
 
-export default Router
+export default router
