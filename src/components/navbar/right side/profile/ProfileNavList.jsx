@@ -1,4 +1,4 @@
-import { links } from '../../../../data/appConfig'
+import { PROFILE_LINKS } from '../../../../data/appConfig'
 import List from '../../../ui kit/List'
 import ProfileLink from '../../../ui kit/ProfileLink'
 
@@ -7,7 +7,7 @@ const ProfileNavList = handleContentClick => {
 		<div className='min-h-12 w-48 rounded-md bg-white p-3 shadow-back dark:bg-navbar-icons-background-d'>
 			<List
 				Contains={ProfileLink}
-				data={links}
+				data={PROFILE_LINKS}
 				name='Links'
 				extraStyles='gap-1'
 				handleClick={handleContentClick}

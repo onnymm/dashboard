@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
+import { Form, useLoaderData } from 'react-router-dom'
 import { AppContext } from '../../../contexts/AppContexts'
 import { useClickOutside } from '../../../custom hooks/useClickOutside'
 import { useScreenWidth } from '../../../custom hooks/useScreenWidth'
@@ -6,82 +7,57 @@ import { thresholdForWideScreen } from '../../../data/appConfig'
 import SearchIcon from '../../ui kit/SearchIcon'
 
 const NavbarSearch = () => {
-	const [search, setSearch] = useState('')
+	const { search: initialSearch } = useLoaderData()
+	const [search, setSearch] = useState(initialSearch)
 	const [bottomIsDisplayed, setBottomIsDisplayed] = useState(false)
-	const [hasBeenClicked, setHasBeenClicked] = useState(false)
 	const { sidebarIsLocked } = useContext(AppContext)
-	const screenIsWide = useScreenWidth(thresholdForWideScreen) // Hook para cambio de estado dependiendo del ancho de la pantalla
-	/*
-	El estado hasBeenClicked está para prevenir la animación de fade out hasta que se use por
-	primera vez el botón, si no se usa este estado, la animación de fade out se ejecutará cada
-	carga de página
-	*/
+	const screenIsWide = useScreenWidth(thresholdForWideScreen)
 
 	useEffect(() => {
 		if (screenIsWide && bottomIsDisplayed) {
-			setBottomIsDisplayed(false) // Si la ventana es grande esconder la barra de búsqueda flotante
+			setBottomIsDisplayed(false)
 		} else if (!screenIsWide && search && !bottomIsDisplayed) {
-			setBottomIsDisplayed(true) // Si la ventana es pequeña y hay contenido en búsqueda, mostrarla
+			setBottomIsDisplayed(true)
 		}
 	}, [screenIsWide, bottomIsDisplayed, search])
 
-	const displayMiniSearch = e => {
-		e.preventDefault() // Se previene la recarga de página bajo submit del botón
-		setHasBeenClicked(true)
-		setBottomIsDisplayed(!bottomIsDisplayed) // Mostrar la barra de búsqueda flotante
+	const displayMiniSearch = () => {
+		setBottomIsDisplayed(true)
 	}
 
-	const handleSearch = e => {
-		e.preventDefault()
+	const hideMiniSearch = () => {
 		bottomIsDisplayed && setBottomIsDisplayed(false)
-		search && setSearch('')
 	}
 
-	const sharedSearchTail = // Estilos compartidos entre los inputs de búsqueda
-		'dark:opacity-80 bg-transparent text-sm opacity-100 focus:outline-none dark:text-white dark:placeholder-white'
+	const handleSubmit = () => {
+		setSearch('')
+		hideMiniSearch()
+	}
 
-	let domNode = useClickOutside(() => {
-		// Si se clickea fuera del nodo:
-		search && setSearch('')
-		bottomIsDisplayed && setBottomIsDisplayed(false)
-	})
+	let domNode = useClickOutside(hideMiniSearch)
 
 	return (
 		<>
-			{/* Este div desplaza el search cuando se bloquea la pantalla (solo si la pantalla es grande) */}
 			<div
 				className={`${sidebarIsLocked && screenIsWide ? 'w-40' : 'w-14 sm:w-20'} flex transition-width duration-500`}
 			/>
-			<form className='relative flex' ref={domNode}>
-				{/* Barra de búsqueda principal (se muestra cuando la ventana es lo suficientemente grande) */}
+			<Form className='relative flex' onSubmit={handleSubmit} ref={domNode}>
 				<div
 					className={`${!bottomIsDisplayed ? 'opacity-100' : 'pointer-events-none opacity-0'} flex transition duration-100`}
 				>
 					<SearchIcon
-						handleClick={screenIsWide ? handleSearch : displayMiniSearch}
+						handleClick={screenIsWide ? hideMiniSearch : displayMiniSearch}
 					/>
 				</div>
 				<input
-					className={`hidden px-2 md:block ${sharedSearchTail}`}
-					placeholder='Type to search...'
+					name='query'
+					type='search'
 					value={search}
 					onChange={e => setSearch(e.target.value)}
-					onKeyDown={e => e.key === 'Enter' && handleSearch(e)}
+					placeholder='Type to search...'
+					className={`${bottomIsDisplayed ? 'absolute top-12 rounded-md bg-white p-4 shadow-back dark:bg-navbar-icons-background-d' : 'hidden bg-transparent px-2 dark:opacity-80 md:block'} text-sm text-white focus:outline-none dark:placeholder-white dark:placeholder-opacity-80`}
 				/>
-				{/* Barra de búsqueda flotante (se muestra cuando la ventana no es lo suficientemente grande) */}
-				<div
-					className={`${!screenIsWide && bottomIsDisplayed ? 'animate-fade-grow-in' : hasBeenClicked ? 'pointer-events-none animate-fade-shrink-out' : 'pointer-events-none opacity-0'} absolute -left-14 top-14 flex w-min gap-2 rounded-md bg-white px-4 shadow-back transition dark:bg-darkmode-switch-background-d sm:left-0`}
-				>
-					<input
-						className={`z-9 h-12 ${sharedSearchTail}`}
-						placeholder='Type to search...'
-						value={search}
-						onChange={e => setSearch(e.target.value)}
-						onKeyDown={e => e.key === 'Enter' && handleSearch(e)}
-					/>
-					<SearchIcon handleClick={handleSearch} />
-				</div>
-			</form>
+			</Form>
 		</>
 	)
 }

@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import App from './App'
 import { FallbackFeed } from './components/feed/FallbackFeed'
+import { appLoader } from './data/appLoader'
 import ErrorPage from './routes/error elements/ErrorPage'
 
 const Homepage = lazy(() => import('./routes/homepage/Homepage'))
@@ -16,6 +17,7 @@ const Router = createBrowserRouter([
 		path: '/',
 		element: <App />,
 		errorElement: <ErrorPage />,
+		loader: appLoader,
 		children: [
 			{
 				children: [

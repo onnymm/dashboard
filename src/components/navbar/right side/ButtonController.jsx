@@ -17,7 +17,7 @@ const ActionButtonSwitch = () => {
 		<>
 			{/* Botón de despliegue de mensajes */}
 			<ActionButton
-				name='messages' //
+				name='messages'
 				icon={ChatBubbleOvalLeftEllipsisIcon}
 				data={MESSAGES}
 			/>
