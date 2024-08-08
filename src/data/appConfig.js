@@ -1,4 +1,10 @@
-import { PRESET_COLORS, RED_PALETTE } from '../constants/colors'
+import {
+	Cog8ToothIcon,
+	IdentificationIcon,
+	PaintBrushIcon,
+	ShoppingBagIcon
+} from '@heroicons/react/24/outline'
+import { RED_PALETTE } from '../constants/colors'
 import { CHARTS_SETTINGS } from '../constants/settings'
 
 // Dominios locales para obtener la información
@@ -31,137 +37,137 @@ export const dashboardData = {
 			[CHARTS_SETTINGS.X_AXIS_FORMAT]: 'only name',
 			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
 			[CHARTS_SETTINGS.TRANSPOSED]: true
-		},
-		{
-			[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
-			[CHARTS_SETTINGS.CHART_TYPE]: 'line',
-			[CHARTS_SETTINGS.NAME]: 'Cotizaciones por vendedora',
-			[CHARTS_SETTINGS.LABELS_NAME]: 'user_name',
-			[CHARTS_SETTINGS.DATASETS_NAMES]: ['amount_untaxed'],
-			[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
-			[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE[3],
-			[CHARTS_SETTINGS.BACKGROUND_OPACITY]: 50,
-			[CHARTS_SETTINGS.BORDER_COLORS]: RED_PALETTE[3],
-			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
-			[CHARTS_SETTINGS.X_AXIS_FORMAT]: 'only name'
-		},
-		{
-			[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
-			[CHARTS_SETTINGS.CHART_TYPE]: 'pie',
-			[CHARTS_SETTINGS.NAME]: 'Cotizaciones por vendedora',
-			[CHARTS_SETTINGS.LABELS_NAME]: 'user_name',
-			[CHARTS_SETTINGS.DATASETS_NAMES]: ['amount_untaxed'],
-			[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
-			[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE,
-			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
-			[CHARTS_SETTINGS.X_AXIS_FORMAT]: 'only name'
-		},
-		{
-			[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
-			[CHARTS_SETTINGS.CHART_TYPE]: 'doughnut',
-			[CHARTS_SETTINGS.NAME]: 'Cotizaciones por vendedora',
-			[CHARTS_SETTINGS.LABELS_NAME]: 'user_name',
-			[CHARTS_SETTINGS.DATASETS_NAMES]: ['amount_untaxed'],
-			[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
-			[CHARTS_SETTINGS.LABEL_COLUMNS]: 2,
-			[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE,
-			[CHARTS_SETTINGS.X_AXIS_FORMAT]: 'only name',
-			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary'
-		},
-		{
-			[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
-			[CHARTS_SETTINGS.CHART_TYPE]: 'polarArea',
-			[CHARTS_SETTINGS.NAME]: 'Cotizaciones por vendedora',
-			[CHARTS_SETTINGS.LABELS_NAME]: 'user_name',
-			[CHARTS_SETTINGS.DATASETS_NAMES]: ['amount_untaxed'],
-			[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
-			[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE,
-			[CHARTS_SETTINGS.LABELS_DISPLAY]: 'grid3',
-			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary'
-		},
-		{
-			[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
-			[CHARTS_SETTINGS.CHART_TYPE]: 'radar',
-			[CHARTS_SETTINGS.NAME]: 'Cotizaciones por vendedora',
-			[CHARTS_SETTINGS.LABELS_NAME]: 'user_name',
-			[CHARTS_SETTINGS.DATASETS_NAMES]: ['amount_untaxed'],
-			[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
-			[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE[3],
-			[CHARTS_SETTINGS.BACKGROUND_OPACITY]: 75,
-			[CHARTS_SETTINGS.BORDER_COLORS]: RED_PALETTE[3],
-			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
-			[CHARTS_SETTINGS.X_AXIS_FORMAT]: 'only name'
-		},
-		{
-			[CHARTS_SETTINGS.CHART_TYPE]: 'bar',
-			[CHARTS_SETTINGS.ENDPOINT]: 'monthly_total_amounts',
-			[CHARTS_SETTINGS.NAME]: 'No hace nada',
-			[CHARTS_SETTINGS.LABELS_NAME]: 'month',
-			[CHARTS_SETTINGS.DATASETS_NAMES]: ['total_amount'],
-			[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
-			[CHARTS_SETTINGS.BORDER_COLORS]: ['#FF0000', '#0000FF'],
-			[CHARTS_SETTINGS.BACKGROUND_COLORS]: ['#FF0000', '#0000FF'],
-			[CHARTS_SETTINGS.BACKGROUND_OPACITY]: 75,
-			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
-			[CHARTS_SETTINGS.CATEGORY_STRATIFICATION_BY]: 'warehouse',
-			[CHARTS_SETTINGS.LEGEND_BOX]: 'rounded'
-		},
-		{
-			[CHARTS_SETTINGS.CHART_TYPE]: 'line',
-			[CHARTS_SETTINGS.ENDPOINT]: 'monthly_total_amounts',
-			[CHARTS_SETTINGS.NAME]: 'No hace nada',
-			[CHARTS_SETTINGS.LABELS_NAME]: 'month',
-			[CHARTS_SETTINGS.DATASETS_NAMES]: ['total_amount'],
-			[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
-			[CHARTS_SETTINGS.BORDER_COLORS]: ['#FF0000', '#0000FF'],
-			[CHARTS_SETTINGS.BACKGROUND_COLORS]: ['#FF0000', '#0000FF'],
-			[CHARTS_SETTINGS.BACKGROUND_OPACITY]: 50,
-			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
-			[CHARTS_SETTINGS.CATEGORY_STRATIFICATION_BY]: 'warehouse',
-			[CHARTS_SETTINGS.LABEL_COLUMNS]: 1,
-			[CHARTS_SETTINGS.LEGEND_BOX]: 'circle'
-		},
-		{
-			[CHARTS_SETTINGS.CHART_TYPE]: 'radar',
-			[CHARTS_SETTINGS.ENDPOINT]: 'monthly_total_amounts',
-			[CHARTS_SETTINGS.NAME]: 'No hace nada',
-			[CHARTS_SETTINGS.LABELS_NAME]: 'month',
-			[CHARTS_SETTINGS.DATASETS_NAMES]: ['total_amount'],
-			[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
-			[CHARTS_SETTINGS.BORDER_COLORS]: ['#FF0000', '#0000FF'],
-			[CHARTS_SETTINGS.BACKGROUND_COLORS]: ['#FF0000', '#0000FF'],
-			[CHARTS_SETTINGS.BACKGROUND_OPACITY]: 50,
-			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
-			[CHARTS_SETTINGS.CATEGORY_STRATIFICATION_BY]: 'warehouse',
-			[CHARTS_SETTINGS.LEGEND_BOX]: 'square'
-		},
-		{
-			[CHARTS_SETTINGS.CHART_TYPE]: 'bubble',
-			[CHARTS_SETTINGS.ENDPOINT]: 'products_week',
-			[CHARTS_SETTINGS.LABELS_NAME]: 'Hola',
-			[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
-			[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE[3],
-			[CHARTS_SETTINGS.BACKGROUND_OPACITY]: 10,
-			[CHARTS_SETTINGS.BORDER_COLORS]: PRESET_COLORS.WHITE,
-			[CHARTS_SETTINGS.BORDER_OPACITY]: 0,
-			[CHARTS_SETTINGS.X_AXIS_FORMAT]: 'monetary',
-			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
-			[CHARTS_SETTINGS.Z_AXIS_FORMAT]: 'monetary',
-			[CHARTS_SETTINGS.LEGEND_BOX]: 'square'
-		},
-		{
-			[CHARTS_SETTINGS.CHART_TYPE]: 'scatter',
-			[CHARTS_SETTINGS.ENDPOINT]: 'products_week',
-			[CHARTS_SETTINGS.LABELS_NAME]: 'Hola',
-			[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
-			[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE[3],
-			[CHARTS_SETTINGS.BACKGROUND_OPACITY]: 25,
-			[CHARTS_SETTINGS.BORDER_COLORS]: RED_PALETTE[3],
-			[CHARTS_SETTINGS.BORDER_OPACITY]: 0,
-			[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
-			[CHARTS_SETTINGS.X_AXIS_FORMAT]: 'monetary',
-			[CHARTS_SETTINGS.LEGEND_BOX]: 'square'
 		}
+		// {
+		// 	[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
+		// 	[CHARTS_SETTINGS.CHART_TYPE]: 'line',
+		// 	[CHARTS_SETTINGS.NAME]: 'Cotizaciones por vendedora',
+		// 	[CHARTS_SETTINGS.LABELS_NAME]: 'user_name',
+		// 	[CHARTS_SETTINGS.DATASETS_NAMES]: ['amount_untaxed'],
+		// 	[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
+		// 	[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE[3],
+		// 	[CHARTS_SETTINGS.BACKGROUND_OPACITY]: 50,
+		// 	[CHARTS_SETTINGS.BORDER_COLORS]: RED_PALETTE[3],
+		// 	[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
+		// 	[CHARTS_SETTINGS.X_AXIS_FORMAT]: 'only name'
+		// },
+		// {
+		// 	[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
+		// 	[CHARTS_SETTINGS.CHART_TYPE]: 'pie',
+		// 	[CHARTS_SETTINGS.NAME]: 'Cotizaciones por vendedora',
+		// 	[CHARTS_SETTINGS.LABELS_NAME]: 'user_name',
+		// 	[CHARTS_SETTINGS.DATASETS_NAMES]: ['amount_untaxed'],
+		// 	[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
+		// 	[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE,
+		// 	[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
+		// 	[CHARTS_SETTINGS.X_AXIS_FORMAT]: 'only name'
+		// },
+		// {
+		// 	[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
+		// 	[CHARTS_SETTINGS.CHART_TYPE]: 'doughnut',
+		// 	[CHARTS_SETTINGS.NAME]: 'Cotizaciones por vendedora',
+		// 	[CHARTS_SETTINGS.LABELS_NAME]: 'user_name',
+		// 	[CHARTS_SETTINGS.DATASETS_NAMES]: ['amount_untaxed'],
+		// 	[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
+		// 	[CHARTS_SETTINGS.LABEL_COLUMNS]: 2,
+		// 	[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE,
+		// 	[CHARTS_SETTINGS.X_AXIS_FORMAT]: 'only name',
+		// 	[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary'
+		// },
+		// {
+		// 	[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
+		// 	[CHARTS_SETTINGS.CHART_TYPE]: 'polarArea',
+		// 	[CHARTS_SETTINGS.NAME]: 'Cotizaciones por vendedora',
+		// 	[CHARTS_SETTINGS.LABELS_NAME]: 'user_name',
+		// 	[CHARTS_SETTINGS.DATASETS_NAMES]: ['amount_untaxed'],
+		// 	[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
+		// 	[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE,
+		// 	[CHARTS_SETTINGS.LABELS_DISPLAY]: 'grid3',
+		// 	[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary'
+		// },
+		// {
+		// 	[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
+		// 	[CHARTS_SETTINGS.CHART_TYPE]: 'radar',
+		// 	[CHARTS_SETTINGS.NAME]: 'Cotizaciones por vendedora',
+		// 	[CHARTS_SETTINGS.LABELS_NAME]: 'user_name',
+		// 	[CHARTS_SETTINGS.DATASETS_NAMES]: ['amount_untaxed'],
+		// 	[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
+		// 	[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE[3],
+		// 	[CHARTS_SETTINGS.BACKGROUND_OPACITY]: 75,
+		// 	[CHARTS_SETTINGS.BORDER_COLORS]: RED_PALETTE[3],
+		// 	[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
+		// 	[CHARTS_SETTINGS.X_AXIS_FORMAT]: 'only name'
+		// },
+		// {
+		// 	[CHARTS_SETTINGS.CHART_TYPE]: 'bar',
+		// 	[CHARTS_SETTINGS.ENDPOINT]: 'monthly_total_amounts',
+		// 	[CHARTS_SETTINGS.NAME]: 'No hace nada',
+		// 	[CHARTS_SETTINGS.LABELS_NAME]: 'month',
+		// 	[CHARTS_SETTINGS.DATASETS_NAMES]: ['total_amount'],
+		// 	[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
+		// 	[CHARTS_SETTINGS.BORDER_COLORS]: ['#FF0000', '#0000FF'],
+		// 	[CHARTS_SETTINGS.BACKGROUND_COLORS]: ['#FF0000', '#0000FF'],
+		// 	[CHARTS_SETTINGS.BACKGROUND_OPACITY]: 75,
+		// 	[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
+		// 	[CHARTS_SETTINGS.CATEGORY_STRATIFICATION_BY]: 'warehouse',
+		// 	[CHARTS_SETTINGS.LEGEND_BOX]: 'rounded'
+		// },
+		// {
+		// 	[CHARTS_SETTINGS.CHART_TYPE]: 'line',
+		// 	[CHARTS_SETTINGS.ENDPOINT]: 'monthly_total_amounts',
+		// 	[CHARTS_SETTINGS.NAME]: 'No hace nada',
+		// 	[CHARTS_SETTINGS.LABELS_NAME]: 'month',
+		// 	[CHARTS_SETTINGS.DATASETS_NAMES]: ['total_amount'],
+		// 	[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
+		// 	[CHARTS_SETTINGS.BORDER_COLORS]: ['#FF0000', '#0000FF'],
+		// 	[CHARTS_SETTINGS.BACKGROUND_COLORS]: ['#FF0000', '#0000FF'],
+		// 	[CHARTS_SETTINGS.BACKGROUND_OPACITY]: 50,
+		// 	[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
+		// 	[CHARTS_SETTINGS.CATEGORY_STRATIFICATION_BY]: 'warehouse',
+		// 	[CHARTS_SETTINGS.LABEL_COLUMNS]: 1,
+		// 	[CHARTS_SETTINGS.LEGEND_BOX]: 'circle'
+		// },
+		// {
+		// 	[CHARTS_SETTINGS.CHART_TYPE]: 'radar',
+		// 	[CHARTS_SETTINGS.ENDPOINT]: 'monthly_total_amounts',
+		// 	[CHARTS_SETTINGS.NAME]: 'No hace nada',
+		// 	[CHARTS_SETTINGS.LABELS_NAME]: 'month',
+		// 	[CHARTS_SETTINGS.DATASETS_NAMES]: ['total_amount'],
+		// 	[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
+		// 	[CHARTS_SETTINGS.BORDER_COLORS]: ['#FF0000', '#0000FF'],
+		// 	[CHARTS_SETTINGS.BACKGROUND_COLORS]: ['#FF0000', '#0000FF'],
+		// 	[CHARTS_SETTINGS.BACKGROUND_OPACITY]: 50,
+		// 	[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
+		// 	[CHARTS_SETTINGS.CATEGORY_STRATIFICATION_BY]: 'warehouse',
+		// 	[CHARTS_SETTINGS.LEGEND_BOX]: 'square'
+		// }
+		// {
+		// 	[CHARTS_SETTINGS.CHART_TYPE]: 'bubble',
+		// 	[CHARTS_SETTINGS.ENDPOINT]: 'products_week',
+		// 	[CHARTS_SETTINGS.LABELS_NAME]: 'Hola',
+		// 	[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
+		// 	[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE[3],
+		// 	[CHARTS_SETTINGS.BACKGROUND_OPACITY]: 10,
+		// 	[CHARTS_SETTINGS.BORDER_COLORS]: PRESET_COLORS.WHITE,
+		// 	[CHARTS_SETTINGS.BORDER_OPACITY]: 0,
+		// 	[CHARTS_SETTINGS.X_AXIS_FORMAT]: 'monetary',
+		// 	[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
+		// 	[CHARTS_SETTINGS.Z_AXIS_FORMAT]: 'monetary',
+		// 	[CHARTS_SETTINGS.LEGEND_BOX]: 'square'
+		// },
+		// {
+		// 	[CHARTS_SETTINGS.CHART_TYPE]: 'scatter',
+		// 	[CHARTS_SETTINGS.ENDPOINT]: 'products_week',
+		// 	[CHARTS_SETTINGS.LABELS_NAME]: 'Hola',
+		// 	[CHARTS_SETTINGS.LABELS]: ['Cotizaciones'],
+		// 	[CHARTS_SETTINGS.BACKGROUND_COLORS]: RED_PALETTE[3],
+		// 	[CHARTS_SETTINGS.BACKGROUND_OPACITY]: 25,
+		// 	[CHARTS_SETTINGS.BORDER_COLORS]: RED_PALETTE[3],
+		// 	[CHARTS_SETTINGS.BORDER_OPACITY]: 0,
+		// 	[CHARTS_SETTINGS.Y_AXIS_FORMAT]: 'monetary',
+		// 	[CHARTS_SETTINGS.X_AXIS_FORMAT]: 'monetary',
+		// 	[CHARTS_SETTINGS.LEGEND_BOX]: 'square'
+		// }
 	]
 }
 
@@ -266,6 +272,41 @@ export const TASKS_LINKS = [
 		id: 1,
 		label: 'To do',
 		route: 'to-do'
+	}
+]
+
+export const PRICEGRID_DATA = [
+	{
+		id: 0,
+		icon: PaintBrushIcon,
+		amount: '66.66MC',
+		label: 'Total earned',
+		percent: '0.01',
+		gain: undefined
+	},
+	{
+		id: 1,
+		icon: Cog8ToothIcon,
+		amount: '12.30IC',
+		label: 'Total spent',
+		percent: '280%',
+		gain: true
+	},
+	{
+		id: 2,
+		icon: ShoppingBagIcon,
+		amount: '99G',
+		label: 'Actives',
+		percent: '3.20%',
+		gain: false
+	},
+	{
+		id: 3,
+		icon: IdentificationIcon,
+		amount: '-200K',
+		label: 'Credit score',
+		percent: '15%',
+		gain: false
 	}
 ]
 
