@@ -33,8 +33,6 @@ export const buildData = ({
     [CHARTS_SETTINGS.BORDER_COLORS]: borderColors = chartSettings[ [CHARTS_SETTINGS.BORDER_COLORS] ],
     // Opacidad de los colores de borde
     [CHARTS_SETTINGS.BORDER_OPACITY]: borderOpacity = chartSettings[ [CHARTS_SETTINGS.BORDER_OPACITY] ],
-    // Relación de aspecto de la gráfica
-    [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio = chartSettings[ [CHARTS_SETTINGS.ASPECT_RATIO] ],
     // Formateo en las etiquetas del eje X
     [CHARTS_SETTINGS.X_AXIS_FORMAT]: xAxisFormat = chartSettings[ [CHARTS_SETTINGS.X_AXIS_FORMAT] ],
     // Formateo en las etiquetas del eje Y
@@ -77,7 +75,6 @@ export const buildData = ({
     let options = buildInitOptions[chartType]({
         series,
         labelsContainerID,
-        [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio,
         [CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay,
         [CHARTS_SETTINGS.LABELS_LIST]: labelsList,
         [CHARTS_SETTINGS.LEGEND_BOX]: legendBox,

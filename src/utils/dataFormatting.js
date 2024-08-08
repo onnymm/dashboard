@@ -147,7 +147,6 @@ const buildGenericData = ({
 const buildBubbleChartOptions = ({
     series,
     labelsContainerID,
-    [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio = chartSettings[ CHARTS_SETTINGS.ASPECT_RATIO ],
     [CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay = chartSettings[ CHARTS_SETTINGS.LABEL_COLUMNS ],
     [CHARTS_SETTINGS.LABELS_LIST]: labelsList = chartSettings[ CHARTS_SETTINGS.LABELS_LIST ],
     [CHARTS_SETTINGS.LEGEND_BOX]: legendBox = chartSettings[ CHARTS_SETTINGS.LEGEND_BOX ],
@@ -169,7 +168,7 @@ const buildBubbleChartOptions = ({
     options.font = {color: midTransparentBlack}
 
     // Configuración de relación de aspecto
-    options.aspectRatio = aspectRatio
+    options.maintainAspectRatio = false
     
     // Obtención de los valores de tamaño
     const radiusValues = series.datasets[0].data.map((values) => values._custom)
@@ -193,7 +192,6 @@ const buildBubbleChartOptions = ({
 }
 const buildCartesianChartOptions = ({
     labelsContainerID,
-    [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio = chartSettings[ CHARTS_SETTINGS.ASPECT_RATIO ],
     [CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay = chartSettings[ CHARTS_SETTINGS.LABEL_COLUMNS ],
     [CHARTS_SETTINGS.LABELS_LIST]: labelsList = chartSettings[ CHARTS_SETTINGS.LABELS_LIST ],
     [CHARTS_SETTINGS.LEGEND_BOX]: legendBox = chartSettings[ CHARTS_SETTINGS.LEGEND_BOX ],
@@ -216,7 +214,7 @@ const buildCartesianChartOptions = ({
     options.font = {color: midTransparentBlack}
 
     // Configuración de relación de aspecto
-    options.aspectRatio = aspectRatio 
+    options.maintainAspectRatio = false
 
     // Integración del plug-in de etiquetas
     options = setPlugInsConfig({
@@ -232,7 +230,6 @@ const buildCartesianChartOptions = ({
 }
 const buildRadialChartOptions = ({
     labelsContainerID,
-    [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio = chartSettings[ CHARTS_SETTINGS.ASPECT_RATIO ],
     [CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay = chartSettings[ CHARTS_SETTINGS.LABEL_COLUMNS ],
     [CHARTS_SETTINGS.LABELS_LIST]: labelsList = chartSettings[ CHARTS_SETTINGS.LABELS_LIST ],
     [CHARTS_SETTINGS.LEGEND_BOX]: legendBox = chartSettings[ CHARTS_SETTINGS.LEGEND_BOX ],
@@ -253,7 +250,7 @@ const buildRadialChartOptions = ({
     options.font = {color: midTransparentBlack}
 
     // Configuración de relación de aspecto
-    options.aspectRatio = aspectRatio 
+    options.maintainAspectRatio = false
 
     // Integración del plug-in de etiquetas
     options = setPlugInsConfig({
@@ -269,7 +266,6 @@ const buildRadialChartOptions = ({
 }
 const buildRadarChartOptions = ({
     labelsContainerID,
-    [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio = chartSettings[ CHARTS_SETTINGS.ASPECT_RATIO ],
     [CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay = chartSettings[ CHARTS_SETTINGS.LABEL_COLUMNS ],
     [CHARTS_SETTINGS.LABELS_LIST]: labelsList = chartSettings[ CHARTS_SETTINGS.LABELS_LIST ],
     [CHARTS_SETTINGS.LEGEND_BOX]: legendBox = chartSettings[ CHARTS_SETTINGS.LEGEND_BOX ],
@@ -294,7 +290,7 @@ const buildRadarChartOptions = ({
     options.font = {color: midTransparentBlack}
 
     // Configuración de relación de aspecto
-    options.aspectRatio = aspectRatio 
+    options.maintainAspectRatio = false
 
     // Integración del plug-in de etiquetas
     options = setPlugInsConfig({

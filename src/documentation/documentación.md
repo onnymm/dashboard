@@ -575,7 +575,6 @@ Los argumentos de entrada disponibles para cada objeto de la matriz, estructurad
 | `BACKGROUND_OPACITY` | `number` | `100` | Opacidad de los colores de fondo de los elementos de la gráfica. Debe ser un número del `0` al `100` en donde el `0` representa la transparencia total y el `100` un color totalmente sólido sin transparencia. |
 | `BORDER_COLORS` | `Color` - `array[Color]` | `RED_PALETTE` | Colores de borde para los elementos de la gráfica. El formato de cada color debe ser hexadecimal, por ejemplo `#FFFFFF`. Los colores deben tener ser RGB en formato hexadecimal y contener el símbolo `#` antes de éstos. |
 | `BORDER_OPACITY` | `number` | `100` | Opacidad de los colores de borde de los elementos de la gráfica. Debe ser un número del `0` al `100` en donde el `0` representa la transparencia total y el `100` un color totalmente sólido sin transparencia. |
-| `ASPECT_RATIO` | `number` - `(División)` | `1.5` | Relación de aspecto de la gráfica. Puede ser un número, como por ejemplo `1.5` o una división como `3/2` en donde el primer número o numerador representa la proporción horizontal y el segundo número o denominador representa la proporción vertical. Por ejemplo, `3/2` significa que, por cada 3 pixeles de ancho, la gráfica tendrá 2 pixeles de alto. |
 | `X_AXIS_FORMAT` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico en el eje $X$ que se representará en las etiquetas numéricas y el tooltip. |
 | `Y_AXIS_FORMAT` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico en el eje $Y$ que se representará en las etiquetas numéricas y el tooltip. |
 | `Z_AXIS_FORMAT` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico en el eje $Z$ que se representará en las etiquetas numéricas y el tooltip. Disponible sólo para gráficas de burbuja |
@@ -1228,7 +1227,6 @@ Los argumentos de entrada disponibles son:
 | `[CHART_SETTINGS.BACKGROUND_OPACITY]` | `number` | `100` | Opacidad de los colores de fondo de los elementos de la gráfica. Debe ser un número del `0` al `100` en donde el `0` representa la transparencia total y el `100` un color totalmente sólido sin transparencia. |
 | `[CHART_SETTINGS.BORDER_COLORS]` | `Color` - `array[Color]` | `[CHART_SETTINGS.RED_PALETTE]` | Colores de borde para los elementos de la gráfica. El formato de cada color debe ser hexadecimal, por ejemplo `#FFFFFF`. Los colores deben tener ser RGB en formato hexadecimal y contener el símbolo `#` antes de éstos. |
 | `[CHART_SETTINGS.BORDER_OPACITY]` | `number` | `100` | Opacidad de los colores de borde de los elementos de la gráfica. Debe ser un número del `0` al `100` en donde el `0` representa la transparencia total y el `100` un color totalmente sólido sin transparencia. |
-| `[CHART_SETTINGS.ASPECT_RATIO]` | `number` - `(División)` | `1.5` | Relación de aspecto de la gráfica. Puede ser un número, como por ejemplo `1.5` o una división como `3/2` en donde el primer número o numerador representa la proporción horizontal y el segundo número o denominador representa la proporción vertical. Por ejemplo, `3/2` significa que, por cada 3 pixeles de ancho, la gráfica tendrá 2 pixeles de alto. |
 | `[CHART_SETTINGS.X_AXIS_FORMAT]` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico en el eje $X$ que se representará en las etiquetas numéricas y el tooltip. |
 | `[CHART_SETTINGS.Y_AXIS_FORMAT]` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico en el eje $Y$ que se representará en las etiquetas numéricas y el tooltip. |
 | `[CHART_SETTINGS.Z_AXIS_FORMAT]` | `(Opción)` <br> <br> • `'numeric'`: Numérico <br> • `'monetary'`: Moneda nacional <br> • `'only name'` | `undefined` | Tipo de valor numérico en el eje $Z$ que se representará en las etiquetas numéricas y el tooltip. Disponible sólo para gráficas de burbuja |
@@ -1266,9 +1264,7 @@ export const buildData = ({
     // Colores de borde de los conjuntos de datos
     [CHARTS_SETTINGS.BORDER_COLORS]: borderColors = chartSettings[ [CHARTS_SETTINGS.BORDER_COLORS] ], 
     // Opacidad de los colores de borde
-    [CHARTS_SETTINGS.BORDER_OPACITY]: borderOpacity = chartSettings[ [CHARTS_SETTINGS.BORDER_OPACITY] ], 
-    // Relación de aspecto de la gráfica
-    [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio = chartSettings[ [CHARTS_SETTINGS.ASPECT_RATIO] ], 
+    [CHARTS_SETTINGS.BORDER_OPACITY]: borderOpacity = chartSettings[ [CHARTS_SETTINGS.BORDER_OPACITY] ],
     // Formateo en las etiquetas del eje X
     [CHARTS_SETTINGS.X_AXIS_FORMAT]: xAxisFormat = chartSettings[ [CHARTS_SETTINGS.X_AXIS_FORMAT] ], 
     // Formateo en las etiquetas del eje Y
@@ -1311,7 +1307,6 @@ export const buildData = ({
     let options = buildInitOptions[chartType]({
         series,
         labelsContainerID,
-        [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio,
         [CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay,
         [CHARTS_SETTINGS.LABELS_LIST]: labelsList,
         [CHARTS_SETTINGS.LEGEND_BOX]: legendBox,
@@ -1389,7 +1384,6 @@ export const buildData = ({
 >   let options = buildInitOptions[chartType]({
 >       series,
 >       labelsContainerID,
->       [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio,
 >       [CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay,
 >       [CHARTS_SETTINGS.LABELS_LIST]: labelsList,
 >       [CHARTS_SETTINGS.LEGEND_BOX]: legendBox,
@@ -1895,7 +1889,6 @@ Uso declarando la gráfica de burbujas en un `string`:
 const params = {
     series,
     labelsContainerID,
-    [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio,
     [CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay,
     [CHARTS_SETTINGS.LABELS_LIST]: labelsList,
     [CHARTS_SETTINGS.LEGEND_BOX]: legendBox,
@@ -1911,7 +1904,6 @@ Uso declarando la gráfica de burbujas usando constante (recomendado):
 const params = {
     series,
     labelsContainerID,
-    [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio,
     [CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay,
     [CHARTS_SETTINGS.LABELS_LIST]: labelsList,
     [CHARTS_SETTINGS.LEGEND_BOX]: legendBox,
@@ -1929,7 +1921,6 @@ La construcción del objeto de opciones para gráficas de burbuja recibe los sig
 |----------|------|-------------------|-------------|
 | `series` | `object` | *Requerido | Objeto de datos transformado por la función de [construcción de estructura de datos para gráficas de burbuja](#construcción-de-estructura-de-datos-para-gráficas-de-burbuja) |
 | `labelsContainerID` | `id` | *Requerido | ID del contenedor HTML `<div>` en donde se renderizarán las etiquetas del conjunto de datos. |
-| `aspectRatio` | `number - (División)` | *Declarado en los ajustes predeterminados* | Relación de aspecto de la gráfica |
 | `labelsDisplay` | `(Opción)` <br> <br> • `1`: Una columna <br> • `2`: 2 columnas <br> • `3`: 3 columnas <br> • `4`: 4 columnas <br> • `6`: 6 columnas | `1` | Número de columnas a ocupar por la lista de etiquetas. |
 | `labelsList` | `(Opción)` <br> <br> • `'default'`: Orientación por default (Fila) | `'default'` | Orientación de los elementos dentro de la etiqueta |
 | `legendBox` | `(Opción)` <br> <br> • `'circle'`: Cajas en forma de círculo <br> • `'rounded'`: Cajas cuadradas con bordes redondeados <br> • `'square'`: Cajas cuadradas | `'square'` | Forma de las cajas de color de las etiquetas. |
@@ -1984,7 +1975,7 @@ Retorno de la función:
 ```js
 // Objeto de opciones preestablecidas para el componente de gráfica
 {
-    aspectRatio: ...,
+    maintainAspectRatio: ...,
     font: {
         color: ...
     },
@@ -2014,7 +2005,6 @@ Uso declarando la gráfica cartesiana en un `string`:
 // Declaración de los parámetros en un objeto para mejorar visualización
 const params = {
     labelsContainerID,
-    [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio,
     [CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay,
     [CHARTS_SETTINGS.LABELS_LIST]: labelsList,
     [CHARTS_SETTINGS.LEGEND_BOX]: legendBox,
@@ -2031,7 +2021,6 @@ Uso declarando la gráfica cartesiana usando constante (recomendado):
 // Declaración de los parámetros en un objeto para mejorar visualización de este ejemplo
 const params = {
     labelsContainerID,
-    [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio,
     [CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay,
     [CHARTS_SETTINGS.LABELS_LIST]: labelsList,
     [CHARTS_SETTINGS.LEGEND_BOX]: legendBox,
@@ -2050,7 +2039,6 @@ La construcción del objeto de opciones para gráficas cartesianas recibe los si
 | Atributo | Tipo | Valor por defecto | Descripción |
 |----------|------|-------------------|-------------|
 | `labelsContainerID` | `id` | *Requerido | ID del contenedor HTML `<div>` en donde se renderizarán las etiquetas del conjunto de datos. |
-| `aspectRatio` | `number - (División)` | *Declarado en los ajustes predeterminados* | Relación de aspecto de la gráfica |
 | `labelsDisplay` | `(Opción)` <br> <br> • `1`: Una columna <br> • `2`: 2 columnas <br> • `3`: 3 columnas <br> • `4`: 4 columnas <br> • `6`: 6 columnas | `1` | Número de columnas a ocupar por la lista de etiquetas. |
 | `labelsList` | `(Opción)` <br> <br> • `'default'`: Orientación por default (Fila) | `'default'` | Orientación de los elementos dentro de la etiqueta |
 | `legendBox` | `(Opción)` <br> <br> • `'circle'`: Cajas en forma de círculo <br> • `'rounded'`: Cajas cuadradas con bordes redondeados <br> • `'square'`: Cajas cuadradas | `'square'` | Forma de las cajas de color de las etiquetas. |
@@ -2081,7 +2069,7 @@ const labelsContainerID = "labels-container"
 Retorno de la función:
 ```js
 {
-    aspectRatio: ...,
+    maintainAspectRatio: ...,
     font: {
         color: ...
     },
@@ -2109,7 +2097,6 @@ Uso declarando la gráfica radial en un `string`:
 // Declaración de los parámetros en un objeto para mejorar visualización
 const params = {
     labelsContainerID,
-    [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio,
     [CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay,
     [CHARTS_SETTINGS.LABELS_LIST]: labelsList,
     [CHARTS_SETTINGS.LEGEND_BOX]: legendBox,
@@ -2125,7 +2112,6 @@ Uso declarando la gráfica radial usando constante (recomendado):
 // Declaración de los parámetros en un objeto para mejorar visualización de este ejemplo
 const params = {
     labelsContainerID,
-    [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio,
     [CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay,
     [CHARTS_SETTINGS.LABELS_LIST]: labelsList,
     [CHARTS_SETTINGS.LEGEND_BOX]: legendBox,
@@ -2173,7 +2159,7 @@ const labelsContainerID = "labels-container"
 Retorno de la función:
 ```js
 {
-    aspectRatio: ...,
+    maintainAspectRatio: ...,
     font: {
         color: ...
     },
@@ -2202,7 +2188,6 @@ Uso declarando la gráfica de radar en un `string`:
 // Declaración de los parámetros en un objeto para mejorar visualización
 const params = {
     labelsContainerID,
-    [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio,
     [CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay,
     [CHARTS_SETTINGS.LABELS_LIST]: labelsList,
     [CHARTS_SETTINGS.LEGEND_BOX]: legendBox,
@@ -2216,7 +2201,6 @@ Uso declarando la gráfica de radar usando constante (recomendado):
 // Declaración de los parámetros en un objeto para mejorar visualización de este ejemplo
 const params = {
     labelsContainerID,
-    [CHARTS_SETTINGS.ASPECT_RATIO]: aspectRatio,
     [CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay,
     [CHARTS_SETTINGS.LABELS_LIST]: labelsList,
     [CHARTS_SETTINGS.LEGEND_BOX]: legendBox,
@@ -2232,7 +2216,6 @@ La construcción del objeto de opciones para gráficas de burbuja recibe los sig
 | Atributo | Tipo | Valor por defecto | Descripción |
 |----------|------|-------------------|-------------|
 | `labelsContainerID` | `id` | *Requerido | ID del contenedor HTML `<div>` en donde se renderizarán las etiquetas del conjunto de datos. |
-| `aspectRatio` | `number - (División)` | *Declarado en los ajustes predeterminados* | Relación de aspecto de la gráfica |
 | `labelsDisplay` | `(Opción)` <br> <br> • `1`: Una columna <br> • `2`: 2 columnas <br> • `3`: 3 columnas <br> • `4`: 4 columnas <br> • `6`: 6 columnas | `1` | Número de columnas a ocupar por la lista de etiquetas. |
 | `labelsList` | `(Opción)` <br> <br> • `'default'`: Orientación por default (Fila) | `'default'` | Orientación de los elementos dentro de la etiqueta |
 | `legendBox` | `(Opción)` <br> <br> • `'circle'`: Cajas en forma de círculo <br> • `'rounded'`: Cajas cuadradas con bordes redondeados <br> • `'square'`: Cajas cuadradas | `'square'` | Forma de las cajas de color de las etiquetas. |
@@ -2264,7 +2247,7 @@ Retorno de la función:
 // Objeto de opciones preestablecidas para el componente de gráfica
 
 {
-    aspectRatio: ...,
+    maintainAspectRatio: ...,
     font: {
         color: ...
     },
@@ -5575,7 +5558,6 @@ En esta sección se encuentra un índice de todos los ajustes predefinidos:
 | Ajustes de gráficas | Opacidad de borde en gráfica de área polar | `chartSettings...` | Opacidad de los colores de borde en las gráficas de de área polar | `dashboardSettings.js` | `100` |
 | Ajustes de gráficas | Opacidad de fondo en gráfica de área polar | `chartSettings...` | Opacidad de los colores de fondo en las gráficas de de área polar | `dashboardSettings.js` | `75` |
 | Ajustes de gráficas | Orientación de elementos dentro de las etiquetas | `chartSettings.LABELS_LIST` | Orientación de los elementos HTML dentro de las etiquetas | `dashboardSettings.js` | `'default'` |
-| Ajustes de gráficas | Relación de aspecto | `chartSettings.ASPECT_RATIO` | Relación de aspecto de la gráfica | `dashboardSettings.js` | `1.5` |
 | Ajustes de gráficas | Tamaño máximo de elementos de burbuja | `chartSettings.MAX_BUBBLE_SIZE` | Tamaño máximo en pixeles de los elementos de burbuja en gráficas de burbuja | `dashboardSettings.js` | `16` |
 | Ajustes de gráficas | Tamaño mínimo de elementos de burbuja | `chartSettings.MIN_BUBBLE_SIZE` | Tamaño mínimo en pixeles de los elementos de burbuja en gráficas de burbuja | `dashboardSettings.js` | `2` |
 | Ajustes de gráficas | Tipo de relleno en gráficas rellenables | `chartSettings...` | Tipo de relleno en gráficas rellenables (líneas y barras) | `dashboardSettings.js` | `"origin"` |
