@@ -5,6 +5,7 @@ import { FallbackFeed } from './components/feed/FallbackFeed'
 import { appLoader } from './data/appLoader'
 import ErrorPage from './routes/error components/ErrorPage'
 
+const Dashboard = lazy(() => import('./routes/dashboard/Dashboard'))
 const Homepage = lazy(() => import('./routes/homepage/Homepage'))
 const Analytics = lazy(() => import('./routes/analytics/Analytics'))
 const Ecommerce = lazy(() => import('./routes/ecommerce/Ecommerce'))
@@ -66,6 +67,14 @@ const router = createBrowserRouter([
 						element: (
 							<Suspense fallback={<FallbackFeed />}>
 								<UiTests />
+							</Suspense>
+						)
+					},
+					{
+						path: 'dashboard',
+						element: (
+							<Suspense fallback={<FallbackFeed />}>
+								<Dashboard />
 							</Suspense>
 						)
 					},
