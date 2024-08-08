@@ -83,11 +83,13 @@ const ChartTemplate = ({ chartData, labelsContainerID }) => {
 	// Renderización de la gráfica indicada
 	if (data) {
 		return (
-			<div className='grid h-full gap-4'>
-				<div id={`${labelsContainerID}`}></div>
-				<div className={`relative h-auto flex-grow`}>
+			<div className='flex max-h-full w-full flex-col'>
+				<div
+					className={`flex h-auto flex-grow justify-center overflow-x-hidden overflow-y-hidden`}
+				>
 					<RenderedChart dataContainer={data} />
 				</div>
+				<div id={`${labelsContainerID}`} className='h-min'></div>
 			</div>
 		)
 		// Indicación de carga inicial en caso de no haber cargado datos aún
