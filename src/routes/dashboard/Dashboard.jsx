@@ -36,20 +36,25 @@ ChartJS.register(
 	stylingCSS
 )
 
+const REACTIVE_COLSPAN_PRESETS = {
+	3: 'col-span-12 lg:col-span-3',
+	6: 'col-span-12 sm:col-span-6'
+}
+
 const Dashboard = () => {
 	return (
-		<div className='grid h-min w-full gap-4'>
-			<div className='col-span-12 grid h-min grid-cols-12 gap-4'>
+		<div className='flex h-min flex-grow flex-col gap-4'>
+			<div className='grid h-min grid-cols-12 gap-4'>
 				{PRICEGRID_DATA.map(item => (
 					<GridItem key={item.id} {...item} />
 				))}
 			</div>
-			<div className='col-span-12 grid grid-cols-12 gap-4'>
+			<div className='grid grid-cols-12 gap-4'>
 				{/* Map through the charts and adjust the span */}
 				{dashboardData.charts.map((chartData, index) => (
 					<div
 						key={index}
-						className='col-span-6 h-96 rounded-sm bg-white p-5 shadow-md transition duration-300 dark:bg-navbar-background-d'
+						className={`${REACTIVE_COLSPAN_PRESETS[6]} flex h-96 rounded-sm bg-white p-5 shadow-md transition duration-300 dark:bg-navbar-background-d`}
 					>
 						<ChartTemplate
 							chartData={chartData}
