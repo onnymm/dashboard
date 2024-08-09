@@ -26,7 +26,7 @@ const SidebarHeader = () => {
 			{/* Botón flecha para cierre de sidebar */}
 			<button
 				onClick={handleCloseSidebar}
-				className={`${!sidebarIsLocked || !screenIsWide ? 'opacity-100' : 'pointer-events-none opacity-0'} mx-4 ml-auto transition duration-150`}
+				className={`${!sidebarIsLocked || !screenIsWide ? 'opacity-100' : 'pointer-events-none opacity-0'} mx-4 ml-auto transition-opacity duration-150`}
 				/* Si la sidebar no está bloqueada y la ventana es pequeña, mostrar botón */
 			>
 				<ArrowLeftIcon className='size-6' />

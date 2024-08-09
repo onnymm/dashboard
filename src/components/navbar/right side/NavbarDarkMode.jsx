@@ -40,10 +40,10 @@ const NavbarDarkMode = () => {
 			{/* Este div amplía el hitbox del switch */}
 			<div className='rounded-full px-1 py-2'>
 				{/* Fondo del switch */}
-				<div className='w-12 rounded-full bg-darkmode-switch-background p-1 shadow-darkmode-switch-background-s transition dark:bg-darkmode-switch-background-d'>
+				<div className='duration-dark w-12 rounded-full bg-darkmode-switch-background p-1 shadow-darkmode-switch-background-s transition-all dark:bg-darkmode-switch-background-d'>
 					{/* Parte elevada del switch */}
 					<div
-						className={`size-min p-1 ${theme === 'dark' ? 'translate-x-5' : ''} rounded-full bg-navbar-background shadow-darkmode-switch-s transition duration-300 dark:bg-navbar-background-d`}
+						className={`size-min p-1 ${theme === 'dark' ? 'translate-x-5' : ''} duration-dark rounded-full bg-navbar-background shadow-darkmode-switch-s transition dark:bg-navbar-background-d`}
 					>
 						{/* Icono del tema actual */}
 						{theme === 'dark' ? (

@@ -18,7 +18,7 @@ const NavbarProfile = ({ name, occupation, avatarSource }) => {
 	let domNode = useClickOutside(() => setIsActive(false))
 
 	return (
-		<div className='relative flex items-center transition duration-300 dark:text-white sm:gap-1'>
+		<div className='duration-dark relative flex items-center transition-colors dark:text-white sm:gap-1'>
 			{/* Nombre y ocupación */}
 			<div className='hidden px-1 text-right lg:block'>
 				<span className='block text-sm opacity-80'>{name}</span>

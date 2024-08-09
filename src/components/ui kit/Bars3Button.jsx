@@ -20,7 +20,7 @@ const Bars3Button = ({ handleClick, extraStyles }) => {
 			*/}
 			<button
 				onClick={handleTaskAndAnimation}
-				className={`p-2 transition duration-300 dark:text-white dark:opacity-80 ${extraStyles} ${isAnimating && 'animate-bars3-click sm:animate-bars3-click-sm'}`}
+				className={`duration-dark p-2 transition dark:text-white dark:opacity-80 ${extraStyles} ${isAnimating && 'animate-bars3-click sm:animate-bars3-click-sm'}`}
 				onAnimationEnd={handleAnimationEnd}
 			>
 				<Bars3Icon className='size-6' />

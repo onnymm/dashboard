@@ -140,6 +140,9 @@ export default {
 			transitionProperty: {
 				width: 'width',
 				height: 'height'
+			},
+			transitionDuration: {
+				dark: '100ms'
 			}
 		}
 	},
