@@ -11,7 +11,11 @@ import { chartSettings } from '../settings/dashboardSettings'
 const midTransparentBlack = PRESET_COLORS.BLACK + OPACITIES[50] // Negro con transparencia media
 
 // Funciones de construcción de estructuras de datos
-const buildBubbleData = ({ data, labelsName, transposed }) => {
+const buildBubbleData = ({
+	data,
+	[CHARTS_SETTINGS.LABELS_NAME]: labelsName,
+	[CHARTS_SETTINGS.TRANSPOSED]: transposed
+}) => {
 	// Inicialización de los objetos
 	let series = {}
 	series.datasets = []
@@ -50,7 +54,11 @@ const buildBubbleData = ({ data, labelsName, transposed }) => {
 	// Retorno del objeto contenedor de los datos transformados
 	return series
 }
-const buildScatterData = ({ data, labelsName, transposed }) => {
+const buildScatterData = ({
+	data,
+	[CHARTS_SETTINGS.LABELS_NAME]: labelsName,
+	[CHARTS_SETTINGS.TRANSPOSED]: transposed
+}) => {
 	// Inicialización de los objetos
 	let series = {}
 	series.datasets = []
@@ -88,10 +96,10 @@ const buildScatterData = ({ data, labelsName, transposed }) => {
 }
 const buildGenericData = ({
 	data,
-	strat,
-	datasetNames,
-	labelsName,
-	labels
+	[CHARTS_SETTINGS.CATEGORY_STRATIFICATION_BY]: strat,
+	[CHARTS_SETTINGS.DATASETS_NAMES]: datasetNames,
+	[CHARTS_SETTINGS.LABELS_NAME]: labelsName,
+	[CHARTS_SETTINGS.LABELS]: labels
 }) => {
 	// Inicialización de contenedores de datos y etiquetas
 	let series = {}
@@ -136,54 +144,19 @@ const buildGenericData = ({
 }
 
 // Funciones de construcción de opciones predefinidas
-const buildCartesianChartOptions = ({
-	labelsContainerID,
-	// aspectRatio = chartSettings[CHARTS_SETTINGS.ASPECT_RATIO],
-	labelsDisplay = chartSettings[CHARTS_SETTINGS.LABEL_COLUMNS],
-	labelsList = chartSettings[CHARTS_SETTINGS.LABELS_LIST],
-	legendBox = chartSettings[CHARTS_SETTINGS.LEGEND_BOX],
-	transposed
-}) => {
-	// Inicialización del objeto a retornar
-	let options = {}
-
-	// Inversión de los ejes X y Y si se indica la transposición
-	options.indexAxis = transposed ? 'y' : 'x'
-
-	// Inicialización de atributos preestablecidos de opciones
-	options.scales = {}
-	options.scales.x = {}
-	options.scales.y = {}
-	options.scales.x.ticks = {}
-	options.scales.y.ticks = {}
-	options.scales.x.grid = { color: undefined }
-	options.scales.y.grid = { color: undefined }
-	options.font = { color: midTransparentBlack }
-
-	// Configuración de relación de aspecto
-	// options.aspectRatio = aspectRatio
-	options.maintainAspectRatio = false
-
-	// Integración del plug-in de etiquetas
-	options = setPlugInsConfig({
-		options,
-		labelsContainerID,
-		labelsDisplay,
-		labelsList,
-		legendBox
-	})
-
-	// Retorno del objeto de configuración
-	return options
-}
 const buildBubbleChartOptions = ({
 	series,
 	labelsContainerID,
-	aspectRatio = chartSettings[CHARTS_SETTINGS.ASPECT_RATIO],
-	labelsDisplay = chartSettings[CHARTS_SETTINGS.LABEL_COLUMNS],
-	labelsList = chartSettings[CHARTS_SETTINGS.LABELS_LIST],
-	legendBox = chartSettings[CHARTS_SETTINGS.LEGEND_BOX],
-	transposed
+	[CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay = chartSettings[
+		CHARTS_SETTINGS.LABEL_COLUMNS
+	],
+	[CHARTS_SETTINGS.LABELS_LIST]: labelsList = chartSettings[
+		CHARTS_SETTINGS.LABELS_LIST
+	],
+	[CHARTS_SETTINGS.LEGEND_BOX]: legendBox = chartSettings[
+		CHARTS_SETTINGS.LEGEND_BOX
+	],
+	[CHARTS_SETTINGS.TRANSPOSED]: transposed
 }) => {
 	// Inicialización del objeto a retornar
 	let options = {}
@@ -200,7 +173,7 @@ const buildBubbleChartOptions = ({
 	options.font = { color: midTransparentBlack }
 
 	// Configuración de relación de aspecto
-	options.aspectRatio = aspectRatio
+	options.maintainAspectRatio = false
 
 	// Obtención de los valores de tamaño
 	const radiusValues = series.datasets[0].data.map(values => values._custom)
@@ -221,12 +194,61 @@ const buildBubbleChartOptions = ({
 	// Retorno del objeto de configuración
 	return options
 }
+const buildCartesianChartOptions = ({
+	labelsContainerID,
+	[CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay = chartSettings[
+		CHARTS_SETTINGS.LABEL_COLUMNS
+	],
+	[CHARTS_SETTINGS.LABELS_LIST]: labelsList = chartSettings[
+		CHARTS_SETTINGS.LABELS_LIST
+	],
+	[CHARTS_SETTINGS.LEGEND_BOX]: legendBox = chartSettings[
+		CHARTS_SETTINGS.LEGEND_BOX
+	],
+	[CHARTS_SETTINGS.TRANSPOSED]: transposed
+}) => {
+	// Inicialización del objeto a retornar
+	let options = {}
+
+	// Inversión de los ejes X y Y si se indica la transposición
+	options.indexAxis = transposed ? 'y' : 'x'
+
+	// Inicialización de atributos preestablecidos de opciones
+	options.scales = {}
+	options.scales.x = {}
+	options.scales.y = {}
+	options.scales.x.ticks = {}
+	options.scales.y.ticks = {}
+	options.scales.x.grid = { color: undefined }
+	options.scales.y.grid = { color: undefined }
+	options.font = { color: midTransparentBlack }
+
+	// Configuración de relación de aspecto
+	options.maintainAspectRatio = false
+
+	// Integración del plug-in de etiquetas
+	options = setPlugInsConfig({
+		options,
+		labelsContainerID,
+		labelsDisplay,
+		labelsList,
+		legendBox
+	})
+
+	// Retorno del objeto de configuración
+	return options
+}
 const buildRadialChartOptions = ({
 	labelsContainerID,
-	aspectRatio = chartSettings[CHARTS_SETTINGS.ASPECT_RATIO],
-	labelsDisplay = chartSettings[CHARTS_SETTINGS.LABEL_COLUMNS],
-	labelsList = chartSettings[CHARTS_SETTINGS.LABELS_LIST],
-	legendBox = chartSettings[CHARTS_SETTINGS.LEGEND_BOX]
+	[CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay = chartSettings[
+		CHARTS_SETTINGS.LABEL_COLUMNS
+	],
+	[CHARTS_SETTINGS.LABELS_LIST]: labelsList = chartSettings[
+		CHARTS_SETTINGS.LABELS_LIST
+	],
+	[CHARTS_SETTINGS.LEGEND_BOX]: legendBox = chartSettings[
+		CHARTS_SETTINGS.LEGEND_BOX
+	]
 }) => {
 	// Inicialización del objeto a retornar
 	let options = {}
@@ -243,7 +265,7 @@ const buildRadialChartOptions = ({
 	options.font = { color: midTransparentBlack }
 
 	// Configuración de relación de aspecto
-	options.aspectRatio = aspectRatio
+	options.maintainAspectRatio = false
 
 	// Integración del plug-in de etiquetas
 	options = setPlugInsConfig({
@@ -259,10 +281,15 @@ const buildRadialChartOptions = ({
 }
 const buildRadarChartOptions = ({
 	labelsContainerID,
-	aspectRatio = chartSettings[CHARTS_SETTINGS.ASPECT_RATIO],
-	labelsDisplay = chartSettings[CHARTS_SETTINGS.LABEL_COLUMNS],
-	labelsList = chartSettings[CHARTS_SETTINGS.LABELS_LIST],
-	legendBox = chartSettings[CHARTS_SETTINGS.LEGEND_BOX]
+	[CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay = chartSettings[
+		CHARTS_SETTINGS.LABEL_COLUMNS
+	],
+	[CHARTS_SETTINGS.LABELS_LIST]: labelsList = chartSettings[
+		CHARTS_SETTINGS.LABELS_LIST
+	],
+	[CHARTS_SETTINGS.LEGEND_BOX]: legendBox = chartSettings[
+		CHARTS_SETTINGS.LEGEND_BOX
+	]
 }) => {
 	// Inicialización del objeto a retornar
 	let options = {}
@@ -283,7 +310,7 @@ const buildRadarChartOptions = ({
 	options.font = { color: midTransparentBlack }
 
 	// Configuración de relación de aspecto
-	options.aspectRatio = aspectRatio
+	options.maintainAspectRatio = false
 
 	// Integración del plug-in de etiquetas
 	options = setPlugInsConfig({
@@ -302,9 +329,9 @@ const buildRadarChartOptions = ({
 const formatScatterChartLabels = ({
 	series,
 	options,
-	xAxisFormat,
-	yAxisFormat,
-	transposed
+	[CHARTS_SETTINGS.X_AXIS_FORMAT]: xAxisFormat,
+	[CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat,
+	[CHARTS_SETTINGS.TRANSPOSED]: transposed
 }) => {
 	// Inicialización de las funciones formateadoras
 	let xLabelsFormatter
@@ -355,9 +382,9 @@ const formatScatterChartLabels = ({
 const formatCartesianChartLabels = ({
 	series,
 	options,
-	xAxisFormat,
-	yAxisFormat,
-	transposed
+	[CHARTS_SETTINGS.X_AXIS_FORMAT]: xAxisFormat,
+	[CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat,
+	[CHARTS_SETTINGS.TRANSPOSED]: transposed
 }) => {
 	let yLabelsFormatter
 	let xLabelsFormatter
@@ -407,8 +434,8 @@ const formatRadialChartsLabels = ({ series, options }) => {
 const formatRadarChartLabels = ({
 	series,
 	options,
-	xAxisFormat,
-	yAxisFormat
+	[CHARTS_SETTINGS.X_AXIS_FORMAT]: xAxisFormat,
+	[CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat
 }) => {
 	// Definción del formateador de etiquetas numéricas
 	if (yAxisFormat) {
@@ -430,9 +457,9 @@ const formatRadarChartLabels = ({
 
 // Funciones de formateo en tooltip
 const formatBubbleChartTooltip = ({
-	xAxisFormat,
-	yAxisFormat,
-	zAxisFormat
+	[CHARTS_SETTINGS.X_AXIS_FORMAT]: xAxisFormat,
+	[CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat,
+	[CHARTS_SETTINGS.Z_AXIS_FORMAT]: zAxisFormat
 }) => {
 	// Generación de función con el tipo de valor a formatear
 	return context => {
@@ -456,7 +483,10 @@ const formatBubbleChartTooltip = ({
 		return label
 	}
 }
-const formatScatterChartTooltip = ({ xAxisFormat, yAxisFormat }) => {
+const formatScatterChartTooltip = ({
+	[CHARTS_SETTINGS.X_AXIS_FORMAT]: xAxisFormat,
+	[CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat
+}) => {
 	// Generación de función con el tipo de valor a formatear
 	return context => {
 		// Se inicializa el contenedor de la etiqueta
@@ -477,7 +507,9 @@ const formatScatterChartTooltip = ({ xAxisFormat, yAxisFormat }) => {
 		return label
 	}
 }
-const formatCartesianChartTooltip = ({ yAxisFormat }) => {
+const formatCartesianChartTooltip = ({
+	[CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat
+}) => {
 	// Generación de función con el tipo de valor a formatear
 	return context => {
 		// Inicialización del eje de valores numéricos
@@ -504,7 +536,9 @@ const formatCartesianChartTooltip = ({ yAxisFormat }) => {
 		return label
 	}
 }
-const formatCircularChartTooltip = ({ yAxisFormat }) => {
+const formatCircularChartTooltip = ({
+	[CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat
+}) => {
 	// Generación de función con el tipo de valor a formatear
 	return context => {
 		// Se inicializa el contenedor de la etiqueta
@@ -521,7 +555,9 @@ const formatCircularChartTooltip = ({ yAxisFormat }) => {
 		return label
 	}
 }
-const formatRadialChartTooltip = ({ yAxisFormat }) => {
+const formatRadialChartTooltip = ({
+	[CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat
+}) => {
 	// Generación de función con el tipo de valor a formatear
 	return context => {
 		// Se inicializa el contenedor de la etiqueta
@@ -790,13 +826,14 @@ const avoidYAxisCut = ({ chartType, series, options }) => {
 	// Iteración por cada conjunto de datos de la gráfica
 	series.datasets.forEach(
 		// Iteración por cada valor de cada conjunto de datos
-		dataset =>
+		dataset => {
 			dataset.data.forEach(value => {
 				// Búsqueda del número menor
 				if (value < minNumber) {
 					minNumber = value
 				}
 			})
+		}
 	)
 
 	// Asignación de la etiqueta mínima en el eje Y en 0 si el número menor no es negativo
@@ -847,11 +884,11 @@ const mapColors = ({ series, colors, colorType }) => {
 
 export const mapColorsOnSeries = ({
 	series,
-	chartType,
-	backgroundColors,
-	backgroundOpacity,
-	borderColors,
-	borderOpacity
+	[CHARTS_SETTINGS.CHART_TYPE]: chartType,
+	[CHARTS_SETTINGS.BACKGROUND_COLORS]: backgroundColors,
+	[CHARTS_SETTINGS.BACKGROUND_OPACITY]: backgroundOpacity,
+	[CHARTS_SETTINGS.BORDER_COLORS]: borderColors,
+	[CHARTS_SETTINGS.BORDER_OPACITY]: borderOpacity
 }) => {
 	// Validación de tipos de gráfica
 	const isPolarArea = chartType === CHART_TYPES.POLARAREA
@@ -888,26 +925,32 @@ export const mapColorsOnSeries = ({
 	return series
 }
 
-export const scaleAxes = ({ chartType, series, options }) => {
-	// Prevención de corte en el eje Y
-	options = avoidYAxisCut({ chartType, series, options })
+export const scaleAxes = ({
+	series,
+	options,
+	[CHARTS_SETTINGS.CHART_TYPE]: chartType
+}) => {
+	if (chartType === CHART_TYPES.LINE || chartType === CHART_TYPES.RADAR) {
+		// Prevención de corte en el eje Y
+		options = avoidYAxisCut({ chartType, series, options })
+	}
 
 	return options
 }
 
 export const formatTooltip = ({
-	chartType,
 	options,
-	xAxisFormat,
-	yAxisFormat,
-	zAxisFormat
+	[CHARTS_SETTINGS.CHART_TYPE]: chartType,
+	[CHARTS_SETTINGS.X_AXIS_FORMAT]: xAxisFormat,
+	[CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat,
+	[CHARTS_SETTINGS.Z_AXIS_FORMAT]: zAxisFormat
 }) => {
 	// Inicialización de las variables
 	options.plugins.tooltip.callbacks = {}
 	options.plugins.tooltip.callbacks.label = formatTooltips[chartType]({
-		xAxisFormat,
-		yAxisFormat,
-		zAxisFormat
+		[CHARTS_SETTINGS.X_AXIS_FORMAT]: xAxisFormat,
+		[CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat,
+		[CHARTS_SETTINGS.Z_AXIS_FORMAT]: zAxisFormat
 	})
 
 	// Retorno del objeto contenedor de opciones

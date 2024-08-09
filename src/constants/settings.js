@@ -19,8 +19,6 @@ export const CHARTS_SETTINGS = {
     BORDER_COLORS: "borderColors",
     // Opacidad de colores de borde
     BORDER_OPACITY: "borderOpacity",
-    // Relación de aspecto
-    ASPECT_RATIO: "aspectRatio",
     // Formateo de etiquetas en el eje X
     X_AXIS_FORMAT: "xAxisFormat",
     // Tipo de valor en el eje Y

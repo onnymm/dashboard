@@ -12,8 +12,6 @@ export const chartSettings = {
     [CHARTS_SETTINGS.LABELS_LIST]: 'default',
     // Forma del indicador de etiqueta
     [CHARTS_SETTINGS.LEGEND_BOX]: 'rounded',
-    // Relación de aspecto
-    [CHARTS_SETTINGS.ASPECT_RATIO]: 1.5,
     // Tamaño mínimo de elementos de burbuja
     [CHARTS_SETTINGS.MIN_BUBBLE_SIZE]: 2,
     // Tamaño máximo de elementos de burbuja
