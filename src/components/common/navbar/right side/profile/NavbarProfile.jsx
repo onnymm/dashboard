@@ -1,7 +1,7 @@
 import { lazy, Suspense, useState } from 'react'
-import { useClickOutside } from '../../../../custom hooks/useClickOutside'
-import Avatar from '../../../ui kit/Avatar'
-import FallbackProfileNavList from './FallbackProfileNavList'
+import { useClickOutside } from '../../../../../custom hooks/useClickOutside'
+import FallbackProfileNavList from '../../../../skeletons/FallbackProfileNavList'
+import Avatar from '../../../../ui kit/Avatar'
 const ProfileNavList = lazy(() => import('./ProfileNavList'))
 
 const NavbarProfile = ({ name, occupation, avatarSource }) => {
@@ -18,7 +18,7 @@ const NavbarProfile = ({ name, occupation, avatarSource }) => {
 	let domNode = useClickOutside(() => setIsActive(false))
 
 	return (
-		<div className='duration-dark relative flex items-center transition-colors dark:text-white sm:gap-1'>
+		<div className='relative flex items-center transition-colors duration-dark dark:text-white sm:gap-1'>
 			{/* Nombre y ocupación */}
 			<div className='hidden px-1 text-right lg:block'>
 				<span className='block text-sm opacity-80'>{name}</span>

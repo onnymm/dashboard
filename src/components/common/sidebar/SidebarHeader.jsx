@@ -1,10 +1,10 @@
 import { ArrowLeftIcon } from '@heroicons/react/16/solid'
 import { useContext } from 'react'
-import { AppContext } from '../../contexts/AppContexts'
-import { SidebarContext } from '../../contexts/SidebarContext'
-import { useScreenWidth } from '../../custom hooks/useScreenWidth'
-import { thresholdForWideScreen } from '../../data/appConfig'
-import LogoLink from '../ui kit/LogoLink'
+import { AppContext } from '../../../contexts/AppContexts'
+import { SidebarContext } from '../../../contexts/SidebarContext'
+import { useScreenWidth } from '../../../custom hooks/useScreenWidth'
+import { thresholdForWideScreen } from '../../../data/appConfig'
+import LogoLink from '../../ui kit/LogoLink'
 
 const SidebarHeader = () => {
 	const { isOpen, setIsOpen } = useContext(SidebarContext)

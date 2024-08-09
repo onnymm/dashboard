@@ -2,7 +2,7 @@ import {
 	BellIcon,
 	ChatBubbleOvalLeftEllipsisIcon
 } from '@heroicons/react/24/outline'
-import { MESSAGES, NOTIFICATIONS } from '../../../data/appConfig'
+import { MESSAGES, NOTIFICATIONS } from '../../../../data/appConfig'
 import ActionButton from './action buttons/ActionButton'
 import NavbarProfile from './profile/NavbarProfile'
 

@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import App from './App'
-import { FallbackFeed } from './components/feed/FallbackFeed'
+import { FallbackFeed } from './components/skeletons/FallbackFeed'
 import { appLoader } from './data/appLoader'
 import ErrorPage from './routes/error components/ErrorPage'
 

@@ -5,12 +5,12 @@ import {
 	UserIcon
 } from '@heroicons/react/24/outline'
 import { useContext } from 'react'
-import { AppContext } from '../../contexts/AppContexts'
-import { SidebarContext } from '../../contexts/SidebarContext'
-import { DASHBOARD_LINKS, TASKS_LINKS } from '../../data/appConfig'
-import List from '../ui kit/List'
-import LockToggle from '../ui kit/LockToggle'
-import StickySectionTag from '../ui kit/StickySectionTag'
+import { AppContext } from '../../../contexts/AppContexts'
+import { SidebarContext } from '../../../contexts/SidebarContext'
+import { DASHBOARD_LINKS, TASKS_LINKS } from '../../../data/appConfig'
+import List from '../../ui kit/List'
+import LockToggle from '../../ui kit/LockToggle'
+import StickySectionTag from '../../ui kit/StickySectionTag'
 import SidebarDropdown from './SidebarDropdown'
 import SidebarSection from './SidebarSection'
 

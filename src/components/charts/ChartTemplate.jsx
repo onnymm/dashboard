@@ -12,7 +12,7 @@ import {
 import { getChartData } from '../../api/get'
 import { CHART_TYPES } from '../../constants/charts'
 import { buildData } from '../../utils/utils'
-import FallbackChart from './FallbackChart'
+import FallbackChart from '../skeletons/FallbackChart'
 
 const ChartTemplate = ({ chartData, labelsContainerID }) => {
 	// Estado para carga inicial de los datos

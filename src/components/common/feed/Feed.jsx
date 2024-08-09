@@ -1,8 +1,8 @@
 import { useContext } from 'react'
 import { Outlet } from 'react-router-dom'
-import { AppContext } from '../../contexts/AppContexts'
-import { useScreenWidth } from '../../custom hooks/useScreenWidth'
-import { thresholdForWideScreen } from '../../data/appConfig'
+import { AppContext } from '../../../contexts/AppContexts'
+import { useScreenWidth } from '../../../custom hooks/useScreenWidth'
+import { thresholdForWideScreen } from '../../../data/appConfig'
 
 const Feed = () => {
 	const { sidebarIsLocked } = useContext(AppContext)
@@ -10,7 +10,7 @@ const Feed = () => {
 
 	return (
 		<div
-			className='duration-dark flex w-full overflow-y-auto bg-slate-100 transition dark:bg-feed-background-d'
+			className='flex w-full overflow-y-auto bg-slate-100 transition duration-dark dark:bg-feed-background-d'
 			style={{
 				height: 'calc(100% - 5rem)'
 				// El cálculo de height es para considerar la altura de la navbar

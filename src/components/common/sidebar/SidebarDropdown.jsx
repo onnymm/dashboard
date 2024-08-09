@@ -1,8 +1,8 @@
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import DropdownLink from '../ui kit/DropdownLink'
-import List from '../ui kit/List'
+import DropdownLink from '../../ui kit/DropdownLink'
+import List from '../../ui kit/List'
 
 const SidebarDropdown = ({
 	icon: Icon,

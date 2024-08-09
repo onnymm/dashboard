@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from 'react'
 import { Form, useLoaderData } from 'react-router-dom'
-import { AppContext } from '../../../contexts/AppContexts'
-import { useClickOutside } from '../../../custom hooks/useClickOutside'
-import { useScreenWidth } from '../../../custom hooks/useScreenWidth'
-import { thresholdForWideScreen } from '../../../data/appConfig'
-import SearchIcon from '../../ui kit/SearchIcon'
+import { AppContext } from '../../../../contexts/AppContexts'
+import { useClickOutside } from '../../../../custom hooks/useClickOutside'
+import { useScreenWidth } from '../../../../custom hooks/useScreenWidth'
+import { thresholdForWideScreen } from '../../../../data/appConfig'
+import SearchIcon from '../../../ui kit/SearchIcon'
 
 const NavbarSearch = () => {
 	const { search: initialSearch } = useLoaderData()

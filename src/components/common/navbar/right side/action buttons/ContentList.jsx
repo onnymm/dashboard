@@ -1,7 +1,7 @@
-import { capitalizeFirstLetter } from '../../../../utils/utils'
-import List from '../../../ui kit/List'
-import Message from '../../../ui kit/Message'
-import Notification from '../../../ui kit/Notification'
+import { capitalizeFirstLetter } from '../../../../../utils/utils'
+import List from '../../../../ui kit/List'
+import Message from '../../../../ui kit/Message'
+import Notification from '../../../../ui kit/Notification'
 
 const FORMAT_LIST = { messages: Message, notifications: Notification }
 

@@ -1,11 +1,11 @@
 import { useContext, useState } from 'react'
-import { AppContext } from '../../../contexts/AppContexts'
-import { SidebarContext } from '../../../contexts/SidebarContext'
-import { useClickOutside } from '../../../custom hooks/useClickOutside'
-import { useScreenWidth } from '../../../custom hooks/useScreenWidth'
-import { thresholdForWideScreen } from '../../../data/appConfig'
+import { AppContext } from '../../../../contexts/AppContexts'
+import { SidebarContext } from '../../../../contexts/SidebarContext'
+import { useClickOutside } from '../../../../custom hooks/useClickOutside'
+import { useScreenWidth } from '../../../../custom hooks/useScreenWidth'
+import { thresholdForWideScreen } from '../../../../data/appConfig'
+import Bars3Button from '../../../ui kit/Bars3Button'
 import Sidebar from '../../sidebar/Sidebar'
-import Bars3Button from '../../ui kit/Bars3Button'
 
 /*
 El componente se contiene dentro de la navbar

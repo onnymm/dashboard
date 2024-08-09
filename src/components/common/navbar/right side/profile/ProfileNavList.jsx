@@ -1,6 +1,6 @@
-import { PROFILE_LINKS } from '../../../../data/appConfig'
-import List from '../../../ui kit/List'
-import ProfileLink from '../../../ui kit/ProfileLink'
+import { PROFILE_LINKS } from '../../../../../data/appConfig'
+import List from '../../../../ui kit/List'
+import ProfileLink from '../../../../ui kit/ProfileLink'
 
 const ProfileNavList = handleContentClick => {
 	return (
