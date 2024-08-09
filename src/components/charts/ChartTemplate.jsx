@@ -12,6 +12,7 @@ import {
 import { getChartData } from '../../api/get'
 import { CHART_TYPES } from '../../constants/charts'
 import { buildData } from '../../utils/utils'
+import FallbackChart from './FallbackChart'
 
 const ChartTemplate = ({ chartData, labelsContainerID }) => {
 	// Estado para carga inicial de los datos
@@ -94,7 +95,7 @@ const ChartTemplate = ({ chartData, labelsContainerID }) => {
 		)
 		// Indicación de carga inicial en caso de no haber cargado datos aún
 	} else {
-		return <div>Cargando...</div>
+		return <FallbackChart />
 	}
 }
 

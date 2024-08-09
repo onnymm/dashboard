@@ -17,7 +17,7 @@ const SidebarHeader = () => {
 
 	return (
 		<div
-			className={`${isOpen ? 'opacity-100 delay-200 duration-300' : 'opacity-0'} flex h-20 justify-between p-4 text-white transition-opacity`}
+			className={`${isOpen ? 'opacity-100 delay-[200ms] duration-300' : 'opacity-0 duration-75'} flex h-20 justify-between p-4 text-white transition-opacity`}
 		>
 			{/* Logotipo/link a la página principal */}
 			<LogoLink handleClick={handleCloseSidebar} imgSource='./logo.webp'>

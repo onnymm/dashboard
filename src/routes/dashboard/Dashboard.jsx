@@ -54,7 +54,7 @@ const Dashboard = () => {
 				{dashboardData.charts.map((chartData, index) => (
 					<div
 						key={index}
-						className={`${REACTIVE_COLSPAN_PRESETS[6]} flex h-96 rounded-sm bg-white p-5 shadow-md transition duration-300 dark:bg-navbar-background-d`}
+						className={`${REACTIVE_COLSPAN_PRESETS[6]} duration-dark flex h-96 rounded-sm bg-white p-5 shadow-md transition-colors dark:bg-navbar-background-d`}
 					>
 						<ChartTemplate
 							chartData={chartData}

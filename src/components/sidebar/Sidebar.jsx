@@ -24,7 +24,7 @@ const Sidebar = () => {
 			<aside
 				className={`${isOpen ? 'translate-x-0' : '-translate-x-72'} fixed z-99 flex h-screen w-72 flex-col overflow-x-hidden bg-sidebar-background px-2 pb-2`}
 				style={{
-					transition: 'transform 500ms, background-color 100ms'
+					transition: 'transform 400ms, background-color 100ms'
 				}}
 			>
 				<SidebarHeader />

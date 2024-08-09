@@ -14,7 +14,7 @@ const Navbar = () => {
 					<div className='relative flex'>
 						{/* Logotipo/link a la página principal */}
 						<LogoLink imgSource='./logo.webp' extraStyles='dark:text-white'>
-							<h1 className='hidden transition duration-300 sm:block'>
+							<h1 className='duration-dark hidden transition-colors sm:block'>
 								iaCele
 							</h1>
 						</LogoLink>
