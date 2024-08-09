@@ -22,7 +22,7 @@ const GridItem = ({ icon: Icon, amount, label, percent, gain }) => {
 			? 'text-green-600'
 			: gain === false
 				? 'text-red-600'
-				: 'dark:text-white opacity-70'
+				: 'dark:text-white opacity-70 transition-all duration-dark'
 
 	return (
 		<div
