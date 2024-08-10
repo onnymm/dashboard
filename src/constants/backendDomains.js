@@ -1,3 +1,3 @@
-export const domains = {
-    localDomain: "http://192.168.1.89:8000/"
+export const DOMAINS = {
+    LOCAL_DOMAIN: "http://192.168.1.83:8000/"
 }

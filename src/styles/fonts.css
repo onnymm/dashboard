@@ -1,6 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 body {
 	font-family: 'Sora', sans-serif;
+}
+
+input[type='search']::-webkit-search-cancel-button {
+	-webkit-appearance: none;
+	height: 16px;
+	width: 16px;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M13.41 12l5.29-5.29a1 1 0 10-1.41-1.41L12 10.59 6.71 5.29A1 1 0 005.29 6.71L10.59 12l-5.29 5.29a1 1 0 101.41 1.41L12 13.41l5.29 5.29a1 1 0 101.41-1.41L13.41 12z'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+}
+
+.dark input[type='search']::-webkit-search-cancel-button {
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M13.41 12l5.29-5.29a1 1 0 10-1.41-1.41L12 10.59 6.71 5.29A1 1 0 005.29 6.71L10.59 12l-5.29 5.29a1 1 0 101.41 1.41L12 13.41l5.29 5.29a1 1 0 101.41-1.41L13.41 12z'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
 }

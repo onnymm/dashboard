@@ -1,19 +1,41 @@
+import { useContext, useEffect } from 'react'
+import { AppContext } from '../../contexts/AppContexts'
+import { SidebarContext } from '../../contexts/SidebarContext'
+import { useScreenWidth } from '../../custom hooks/useScreenWidth'
+import { thresholdForWideScreen } from '../../data/appConfig'
 import SidebarContent from './SidebarContent'
+import SidebarHeader from './SidebarHeader'
 
-const Sidebar = ({ isOpen }) => {
+const Sidebar = () => {
+	const { isOpen, setIsOpen } = useContext(SidebarContext)
+	const { sidebarIsLocked: isLocked } = useContext(AppContext)
+	const screenIsWide = useScreenWidth(thresholdForWideScreen)
+
+	useEffect(() => {
+		if (isLocked && screenIsWide && !isOpen) {
+			!isOpen && setIsOpen(true)
+		}
+	}, [isLocked, screenIsWide, isOpen, setIsOpen])
+	// Si la sidebar no está bloqueada, y el tamaño de ventana es grande, y la sidebar no está abierta, se manda a abrir
+
 	return (
-		<aside
-			className={`${!isOpen ? '-translate-x-72' : 'translate-x-0'} z-40 fixed transition duration-500 flex flex-col h-screen w-72 select-none bg-sidebar-background dark:bg-sidebar-background-d`}
-		>
-			<div className='h-20 pl-20 flex items-center'>
-				<span
-					className={`${!isOpen ? 'opacity-0' : 'opacity-90'} transition-opacity ${!isOpen ? 'duration-50' : 'delay-300 duration-300'} text-white font-medium text-3xl`}
-				>
-					iacele
-				</span>
-			</div>
-			<SidebarContent />
-		</aside>
+		<div className='fixed z-99999 select-none'>
+			{/* Sidebar */}
+			<aside
+				className={`${isOpen ? 'translate-x-0' : '-translate-x-72'} fixed z-99 flex h-screen w-72 flex-col overflow-x-hidden bg-sidebar-background px-2 pb-2 transition duration-500`}
+			>
+				<SidebarHeader />
+				<SidebarContent />
+			</aside>
+			{/* Filtro oscuro */}
+			<div
+				className={`${isOpen && (!isLocked || !screenIsWide) ? 'opacity-20' : 'opacity-0'} pointer-events-none fixed z-9 h-screen w-screen bg-black transition duration-300`}
+			/>
+			{/* 
+			- Si la sidebar está abierta y está desbloqueada o la ventana es pequeña: opacidad-20
+			- Si está cerrada, bloqueada, o en pantalla completa: opacidad-0
+			*/}
+		</div>
 	)
 }
 

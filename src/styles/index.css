@@ -3,8 +3,9 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-	background-color: #ffffff;
+#root {
+	height: 100svh;
+	overflow-x: none;
 }
 
 .no-scrollbar::-webkit-scrollbar {

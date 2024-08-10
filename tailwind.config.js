@@ -9,7 +9,7 @@ export default {
 				'sidebar-background': '#162230',
 				'sidebar-section-hover': '#19293C',
 
-				'feed-background': '#CED7DD',
+				'feed-background': '#FFFFFF',
 
 				'navbar-background': '#FFFFFF',
 				'navbar-icons-hover': '#4855F7',
@@ -29,10 +29,29 @@ export default {
 				'darkmode-switch-background-d': '#16212C'
 			},
 			width: {
-				18: '4.5rem'
+				18: '4.5rem',
+				54: '13.5rem',
+				50: '12.5rem'
+			},
+			maxWidth: {
+				'feed-width': '100rem'
 			},
 			height: {
 				4000: '4000px'
+			},
+			margin: {
+				17: '4.25rem'
+			},
+			rotate: {
+				50: '50deg'
+			},
+			zIndex: {
+				1: '1',
+				9: '9',
+				99: '99',
+				999: '999',
+				9999: '9999',
+				99999: '99999'
 			},
 			boxShadow: {
 				back: '0px 0px 5px 1px rgba(0, 0, 0, 0.2)',
@@ -58,13 +77,69 @@ export default {
 						transform: 'translateY(0)',
 						boxShadow: '0px 1.5px 2px 1px rgba(0, 0, 0, 0.2)'
 					}
+				},
+				hideAndUnmount: {
+					'0%': {
+						opacity: '1'
+					},
+					'100%': {
+						opacity: '0',
+						display: 'none'
+					}
+				},
+				mountAndUnhide: {
+					'0%': {
+						opacity: '0'
+					},
+					'100%': {
+						opacity: '1',
+						display: 'block'
+					}
+				},
+				shrinkGrow: {
+					'0%': {
+						transform: 'scale(1)'
+					},
+					'50%': {
+						transform: 'scale(0.9)'
+					},
+					'100%': {
+						transform: 'scale(1)'
+					}
+				},
+				shrinkGrowSmall: {
+					'0%': {
+						transform: 'scale(1)'
+					},
+					'50%': {
+						transform: 'scale(0.75)'
+					},
+					'100%': {
+						transform: 'scale(1)'
+					}
+				},
+				fadeGrowIn: {
+					'0%': { opacity: '0', transform: 'scale(0.95)' },
+					'100%': { opacity: '1', transform: 'scale(1)' }
+				},
+				fadeShrinkOut: {
+					'0%': { opacity: '1', transform: 'scale(1)' },
+					'100%': { opacity: '0', transform: 'scale(0.95)' }
 				}
 			},
 			animation: {
-				'button-click': 'click 0.35s ease-in-out'
+				'button-click': 'click 0.35s ease-in-out',
+				'hide-unmount': 'hideAndUnmount 0.3s forwards',
+				'mount-unhide': 'mountAndUnhide 0.3s forwards',
+				'avatar-click': 'shrinkGrow 0.25s ease',
+				'bars3-click': 'shrinkGrowSmall 0.15s ease',
+				'bars3-click-sm': 'shrinkGrowSmall 0.25s ease',
+				'fade-grow-in': 'fadeGrowIn 0.1s ease-out forwards',
+				'fade-shrink-out': 'fadeShrinkOut 0.1s ease-in forwards'
 			},
 			transitionProperty: {
-				width: 'width'
+				width: 'width',
+				height: 'height'
 			}
 		}
 	},
