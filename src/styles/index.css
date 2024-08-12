@@ -20,3 +20,9 @@
 .bell-icon-animation {
 	animation: translateYAnimation 0.2s ease-in-out;
 }
+
+@layer utilities {
+	.scrollbar-hide::-webkit-scrollbar {
+		display: none;
+	}
+}
