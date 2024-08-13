@@ -11,7 +11,7 @@ import { CHARTS_SETTINGS } from '../constants/settings'
 export const defaultDomain = 'localdomain'
 
 // Configuración de las gráficas
-export const dashboardData = {
+export const homepageCharts = {
 	charts: [
 		{
 			[CHARTS_SETTINGS.ENDPOINT]: 'quotation_amounts',
@@ -251,7 +251,6 @@ export const PROFILE_LINKS = [
 	}
 ]
 
-/* SIDEBAR */
 // Enlaces del dropdown "dashboard"
 export const DASHBOARD_LINKS = [
 	{
