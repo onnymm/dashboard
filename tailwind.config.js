@@ -2,6 +2,10 @@
 export default {
 	content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
 	darkMode: 'class',
+	safelist: [
+		"rounded-l-lg",
+		"rounded-r-lg",
+	],
 	theme: {
 		extend: {
 			colors: {
