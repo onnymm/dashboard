@@ -3,15 +3,14 @@ import { createBrowserRouter } from 'react-router-dom'
 import App from './App'
 import { FallbackFeed } from './components/skeletons/FallbackFeed'
 import { appLoader } from './data/appLoader'
-import ErrorPage from './routes/error components/ErrorPage'
+import ErrorPage from './routes/ErrorPage'
 
-const Dashboard = lazy(() => import('./routes/dashboard/Dashboard'))
-const Homepage = lazy(() => import('./routes/homepage/Homepage'))
-const Analytics = lazy(() => import('./routes/analytics/Analytics'))
-const Ecommerce = lazy(() => import('./routes/ecommerce/Ecommerce'))
-const Profile = lazy(() => import('./routes/profile/Profile'))
-const ToDo = lazy(() => import('./routes/to do/ToDo'))
-const UiTests = lazy(() => import('./routes/ui tests/UiTests'))
+const Homepage = lazy(() => import('./routes/Homepage'))
+const Analytics = lazy(() => import('./routes/Analytics'))
+const Ecommerce = lazy(() => import('./routes/Ecommerce'))
+const Profile = lazy(() => import('./routes/Profile'))
+const ToDo = lazy(() => import('./routes/ToDo'))
+const UiTests = lazy(() => import('./routes/UiTests'))
 
 const router = createBrowserRouter([
 	{
@@ -67,14 +66,6 @@ const router = createBrowserRouter([
 						element: (
 							<Suspense fallback={<FallbackFeed />}>
 								<UiTests />
-							</Suspense>
-						)
-					},
-					{
-						path: 'dashboard',
-						element: (
-							<Suspense fallback={<FallbackFeed />}>
-								<Dashboard />
 							</Suspense>
 						)
 					},
