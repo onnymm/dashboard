@@ -45,6 +45,7 @@ const useSortingColumns = (columns) => {
 
     }
     
+    // Retorno de estados y función de cambio de estado
     return [sortingColumns, setSortingColumn, sortingColumnName];
 }
 

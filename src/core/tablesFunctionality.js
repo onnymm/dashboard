@@ -40,7 +40,35 @@ export const sortTableData = (data, sortingColumns, sortingColumnName, tableID) 
     const tableElement = document.getElementById(tableID);
     tableElement.scrollTo(0, 0);
     
-
     // Retorno de la colección de datos ordenada
     return data;
+}
+
+export const paginateData = (data, itemsPerPage) => {
+    // Cálculo de páginas de la información
+    const pagesQty = Math.trunc(data.length / itemsPerPage) + (data % itemsPerPage === 0 ? 0 : 1)
+
+    // Páginas de datos
+    const paginatedData = []
+    
+    for ( let i = 0; i < pagesQty; i++ ) {
+
+        // Espacio para la página
+        const page = []
+
+        // Inicio de índice de paginación
+        const indexStart = paginatedData.length * itemsPerPage;
+        // Fin de índice de paginación
+        const indexEnd = ((paginatedData.length + 1) * itemsPerPage)
+
+        for ( let j = indexStart; j < indexEnd && j < data.length; j++ ) {
+            // Adición de objeto a la página actual
+            page.push(data[j])
+        }
+
+        // Adición de la página al contenedor de páginas
+        paginatedData.push(page)
+    }
+
+    return paginatedData;
 }

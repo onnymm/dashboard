@@ -2,6 +2,7 @@ import TableColumn from "./TableColumn";
 
 const TableColumns = ({ columns, sortingColumns, setSortingColumn }) => {
     
+    // Inicialización de mapa de columnas
     const initColumnsMap = {}
     columns.forEach(
         (column) => {
