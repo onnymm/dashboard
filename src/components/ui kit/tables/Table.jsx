@@ -4,7 +4,7 @@ import TablePagination from "../../../test/TablePagination";
 import TableContent from "./elements/TableContent";
 
 const Table = ({
-    itemsPerPage = 20
+    itemsPerPage = 10
 }) => {
 
     // Carga de los datos
@@ -47,7 +47,7 @@ const Table = ({
                         <TableContent data={data} columns={columns} page={page} itemsPerPage={itemsPerPage} />
                     </div>
                 </div>
-                <TablePagination data={data} itemsPerPage={itemsPerPage} setPage={setPage} />
+                <TablePagination data={data} itemsPerPage={itemsPerPage} page={page} setPage={setPage} />
             </div>
         )
     }
