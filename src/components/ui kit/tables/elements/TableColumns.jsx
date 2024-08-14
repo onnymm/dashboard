@@ -1,6 +1,6 @@
 import TableColumn from "./TableColumn";
 
-const TableColumns = ({ columns, sortingColumns, setSortingColumn }) => {
+const TableColumns = ({ columns, sortingColumns, setSortingColumn, setPage }) => {
     
     // Inicialización de mapa de columnas
     const initColumnsMap = {}
@@ -26,6 +26,7 @@ const TableColumns = ({ columns, sortingColumns, setSortingColumn }) => {
                             isSorting={sortingColumns[column.name].isSorting}
                             ascending={sortingColumns[column.name].ascending}
                             setSortingColumn={setSortingColumn}
+                            setPage={setPage}
                         />
                     )
                 )

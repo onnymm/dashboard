@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getUsers } from "../../../api/get";
-import TablePagination from "../../../test/TablePagination";
 import TableContent from "./elements/TableContent";
+import TablePagination from "./pagination/TablePagination";
 
 const Table = ({
     itemsPerPage = 10
@@ -41,10 +41,10 @@ const Table = ({
             <div className="flex flex-col w-full p-4 gap-4">
                 <div className="w-auto flex flex-col p-2 shadow-md border rounded-xl h-64 bg-white">
                     <div className="rounded-lg h-0 z-10 pointer-events-none">
-                        <div className="w-full h-10 border border-gray-300 bottom-10 rounded-lg shadow-lg"></div>
+                        <div className="w-full h-10 border border-gray-300 bottom-10 rounded-lg shadow-md"></div>
                     </div>
                     <div id="users" className="w-full h-full flex flex-col rounded-lg scrollbar-hide overflow-y-scroll">
-                        <TableContent data={data} columns={columns} page={page} itemsPerPage={itemsPerPage} />
+                        <TableContent data={data} columns={columns} page={page} setPage={setPage} itemsPerPage={itemsPerPage} />
                     </div>
                 </div>
                 <TablePagination data={data} itemsPerPage={itemsPerPage} page={page} setPage={setPage} />
