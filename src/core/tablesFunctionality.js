@@ -72,3 +72,30 @@ export const paginateData = (data, itemsPerPage) => {
 
     return paginatedData;
 }
+
+export const getSmartPageSelector = (pages, currentPosition) => {
+    // Se retorna la matriz original si su tamaño es muy pequeño
+    if ( pages.length <= 7 ) return pages;
+
+    // Matriz a retornar
+    const pagesToShow = []
+
+    // Validación de si la posición actual es superior o igual a 4
+    const isSuperior = pages.slice(0, currentPosition).length >= 4;
+    // Validación de si la posición actual es inferior a los 4 últimos índices
+    const isInferior = pages.slice(currentPosition + 1, pages.length).length >= 4;
+
+    // Lista truncada en ambos extremos
+    if ( isSuperior && isInferior ) {
+        pagesToShow.push(0, "<", currentPosition - 1, currentPosition, currentPosition + 1, ">", pages.length -1 );
+    // Lista truncada en el extremo superior
+    } else if ( isSuperior ) {
+        pagesToShow.push(0, "<", pages.length - 5, pages.length - 4, pages.length - 3, pages.length - 2, pages.length -1 );
+    // Lista truncada en el extremo inferior
+    } else {
+        pagesToShow.push(0, 1, 2, 3, 4, ">", pages.length - 1);
+    }
+
+    // Retorno de la matriz de selección de páginas
+    return pagesToShow;
+}
