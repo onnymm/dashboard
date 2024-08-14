@@ -5,6 +5,10 @@ export default {
 	safelist: [
 		"rounded-l-lg",
 		"rounded-r-lg",
+		"bg-gray-200/70",
+		"hover:bg-gray-300/70",
+		"bg-blue-200/70",
+		"hover:bg-blue-300/70",
 	],
 	theme: {
 		extend: {
