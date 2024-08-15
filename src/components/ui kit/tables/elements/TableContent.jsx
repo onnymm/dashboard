@@ -2,7 +2,8 @@ import useSortingColumns from "../../../../custom hooks/useSortingColumns";
 import TableColumns from "./TableColumns";
 import TableData from "./TableData";
 
-const TableContent = ({data, columns, page, setPage, itemsPerPage}) => {
+const TableContent = ({data, columns, page, setPage, itemsPerPage, columnsToRender}) => {
+
     // Obtención de estados y función de cambio de estado para ordenamiento de datos
     const [sortingColumns, setSortingColumn, sortingColumnName] = useSortingColumns(columns);
 
@@ -15,6 +16,7 @@ const TableContent = ({data, columns, page, setPage, itemsPerPage}) => {
                     sortingColumns={sortingColumns}
                     setSortingColumn={setSortingColumn}
                     setPage={setPage}
+                    columnsToRender={columnsToRender}
                 />
             </thead>
 
@@ -24,6 +26,7 @@ const TableContent = ({data, columns, page, setPage, itemsPerPage}) => {
                 sortingColumnName={sortingColumnName}
                 page={page}
                 itemsPerPage={itemsPerPage}
+                columnsToRender={columnsToRender}
             />
 
         </table>

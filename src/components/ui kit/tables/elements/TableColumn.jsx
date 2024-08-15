@@ -2,15 +2,18 @@ import { roundTableHeader } from "../../../../core/tablesFunctionality";
 import SortingIndicator from "./SortingIndicator";
 import SortingDirection from "./SortingStatus";
 
-const TableColumn = ({ content, columns, column, isSorting, ascending, setSortingColumn, setPage }) => {
+const TableColumn = ({ content, columns, column, isSorting, ascending, setSortingColumn, setPage, canSort }) => {
+    
     // Color de fondo cuando la columna está ordenando la tabla
     const backgroundColor = isSorting ? "bg-blue" : "bg-gray"
 
     // Clases CSS para definición de redondeo de esquinas en el contenedor
     const rounded = roundTableHeader(column, columns, "name", "lg")
 
+    const hover = canSort ? `hover:${backgroundColor}-300/70 cursor-pointer` : "cursor-default"
+
     // Clases CSS estáticas
-    const staticClassNames = "p-2 backdrop-blur-sm font-light text-start align-middle cursor-pointer select-none transition-background duration-300"
+    const staticClassNames = "p-2 backdrop-blur-sm font-light text-start align-middle  select-none transition-background duration-300"
 
     // Contenido de la columna
     const ColumnContent = () => {
@@ -19,7 +22,12 @@ const TableColumn = ({ content, columns, column, isSorting, ascending, setSortin
                 {content}
 
                 {/* Ícono del estatus de orden */}
-                {isSorting ? <SortingDirection ascending={ascending} /> : <SortingIndicator />}
+                {
+                    canSort ?
+                        isSorting ? <SortingDirection ascending={ascending} /> : <SortingIndicator />
+                    :
+                        undefined
+                }
             </div>
         )
     }
@@ -32,9 +40,9 @@ const TableColumn = ({ content, columns, column, isSorting, ascending, setSortin
     // Retorno del elemento de columna de tabla
     return (
         <th
-            className={`${rounded} ${backgroundColor}-200/70 ${staticClassNames} hover:${backgroundColor}-300/70`}
+            className={`${rounded} ${backgroundColor}-200/70 ${hover} ${staticClassNames}`}
             role="columnheader"
-            onClick={sortData}
+            onClick={canSort ? sortData : null}
         >
             {
                 <ColumnContent />

@@ -1,7 +1,7 @@
 import { sortTableData } from "../../../../core/tablesFunctionality";
 import TableRow from "./TableRow";
 
-const TableData = ({ data, sortingColumns, sortingColumnName, page, itemsPerPage }) => {
+const TableData = ({ data, sortingColumns, sortingColumnName, page, itemsPerPage, columnsToRender }) => {
     // Ordenamiento de tabla
     data = sortTableData(data, sortingColumns, sortingColumnName, "users")
     // Paginación de la tabla
@@ -12,7 +12,7 @@ const TableData = ({ data, sortingColumns, sortingColumnName, page, itemsPerPage
             {
                 data.map(
                     (item, index) => (
-                        <TableRow key={index}>
+                        <TableRow key={index} columnsToRender={columnsToRender}>
                             {item}
                         </TableRow>
                     )

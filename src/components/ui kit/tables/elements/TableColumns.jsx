@@ -1,17 +1,6 @@
 import TableColumn from "./TableColumn";
 
-const TableColumns = ({ columns, sortingColumns, setSortingColumn, setPage }) => {
-    
-    // Inicialización de mapa de columnas
-    const initColumnsMap = {}
-    columns.forEach(
-        (column) => {
-            initColumnsMap[column.name] = {
-                isSorting: false,
-                ascending: true
-            };
-        }
-    )
+const TableColumns = ({ columns, sortingColumns, setSortingColumn, setPage, columnsToRender }) => {
 
     return (
         <tr role="row" className="rounded-lg overflow-hidden sticky h-10 top-0 w-auto">
@@ -27,6 +16,7 @@ const TableColumns = ({ columns, sortingColumns, setSortingColumn, setPage }) =>
                             ascending={sortingColumns[column.name].ascending}
                             setSortingColumn={setSortingColumn}
                             setPage={setPage}
+                            canSort={columnsToRender[column.name] === 'data' ? true : columnsToRender[column.name].canSort}
                         />
                     )
                 )

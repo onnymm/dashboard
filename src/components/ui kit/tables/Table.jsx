@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getUsers } from "../../../api/get";
+import ActionButtons from "../../../test/ActionButtons";
 import TableContent from "./elements/TableContent";
 import TablePagination from "./pagination/TablePagination";
 
@@ -35,7 +36,26 @@ const Table = ({
         }, [loadData, itemsPerPage]
     );
 
-    if (data) {
+    const columnsToRender = {
+        id: 'data',
+        name: 'data',
+        field_description: 'data',
+        ttype: 'data',
+        relation: 'data',
+        actionButtons: {name: "actionButtons", field_description: "Acciones", canSort: false, callback: TableActionButtons}
+    }
+
+    if ( data ) {
+
+        const newColumns = Object.keys(columnsToRender).map(
+            (key) => {
+                if ( columnsToRender[key] === 'data' ) {
+                    return columns.find((column) => column.name === key)
+                } else {
+                    return columnsToRender[key]
+                }
+            }
+        )
         
         return (
             <div className="flex flex-col w-full p-4 gap-4">
@@ -44,7 +64,7 @@ const Table = ({
                         <div className="w-full h-10 border border-gray-300 bottom-10 rounded-lg shadow-md"></div>
                     </div>
                     <div id="users" className="w-full h-full flex flex-col rounded-lg scrollbar-hide overflow-y-scroll">
-                        <TableContent data={data} columns={columns} page={page} setPage={setPage} itemsPerPage={itemsPerPage} />
+                        <TableContent data={data} columns={newColumns} page={page} setPage={setPage} itemsPerPage={itemsPerPage} columnsToRender={columnsToRender} />
                     </div>
                 </div>
                 <TablePagination data={data} itemsPerPage={itemsPerPage} page={page} setPage={setPage} />
@@ -70,3 +90,20 @@ const getColumns = (obj) => {
 }
 
 export default Table;
+
+// const TableBadge = ({ relation }) => {
+
+//     return (
+//         <Badge
+//             color={relation !== "Sin relación" ? "green": "yellow"}
+//         >
+//             {relation}
+//         </Badge>
+//     )
+// }
+
+const TableActionButtons = () => {
+    return (
+        <ActionButtons />
+    )
+}
