@@ -8,21 +8,21 @@ const ButtonTemplate = ({
 }) => {
 
     const typeOptions = {
-        primary: 'bg-blue-500 text-white',
-        secondary: 'text-gray-500 hover:bg-white hover:text-gray-500 border border-gray-300 dark:text-white dark:hover:text-gray-500',
+        primary: 'bg-blue-500 hover:bg-blue-400 text-white',
+        secondary: 'text-gray-500 hover:bg-gray-400/20 border border-gray-300 dark:text-white',
         danger: 'bg-red-500 text-white',
         success: 'bg-green-500 text-white',
-        dangerSecondary: 'text-red-500 border border-red-500/50',
-        successSecondary: 'text-green-500 border border-green-500/50'
+        dangerSecondary: 'text-red-500 border border-red-500/50 hover:bg-red-500/20 dark:text-red-400 border dark:border-red-400/50',
+        successSecondary: 'text-green-500 border border-green-500/50 hover:bg-green-500/20 dark:text-green-400 dark:border border-green-400/50'
     }
 
     const circleEffect = {
         primary: 'bg-white/25',
-        secondary: 'bg-gray-600/25',
+        secondary: 'bg-gray-600/25 dark:bg-white/50',
         danger: 'bg-white/25',
         success: 'bg-white/25',
-        dangerSecondary: 'bg-red-500',
-        successSecondary: 'bg-green-500',
+        dangerSecondary: 'bg-red-400',
+        successSecondary: 'bg-green-400',
     }
 
     const roundedOptions = {
@@ -50,7 +50,7 @@ const ButtonTemplate = ({
     const typeClassName = typeOptions[type]
 
     const callback = (event) => {
-        createCircle(event, circleEffect[type]);
+        createCircle(event, circleEffect[type].split(" "));
         onClick();
     }
 
@@ -86,7 +86,11 @@ const createCircle = (event, backgroundColor) => {
 
     // Adición de clases para estilización
     circle.classList.add("circle")
-    circle.classList.add(backgroundColor)
+    backgroundColor.forEach(
+        (className) => {
+            circle.classList.add(className)
+        }
+    )
 
     // Definición de altura y ancho del círculo
     circle.style.width = `${buttonElement.offsetWidth}px`;
