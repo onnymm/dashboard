@@ -4,16 +4,17 @@ import SortingDirection from "./SortingStatus";
 
 const TableColumn = ({ content, columns, column, isSorting, ascending, setSortingColumn, setPage, canSort }) => {
     
-    // Color de fondo cuando la columna está ordenando la tabla
-    const backgroundColor = isSorting ? "bg-blue" : "bg-gray"
+    // Color de fondo
+    const backgroundColor = {
+        true: "bg-blue-300/70 hover:bg-blue-200/70 dark:hover:bg-blue-200/70",
+        false: "bg-gray-200/80 hover:bg-gray-300/80 dark:bg-gray-500/80 dark:hover:bg-gray-100/40",
+    }
 
     // Clases CSS para definición de redondeo de esquinas en el contenedor
     const rounded = roundTableHeader(column, columns, "name", "lg")
 
-    const hover = canSort ? `hover:${backgroundColor}-300/70 cursor-pointer` : "cursor-default"
-
     // Clases CSS estáticas
-    const staticClassNames = "p-2 backdrop-blur-sm font-light text-start align-middle  select-none transition-background duration-300"
+    const staticClassNames = "backdrop-blur-sm p-2 z-99 font-light text-start align-middle select-none transition-background duration-300 dark:text-white"
 
     // Contenido de la columna
     const ColumnContent = () => {
@@ -40,7 +41,7 @@ const TableColumn = ({ content, columns, column, isSorting, ascending, setSortin
     // Retorno del elemento de columna de tabla
     return (
         <th
-            className={`${rounded} ${backgroundColor}-200/70 ${hover} ${staticClassNames}`}
+            className={`${rounded} ${backgroundColor[isSorting]} ${staticClassNames}`}
             role="columnheader"
             onClick={canSort ? sortData : null}
         >
