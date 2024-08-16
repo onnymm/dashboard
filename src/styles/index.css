@@ -30,10 +30,14 @@
 .circle {
 	position: absolute;
 	border-radius: 50%;
-	background-color: rgba(255, 255, 255, 0.3);
+	/* background-color: rgba(255, 255, 255, 0.25); */
 	transform: scale(0);
-	animation: growAndFade 1s ease-out forwards;
+	animation: growAndFade 0.625s ease-out forwards;
 	pointer-events: none;
+}
+
+.circle-transition-md {
+	animation: growAndFade 0.625s ease-out forwards;
 }
 
 @keyframes growAndFade {
