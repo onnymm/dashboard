@@ -4,6 +4,7 @@ const ButtonTemplate = ({
     disabled, // Deshabilitado
     type='secondary', // Tipo de botón
     rounded, // Redondeo de los bordes del botón
+    size = 'lg',
 }) => {
 
     const typeOptions = {
@@ -11,6 +12,8 @@ const ButtonTemplate = ({
         secondary: 'text-gray-500 hover:bg-white hover:text-gray-500 border border-gray-300 dark:text-white dark:hover:text-gray-500',
         danger: 'bg-red-500 text-white',
         success: 'bg-green-500 text-white',
+        dangerSecondary: 'text-red-500 border border-red-500/50',
+        successSecondary: 'text-green-500 border border-green-500/50'
     }
 
     const circleEffect = {
@@ -18,6 +21,8 @@ const ButtonTemplate = ({
         secondary: 'bg-gray-600/25',
         danger: 'bg-white/25',
         success: 'bg-white/25',
+        dangerSecondary: 'bg-red-500',
+        successSecondary: 'bg-green-500',
     }
 
     const roundedOptions = {
@@ -29,6 +34,18 @@ const ButtonTemplate = ({
         full: '-full',
     }
 
+    const buttonSizeOptions = {
+        sm: 'size-8',
+        lg: 'size-12',
+    }
+
+    const contentSizeOptions = {
+        sm: 'size-4',
+        lg: 'size-8',
+    }
+
+    const buttonSizeClassName = buttonSizeOptions[size]
+    const contentSizeClassName = contentSizeOptions[size]
     const roundedClassName = `rounded${roundedOptions[rounded] || roundedOptions.xl}`
     const typeClassName = typeOptions[type]
 
@@ -39,11 +56,13 @@ const ButtonTemplate = ({
 
     return (
         <button
-            className={`${roundedClassName} ${typeClassName} shadow-lg p-2 overflow-hidden relative active:scale-95 transition duration-150 disabled:bg-gray-400 disabled:text-white dark:disabled:bg-gray-400 dark:disabled:border-gray-400 dark:disabled:text-white disabled:transform-none`}
+            className={`${roundedClassName} ${typeClassName} ${buttonSizeClassName} flex justify-center items-center shadow-lg p-2 overflow-hidden relative active:scale-95 transition duration-150 disabled:bg-gray-400 disabled:text-white dark:disabled:bg-gray-400 dark:disabled:border-gray-400 dark:disabled:text-white disabled:transform-none`}
             onClick={(event) => callback(event)}
             disabled={disabled}
         >
-            {children}
+            <div className={`${contentSizeClassName} flex justify-center items-center content-center`}>
+                {children}
+            </div>
         </button>
     )
 }
