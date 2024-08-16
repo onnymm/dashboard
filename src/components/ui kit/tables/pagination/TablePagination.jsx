@@ -2,7 +2,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/16/solid";
 import { useMemo } from "react";
 import { getSmartPageSelector } from "../../../../core/tablesFunctionality";
 import useSelectPosition from "../../../../custom hooks/useSelectPosition";
-import NavigationButton from "./NavigationButton";
+import IconButton from "../../buttons/IconButton";
 import PagesContainer from "./PagesContainer";
 
 const TablePagination = ({
@@ -36,9 +36,9 @@ const TablePagination = ({
 
     return (
         <div className="flex">
-            <NavigationButton onClick={decreaseSelectPosition} icon={ChevronLeftIcon} disabled={page === 0} />
+            <IconButton onClick={decreaseSelectPosition} icon={ChevronLeftIcon} disabled={page === 0} />
             <PagesContainer pagesToShow={pagesToShow} page={page} setSelectPositionIndex={setSelectPositionIndex} />
-            <NavigationButton onClick={increaseSelectPosition} icon={ChevronRightIcon} disabled={page === pages.length - 1} />
+            <IconButton onClick={increaseSelectPosition} icon={ChevronRightIcon} disabled={page === pages.length - 1} />
         </div>
     )
 }

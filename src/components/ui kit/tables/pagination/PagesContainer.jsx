@@ -8,7 +8,7 @@ const PagesContainer = ({
 }) => {
 
     return (
-        <div className="flex">
+        <div className="flex relative">
             <div className="flex">
                 {
                     pagesToShow.map(
@@ -18,13 +18,13 @@ const PagesContainer = ({
                     )
                 }
             </div>
-            <div className="absolute h-12 shadow-md rounded-xl w-12 bg-blue-200/80 duration-300 transition-transform" style={{transform: `translateX( calc(${pagesToShow.indexOf(page)} * 3rem ))`}}></div>
+            <div className="absolute h-12 shadow-md rounded-xl w-12 bg-blue-500 duration-300 transition-transform" style={{transform: `translateX( calc(${pagesToShow.indexOf(page)} * 3rem ))`}}></div>
             <div className="flex absolute pointer-events-none">
                 {
                     pagesToShow.map(
-                        (page, index) => (
-                            <div key={index} className="flex w-12 h-12 justify-center items-center">
-                                {typeof page === "number" ? page + 1 : <EllipsisHorizontalIcon className="size-4" />}
+                        (pageToShow, index) => (
+                            <div key={index} className={`${pageToShow === page ? "text-white" : ""} transition duration-200 flex w-12 h-12 justify-center items-center dark:text-white`}>
+                                {typeof pageToShow === "number" ? pageToShow + 1 : <EllipsisHorizontalIcon className="size-4" />}
                             </div>
                         )
                     )
