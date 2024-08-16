@@ -59,9 +59,9 @@ const Table = ({
         
         return (
             <div className="flex flex-col w-full p-4 gap-4">
-                <div className="w-auto flex flex-col p-2 shadow-md border rounded-xl h-64 bg-white">
-                    <div className="rounded-lg h-0 z-10 pointer-events-none">
-                        <div className="w-full h-10 border border-gray-300 bottom-10 rounded-lg shadow-md"></div>
+                <div className="w-auto flex flex-col p-2 shadow-md border border-gray-500/30 transition duration-100 rounded-xl h-64 bg-white dark:bg-gray-800">
+                    <div className="rounded-lg h-0 z-10 pointer-events-none ">
+                        <div className="w-full h-10 border border-gray-500/30 bottom-10 rounded-lg shadow-md"></div>
                     </div>
                     <div id="users" className="w-full h-full flex flex-col rounded-lg scrollbar-hide overflow-y-scroll">
                         <TableContent data={data} columns={newColumns} page={page} setPage={setPage} itemsPerPage={itemsPerPage} columnsToRender={columnsToRender} />

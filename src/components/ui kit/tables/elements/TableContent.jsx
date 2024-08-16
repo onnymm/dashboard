@@ -9,7 +9,7 @@ const TableContent = ({data, columns, page, setPage, itemsPerPage, columnsToRend
 
     // Estructura de la tabla
     return (
-        <table role="grid" className="">
+        <table role="grid" className="z-1">
             <thead role="rowgroup" className="">
                 <TableColumns
                     columns={columns}

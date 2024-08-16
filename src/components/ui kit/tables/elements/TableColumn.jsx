@@ -14,12 +14,12 @@ const TableColumn = ({ content, columns, column, isSorting, ascending, setSortin
     const rounded = roundTableHeader(column, columns, "name", "lg")
 
     // Clases CSS estáticas
-    const staticClassNames = "backdrop-blur-sm p-2 z-99 font-light text-start align-middle select-none transition-background duration-300 dark:text-white"
+    const staticClassNames = "group backdrop-blur-sm p-2 z-99 font-light text-start align-middle select-none transition-background duration-300 dark:text-white"
 
     // Contenido de la columna
     const ColumnContent = () => {
         return (
-            <div className="flex flex-row items-center justify-between gap-2 group">
+            <div className="flex flex-row items-center justify-between gap-2">
                 {content}
 
                 {/* Ícono del estatus de orden */}

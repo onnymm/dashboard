@@ -3,7 +3,7 @@ import TableCell from "./TableCell";
 const TableRow = ({children, columnsToRender}) => {
 
     return (
-        <tr>
+        <tr className="border-b border-gray-400/50">
             {
                 Object.keys(columnsToRender).map(
                     (key, index) => {

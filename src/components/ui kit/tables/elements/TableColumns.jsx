@@ -3,7 +3,7 @@ import TableColumn from "./TableColumn";
 const TableColumns = ({ columns, sortingColumns, setSortingColumn, setPage, columnsToRender }) => {
 
     return (
-        <tr role="row" className="rounded-lg overflow-hidden sticky h-10 top-0 w-auto">
+        <tr role="row" className="z-99 rounded-lg overflow-hidden sticky h-10 top-0 w-auto">
             {
                 columns.map(
                     (column) => (
