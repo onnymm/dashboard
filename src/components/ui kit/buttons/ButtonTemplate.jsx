@@ -56,7 +56,7 @@ const ButtonTemplate = ({
 
     return (
         <button
-            className={`${roundedClassName} ${typeClassName} ${buttonSizeClassName} flex justify-center items-center shadow-lg p-2 overflow-hidden relative active:scale-95 transition duration-150 disabled:bg-gray-400 disabled:text-white dark:disabled:bg-gray-400 dark:disabled:border-gray-400 dark:disabled:text-white disabled:transform-none`}
+            className={`${roundedClassName} ${typeClassName} ${buttonSizeClassName} flex justify-center items-center shadow-lg p-2 overflow-hidden relative active:scale-95 transition duration-150 disabled:transform-none disabled:bg-gray-300 disabled:dark:bg-inherit disabled:border disabled:dark:border-gray-500/50 disabled:dark:text-gray-500/50`}
             onClick={(event) => callback(event)}
             disabled={disabled}
         >
