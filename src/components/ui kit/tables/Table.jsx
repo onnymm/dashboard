@@ -1,6 +1,9 @@
+import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 import { useEffect, useState } from "react";
 import { getUsers } from "../../../api/get";
 import ActionButtons from "../../../test/ActionButtons";
+import InputTemplate from "../inputs/InputTemplate";
+import NumericInput from "../inputs/NumericInput";
 import TableContent from "./elements/TableContent";
 import TablePagination from "./pagination/TablePagination";
 
@@ -59,15 +62,19 @@ const Table = ({
         
         return (
             <div className="flex flex-col w-full p-4 gap-4">
+                <InputTemplate type="text" icon={MagnifyingGlassIcon} placeholder={"Buscar"} />
                 <div className="w-auto flex flex-col p-2 shadow-md border border-gray-500/30 transition duration-100 rounded-xl h-64 bg-white dark:bg-gray-800">
                     <div className="rounded-lg h-0 z-10 pointer-events-none ">
-                        <div className="w-full h-10 border border-gray-500/30 bottom-10 rounded-lg shadow-md"></div>
+                        <div className="w-full h-10 bottom-10 rounded-lg shadow-md dark:border-none"></div>
                     </div>
                     <div id="users" className="w-full h-full flex flex-col rounded-lg scrollbar-hide overflow-y-scroll">
                         <TableContent data={data} columns={newColumns} page={page} setPage={setPage} itemsPerPage={itemsPerPage} columnsToRender={columnsToRender} />
                     </div>
                 </div>
-                <TablePagination data={data} itemsPerPage={itemsPerPage} page={page} setPage={setPage} />
+                <div className="flex flex-row gap-4">
+                    <TablePagination data={data} itemsPerPage={itemsPerPage} page={page} setPage={setPage} />
+                    <NumericInput defaultValue={page + 1} valueHandle={(value) => setPage(value - 1)} min={1} max={Math.trunc(data.length / itemsPerPage) + (data.length % itemsPerPage === 0 ? 0 : 1)} instantUpdate />
+                </div>
             </div>
         )
     }
