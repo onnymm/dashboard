@@ -35,10 +35,6 @@
 	pointer-events: none;
 }
 
-.circle-transition-md {
-	animation: growAndFade 0.625s ease-out forwards;
-}
-
 @keyframes growAndFade {
 	to {
 		transform: scale(4);
