@@ -1,6 +1,16 @@
 import { useState } from "react";
 
-const InputTemplate = ({ type="text", defaultValue, placeholder, icon: Icon = undefined, onBlur, min, max, keyDownCallbacks, centerText }) => {
+const InputTemplate = ({
+    type="text",
+    defaultValue,
+    icon: Icon = undefined,
+    placeholder,
+    onBlur,
+    min,
+    max,
+    keyDownCallbacks,
+    centerText
+}) => {
 
     const [isFocused, setIsFocused] = useState(false)
     const [textContent, setTextContent] = useState(defaultValue)
@@ -34,18 +44,18 @@ const InputTemplate = ({ type="text", defaultValue, placeholder, icon: Icon = un
         <div
             className="flex flex-col w-full"
         >
-            <div className="flex flex-row justify-start items-center pointer-events-none absolute">
+            <div className="flex flex-row justify-start pointer-events-none relative">
                 
                 <div
-                    className={`${movePlaceholder} ${colorPlaceholder} ml-10 flex flex-row items-center relative py-3 transition whitespace-nowrap`}
+                    className={`${movePlaceholder} ${colorPlaceholder} flex flex-row items-center absolute transition whitespace-nowrap`}
                 >
+                    <RenderedIcon colorPlaceholder={colorPlaceholder} Icon={Icon} />
                     {placeholder}
                 </div>
             </div>
             <div className="flex flex-row w-full">
-                <RenderedIcon colorPlaceholder={colorPlaceholder} Icon={Icon} />
                 <input
-                    className={`${hasIcon} ${hasPlaceholder} ${centerClassName} transition border focus:border-blue-500 rounded-lg outline-none peer`}
+                    className={`${hasIcon} ${hasPlaceholder} ${centerClassName} dark:bg-gray-800 dark:text-white transition border border-gray-300/50 dark:border-gray-500/50 dark:focus:border-blue-500 focus:border-blue-500 rounded-lg outline-none peer`}
                     key={defaultValue}
                     defaultValue={defaultValue}
                     type={type}
@@ -67,7 +77,7 @@ const RenderedIcon = ({colorPlaceholder, Icon}) => {
 
     if ( Icon ) {
         return (
-            <div className={`${colorPlaceholder} absolute m-2 my-3`}>
+            <div className={`${colorPlaceholder} m-2 my-3`}>
                 <Icon className="fill-current size-6 transition" />
             </div>
         )
