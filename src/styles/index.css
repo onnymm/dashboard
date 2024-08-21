@@ -36,24 +36,3 @@ body {
 .dark * {
 	scrollbar-color: #354657 #142434; /* Thumb color and track color */
 }
-
-/* Default (light theme) styles */
-body {
-	background-color: white; /* Light background color */
-	color: black; /* Light text color */
-}
-
-* {
-	scrollbar-width: thin; /* 'auto' or 'thin' */
-	scrollbar-color: #ccc #f0f0f0; /* Thumb color and track color */
-}
-
-.dark * {
-	scrollbar-color: #354657 #142434; /* Thumb color and track color */
-}
-
-@layer utilities {
-	.scrollbar-hide::-webkit-scrollbar {
-		display: none;
-	}
-}
