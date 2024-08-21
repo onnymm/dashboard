@@ -6,7 +6,7 @@
 
 #root {
 	height: 100svh;
-	overflow-x: none;
+	overflow-x: hidden; /* Use 'hidden' instead of 'none' */
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -20,4 +20,19 @@
 
 .bell-icon-animation {
 	animation: translateYAnimation 0.2s ease-in-out;
+}
+
+/* Default (light theme) styles */
+body {
+	background-color: white; /* Light background color */
+	color: black; /* Light text color */
+}
+
+* {
+	scrollbar-width: thin; /* 'auto' or 'thin' */
+	scrollbar-color: #ccc #f0f0f0; /* Thumb color and track color */
+}
+
+.dark * {
+	scrollbar-color: #354657 #142434; /* Thumb color and track color */
 }
