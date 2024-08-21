@@ -1,4 +1,4 @@
-import FallbackProfileNavList from '../../components/navbar/right side/profile/FallbackProfileNavList'
+import FallbackProfileNavList from '../components/skeletons/FallbackProfileNavList'
 
 const UiTests = () => {
 	return (
