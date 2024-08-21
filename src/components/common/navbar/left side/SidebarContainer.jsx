@@ -4,7 +4,7 @@ import { SidebarContext } from '../../../../contexts/SidebarContext'
 import { useClickOutside } from '../../../../custom hooks/useClickOutside'
 import { useScreenWidth } from '../../../../custom hooks/useScreenWidth'
 import { thresholdForWideScreen } from '../../../../data/appConfig'
-import Bars3Button from '../../../ui kit/Bars3Button'
+import Bars3Button from '../../../ui/Bars3Button'
 import Sidebar from '../../sidebar/Sidebar'
 
 /*

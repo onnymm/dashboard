@@ -4,7 +4,7 @@ import { AppContext } from '../../../contexts/AppContexts'
 import { SidebarContext } from '../../../contexts/SidebarContext'
 import { useScreenWidth } from '../../../custom hooks/useScreenWidth'
 import { thresholdForWideScreen } from '../../../data/appConfig'
-import LogoLink from '../../ui kit/LogoLink'
+import LogoLink from '../../ui/LogoLink'
 
 const SidebarHeader = () => {
 	const { isOpen, setIsOpen } = useContext(SidebarContext)

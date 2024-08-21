@@ -1,7 +1,7 @@
 import { lazy, Suspense, useState } from 'react'
 import { useClickOutside } from '../../../../../custom hooks/useClickOutside'
 import { FallbackContentList } from '../../../../skeletons/FallbackContentList'
-import Button from '../../../../ui kit/Button'
+import Button from '../../../../ui/Button'
 const ContentList = lazy(() => import('./ContentList'))
 
 const ActionButton = ({ name, icon, data }) => {

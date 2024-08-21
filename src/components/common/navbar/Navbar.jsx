@@ -1,4 +1,4 @@
-import LogoLink from '../../ui kit/LogoLink'
+import LogoLink from '../../ui/LogoLink'
 import NavbarSearch from './left side/NavbarSearch'
 import SidebarContainer from './left side/SidebarContainer'
 import ButtonController from './right side/ButtonController'

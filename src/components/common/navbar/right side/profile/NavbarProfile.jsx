@@ -1,7 +1,7 @@
 import { lazy, Suspense, useState } from 'react'
 import { useClickOutside } from '../../../../../custom hooks/useClickOutside'
 import FallbackProfileNavList from '../../../../skeletons/FallbackProfileNavList'
-import Avatar from '../../../../ui kit/Avatar'
+import Avatar from '../../../../ui/Avatar'
 const ProfileNavList = lazy(() => import('./ProfileNavList'))
 
 const NavbarProfile = ({ name, occupation, avatarSource }) => {
