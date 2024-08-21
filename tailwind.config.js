@@ -10,6 +10,8 @@ export default {
 				'sidebar-section-hover': '#19293C',
 
 				'feed-background': '#FFFFFF',
+				'feed-buttons': '#4C678A',
+				'feed-buttons-hover': '#385171',
 
 				'navbar-background': '#FFFFFF',
 				'navbar-icons-hover': '#4855F7',
