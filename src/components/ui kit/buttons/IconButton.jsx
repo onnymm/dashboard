@@ -1,6 +1,12 @@
-import ButtonTemplate from "./ButtonTemplate"
+import ButtonTemplate from "./ButtonTemplate";
 
-const IconButton = ({ icon: Icon, onClick=undefined, disabled, size, type }) => {
+const IconButton = ({
+    icon: Icon, // Ícono del botón
+    onClick, // Función del botón
+    disabled, // Estado de botón deshabilitado
+    size="sm", // Tamaño del botón
+    type, // Apariencia del botón
+}) => {
 
     return (
         <ButtonTemplate onClick={onClick} disabled={disabled} rounded={'full'} type={type} size={size}>
@@ -9,4 +15,4 @@ const IconButton = ({ icon: Icon, onClick=undefined, disabled, size, type }) => 
     )
 }
 
-export default IconButton
+export default IconButton;
