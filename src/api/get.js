@@ -17,3 +17,10 @@ export const getChartData = async (
     // Se retorna la información transformada
     stateSetter(response.data)
 }
+
+export const getUsers = async (stateSetter) => {
+    // Se obtiene la información desde el API
+    const response = await axios.get(`${defaultDomain}fields`)
+    // Se retorna la información transformada
+    stateSetter(response.data)
+}
