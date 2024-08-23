@@ -5,7 +5,7 @@ const TableColumn = ({ content, column, isSorting, ascending, setSortingColumn, 
     
     // Color de fondo
     const backgroundColor = {
-        true: "bg-blue-300/70 hover:bg-blue-200/70 dark:hover:bg-blue-200/70",
+        true: "bg-main-300/70 hover:bg-main-200/70 dark:hover:bg-main-200/70",
         false: "bg-gray-200/80 hover:bg-gray-300/80 dark:bg-gray-500/80 dark:hover:bg-gray-100/40",
     }
 
