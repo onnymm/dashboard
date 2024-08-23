@@ -12,7 +12,7 @@ const ButtonTemplate = ({
     // Apariencia del botón
     const buttonType = {
         primary: 'bg-main-500 hover:bg-main-400 text-white',
-        secondary: 'text-gray-500 hover:bg-gray-400/20 border border-gray-300 dark:text-white',
+        secondary: 'text-gray-500 bg-white dark:bg-transparent hover:bg-gray-50/20 dark:hover:bg-white/10 border border-gray-300 dark:text-white',
         danger: 'text-red-500 border border-red-500/50 hover:bg-red-500/20 dark:text-red-400 border dark:border-red-400/50',
         success: 'text-green-500 border border-green-500/50 hover:bg-green-500/20 dark:text-green-400 dark:border border-green-400/50'
     };
