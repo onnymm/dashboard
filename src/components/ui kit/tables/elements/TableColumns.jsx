@@ -9,7 +9,6 @@ const TableColumns = ({ columns, sortingColumns, setSortingColumn, setPage, colu
                     (column) => (
                         <TableColumn
                             key={column.name}
-                            columns={columns}
                             column={column}
                             content={column.field_description}
                             isSorting={sortingColumns[column.name].isSorting}

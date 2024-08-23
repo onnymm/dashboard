@@ -1,16 +1,3 @@
-export const roundTableHeader = (item, obj, key, size) => {
-    // Validación si es el primer elemento
-    const isFirstItem = obj[0][key] === item[key]
-    // Validación si es el último elemento
-    const isLastItem = obj[obj.length - 1][key] === item[key]
-
-    // Retorno del nombre de clase computado en base al índice del elemento
-    if ( isFirstItem ) return (`rounded-l-${size}`);
-    if ( isLastItem ) return (`rounded-r-${size}`);
-    // Retorno de nombre vacío para elementos intermedios
-    return "";
-}
-
 export const sortTableData = (data, sortingColumns, sortingColumnName, tableID) => {
     // Si no existe columna de ordenamiento no se manipula la colección de datos
     if ( !sortingColumnName ) return data;

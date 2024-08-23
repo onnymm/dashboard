@@ -1,8 +1,7 @@
-import { roundTableHeader } from "../../../../core/tablesFunctionality";
 import SortingIndicator from "./SortingIndicator";
 import SortingDirection from "./SortingStatus";
 
-const TableColumn = ({ content, columns, column, isSorting, ascending, setSortingColumn, setPage, canSort }) => {
+const TableColumn = ({ content, column, isSorting, ascending, setSortingColumn, setPage, canSort }) => {
     
     // Color de fondo
     const backgroundColor = {
@@ -10,11 +9,8 @@ const TableColumn = ({ content, columns, column, isSorting, ascending, setSortin
         false: "bg-gray-200/80 hover:bg-gray-300/80 dark:bg-gray-500/80 dark:hover:bg-gray-100/40",
     }
 
-    // Clases CSS para definición de redondeo de esquinas en el contenedor
-    const rounded = roundTableHeader(column, columns, "name", "lg")
-
     // Clases CSS estáticas
-    const staticClassNames = "group backdrop-blur-sm p-2 z-99 font-light text-start align-middle select-none transition-background duration-300 dark:text-white"
+    const staticClassNames = "first:rounded-l-lg last:rounded-r-lg group backdrop-blur-sm p-2 z-99 font-light text-start align-middle select-none transition-colors duration-500 dark:text-white"
 
     // Contenido de la columna
     const ColumnContent = () => {
@@ -41,7 +37,7 @@ const TableColumn = ({ content, columns, column, isSorting, ascending, setSortin
     // Retorno del elemento de columna de tabla
     return (
         <th
-            className={`${rounded} ${backgroundColor[isSorting]} ${staticClassNames}`}
+            className={`${backgroundColor[isSorting]} ${staticClassNames}`}
             role="columnheader"
             onClick={canSort ? sortData : null}
         >
