@@ -1,3 +1,5 @@
+import { ALT1, ALT2, THEME_MAIN } from './src/constants/colors';
+
 /** @type {import('tailwindcss').Config} */
 export default {
 	content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -30,7 +32,8 @@ export default {
 				'navbar-icons-hover-d': '#4855F7',
 				'navbar-icons-background-d': '#142434',
 
-				'darkmode-switch-background-d': '#16212C'
+				'darkmode-switch-background-d': '#16212C',
+				'main': ALT1
 			},
 			width: {
 				18: '4.5rem',
