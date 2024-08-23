@@ -18,7 +18,7 @@ const PagesContainer = ({
                     )
                 }
             </div>
-            <div className="absolute h-12 shadow-md rounded-xl w-12 bg-blue-500 duration-300 transition-transform" style={{transform: `translateX( calc(${pagesToShow.indexOf(page)} * 3rem ))`}}></div>
+            <div className="absolute h-12 shadow-md rounded-xl w-12 bg-main-500 duration-300 transition-transform" style={{transform: `translateX( calc(${pagesToShow.indexOf(page)} * 3rem ))`}}></div>
             <div className="flex absolute pointer-events-none">
                 {
                     pagesToShow.map(
