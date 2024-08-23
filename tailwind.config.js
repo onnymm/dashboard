@@ -1,4 +1,4 @@
-import { ALT1, ALT2, THEME_MAIN } from './src/constants/colors';
+import { ALT1 } from './src/constants/colors';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -7,6 +7,7 @@ export default {
 	safelist: [
 		"rounded-l-lg",
 		"rounded-r-lg",
+		"p-2"
 	],
 	theme: {
 		extend: {
@@ -38,13 +39,18 @@ export default {
 			width: {
 				18: '4.5rem',
 				54: '13.5rem',
-				50: '12.5rem'
+				50: '12.5rem',
 			},
 			maxWidth: {
-				'feed-width': '100rem'
+				'feed-width': '100rem',
+				50: '12.5rem',
 			},
 			height: {
+				50: '12.5rem',
 				4000: '4000px'
+			},
+			maxHeight: {
+				50: '12.5rem',
 			},
 			margin: {
 				17: '4.25rem'
