@@ -1,20 +1,16 @@
-import { useState } from "react";
-import { roundTableHeader } from "../../../../core/tablesFunctionality";
 import SortingIndicator from "./SortingIndicator";
 import SortingDirection from "./SortingStatus";
 
-const TableColumn = ({ content, columns, column, isSorting, ascending, setSortingColumn }) => {
-    // Color de fondo cuando la columna está ordenando la tabla
-    const backgroundColor = isSorting ? "bg-blue-200/70" : "bg-gray-200/70"
-
-    // Estado de Hover
-    const [isHovered, setIsHovered] = useState(false);
-
-    // Clases CSS para definición de redondeo de esquinas en el contenedor
-    const rounded = roundTableHeader(column, columns, "name", "lg")
+const TableColumn = ({ content, column, isSorting, ascending, setSortingColumn, setPage, canSort }) => {
+    
+    // Color de fondo
+    const backgroundColor = {
+        true: "bg-main-300/70 hover:bg-main-200/70 dark:hover:bg-main-200/70",
+        false: "bg-gray-200/80 hover:bg-gray-300/80 dark:bg-gray-500/80 dark:hover:bg-gray-100/40",
+    }
 
     // Clases CSS estáticas
-    const staticClassNames = "p-2 backdrop-blur-sm font-light text-start align-middle cursor-pointer select-none"
+    const staticClassNames = "first:rounded-l-lg last:rounded-r-lg group backdrop-blur-sm p-2 z-99 font-light text-start align-middle select-none transition-colors duration-500 dark:text-white"
 
     // Contenido de la columna
     const ColumnContent = () => {
@@ -23,19 +19,27 @@ const TableColumn = ({ content, columns, column, isSorting, ascending, setSortin
                 {content}
 
                 {/* Ícono del estatus de orden */}
-                {isSorting ? <SortingDirection ascending={ascending} /> : <SortingIndicator isHovered={isHovered} />}
+                {
+                    canSort ?
+                        isSorting ? <SortingDirection ascending={ascending} /> : <SortingIndicator />
+                    :
+                        undefined
+                }
             </div>
         )
+    }
+
+    const sortData = () => {
+        setSortingColumn(column.name);
+        setPage(0)
     }
 
     // Retorno del elemento de columna de tabla
     return (
         <th
-            className={`${rounded} ${backgroundColor} ${staticClassNames}`}
+            className={`${backgroundColor[isSorting]} ${staticClassNames}`}
             role="columnheader"
-            onClick={() => setSortingColumn(column.name)}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            onClick={canSort ? sortData : null}
         >
             {
                 <ColumnContent />

@@ -1,3 +1,5 @@
+import { ALT1 } from './src/constants/colors';
+
 /** @type {import('tailwindcss').Config} */
 export default {
 	content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -5,6 +7,7 @@ export default {
 	safelist: [
 		"rounded-l-lg",
 		"rounded-r-lg",
+		"p-2"
 	],
 	theme: {
 		extend: {
@@ -32,18 +35,24 @@ export default {
 				'navbar-icons-hover-d': '#4855F7',
 				'navbar-icons-background-d': '#142434',
 
-				'darkmode-switch-background-d': '#16212C'
+				'darkmode-switch-background-d': '#16212C',
+				'main': ALT1
 			},
 			width: {
 				18: '4.5rem',
 				54: '13.5rem',
-				50: '12.5rem'
+				50: '12.5rem',
 			},
 			maxWidth: {
-				'feed-width': '100rem'
+				'feed-width': '100rem',
+				50: '12.5rem',
 			},
 			height: {
+				50: '12.5rem',
 				4000: '4000px'
+			},
+			maxHeight: {
+				50: '12.5rem',
 			},
 			margin: {
 				17: '4.25rem'

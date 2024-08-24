@@ -112,7 +112,7 @@ const buildGenericData = ({
 
 	// Estratificación por variable categórica (Si se requiere)
 	if (strat) {
-		;[datasets, renamedLabels] = stratificateData({
+		[datasets, renamedLabels] = stratificateData({
 			data,
 			categoryName: strat,
 			datasetNames,
