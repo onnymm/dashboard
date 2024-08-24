@@ -31,6 +31,26 @@ export const sortTableData = (data, sortingColumns, sortingColumnName, tableID) 
     return data;
 }
 
+export const filterData = (data, filter) => {
+
+    const filteredData = []
+
+    if ( filter ) {
+        data.forEach(
+            (record) => {
+                if ( filter.criteria(record) ) {
+                    filteredData.push(record)
+                }
+            }
+        )
+
+        return filteredData;
+
+    } else {
+        return data
+    }
+}
+
 export const paginateData = (data, itemsPerPage) => {
     // Cálculo de páginas de la información
     const pagesQty = Math.trunc(data.length / itemsPerPage) + (data % itemsPerPage === 0 ? 0 : 1)
