@@ -36,9 +36,9 @@ const TablePagination = ({
 
     return (
         <div className="flex gap-2">
-            <IconButton type={"primary"} size="lg" onClick={decreaseSelectPosition} icon={ChevronLeftIcon} disabled={page === 0} />
+            <IconButton type={"primary"} size="lg" onClick={decreaseSelectPosition} icon={ChevronLeftIcon} disabled={page === 0 || pages.length === 0} />
             <PagesContainer pagesToShow={pagesToShow} page={page} setSelectPositionIndex={setSelectPositionIndex} />
-            <IconButton type={"primary"} size="lg" onClick={increaseSelectPosition} icon={ChevronRightIcon} disabled={page === pages.length - 1} />
+            <IconButton type={"primary"} size="lg" onClick={increaseSelectPosition} icon={ChevronRightIcon} disabled={page === pages.length - 1 || pages.length === 0} />
         </div>
     )
 }
