@@ -34,7 +34,7 @@ const PaginateData = (data, page, itemsPerPage) => {
 
     // Prevención de índice fuera de rango
     if ( indexEnd > data.length ) {
-        indexEnd = data.length - 1
+        indexEnd = data.length
     }
 
     return data.slice(indexStart, indexEnd);
