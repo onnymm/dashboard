@@ -7,7 +7,7 @@ const App = () => {
 	const [sidebarIsLocked, setSidebarIsLocked] = useState(false)
 
 	return (
-		<div className='relative z-0 h-svh flex-col'>
+		<div className='relative z-0 flex flex-col h-svh'>
 			<AppContext.Provider value={{ sidebarIsLocked, setSidebarIsLocked }}>
 				{/* Barra de navegación (contiene también la sidebar para limitar el dominio de render) */}
 				<Navbar />
