@@ -20,7 +20,7 @@ export const chartElementsStyling = {
                             // Etiquetas de conjuntos de datos de gráficas
                             element: "li",
                             // Nombres de clase asignados
-                            styling: "flex gap-1",
+                            styling: "flex gap-1 rounded-md relative overflow-hidden whitespace-nowrap px-2 select-none",
                             // Elementos hijos
                             children: [
                                 {
@@ -33,7 +33,7 @@ export const chartElementsStyling = {
                                     // Título de conjunto de datos en etiquetas de conjuntos de datos de gráficas
                                     element: "p",
                                     // Nombres de clase asignados
-                                    styling: "font-extralight transition duration-300"
+                                    styling: "font-extralight text-sm transition duration-300"
                                 }
                             ]
                         }

@@ -95,7 +95,7 @@ export const CHARTS_SETTINGS_OPTIONS = {
     // Apariencia de la caja de la etiqueta
     [CHARTS_SETTINGS.LEGEND_BOX]: {
         circle: {
-            borderWidth: '2px',
+            borderWidth: '0px',
             borderRadius: '50%',
             display: 'inline-block',
             flexShrink: 0,
@@ -103,7 +103,7 @@ export const CHARTS_SETTINGS_OPTIONS = {
             width: '1rem',
         },
         rounded: {
-            borderWidth: '2px',
+            borderWidth: '0px',
             borderRadius: '25%',
             display: 'inline-block',
             flexShrink: 0,
@@ -111,7 +111,7 @@ export const CHARTS_SETTINGS_OPTIONS = {
             width: '1rem',
         },
         square: {
-            borderWidth: '2px',
+            borderWidth: '0px',
             display: 'inline-block',
             flexShrink: 0,
             height: '1rem',
