@@ -1,4 +1,5 @@
-import { ALT1 } from './src/constants/colors';
+import { COLOR_THEME } from './src/settings/appSettings';
+import { htmlTooltipClassNames } from './src/settings/classNames';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -7,7 +8,23 @@ export default {
 	safelist: [
 		"rounded-l-lg",
 		"rounded-r-lg",
-		"p-2"
+		"p-2",
+		"w-[calc(100%_-_18rem)]",
+		"grid-columns-[repeat(auto-fill,_minmax(0,_1fr))]",
+		"text-ellipsis",
+		"bg-red-500/30",
+		"bg-yellow-500/30",
+		"dark:text-yellow-500",
+		"text-yellow-600",
+		"bg-green-500/30",
+		"bg-sky-500/30",
+		"bg-gray-500/30",
+		"bg-gray-500/30",
+		...htmlTooltipClassNames.tooltip,
+		...htmlTooltipClassNames.th,
+		...htmlTooltipClassNames.td,
+		...htmlTooltipClassNames.colorBox,
+		...htmlTooltipClassNames.span,
 	],
 	theme: {
 		extend: {
@@ -36,7 +53,7 @@ export default {
 				'navbar-icons-background-d': '#142434',
 
 				'darkmode-switch-background-d': '#16212C',
-				'main': ALT1
+				'main': COLOR_THEME
 			},
 			width: {
 				18: '4.5rem',
