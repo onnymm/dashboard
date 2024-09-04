@@ -10,21 +10,18 @@ const Feed = () => {
 
 	return (
 		<div
-			className='flex w-full overflow-y-auto bg-slate-100 transition duration-dark dark:bg-feed-background-d'
-			style={{
-				height: 'calc(100% - 5rem)'
-				// El cálculo de height es para considerar la altura de la navbar
-			}}
+			// El cálculo de height es para considerar la altura de la navbar
+			className='flex bg-slate-100 dark:bg-feed-background-d w-full h-[calc(100%_-_5rem)] transition duration-dark overflow-y-auto'
 		>
-			{/* Margen dinámico de contenido para cuando se bloquee la sidebar */}
 			<div
-				className={`${sidebarIsLocked && screenIsWide ? 'w-72' : 'w-0'} transition-width duration-500`}
+				// Margen dinámico de contenido para cuando se bloquee la sidebar
+				className={`${sidebarIsLocked && screenIsWide ? "w-72" : "w-0"} transition-width duration-500`}
 			/>
-			{/*
-			Contenido de la página, el tamaño se ajusta al contenido, si se requiere que las páginas contenidas en
-			Outlet ocupen toda la pantalla *siempre*, añadirles flex-grow a su contenedor.
-			*/}
-			<main className='mx-auto flex h-min min-h-full max-w-feed-width flex-grow p-6'>
+			<main
+				// Contenido de la página, el tamaño se ajusta al contenido, si se requiere que las páginas contenidas en
+				// Outlet ocupen toda la pantalla *siempre*, añadirles flex-grow a su contenedor.
+				className={`${sidebarIsLocked && screenIsWide ? "w-[calc(100%_-_18rem)]" : "w-full"} transition-width duration-500 flex mx-0-red-500 p-2 sm:p-6 max-w-feed-width h-min min-h-full`}
+			>
 				<Outlet />
 			</main>
 		</div>
