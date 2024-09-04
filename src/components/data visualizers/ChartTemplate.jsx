@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import {
 	Bar,
 	Bubble,
@@ -9,35 +8,19 @@ import {
 	Radar,
 	Scatter
 } from 'react-chartjs-2'
-import { getChartData } from '../../api/get'
 import { CHART_TYPES } from '../../constants/charts'
 import { buildData } from '../../utils/utils'
-import FallbackChart from '../skeletons/FallbackChart'
 
-const ChartTemplate = ({ chartSettings, labelsContainerID }) => {
-	// Estado para carga inicial de los datos
-	const [loadData, setLoadData] = useState()
-	// Estado para transformación de datos
-	const [data, setData] = useState()
+const ChartTemplate = ({ chartData, chartSettings, labelsContainerID }) => {
 
-	// Carga inicial de los datos
-	useEffect(() => {
-		getChartData(setLoadData, chartSettings.endpoint)
-	}, [chartSettings.endpoint])
 
 	// Transformación de los datos
-	useEffect(() => {
-		if (loadData) {
-			setData(
-				buildData({
-					// Se formatean los datos y se construye la gráfica
-					data: loadData,
-					...chartSettings,
-					labelsContainerID
-				})
-			)
-		}
-	}, [loadData, chartSettings, labelsContainerID])
+	chartData = buildData({
+		// Se formatean los datos y se construye la gráfica
+		data: chartData,
+		...chartSettings,
+		labelsContainerID
+	})
 
 	// Renderización de la gráfica
 	const RenderedChart = ({ dataContainer }) => {
@@ -83,21 +66,16 @@ const ChartTemplate = ({ chartSettings, labelsContainerID }) => {
 	}
 
 	// Renderización de la gráfica indicada
-	if (data) {
-		return (
-			<div className='flex max-h-full w-full flex-col'>
-				<div
-					className={`flex h-auto flex-grow justify-center overflow-x-hidden overflow-y-hidden`}
-				>
-					<RenderedChart dataContainer={data} />
-				</div>
-				<div id={`${labelsContainerID}`} className='h-min'></div>
+	return (
+		<div className='flex flex-col gap-2 w-full max-h-full'>
+			<div
+				className={`flex h-auto flex-grow justify-center overflow-x-hidden overflow-y-hidden`}
+			>
+				<RenderedChart dataContainer={chartData} />
 			</div>
-		)
-		// Indicación de carga inicial en caso de no haber cargado datos aún
-	} else {
-		return <FallbackChart />
-	}
+			<div id={`${labelsContainerID}`} className='h-min'></div>
+		</div>
+	)
 }
 
 export default ChartTemplate
