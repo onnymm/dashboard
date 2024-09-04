@@ -1014,7 +1014,11 @@ export const labelsFormats = {
 	[LABELS_FORMATS_SETTINGS.ONLY_NAME]: {
 		raw: text => text.slice(0, text.indexOf(' ')),
 		type: String
-	}
+	},
+	[LABELS_FORMATS_SETTINGS.SHORT]: {
+		raw: (text) => text.slice(0, 10) + "...",
+		type: String
+	},
 }
 
 export const buildInitSeries = {

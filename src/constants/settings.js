@@ -56,7 +56,9 @@ export const LABELS_FORMATS_SETTINGS = {
     // Tipo moneda
     MONETARY: 'monetary',
     // Sólo el primer nombre antes de un espacio
-    ONLY_NAME: 'only name'
+    ONLY_NAME: 'only name',
+    // Nombre corto
+    SHORT: 'short',
 }
 
 export const CHARTS_SETTINGS_OPTIONS = {
