@@ -33,7 +33,7 @@ const SidebarContainer = () => {
 			</SidebarContext.Provider>
 			<Bars3Button
 				handleClick={handleToggleClick}
-				extraStyles='absolute bottom-1/4 left-[4.5rem] z-9 sm:left-[10.5rem]'
+				className='bottom-1/4 left-[4.5rem] sm:left-[10.5rem] z-9 absolute'
 			/>
 		</div>
 	)

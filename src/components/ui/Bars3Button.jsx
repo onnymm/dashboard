@@ -1,7 +1,7 @@
 import { Bars3Icon } from '@heroicons/react/16/solid'
 import { useState } from 'react'
 
-const Bars3Button = ({ handleClick, extraStyles }) => {
+const Bars3Button = ({ handleClick, className }) => {
 	const [isAnimating, setIsAnimating] = useState(false)
 
 	const handleTaskAndAnimation = () => {
@@ -20,7 +20,7 @@ const Bars3Button = ({ handleClick, extraStyles }) => {
 			*/}
 			<button
 				onClick={handleTaskAndAnimation}
-				className={`duration-dark p-2 transition dark:text-white dark:opacity-80 ${extraStyles} ${isAnimating && 'animate-bars3-click sm:animate-bars3-click-sm'}`}
+				className={`duration-dark p-2 transition dark:text-white dark:opacity-80 ${className} ${isAnimating && 'animate-bars3-click sm:animate-bars3-click-sm'}`}
 				onAnimationEnd={handleAnimationEnd}
 			>
 				<Bars3Icon className='size-6' />
