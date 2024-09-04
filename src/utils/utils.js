@@ -121,3 +121,5 @@ export const capitalizeFirstLetter = str => {
 	if (str.length === 0) return str
     return str.charAt(0).toUpperCase() + str.slice(1)
 }
+
+export const toMXN = (num) => (num.toLocaleString('es-MX', {style: 'currency', currency: 'MXN'}))
