@@ -19,20 +19,20 @@ const DataCard = ({ icon: Icon, amount, label, percent, gain }) => {
 	// Color dependiendo si hay ganancia definida
 	const textColor =
 		gain === true
-			? 'text-green-600'
+			? 'text-green-500'
 			: gain === false
-				? 'text-red-600'
+				? 'text-red-500'
 				: 'dark:text-white opacity-70 transition-all duration-dark'
 
 	return (
 		<div
-			className={`${sidebarIsLocked ? 'xl:col-span-3' : 'lg:col-span-3'} col-span-12 h-40 w-full rounded bg-white px-7 py-6 shadow-md transition-colors duration-dark dark:bg-navbar-background-d sm:col-span-6`}
+			className={`${sidebarIsLocked ? 'xl:col-span-3' : 'lg:col-span-3'} col-span-12 h-full w-full rounded bg-white px-7 py-6 shadow-md transition-colors duration-dark dark:bg-navbar-background-d sm:col-span-6`}
 		>
 			{/* Ícono */}
 			{Icon && (
 				<div className='mb-3 flex'>
 					<div className='rounded-full bg-slate-100 p-3 opacity-80 transition-all duration-dark dark:bg-navbar-icons-background-d'>
-						<Icon className='size-8 text-blue-500' />
+						<Icon className='size-8 text-main-500' />
 					</div>
 				</div>
 			)}
@@ -42,7 +42,7 @@ const DataCard = ({ icon: Icon, amount, label, percent, gain }) => {
 					<h1 className='text-xl font-bold transition-all duration-dark dark:text-white'>
 						{amount}
 					</h1>
-					<p className='text-sm opacity-60 transition-all duration-dark dark:text-white'>
+					<p className='text-sm transition-all duration-dark text-current/60 dark:text-white/60'>
 						{label}
 					</p>
 				</div>
@@ -51,7 +51,7 @@ const DataCard = ({ icon: Icon, amount, label, percent, gain }) => {
 					className={`text-gray flex items-center gap-1 self-end font-medium ${textColor}`}
 				>
 					{arrowIcon}
-					<p className='text-sm opacity-100'>{percent}</p>
+					<p className='text-sm opacity-100'>{percent.toFixed(2)}%</p>
 				</div>
 			</div>
 		</div>
