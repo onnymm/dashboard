@@ -5,6 +5,7 @@ import {
 	CHARTS_SETTINGS,
 	LABELS_FORMATS_SETTINGS
 } from '../constants/settings'
+import htmlTooltip from '../plugins/htmlTooltip'
 import { chartElementsStyling } from '../settings/chartElementsStyling'
 import { chartSettings } from '../settings/dashboardSettings'
 
@@ -404,6 +405,8 @@ const formatCartesianChartLabels = ({
 	let yLabelsFormatter
 	let xLabelsFormatter
 
+	options.rawData = series.labels
+
 	// Validación de indicación de gráfica transpuesta
 	if (transposed) {
 		// Formateo de etiquetas en el eje X
@@ -444,6 +447,9 @@ const formatCartesianChartLabels = ({
 }
 const formatRadialChartsLabels = ({ series, options }) => {
 	// Retorno de los conjuntos de datos y objeto de opciones
+
+	options.rawData = series.labels
+
 	return [series, options]
 }
 const formatRadarChartLabels = ({
@@ -452,6 +458,8 @@ const formatRadarChartLabels = ({
 	[CHARTS_SETTINGS.X_AXIS_FORMAT]: xAxisFormat,
 	[CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat
 }) => {
+
+	options.rawData = series.labels
 
 	// Definción del formateador de etiquetas numéricas
 	if (yAxisFormat) {
@@ -708,8 +716,9 @@ const setPlugInsConfig = ({
 	options.plugins.title.font = {
 		size: 16
 	}
-
-	console.log(options.plugins.title)
+	options.plugins.tooltip = {}
+	options.plugins.tooltip.enabled = false
+	options.plugins.tooltip.external = htmlTooltip
 
 	// Retorno del objeto contenedor de las opciones
 	return options
