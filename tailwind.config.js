@@ -1,4 +1,4 @@
-import { ALT1 } from './src/constants/colors';
+import { COLOR_THEME } from './src/settings/appSettings';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -7,7 +7,6 @@ export default {
 	safelist: [
 		"rounded-l-lg",
 		"rounded-r-lg",
-		"p-2"
 	],
 	theme: {
 		extend: {
@@ -36,7 +35,7 @@ export default {
 				'navbar-icons-background-d': '#142434',
 
 				'darkmode-switch-background-d': '#16212C',
-				'main': ALT1
+				'main': COLOR_THEME
 			},
 			width: {
 				18: '4.5rem',
