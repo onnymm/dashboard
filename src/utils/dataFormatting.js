@@ -156,7 +156,8 @@ const buildBubbleChartOptions = ({
 	[CHARTS_SETTINGS.LEGEND_BOX]: legendBox = chartSettings[
 		CHARTS_SETTINGS.LEGEND_BOX
 	],
-	[CHARTS_SETTINGS.TRANSPOSED]: transposed
+	[CHARTS_SETTINGS.TRANSPOSED]: transposed,
+	[CHARTS_SETTINGS.NAME]: name,
 }) => {
 	// Inicialización del objeto a retornar
 	let options = {}
@@ -188,7 +189,8 @@ const buildBubbleChartOptions = ({
 		labelsContainerID,
 		labelsDisplay,
 		labelsList,
-		legendBox
+		legendBox,
+		name
 	})
 
 	// Retorno del objeto de configuración
@@ -205,7 +207,8 @@ const buildCartesianChartOptions = ({
 	[CHARTS_SETTINGS.LEGEND_BOX]: legendBox = chartSettings[
 		CHARTS_SETTINGS.LEGEND_BOX
 	],
-	[CHARTS_SETTINGS.TRANSPOSED]: transposed
+	[CHARTS_SETTINGS.TRANSPOSED]: transposed,
+	[CHARTS_SETTINGS.NAME]: name,
 }) => {
 	// Inicialización del objeto a retornar
 	let options = {}
@@ -223,6 +226,8 @@ const buildCartesianChartOptions = ({
 	options.scales.y.grid = { color: undefined }
 	options.font = { color: midTransparentBlack }
 
+	console.log(name)
+
 	// Configuración de relación de aspecto
 	options.maintainAspectRatio = false
 
@@ -232,7 +237,8 @@ const buildCartesianChartOptions = ({
 		labelsContainerID,
 		labelsDisplay,
 		labelsList,
-		legendBox
+		legendBox,
+		name
 	})
 
 	// Retorno del objeto de configuración
@@ -248,7 +254,8 @@ const buildRadialChartOptions = ({
 	],
 	[CHARTS_SETTINGS.LEGEND_BOX]: legendBox = chartSettings[
 		CHARTS_SETTINGS.LEGEND_BOX
-	]
+	],
+	[CHARTS_SETTINGS.NAME]: name
 }) => {
 	// Inicialización del objeto a retornar
 	let options = {}
@@ -273,7 +280,8 @@ const buildRadialChartOptions = ({
 		labelsContainerID,
 		labelsDisplay,
 		labelsList,
-		legendBox
+		legendBox,
+		name,
 	})
 
 	// Retorno del objeto de configuración
@@ -289,7 +297,8 @@ const buildRadarChartOptions = ({
 	],
 	[CHARTS_SETTINGS.LEGEND_BOX]: legendBox = chartSettings[
 		CHARTS_SETTINGS.LEGEND_BOX
-	]
+	],
+	[CHARTS_SETTINGS.NAME]: name,
 }) => {
 	// Inicialización del objeto a retornar
 	let options = {}
@@ -309,6 +318,9 @@ const buildRadarChartOptions = ({
 	options.scales.r.grid = { color: undefined }
 	options.font = { color: midTransparentBlack }
 
+	options.title = {}
+	options.title.display = true
+
 	// Configuración de relación de aspecto
 	options.maintainAspectRatio = false
 
@@ -318,7 +330,8 @@ const buildRadarChartOptions = ({
 		labelsContainerID,
 		labelsDisplay,
 		labelsList,
-		legendBox
+		legendBox,
+		name,
 	})
 
 	// Retorno del objeto de configuración
@@ -336,6 +349,8 @@ const formatScatterChartLabels = ({
 	// Inicialización de las funciones formateadoras
 	let xLabelsFormatter
 	let yLabelsFormatter
+
+	options.rawData = series.labels
 
 	// Validación de indicación de gráfica transpuesta
 	if (transposed) {
@@ -437,6 +452,7 @@ const formatRadarChartLabels = ({
 	[CHARTS_SETTINGS.X_AXIS_FORMAT]: xAxisFormat,
 	[CHARTS_SETTINGS.Y_AXIS_FORMAT]: yAxisFormat
 }) => {
+
 	// Definción del formateador de etiquetas numéricas
 	if (yAxisFormat) {
 		const yLabelsFormatter = assignLabelsFormatter({
@@ -661,7 +677,8 @@ const setPlugInsConfig = ({
 	labelsContainerID,
 	labelsDisplay,
 	labelsList,
-	legendBox
+	legendBox,
+	name
 }) => {
 	const legendParams = {
 		labelsDisplay,
@@ -684,6 +701,15 @@ const setPlugInsConfig = ({
 
 		tooltip: {}
 	}
+
+	options.plugins.title = {}
+	options.plugins.title.display = true
+	options.plugins.title.text = name
+	options.plugins.title.font = {
+		size: 16
+	}
+
+	console.log(options.plugins.title)
 
 	// Retorno del objeto contenedor de las opciones
 	return options

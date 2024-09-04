@@ -17,6 +17,8 @@ export const buildData = ({
     labelsContainerID,
     // Tipo de gráfica
     [CHARTS_SETTINGS.CHART_TYPE]: chartType,
+    // Nombre de la gráfica
+    [CHARTS_SETTINGS.NAME]: name,
     // Variable de etiquetas de la gráfica de barras
     [CHARTS_SETTINGS.LABELS_NAME]: labelsName,
     // Variable de cada uno de los conjuntos de datos en el objeto
@@ -75,6 +77,7 @@ export const buildData = ({
     let options = buildInitOptions[chartType]({
         series,
         labelsContainerID,
+        [CHARTS_SETTINGS.NAME]: name,
         [CHARTS_SETTINGS.LABEL_COLUMNS]: labelsDisplay,
         [CHARTS_SETTINGS.LABELS_LIST]: labelsList,
         [CHARTS_SETTINGS.LEGEND_BOX]: legendBox,
