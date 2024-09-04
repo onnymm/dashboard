@@ -1,10 +1,17 @@
 import { useEffect, useRef } from "react";
 import ListItem from "./ListItem";
 
-const ListBox = ({ options, isOpen=undefined, assignOptions, evaluateActive, activeIcon }) => {
+const ListBox = ({
+    isOpen=undefined, // Estado para abrir lista de opciones
+    options, // Opciones a mostrar
+    assignOptions, // Función para cambio de estado
+    evaluateActive, // Función para evaluación de elementos activos
+    activeIcon, // Ícono para indicar elementos activos
+    reference // valor ref para control de tamaños y proporciones
+}) => {
     
     // Nodos de referencia
-    const listBoxRef = useRef(null)
+    const listBoxRef = reference
     const listBoxContainerRef = useRef(null)
 
     // Inicialización de clases de transición en caso de pertenecer a un Select
@@ -22,7 +29,7 @@ const ListBox = ({ options, isOpen=undefined, assignOptions, evaluateActive, act
                     listBoxRef.current.classList.add("scale-y-0", "-translate-y-[calc(50%)]")
                 }
             }
-        }, [isOpen]
+        }, [isOpen, listBoxRef]
     )
 
     // Interruptor de visibilidad en caso de pertenecer a un Select
@@ -43,14 +50,14 @@ const ListBox = ({ options, isOpen=undefined, assignOptions, evaluateActive, act
                     
                 }
             }
-        }, [isOpen]
+        }, [isOpen, listBoxRef]
     )
 
     return (
         <div ref={listBoxRef} className={`${isOpen !== undefined ? "z-999" : ""} max-h-50 absolute bg-white/50 backdrop-blur-sm dark:bg-gray-800/50 scale-y-0 -translate-y-[calc(50%)] transition duration flex flex-col w-min rounded-xl py-2 px-2 shadow-lg border border-gray-500/50`}
             
         >
-            <div ref={listBoxContainerRef} className="vertical-difuminate h-full py-2 overflow-y-scroll scrollbar-hide"
+            <div ref={listBoxContainerRef} className="py-2 h-full overflow-y-scroll scrollbar-hide vertical-difuminate"
             >
                 <div>
                 {
