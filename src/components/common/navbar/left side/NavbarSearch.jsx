@@ -105,7 +105,7 @@ const NavbarSearch = () => {
 					value={search}
 					autoComplete='off'
 					onChange={e => setSearch(e.target.value)}
-					placeholder='Type to search...'
+					placeholder='Buscar...'
 					className={`${miniSearchIsDisplayed ? 'absolute -left-10 top-12 rounded-md bg-white p-4 shadow-back dark:bg-navbar-icons-background-d' : 'hidden bg-transparent px-2 dark:opacity-80 md:block'} text-sm focus:outline-none dark:text-white dark:placeholder-white dark:placeholder-opacity-80`}
 				/>
 			</Form>

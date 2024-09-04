@@ -10,11 +10,11 @@ const Navbar = () => {
 			<div className='relative z-99999'>
 				{/* Sidebar y su toggle */}
 				<SidebarContainer />
-				<nav className='transition-color sticky top-0 flex h-20 w-full flex-grow select-none items-center justify-between bg-navbar-background px-4 shadow duration-dark dark:bg-navbar-background-d'>
+				<nav className='top-0 sticky flex flex-grow justify-between items-center bg-navbar-background dark:bg-navbar-background-d shadow px-4 w-full h-20 transition-color duration-dark select-none'>
 					<div className='relative flex'>
 						{/* Logotipo/link a la página principal */}
 						<LogoLink imgSource='./logo.webp' extraStyles='dark:text-white'>
-							<h1 className='hidden transition-colors duration-dark sm:block'>
+							<h1 className='sm:block hidden transition-colors duration-dark'>
 								iaCele
 							</h1>
 						</LogoLink>
