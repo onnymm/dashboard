@@ -16,6 +16,7 @@ const Table = ({
     filters,
     searchScope,
     itemsPerPage = 50,
+    showPagination = true,
 }) => {
 
     // Referencia de componente de tabla para manipulación directa
@@ -40,7 +41,6 @@ const Table = ({
 
     // Objeto de mapa de columnas de tabla
     const { availableColumns, activeColumns, toggleColumn } = useColumns(columns, columnsToRender);
-
     // Estado para paginación
     const [page, setPage] = useState(0);
 
@@ -59,54 +59,59 @@ const Table = ({
     );
 
     return (
-        <div className="flex flex-col w-full p-4 gap-4">
-            <div className="flex flex-row gap-4 justify-start">
+        <div className="flex flex-col gap-4 w-max max-w-full">
+            {
+                searchScope || filters || availableColumns.length ?
+                    <div className="flex flex-wrap gap-2 w-full">
 
-                {/* Campo de búsqueda */}
-                {searchScope && <SearchInput setSearch={setSearch} searchScope={searchScope} />}
+                        {/* Campo de búsqueda */}
+                        {searchScope && <SearchInput setSearch={setSearch} searchScope={searchScope} />}
 
-                {/* Sección de filtros */}
-                {
-                    filters &&
-                    <Select icon={FunnelIcon} options={filters} activeOptions={activeFilter} setActiveOptions={setActiveFilter} activeIcon={FunnelIcon}>
-                        Filtrar por
-                    </Select>
-                }
-                {
-                    filters &&
-                    <IconTextButton icon={XMarkIcon} onClick={cleanFilters} disabled={activeFilter === undefined}>
-                        Limpiar filtros
-                    </IconTextButton>
-                }
+                        {/* Sección de filtros */}
+                        {
+                            filters &&
+                            <Select icon={FunnelIcon} options={filters} activeOptions={activeFilter} setActiveOptions={setActiveFilter} activeIcon={FunnelIcon}>
+                                Filtrar por
+                            </Select>
+                        }
+                        {
+                            filters &&
+                            <IconTextButton icon={XMarkIcon} onClick={cleanFilters} disabled={activeFilter === undefined}>
+                                Limpiar filtros
+                            </IconTextButton>
+                        }
 
-                {/* Filtro de columnas */}
-                {
-                    availableColumns &&
-                    <Select icon={TableCellsIcon} options={availableColumns} activeOptions={activeColumns} setActiveOptions={toggleColumn} activeIcon={EyeIcon} multiOptional>
-                        Ver columnas
-                    </Select>
-                }
-            </div>
+                        {/* Filtro de columnas */}
+                        {
+                            availableColumns.length &&
+                            <Select icon={TableCellsIcon} options={availableColumns} activeOptions={activeColumns} setActiveOptions={toggleColumn} activeIcon={EyeIcon} multiOptional>
+                                Ver columnas
+                            </Select>
+                        }
+                    </div>
+                : null
+            }
+            {searchScope && filters && availableColumns.length &&
             <div className="flex flex-row gap-4">
                 {/* Paginación superior de página */}
-                <TablePagination data={data} itemsPerPage={itemsPerPage} page={page} setPage={setPage} />
+                {showPagination && <TablePagination data={data} itemsPerPage={itemsPerPage} page={page} setPage={setPage} />}
                 {/* Selector de página */}
-                <NumericInput defaultValue={page + 1} valueHandle={(value) => setPage(value - 1)} min={1} max={Math.trunc(data.length / itemsPerPage) + (data.length % itemsPerPage === 0 ? 0 : 1)} instantUpdate />
-            </div>
+                {showPagination && <NumericInput defaultValue={page + 1} valueHandle={(value) => setPage(value - 1)} min={1} max={Math.trunc(data.length / itemsPerPage) + (data.length % itemsPerPage === 0 ? 0 : 1)} instantUpdate />}
+            </div>}
             {/* Contenido y diseño de la tabla */}
-            <div className="w-auto flex flex-col p-2 shadow-md border border-gray-500/30 transition duration-100 rounded-xl h-max bg-white dark:bg-gray-800">
-                <div className="rounded-lg h-0 z-10 pointer-events-none">
-                    <div className="w-full h-10 bottom-10 rounded-lg shadow-md dark:border-none"></div>
+            <div className="flex flex-col border-gray-500/30 bg-white dark:bg-gray-800 shadow-md p-2 border rounded-xl w-full h-max transition duration-100">
+                <div className="z-10 rounded-lg h-0 pointer-events-none">
+                    <div className="bottom-10 shadow-md dark:border-none rounded-lg w-full h-10"></div>
                 </div>
-                <div ref={tableDataRef} id="users" className="w-full h-full flex flex-col rounded-lg scrollbar-hide overflow-y-scroll">
+                <div ref={tableDataRef} id="users" className="flex flex-col rounded-lg w-full h-full overflow-x-auto overflow-y-hidden">
                     <TableContent data={data} columns={activeColumns} page={page} setPage={setPage} itemsPerPage={itemsPerPage} columnsToRender={columnsToRender} tableDataRef={tableDataRef} />
                 </div>
             </div>
             <div className="flex flex-row gap-4">
                 {/* Paginación superior de página */}
-                <TablePagination data={data} itemsPerPage={itemsPerPage} page={page} setPage={setPage} />
+                {showPagination && <TablePagination data={data} itemsPerPage={itemsPerPage} page={page} setPage={setPage} />}
                 {/* Selector de página */}
-                <NumericInput defaultValue={page + 1} valueHandle={(value) => setPage(value - 1)} min={1} max={Math.trunc(data.length / itemsPerPage) + (data.length % itemsPerPage === 0 ? 0 : 1)} instantUpdate />
+                {showPagination && <NumericInput defaultValue={page + 1} valueHandle={(value) => setPage(value - 1)} min={1} max={Math.trunc(data.length / itemsPerPage) + (data.length % itemsPerPage === 0 ? 0 : 1)} instantUpdate />}
             </div>
         </div>
     )

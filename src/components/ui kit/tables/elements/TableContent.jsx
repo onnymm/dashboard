@@ -9,7 +9,7 @@ const TableContent = ({ data, columns, page, setPage, itemsPerPage, columnsToRen
 
     // Estructura de la tabla
     return (
-        <table role="grid" className="z-1">
+        <table role="grid" className="w-[calc(100%)] max-w-full block z-1 table-fixed">
             <thead role="rowgroup" className="">
                 <TableColumns
                     columns={columns}
