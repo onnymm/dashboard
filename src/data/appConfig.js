@@ -1,8 +1,8 @@
 import {
-	Cog8ToothIcon,
-	IdentificationIcon,
-	PaintBrushIcon,
-	ShoppingBagIcon
+	CurrencyDollarIcon,
+	DocumentPlusIcon,
+	ShoppingBagIcon,
+	UserIcon
 } from '@heroicons/react/24/outline'
 import { PRESET_COLORS, RED_PALETTE } from '../constants/colors'
 import { CHARTS_SETTINGS } from '../constants/settings'
@@ -175,30 +175,30 @@ export const homepageCharts = {
 export const NOTIFICATIONS = [
 	{
 		id: 1,
-		header: 'Kyber sales cut by 20%',
+		header: 'Oportunidad de venta',
 		content:
-			"Hey boss, sorry to bother you on christmas but Master Plo kind of snorted a whole crate of Kyber haha. He's in the ER right now. How do we proceed?"
+			"Tienes una oportunidad de venta adicional en tu orden con folio S40610."
 	},
 	{
 		id: 2,
-		header: 'There are 6 horny Natuloans near you',
+		header: '8 actividades para hoy, 1 vencida',
 		content:
-			'This link for meet singel ladie!!1 not virus. pelase trust... https://tinyurl.com/kyhzfahz'
+			'Tienes 8 actividades para el día de hoy mas 1 tarea que venció ayer a las 5:45 p.m.'
 	},
 	{
 		id: 3,
-		header: 'Grindr',
-		content: 'HXRNY EXHIBTNIST: sent a picture. Press for more'
+		header: 'iaCele',
+		content: 'Termina de configurar tu cuenta.'
 	},
 	{
 		id: 4,
-		header: 'Grindr',
-		content: 'HXRNY EXHIBTNIST: sent a picture. Press for more'
+		header: 'Reporte mensual',
+		content: 'Ya está listo tu reporte mensual de Agosto.'
 	},
 	{
 		id: 5,
-		header: 'Grindr',
-		content: 'HXRNY EXHIBTNIST: sent a picture. Press for more'
+		header: 'Seguimiento a tu compra',
+		content: 'Tu compra ha llegado a tu sucursal.'
 	}
 ]
 
@@ -206,33 +206,46 @@ export const NOTIFICATIONS = [
 export const MESSAGES = [
 	{
 		id: 1,
-		avatar: './Jabba.webp',
-		header: 'xXJabbaDaHuttXx',
-		content: 'hei dud you down for som minecraft? i just bought a realm'
+		avatar: 'default_profile.webp',
+		header: 'Evlin Sánchez Lucio',
+		content: 'me apoyas en whatsapp por favor'
 	},
 	{
 		id: 2,
-		avatar: './Jabba.webp',
-		header: 'xXJabbaDaHuttXx',
-		content: 'hei dud you down for som minecraft? i just bought a realm'
+		avatar: 'csl.jpg',
+		header: 'Cabo San Lucas',
+		content: 'Mariana: 👍'
 	},
 	{
 		id: 3,
-		content:
-			"My name is Carmen Winstead, I'm seventeen years old. I am very similar to you... Did I mention to you that I'm dead. A few years ago a group of girls pushed me down a sewer hole to try"
+		avatar: 'default_profile.webp',
+		header: 'Reyna Arriaga Flores',
+		content: 'Tú: Si por favor'
 	},
 	{
 		id: 4,
-		avatar: './Jabba.webp',
-		header: 'xXJabbaDaHuttXx',
-		content: 'hei dud you down for som minecraft? i just bought a realm'
+		avatar: 'logo.webp',
+		header: 'iaCele',
+		content: 'Tu solicitud de compra ya está en proceso...'
 	},
 	{
 		id: 5,
-		avatar: './Jabba.webp',
-		header: 'xXJabbaDaHuttXx',
-		content: 'hei dud you down for som minecraft? i just bought a realm'
-	}
+		avatar: 'default_profile.webp',
+		header: 'Leticia Terán Salinas',
+		content: "ok"
+	},
+	// {
+	// 	id: 4,
+	// 	avatar: './Jabba.webp',
+	// 	header: 'xXJabbaDaHuttXx',
+	// 	content: 'hei dud you down for som minecraft? i just bought a realm'
+	// },
+	// {
+	// 	id: 5,
+	// 	avatar: './Jabba.webp',
+	// 	header: 'xXJabbaDaHuttXx',
+	// 	content: 'hei dud you down for som minecraft? i just bought a realm'
+	// }
 ]
 
 // Enlaces del dropdown de perfil de la navbar
@@ -254,22 +267,27 @@ export const PROFILE_LINKS = [
 // Enlaces del dropdown "dashboard"
 export const DASHBOARD_LINKS = [
 	{
+		id: 3,
+		label: 'Mis comisiones',
+		route: 'comisiones',
+	},
+	{
 		id: 1,
-		label: 'eCommerce',
-		route: 'ecommerce'
+		label: 'Mis órdenes',
+		route: 'myorders'
 	},
 	{
 		id: 2,
-		label: 'Analytics',
+		label: 'Productos',
 		route: 'analytics'
-	}
+	},
 ]
 
 // Enlaces del dropdown "tasks"
 export const TASKS_LINKS = [
 	{
 		id: 1,
-		label: 'To do',
+		label: 'Actividades',
 		route: 'to-do'
 	}
 ]
@@ -277,34 +295,34 @@ export const TASKS_LINKS = [
 export const PRICEGRID_DATA = [
 	{
 		id: 0,
-		icon: PaintBrushIcon,
-		amount: '66.66MC',
-		label: 'Total earned',
-		percent: '0.01',
-		gain: undefined
+		icon: CurrencyDollarIcon,
+		amount: '$649,661.26',
+		label: 'Total vendido',
+		percent: '12.02%',
+		gain: true
 	},
 	{
 		id: 1,
-		icon: Cog8ToothIcon,
-		amount: '12.30IC',
-		label: 'Total spent',
-		percent: '280%',
-		gain: true
+		icon: UserIcon,
+		amount: '133',
+		label: 'Clientes atendidos',
+		percent: '2.08',
+		gain: false
 	},
 	{
 		id: 2,
 		icon: ShoppingBagIcon,
-		amount: '99G',
-		label: 'Actives',
-		percent: '3.20%',
-		gain: false
+		amount: '25175.26',
+		label: 'Productos vendidos',
+		percent: '13.74%',
+		gain: true
 	},
 	{
 		id: 3,
-		icon: IdentificationIcon,
-		amount: '-200K',
-		label: 'Credit score',
-		percent: '15%',
+		icon: DocumentPlusIcon,
+		amount: '608',
+		label: 'Ventas realizadas',
+		percent: '2.18%',
 		gain: false
 	}
 ]
