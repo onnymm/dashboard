@@ -20,7 +20,7 @@ const Feed = () => {
 			<main
 				// Contenido de la página, el tamaño se ajusta al contenido, si se requiere que las páginas contenidas en
 				// Outlet ocupen toda la pantalla *siempre*, añadirles flex-grow a su contenedor.
-				className={`${sidebarIsLocked && screenIsWide ? "w-[calc(100%_-_18rem)]" : "w-full"} transition-width duration-500 flex mx-0-red-500 p-2 sm:p-6 max-w-feed-width h-min min-h-full`}
+				className={`${sidebarIsLocked && screenIsWide ? "w-[calc(100%_-_18rem)]" : "w-full"} h-max transition-width duration-500 flex mx-0-red-500 p-2 sm:p-6 max-w-feed-width min-h-full`}
 			>
 				<Outlet />
 			</main>
