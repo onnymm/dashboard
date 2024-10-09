@@ -1,7 +1,7 @@
 import {
-	BeakerIcon,
-	ListBulletIcon,
-	Squares2X2Icon,
+	Cog6ToothIcon,
+	HomeIcon,
+	SparklesIcon,
 	UserIcon
 } from '@heroicons/react/24/outline'
 import { useContext } from 'react'
@@ -27,16 +27,16 @@ const calculateHeight = content => {
 // Contenido de la lista generadora de dropdowns
 const SIDEBAR_DROPDOWNS = [
 	{
-		id: 1, // Id (se usará como llave)
-		icon: Squares2X2Icon, // Ícono
-		label: 'Dashboard', // Etiqueta (título, texto)
+		id: 0, // Id (se usará como llave)
+		icon: HomeIcon, // Ícono
+		label: 'Inicio', // Etiqueta (título, texto)
 		content: DASHBOARD_LINKS, // Objeto con las rutas contenidas, a partir de este se creará una segunda lista de navlinks dentro del dropdown
 		height: calculateHeight(DASHBOARD_LINKS) // Se calcula la altura del contenedor de la lista, se usaron valores fijos para poder animar transición de altura
 	},
 	{
-		id: 2,
-		icon: ListBulletIcon,
-		label: 'Tasks',
+		id: 1,
+		icon: SparklesIcon,
+		label: 'Mi espacio',
 		content: TASKS_LINKS,
 		height: calculateHeight(TASKS_LINKS)
 	}
@@ -58,7 +58,7 @@ const SidebarContent = () => {
 			*/}
 			<div className='no-scrollbar flex flex-col overflow-y-auto rounded-sm px-2 pb-2'>
 				{/* Etiqueta de sección */}
-				<StickySectionTag>MENU</StickySectionTag>
+				<StickySectionTag>MENÚ</StickySectionTag>
 				{/* Lista generadora de componentes */}
 				<List
 					Contains={SidebarDropdown}
@@ -73,16 +73,16 @@ const SidebarContent = () => {
 				{/* Navlink estilizado */}
 				<SidebarSection
 					icon={UserIcon}
-					label='Profile'
+					label='Mi cuenta'
 					route='profile'
 					handleClick={closeSidebar}
 				/>
 				{/* Etiqueta de sección */}
-				<StickySectionTag>EXTRA</StickySectionTag>
+				<StickySectionTag>CONFIGURACIÓN</StickySectionTag>
 				{/* Navlink estilizado */}
 				<SidebarSection
-					icon={BeakerIcon}
-					label='UI Tests'
+					icon={Cog6ToothIcon}
+					label='Preferencias'
 					route='ui-tests'
 					handleClick={closeSidebar}
 				/>
