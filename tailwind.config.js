@@ -3,6 +3,7 @@ import { htmlTooltipClassNames } from './src/settings/classNames';
 
 /** @type {import('tailwindcss').Config} */
 export default {
+	mode: 'jit',
 	content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
 	darkMode: 'class',
 	safelist: [
@@ -167,7 +168,8 @@ export default {
 				'bars3-click': 'shrinkGrowSmall 0.15s ease',
 				'bars3-click-sm': 'shrinkGrowSmall 0.25s ease',
 				'fade-grow-in': 'fadeGrowIn 0.1s ease-out forwards',
-				'fade-shrink-out': 'fadeShrinkOut 0.1s ease-in forwards'
+				'fade-shrink-out': 'fadeShrinkOut 0.1s ease-in forwards',
+				'loading-spin': 'spin 1s infinite ease-in-out'
 			},
 			transitionProperty: {
 				width: 'width',
