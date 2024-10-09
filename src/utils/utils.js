@@ -123,3 +123,20 @@ export const capitalizeFirstLetter = str => {
 }
 
 export const toMXN = (num) => (num.toLocaleString('es-MX', {style: 'currency', currency: 'MXN'}))
+
+/**
+ *  ## Inserción de valor en matriz
+ *  Esta función inserta un valor en un índice de una matriz y retorna ésta.
+ *  
+ *  @param {array} arr - Matriz que recibirá el valor
+ *  @param {any} value - Valor a insertar en la matriz
+ *  @param {number} index - Índice de la ubicación del valor entrante
+ *  @returns {array}
+ */
+export const insertedInArray = (arr, value, index) => {
+
+    const startSlice = arr.slice(null, index);
+    const endSlice = arr.slice(index);
+
+    return [ ...startSlice, value, ...endSlice ]
+}
