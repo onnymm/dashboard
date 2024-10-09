@@ -10,8 +10,10 @@ const IconTextButton = ({
 
     return (
         <ButtonTemplate onClick={onClick} disabled={disabled} rounded={'lg'} type={type} size={"text"}>
-            <Icon className="size-4 mr-2 fill-current duration-current" />
-            <div>
+            <div className="mr-2 sm:ml-1 h-[75%] duration-current aspect-square fill-current">
+            {Icon && <Icon />}
+            </div>
+            <div className="flex flex-row items-center gap-1">
                 {children}
             </div>
         </ButtonTemplate>
