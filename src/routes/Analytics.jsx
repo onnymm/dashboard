@@ -1,7 +1,13 @@
+import OdooProductTemplate from "../test/test_pages/OdooProductTemplate"
+// import OdooProductTemplate from "../test/test_pages/OdooProductTemplate"
+// import OdooSaleOrders from "../../test/test_pages/OdooSaleOrders"
+
 
 const Analytics = () => {
 	return (
-		<div className='flex h-screen flex-grow items-center justify-center text-center'>
+		<div className='flex flex-col flex-grow items-center w-full h-screen text-center'>
+			{/* <OdooSaleOrders /> */}
+			<OdooProductTemplate />
 		</div>
 	)
 }

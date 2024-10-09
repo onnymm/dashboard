@@ -1,11 +1,15 @@
-import FallbackProfileNavList from '../components/skeletons/FallbackProfileNavList'
-
 const UiTests = () => {
-	return (
-		<div className='flex flex-grow items-center justify-center text-center'>
-			<FallbackProfileNavList />
-		</div>
-	)
+
+    return (
+        <div>
+            <span>Hola</span>
+            <span>
+                <span>
+                    Adiós
+                </span>
+            </span>
+        </div>
+    )
 }
 
-export default UiTests
+export default UiTests;
