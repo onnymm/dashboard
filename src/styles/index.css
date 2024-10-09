@@ -9,6 +9,16 @@
 	overflow-x: hidden; /* Use 'hidden' instead of 'none' */
 }
 
+@layer base {
+	body {
+		@apply text-black dark:text-gray-300 transition-colors duration-100;
+	}
+}
+
+button {
+	user-select: none;
+}
+
 .no-scrollbar::-webkit-scrollbar {
 	display: none;
 }
@@ -44,6 +54,51 @@ body {
 	.scrollbar-hide {
 		scrollbar-width: none;
 	}
+
+	/* Estilos de la UI */
+	.ui-text {
+		@apply text-black dark:text-white;
+	}
+
+	.ui-background-danger {
+		@apply bg-red-500/30;
+	}
+
+	.ui-text-danger {
+		@apply text-red-600 dark:text-red-400;
+	}
+
+	.ui-background-warning {
+		@apply bg-yellow-500/30;
+	}
+
+	.ui-text-warning {
+		@apply text-yellow-600 dark:text-yellow-500;
+	}
+
+	.ui-background-success {
+		@apply bg-green-500/30;
+	}
+
+	.ui-text-success {
+		@apply text-green-500;
+	}
+
+	.ui-background-info {
+		@apply bg-sky-500/30;
+	}
+
+	.ui-text-info {
+		@apply text-sky-500;
+	}
+
+	.ui-background-none {
+		@apply bg-gray-500/20;
+	}
+
+	.ui-text-none {
+		@apply text-gray-600 dark:text-gray-400;
+	}
 }
 
 .circle {
@@ -67,5 +122,5 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .vertical-difuminate {
-	mask-image: linear-gradient(to top, transparent 0%, rgb(0, 0, 0) 1rem, rgb(0, 0, 0) calc(100% - 1rem), transparent 100%);
+	mask-image: linear-gradient(to top, transparent 0%, rgb(0, 0, 0) 0.625rem, rgb(0, 0, 0) calc(100% - 0.625rem), transparent 100%);
 }
