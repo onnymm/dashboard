@@ -1,6 +1,7 @@
 import createCircle from "../../../core/uiEffects";
 
 const ButtonTemplate = ({
+    className = "",
     children, // Contenido del botón
     onClick, // Función del botón
     disabled, // Deshabilitado
@@ -11,10 +12,10 @@ const ButtonTemplate = ({
 
     // Apariencia del botón
     const buttonType = {
-        primary: 'bg-main-500 hover:bg-main-400 text-white',
-        secondary: 'text-gray-500 bg-white dark:bg-transparent hover:bg-gray-50/20 dark:hover:bg-white/10 border border-gray-300 dark:text-white',
-        danger: 'text-red-500 border border-red-500/50 hover:bg-red-500/20 dark:text-red-400 border dark:border-red-400/50',
-        success: 'text-green-500 border border-green-500/50 hover:bg-green-500/20 dark:text-green-400 dark:border border-green-400/50'
+        primary: 'bg-main-500 sm:hover:bg-main-400 text-white',
+        secondary: 'text-gray-500 bg-white dark:bg-gray-500/30 sm:hover:bg-gray-50/20 dark:sm:hover:bg-white/10 border-gray-500/50 dark:text-white',
+        danger: 'text-red-500 border-red-500/50 sm:hover:bg-red-500/20 dark:text-red-400 border dark:border-red-400/50',
+        success: 'text-green-500 border-green-500/50 sm:hover:bg-green-500/20 dark:text-green-400 dark:border border-green-400/50'
     };
 
     // Color del efecto de pulso en el botón
@@ -41,8 +42,8 @@ const ButtonTemplate = ({
     // Tamaño y aspecto del botón
     const buttonSizevalue = {
         sm: 'size-8 p-2',
-        lg: 'size-12 p-2',
-        text: "w-min h-12 py-2 px-4"
+        lg: 'size-12 sm:size-10 p-2',
+        text: "w-max h-12 sm:h-10 py-2 px-4 sm:px-2"
     };
 
     // Tamaño y aspecto del contenido del botón
@@ -68,11 +69,11 @@ const ButtonTemplate = ({
 
     return (
         <button
-            className={`${buttonSizeClassName} ${roundedClassName} ${typeClassName} whitespace-nowrap flex justify-center items-center shadow-lg overflow-hidden relative active:scale-95 transition duration-150 disabled:transform-none disabled:bg-gray-300 disabled:dark:bg-inherit disabled:border disabled:dark:border-gray-500/50 disabled:dark:text-gray-500/50`}
+            className={`${className} ${buttonSizeClassName} ${roundedClassName} ${typeClassName} sm:text-sm whitespace-nowrap flex justify-center items-center shadow-md overflow-hidden relative active:scale-95 transition duration-150 disabled:transform-none disabled:bg-gray-300 disabled:dark:bg-transparent disabled:hover:bg-gray-300 disabled:hover:dark:bg-transparent dark:disabled:border disabled:border-none border disabled:dark:border-gray-500/50 disabled:dark:text-gray-500/50`}
             onClick={callback}
             disabled={disabled}
         >
-            <div className={`${contentSizeClassName} flex justify-center items-center content-center`}>
+            <div className={`${contentSizeClassName} h-full flex justify-center items-center content-center`}>
                 {children}
             </div>
         </button>
