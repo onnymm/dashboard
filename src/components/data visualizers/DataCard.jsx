@@ -30,19 +30,19 @@ const DataCard = ({ icon: Icon, amount, label, percent, gain }) => {
 		>
 			{/* Ícono */}
 			{Icon && (
-				<div className='mb-3 flex'>
-					<div className='rounded-full bg-slate-100 p-3 opacity-80 transition-all duration-dark dark:bg-navbar-icons-background-d'>
-						<Icon className='size-8 text-main-500' />
+				<div className='flex mb-3'>
+					<div className='bg-slate-100 dark:bg-navbar-icons-background-d opacity-80 p-3 rounded-full transition-all duration-dark'>
+						<Icon className='text-main-500 size-8' />
 					</div>
 				</div>
 			)}
 			<div className='flex justify-between'>
 				{/* Cantidad y subtítulo */}
 				<div className='flex flex-col gap-1'>
-					<h1 className='text-xl font-bold transition-all duration-dark dark:text-white'>
+					<h1 className='font-bold text-xl dark:text-white transition-all duration-dark'>
 						{amount}
 					</h1>
-					<p className='text-sm transition-all duration-dark text-current/60 dark:text-white/60'>
+					<p className='text-current/60 text-sm dark:text-white/60 transition-all duration-dark'>
 						{label}
 					</p>
 				</div>
@@ -51,7 +51,7 @@ const DataCard = ({ icon: Icon, amount, label, percent, gain }) => {
 					className={`text-gray flex items-center gap-1 self-end font-medium ${textColor}`}
 				>
 					{arrowIcon}
-					<p className='text-sm opacity-100'>{percent.toFixed(2)}%</p>
+					<p className='opacity-100 text-sm'>{percent.toFixed(2)}%</p>
 				</div>
 			</div>
 		</div>
