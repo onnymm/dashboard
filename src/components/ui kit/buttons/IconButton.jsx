@@ -1,6 +1,7 @@
 import ButtonTemplate from "./ButtonTemplate";
 
 const IconButton = ({
+    className,
     icon: Icon, // Ícono del botón
     onClick, // Función del botón
     disabled, // Estado de botón deshabilitado
@@ -9,8 +10,8 @@ const IconButton = ({
 }) => {
 
     return (
-        <ButtonTemplate onClick={onClick} disabled={disabled} rounded={'full'} type={type} size={size}>
-            <Icon className="fill-current duration-current" />
+        <ButtonTemplate className={className} onClick={onClick} disabled={disabled} type={type} size={size}>
+            <Icon className="duration-current fill-current" />
         </ButtonTemplate>
     )
 }
