@@ -3,7 +3,9 @@ import { createBrowserRouter } from 'react-router-dom'
 import App from './App'
 import { FallbackFeed } from './components/skeletons/FallbackFeed'
 import { appLoader } from './data/appLoader'
+import Comisiones from './routes/Comisiones'
 import ErrorPage from './routes/ErrorPage'
+import MyOrders from './routes/MyOrders'
 
 const Homepage = lazy(() => import('./routes/Homepage'))
 const Analytics = lazy(() => import('./routes/Analytics'))
@@ -26,6 +28,14 @@ const router = createBrowserRouter([
 						element: (
 							<Suspense fallback={<FallbackFeed />}>
 								<Homepage />
+							</Suspense>
+						)
+					},
+					{
+						path: 'myorders',
+						element: (
+							<Suspense fallback={<FallbackFeed />}>
+								<MyOrders />
 							</Suspense>
 						)
 					},
@@ -66,6 +76,14 @@ const router = createBrowserRouter([
 						element: (
 							<Suspense fallback={<FallbackFeed />}>
 								<UiTests />
+							</Suspense>
+						)
+					},
+					{
+						path: 'comisiones',
+						element: (
+							<Suspense fallback={<FallbackFeed />}>
+								<Comisiones />
 							</Suspense>
 						)
 					},
