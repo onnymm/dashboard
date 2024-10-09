@@ -1,8 +1,8 @@
 import SortingIndicator from "./SortingIndicator";
 import SortingDirection from "./SortingStatus";
 
-const TableColumn = ({ content, column, isSorting, ascending, setSortingColumn, setPage, canSort }) => {
-    
+const TableColumn = ({ content, column, isSorting, ascending, setSortingColumn, canSort }) => {
+
     // Color de fondo
     const backgroundColor = {
         true: "bg-main-300/70 hover:bg-main-200/70 dark:hover:bg-main-200/70",
@@ -15,7 +15,7 @@ const TableColumn = ({ content, column, isSorting, ascending, setSortingColumn, 
     // Contenido de la columna
     const ColumnContent = () => {
         return (
-            <div className="flex flex-row items-center justify-between gap-2">
+            <div className="flex flex-row justify-between items-center gap-2">
                 {content}
 
                 {/* Ícono del estatus de orden */}
@@ -30,8 +30,7 @@ const TableColumn = ({ content, column, isSorting, ascending, setSortingColumn, 
     }
 
     const sortData = () => {
-        setSortingColumn(column.name);
-        setPage(0)
+        setSortingColumn(column);
     }
 
     // Retorno del elemento de columna de tabla
