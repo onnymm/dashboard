@@ -1,3 +1,3 @@
-import { ALT1 } from "../constants/colors";
+import { ALT2 } from "../constants/colors";
 
-export const COLOR_THEME = ALT1
+export const COLOR_THEME = ALT2
