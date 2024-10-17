@@ -1,11 +1,15 @@
+import { renderDataViewItem } from "../../core/tablesFunctionality";
+import { convertToKanbanStructure } from "../../utils/convertToKanbanStructure";
 import { badge, char, date, datetime, float, many2one, monetary, percentage, time } from "../../widgets/widgetTables";
 import KanbanCard from "./KanbanCard";
 
 const Kanban = ({
     data,
     fields,
-    kanbanStructure,
+    viewConfig,
 }) => {
+
+    const kanbanStructure = convertToKanbanStructure(viewConfig)
 
     const renderType = {
         char: char,
@@ -41,15 +45,12 @@ const Kanban = ({
 
         if ( kanbanStructure.fixed ) {
             const content = kanbanStructure.fixed.map(
-                (param) => {
-                    const key = param.key
-                    const value = item[key]
-                    const type = (
-                        typeof param.type === 'function'
-                            ? param.type("value", param.options)
-                            : renderType[typeIndex[key]]("value", param.options)
-                    )
-                    return {value, type}
+                (params) => {
+                    const key = params.key
+
+                    const renderedContent = renderDataViewItem(params, item, typeIndex[key])
+
+                    return renderedContent
                 }
             )
             return content

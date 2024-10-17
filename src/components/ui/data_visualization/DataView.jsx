@@ -1,12 +1,13 @@
-import { ArrowsUpDownIcon, Bars3CenterLeftIcon, CheckIcon, EyeIcon, FunnelIcon, Squares2X2Icon, TableCellsIcon } from "@heroicons/react/24/solid";
+import { ArrowsUpDownIcon, Bars3CenterLeftIcon, CheckIcon, EyeIcon, FunnelIcon, ListBulletIcon, Squares2X2Icon, TableCellsIcon } from "@heroicons/react/24/solid";
 import { useEffect, useMemo, useRef, useState } from "react";
 import useSearch from "../../../custom hooks/useSearch";
+import { NO_RECORDS_MESSAGE } from "../../../settings/appSettings";
 import Fallback from "../../../test/async_table/Fallback";
 import Kanban from "../../../test/kanban/Kanban";
 import Select from "../../../test/select/Select";
-import { convertToKanbanStructure } from "../../../utils/convertToKanbanStructure";
 import TablePagination from "../../ui kit/tables/pagination/TablePagination";
 import InputSearch from "../inputs/InputSearch";
+import NoRecords from "./view_types/common/NoRecords";
 import Table from "./view_types/table/Table";
 
 const DataView = ({
@@ -18,6 +19,8 @@ const DataView = ({
     showPagination = true,
     hiddenFields,
     apiCallback,
+    noRecordsIcon: NoRecordsIcon = ListBulletIcon,
+    noRecordsMessage = NO_RECORDS_MESSAGE
 }) => {
 
     // Estado de carga inicial
@@ -141,7 +144,7 @@ const DataView = ({
     useEffect(
         () => {
             if (data && initialLoad) {
-                tableDataRef.current.scrollTo(0, 0);
+                // tableDataRef.current.scrollTo(0, 0);
             }
         }, [data, initialLoad, loading]
     )
@@ -167,7 +170,6 @@ const DataView = ({
         <div className="flex flex-col gap-4 w-full h-max min-h-full">
             {/* Render inicial mientras los datos cargan */}
             {loading && !initialLoad && <Fallback icon={TableCellsIcon} />}
-
             {initialLoad && data &&
                 <ViewHeader { ...headerProps } />
             }
@@ -179,15 +181,20 @@ const DataView = ({
 
             {/* Vista de tabla */}
             {data && initialLoad &&
-                <div className={`hidden sm:flex relative flex-col border-gray-500/30 bg-white dark:bg-gray-800 shadow-md p-2 border rounded-xl w-max max-w-full h-max transition duration-100 overflow-auto`}>
-                    <div className="rounded-lg w-full h-max overflow-auto">
-                        <div className={`${loading ? "h-96 max-h-full overflow-hidden": ""} relative flex rounded-lg max-w-max h-max overflow-auto`} ref={tableDataRef}>
-                            <div className={`${loading ? "opacity-0 pointer-events-none" : ""} z-10 rounded-lg h-0 pointer-events-none w-max`}>
+                <div className={`${data.data.length === 0 ? "w-full" : "w-max"} hidden sm:flex relative flex-col flex-grow border-gray-500/30 bg-white dark:bg-gray-800 shadow-md p-2 border rounded-xl max-w-full transition duration-100 overflow-auto`}>
+                    <div className="flex flex-grow rounded-lg w-full h-full overflow-auto">
+                        <div className={`${loading ? "flex-grow flex flex-col overflow-hidden": ""} ${data[0] === undefined ? "w-full" : "max-w-max"} relative flex rounded-lg overflow-auto min-h-full`} ref={tableDataRef}>
+                            <div className={`${loading ? "flex-grow flex opacity-0 pointer-events-none" : ""} z-10 rounded-lg h-0 pointer-events-none w-max`}>
                                 <div className="bottom-10 shadow-md dark:border-none rounded-lg w-full h-10"></div>
                             </div>
-                            <div id="users" className={`${loading ? "opacity-0 pointer-events-none max-h-96" : ""} flex flex-col rounded-lg h-max max-size-full`}>
-                                {initialLoad && data &&
+                            <div id="users" className={`${loading ? "flex-grow opacity-0 pointer-events-none max-h-0" : ""} flex flex-col rounded-lg size-full max-size-full`}>
+                                {initialLoad && data && data.data.length > 0 &&
                                     <Table data={data.data} viewConfig={viewConfig} visibleColumns={visibleColumns} itemsPerPage={itemsPerPage} columnsToRender={viewConfig} async columnsInfo={data.fields} sortingFieldKey={sortingFieldKey} setSortingColumn={setTableSortingField} sortingDirectionKey={ascending} sortingColumnName={() => null} />
+                                }
+                                {initialLoad && data && data.data.length === 0 &&
+                                    <div className="flex-grow size-full">
+                                        <NoRecords icon={NoRecordsIcon} message={noRecordsMessage} />
+                                    </div>
                                 }
                             </div>
                             {/* Estado de carga para transición entre páginas */}
@@ -203,12 +210,12 @@ const DataView = ({
             
             {/* Vista de kanban */}
             {data && initialLoad &&
-                <div className="sm:hidden w-full h-full">
+                <div className="flex flex-col flex-grow sm:hidden w-full">
                     {!loading &&
-                        <Kanban data={data.data} fields={data.fields} kanbanStructure={convertToKanbanStructure(viewConfig)} />
+                        <Kanban data={data.data} fields={data.fields} viewConfig={viewConfig} />
                     }
                     {loading &&
-                        <div className="rounded-lg w-full h-full overflow-hidden">
+                        <div className="flex flex-col flex-grow rounded-lg w-full h-full overflow-hidden">
                             <Fallback icon={Squares2X2Icon} />
                         </div>
                     }
@@ -607,8 +614,6 @@ const buildQueryParams = ({
         // Búsqueda por coincidencias
         [queryParams.search]: apiSearch,
     }
-
-    console.log(apiParams)
 
     if ( queryParams.baseParams ) {
         // Parámetros adicionales

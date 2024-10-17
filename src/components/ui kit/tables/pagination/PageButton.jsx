@@ -1,16 +1,17 @@
-const PageButton = ({ value, callback }) => {
+const PageButton = ({ value, callback, disabled }) => {
     if ( typeof value === "number" ) {
         return (
             <button
                 onClick={callback}
-                className="flex w-12 h-12 rounded-xl justify-center items-center hover:bg-gray-500/20 transition-colors duration-300"
+                className={`${!disabled ? "hover:bg-gray-500/20" : ""} flex justify-center items-center rounded-xl size-12 sm:size-10 transition-colors duration-300`}
+                disabled={disabled}
             >
             </button>
         )
     } else {
         return (
             <div
-                className="flex w-12 h-12 justify-center items-center transition-colors"
+                className="flex justify-center items-center size-12 sm:size-10 transition-colors"
             >
             </div>
         )

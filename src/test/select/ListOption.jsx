@@ -17,7 +17,7 @@ const ListOption = ({
     }
 
     return (
-        <button className="relative flex flex-row items-center gap-2 sm:hover:bg-gray-400/20 active:bg-gray-400/20 pr-4 pl-4 rounded-lg w-full h-12 sm:h-10 ui-text-none sm:text-sm sm:dark:hover:text-gray-200 sm:active:text-current sm:hover:text-black active:dark:text-gray-200 active:text-black whitespace-nowrap transition-colors duration-300 overflow-hidden" onClick={callback}>
+        <button className="relative flex flex-row items-center gap-2 sm:hover:bg-gray-400/20 active:bg-gray-400/20 pr-4 pl-4 rounded-lg w-min min-w-full h-12 sm:h-10 ui-text-none sm:text-sm sm:dark:hover:text-gray-200 sm:active:text-current sm:hover:text-black active:dark:text-gray-200 active:text-black whitespace-nowrap transition-colors duration-300 overflow-hidden min-full" onClick={callback}>
             <div className="size-4">
                 <ActiveIcon className={`${active ? "opacity-100" : "opacity-0" } transition-opacity duration-300 size-full fill-main-500`} />
             </div>

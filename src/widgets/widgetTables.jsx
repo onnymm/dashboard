@@ -410,3 +410,43 @@ export const check = (
 
     return RenderedCheck;
 }
+
+export const integer = (
+    contentName, // Nombre de atributo a extraer,
+    {
+        info = undefined, // Resaltado en color azul
+        success = undefined, // Resaltado en color verde
+        warning = undefined, // Resaltado en color amarillo
+        danger = undefined, // Resaltado en color rojo
+    } = {}
+) => {
+
+    const RenderedInteger = ({ [contentName]: content }) => {
+        // Color del texto
+        let textColor = "ui-text-none"
+
+        if (info) {
+            textColor = info(content) ? "ui-text-info" : textColor
+        }
+
+        if (success) {
+            textColor = success(content) ? "ui-text-success" : textColor
+        }
+
+        if (warning) {
+            textColor = warning(content) ? "ui-text-warning" : textColor
+        }
+
+        if (danger) {
+            textColor = danger(content) ? "ui-text-danger" : textColor
+        }
+
+        return (
+            <div className={`${textColor} inline-flex`}>
+                {content}
+            </div>
+        );
+    }
+
+    return RenderedInteger;
+}

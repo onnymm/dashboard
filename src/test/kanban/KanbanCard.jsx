@@ -27,7 +27,7 @@ const KanbanCard = ({
 
                                     return (
                                         <div key={index}>
-                                            {item.type({ ...item }, item.options)}
+                                            {item}
                                         </div>
                                     )
                                 }
@@ -39,24 +39,31 @@ const KanbanCard = ({
                 {
                     char("value")({ ...title, className: "font-bold" })
                 }
+                <br />
                 {/* Descripción */}
                 {description &&
                     char("value")({ ...description })
                 }
                 {details &&
-                    details.map(
-                        (item, index) => {
-
-                            return (
-                                <p className="" key={index}>
-                                    {item.kanbanDisplayName &&
-                                        <span className="mr-1 font-bold ui-text-none">{item.displayName}:</span>
-                                    }
-                                    <span className="">{item.type({ ...item })}</span>
-                                </p>
+                    <div className="flex flex-col">
+                        {
+                            details.map(
+                                (item, index) => {
+        
+                                    return (
+                                        <div className="" key={index}>
+                                            {item.kanbanDisplayName &&
+                                                <span className="mr-1 font-bold ui-text-none">{item.displayName}:</span>
+                                            }
+                                            <span className="">
+                                                {item.type({ ...item })}
+                                            </span>
+                                        </div>
+                                    )
+                                }
                             )
                         }
-                    )
+                    </div>
                 }
             </div>
         </div>

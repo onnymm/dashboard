@@ -64,6 +64,12 @@ const InputTemplate = ({
             : "pr-2"
     )
 
+    const hasVisiblePlaceholder = (
+        visiblePlaceholder
+        ? "pt-4 sm:pt-3"
+        : ""
+    )
+
     return (
         <div className="relative flex flex-row" onFocus={() => setFocus(true)} onBlur={() => setFocus(false)}>
 
@@ -89,13 +95,14 @@ const InputTemplate = ({
 
             {/* Campo */}
             <input
-                className={`${hasIcon} ${isLoading} w-full relative border-gray-500/50 focus:border-main-500 bg-white dark:bg-gray-800 pt-4 sm:pt-3 pb-0 border rounded-lg h-12 sm:h-10 sm:text-sm transition overflow-visible outline-none`}
+                className={`${hasIcon} ${isLoading} ${hasVisiblePlaceholder} w-full relative border-gray-500/50 focus:border-main-500 bg-white dark:bg-gray-800 pb-0 border rounded-lg h-12 sm:h-10 sm:text-sm transition overflow-visible outline-none`}
                 type="text"
                 value={value}
                 onKeyDown={keyDownCallback}
                 onChange={onChangeCallback}
                 placeholder={placeholder}
                 ref={inputRef}
+                spellCheck={false}
             />
         </div>
     );

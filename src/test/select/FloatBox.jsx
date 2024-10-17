@@ -4,7 +4,7 @@ const OptionsContainer = ({
     className = "",
     children, // Elementos contenidos
     isOpen,
-    onClick,
+    headers,
 }) => {
 
     const wrapperRef = useRef(null)
@@ -46,13 +46,22 @@ const OptionsContainer = ({
     )
 
     return (
-        <div className="relative w-full">
-            <div onClick={onClick} ref={wrapperRef} className={`${className} min-w-full max-w-max transition text-black dark:text-white shadow-lg border border-gray-500/50 flex flex-col rounded-lg dark:bg-gray-800/50 bg-slate-200/50 absolute max-h-50 sm:max-h-52 z-999 backdrop-blur-sm p-2`}>
-                <div ref={optionsRef} className="py-2 h-full overflow-y-scroll scrollbar-hide vertical-difuminate">
-                    {children}
+        <div className="absolute pr-4 w-full sm:max-w-72 pointer-events-none">
+            <div className="h-12 sm:h-10">
+
+            </div>
+            <div className="relative pointer-events-auto">
+                <div ref={wrapperRef} className={`${className} pointer-events-auto gap-2 max-w-full transition text-black dark:text-white shadow-lg border border-gray-500/50 flex flex-col rounded-lg dark:bg-gray-800/70 bg-slate-200/50 absolute max-h-96 sm:max-h-52 z-999 backdrop-blur-sm p-2`}>
+                    {headers}
+                    <div className="overflow-auto mob-vertical-difuminate sm:dsk-vertical-difuminate scrollbar-hide">
+                        <div ref={optionsRef} className="py-2 w-min overflow-x-scroll overflow-y-scroll pointer-events-auto scrollbar-hide">
+                            {children}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        
     )
 }
 

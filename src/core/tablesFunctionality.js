@@ -1,3 +1,5 @@
+import { badge, char, date, datetime, float, integer, many2one, monetary, percentage, time } from "../widgets/widgetTables";
+
 export const sortTableData = (data, sortingColumns, sortingColumnName, tableID) => {
     // Si no existe columna de ordenamiento no se manipula la colección de datos
     if ( !sortingColumnName ) return data;
@@ -105,4 +107,48 @@ export const getSmartPageSelector = (pages, currentPosition) => {
 
     // Retorno de la matriz de selección de páginas
     return pagesToShow;
+}
+
+const renderType = {
+    char: char,
+    selection: badge,
+    monetary: monetary,
+    datetime: datetime,
+    date: date,
+    time: time,
+    many2one: many2one,
+    float: float,
+    percentage: percentage,
+    integer: integer,
+};
+
+export const renderDataViewItem = (field, item, defaultType) => {
+    let content;
+
+    if ( typeof field.type === 'string' ) {
+        const widget = field.type
+        content = (
+            renderType[widget](
+                field.key,
+                field.options
+            )(item)
+        );
+
+    } else if (typeof field.type === 'function' ) {
+        const widget = field.type
+        content = widget(item)
+
+    // Columna de componente en base al backend
+    } else {
+        // Tipo de dato a renderizar
+        const typeToRender = defaultType;
+        content = (
+            renderType[typeToRender](
+                field.key,
+                field.options
+            )(item)
+        );
+    }
+
+    return content
 }

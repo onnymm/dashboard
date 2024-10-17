@@ -1,6 +1,6 @@
 const Fallback = ({ icon: Icon }) => {
 	return (
-		<div className='relative flex justify-center items-center bg-slate-200 dark:bg-slate-600 transition-dark animate-pulse max-size-full size-[calc(100%)]'>
+		<div className='relative flex flex-grow justify-center items-center bg-slate-200 dark:bg-slate-600 rounded-lg min-h-full transition-dark animate-pulse'>
 			{/* Background Icon with Pulsing Effect */}
 			<Icon className='opacity-50 dark:opacity-60 dark:text-white transition-dark size-16' />
 			{/* Foreground Icon */}
